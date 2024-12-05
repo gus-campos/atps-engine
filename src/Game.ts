@@ -20,13 +20,13 @@ export type Action = {}
 export interface Game {
 
   getInitialState(): State;
-  getNextState(state: State, action: Action): State;
-  getValidActions(state: State): Action[];
-  getValue(state: State): number;
-  getNextPlayer(player: Player, numberOfPlayers: number): Player;
-  getTermination(state: State): boolean;
+  playAction(action: Action): void;
+  getValidActions(): Action[];
+  getValue(): number;
+  getNextPlayer(numberOfPlayers: number): Player;
+  getTermination(): boolean;
   getValue(state: State): number;
   getNumberOfPlayers(): number;
-  getPlayerName(player: Player): string;
-  printState(state: State): void;
+  getPlayerChar(player: Player): string;
+  printState(): void;
 }

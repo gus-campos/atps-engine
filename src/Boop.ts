@@ -44,21 +44,23 @@ export class Boop implements Game {
   
   private readonly numberOfPlayers: number;
   private readonly boardShape: Coord;
+  private state: BoopState;
   
   constructor() {
     this.numberOfPlayers = 2;
     this.boardShape = { x: 6, y: 6};
+    this.state = this.getInitialState();
   }
 
-  private getPiece(state: BoopState, coord: Coord): BoopPiece {
-    return state.board.slots[coord.x][coord.y];
+  private getPiece(coord: Coord): BoopPiece {
+    return this.state.board.slots[coord.x][coord.y];
   }
 
-  private setPiece(state: BoopState, coord: Coord, piece: BoopPiece) {
-    state.board.slots[coord.x][coord.y] = piece;
+  private setPiece(coord: Coord, piece: BoopPiece) {
+    this.state.board.slots[coord.x][coord.y] = piece;
   }
 
-  private promoteOrWin(state: BoopState): BoopState {
+  private promoteOrWin() {
 
     /* Search for rows of 3, promoting them, or declaring victory */
 
@@ -77,8 +79,7 @@ export class Boop implements Game {
       [{x: 1, y:-1}, {x: 0, y: 0}, {x:-1, y: 1}],
     ];
     
-    let newState = structuredClone(state);
-    let slots = newState.board.slots;
+    let slots = this.state.board.slots;
     
     // Para cada possível centro de subtabuleiro 3x3
     for (let i=1; i<this.boardShape.x-1; i++) {
@@ -91,16 +92,16 @@ export class Boop implements Game {
         for (const row of rows) {
 
           // Peças da fileira
-          let pieces = row.map(coord => this.getPiece(newState, {x: i + coord.x, y: j + coord.y}));
+          let pieces = row.map(coord => this.getPiece({x: i + coord.x, y: j + coord.y}));
 
           // Se essas fileira tiver preenchida com peças do mesmo autor
           if (pieces.every(piece => piece != null) && pieces.every(piece => piece.author == pieces[0].author)) {
               
             // Se todos forem gatos, vitória
             if (pieces.every(piece => piece.type == PieceType.CAT)) {
-              newState.terminated = true;
-              newState.value = 1;
-              return newState;
+              this.state.terminated = true;
+              this.state.value = 1;
+              return;
             }
 
             // Se não, promover sequência
@@ -109,18 +110,16 @@ export class Boop implements Game {
               for (const coord of row) {
 
                 let absoluteCoord = { x: i + coord.x, y: j + coord.y };
-                let piece = this.getPiece(newState, absoluteCoord);
+                let piece = this.getPiece(absoluteCoord);
                 
-                newState.stock[piece.author][PieceType.CAT]++;
-                this.setPiece(newState, absoluteCoord, null);
+                this.state.stock[piece.author][PieceType.CAT]++;
+                this.setPiece(absoluteCoord, null);
               }
             }
           }
         }
       }
     }
-
-    return newState;
   }
 
   private getPieceRepr(piece: BoopPiece): string {
@@ -131,7 +130,7 @@ export class Boop implements Game {
       return ".";
 
     let character;
-    character = this.getPlayerName(piece.author);
+    character = this.getPlayerChar(piece.author);
     character = (piece.type == PieceType.CAT) ? character : character.toLowerCase();
     
     return character; 
@@ -149,7 +148,7 @@ export class Boop implements Game {
     return validCollum && validRow;
   }
 
-  private getValidNeighborsCoords(state: BoopState, pusherCoord: Coord): Coord[] {
+  private getValidNeighborsCoords(pusherCoord: Coord): Coord[] {
 
     let neighborsCoords = [];
 
@@ -161,7 +160,7 @@ export class Boop implements Game {
           
           let neighborCoord = { x: pusherCoord.x + k, y: pusherCoord.y + l };
 
-          if (this.validCoord(neighborCoord) && this.getPiece(state, neighborCoord) != null) {
+          if (this.validCoord(neighborCoord) && this.getPiece(neighborCoord) != null) {
 
             neighborsCoords.push(neighborCoord);
           }
@@ -172,15 +171,15 @@ export class Boop implements Game {
     return neighborsCoords;
   }
 
-  private updateBoopings(state: BoopState, pusherCoord: Coord): BoopState {
+  private updateBoopings(pusherCoord: Coord): void {
 
-    let pusherPiece = this.getPiece(state, pusherCoord);
+    let pusherPiece = this.getPiece(pusherCoord);
     
-    let neighborsCoords = this.getValidNeighborsCoords(state, pusherCoord);
+    let neighborsCoords = this.getValidNeighborsCoords(pusherCoord);
 
     for (let neighborCoord of neighborsCoords) {
 
-      let neighborPiece = this.getPiece(state, neighborCoord);
+      let neighborPiece = this.getPiece(neighborCoord);
       
       if (pusherPiece.type == PieceType.CAT || neighborPiece.type == PieceType.KITTEN) {
 
@@ -189,20 +188,18 @@ export class Boop implements Game {
         // Se a nova coordenada não for válida, peça caiu do tabuleiro, devolver pro estoque
         if (!this.validCoord(newCoord)) {
 
-          state.stock[neighborPiece.author][neighborPiece.type]++; // TODO: Aumentar nível de abstração -> Transformar em função
-          this.setPiece(state, neighborCoord, null);
+          this.state.stock[neighborPiece.author][neighborPiece.type]++; // TODO: Aumentar nível de abstração -> Transformar em função
+          this.setPiece(neighborCoord, null);
         }
 
         // Se a nova coordenada estiver vazia, mover peça para a nova posição
-        else if (this.getPiece(state, newCoord) == null) {
+        else if (this.getPiece(newCoord) == null) {
           
-          this.setPiece(state, newCoord, neighborPiece);
-          this.setPiece(state, neighborCoord, null);
+          this.setPiece(newCoord, neighborPiece);
+          this.setPiece(neighborCoord, null);
         }
       }
     }
-
-    return state;
   }
 
   // =============================================================
@@ -223,14 +220,14 @@ export class Boop implements Game {
     }
   }
   
-  public getNextPlayer(currentPlayer: Player, numberOfPlayers: number=2, skipPlayers: number=0): Player {
+  public getNextPlayer(skipPlayers: number=0): Player {
     
     /* Returns next player */
     
-    return (currentPlayer + 1 + skipPlayers) % (numberOfPlayers);
+    return (this.state.currentPlayer + 1 + skipPlayers) % (this.numberOfPlayers);
   }
 
-  public getNextState(state: BoopState, action: BoopAction): BoopState {
+  public playAction(action: BoopAction): void {
     
     /* 
     Returns next state, based on action taken, 
@@ -244,12 +241,10 @@ export class Boop implements Game {
 
     // ========================== REMOÇÃO ============================
     
-    let newState = structuredClone(state);
-
     if (action.piece == null) {
 
-      this.setPiece(newState, action.coord, null);
-      newState.stock[state.currentPlayer][PieceType.CAT]++;
+      this.setPiece(action.coord, null);
+      this.state.stock[this.state.currentPlayer][PieceType.CAT]++;
     }
 
     else {
@@ -258,33 +253,31 @@ export class Boop implements Game {
       
       // TODO: Habilitar limitação de estoque
     
-      if (state.stock[action.piece.author][action.piece.type] < 1)
+      if (this.state.stock[action.piece.author][action.piece.type] < 1)
         throw new Error("Out of stock");
 
       // Adiciona peça
-      this.setPiece(newState, action.coord, action.piece);
+      this.setPiece(action.coord, action.piece);
 
       // Decrementa estoque
-      newState.stock[action.piece.author][action.piece.type]--;
+      this.state.stock[action.piece.author][action.piece.type]--;
 
       // ====== Booping ======
 
-      this.updateBoopings(newState, action.coord);
+      this.updateBoopings(action.coord);
 
-      newState = this.promoteOrWin(newState);
+      this.promoteOrWin();
     }
     
     // Só passar a vez se o jogador tiver estoque
-    if (newState.stock[state.currentPlayer].reduce((a, b) => a+b, 0) > 0)
-      newState.currentPlayer = this.getNextPlayer(newState.currentPlayer);
-
-    return newState;
+    if (this.state.stock[this.state.currentPlayer].reduce((a, b) => a+b, 0) > 0)
+      this.state.currentPlayer = this.getNextPlayer();
   }
 
-  public getValidActions(state: BoopState): Action[] {
+  public getValidActions(): Action[] {
       
     let validActions: Action[] = [];
-    let playerStock = state.stock[state.currentPlayer];
+    let playerStock = this.state.stock[this.state.currentPlayer];
 
     // ================ ESCOLHA DE SEQUÊNCIA ==========================
 
@@ -292,15 +285,15 @@ export class Boop implements Game {
 
     // ================ REMOÇÃO DE PEÇA ==========================
 
-    if (state.stock[state.currentPlayer].reduce((a, b) => a+b, 0) < 1) {
+    if (this.state.stock[this.state.currentPlayer].reduce((a, b) => a+b, 0) < 1) {
       
       for (let j=0; j<this.boardShape.y; j++) {
         for (let i=0; i<this.boardShape.x; i++) {
 
           let coord = { x: i, y: j};
-          let piece = this.getPiece(state, coord);
+          let piece = this.getPiece(coord);
 
-          if (piece != null && piece.author == state.currentPlayer) {
+          if (piece != null && piece.author == this.state.currentPlayer) {
             validActions.push({ piece: null, coord: coord });
           }
         }
@@ -316,12 +309,12 @@ export class Boop implements Game {
   
           let coord = { x: i, y: j};
   
-          if (this.getPiece(state, coord) == null) {
+          if (this.getPiece(coord) == null) {
   
             if (playerStock[PieceType.KITTEN]) {
   
               let newPiece = { 
-                author: state.currentPlayer, 
+                author: this.state.currentPlayer, 
                 type: PieceType.KITTEN 
               };
   
@@ -331,7 +324,7 @@ export class Boop implements Game {
             if (playerStock[PieceType.CAT]) {
   
               let newPiece = { 
-                author: state.currentPlayer, 
+                author: this.state.currentPlayer, 
                 type: PieceType.CAT 
               };
   
@@ -346,7 +339,7 @@ export class Boop implements Game {
     
   }
 
-  public printState(state: BoopState): void {
+  public printState(): void {
 
     /* Prints a string that represents the game's board */
 
@@ -355,7 +348,7 @@ export class Boop implements Game {
     for (let j=0; j<this.boardShape.y; j++) {
       for (let i=0; i<this.boardShape.x; i++) {
 
-        table += this.getPieceRepr(this.getPiece(state, { x: i, y: j })) + " ";  
+        table += this.getPieceRepr(this.getPiece({ x: i, y: j })) + " ";  
       }
 
       table += "\n"
@@ -365,14 +358,14 @@ export class Boop implements Game {
 
     for (let k=0; k<2; k++)  
       for (let l=0; l<2; l++) 
-        stock += `${this.getPieceRepr({ author: k, type: l})}: ${state.stock[k][l]} | `;
+        stock += `${this.getPieceRepr({ author: k, type: l})}: ${this.state.stock[k][l]} | `;
 
-    let currentPlayer = `Vez do ${this.getPieceRepr({ author: state.currentPlayer, type: 1})}`;
+    let currentPlayer = `Vez do ${this.getPieceRepr({ author: this.state.currentPlayer, type: 1})}`;
 
     console.log(table + "\n" + stock + "\n" + currentPlayer + "\n");
   }
 
-  public getPlayerName(player: Player) {
+  public getPlayerChar(player: Player) {
     return (player == 0) ? "A" : "B"
   }
 
@@ -382,11 +375,11 @@ export class Boop implements Game {
       return this.numberOfPlayers;
   }
 
-  public getValue(state: BoopState): number {
-    return state.value;
+  public getValue(): number {
+    return this.state.value;
   }
 
-  public getTermination(state: BoopState): boolean {
-    return state.terminated;
+  public getTermination(): boolean {
+    return this.state.terminated;
   }
 }

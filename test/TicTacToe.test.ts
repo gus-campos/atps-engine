@@ -1,7 +1,7 @@
 import { expect, test, describe, it, beforeEach } from "vitest";
 
 import { TicTacToe, TicTacToeState } from "../src/TicTacToe";
-import { Args, Node } from "../.archive/MCTS.ts";
+import { Args, Node } from "../src/MCTS.ts";
 import { Action } from "../src/Game";
 
 // TODO: Usar "it"

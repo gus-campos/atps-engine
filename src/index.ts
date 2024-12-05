@@ -1,6 +1,6 @@
 // =========================================================
 
-import { MCTS, Args } from "../.archive/MCTS";
+import { MCTS, Args } from "./MCTS";
 
 import { Game } from "./Game";
 import { TicTacToe } from "./TicTacToe";
@@ -20,7 +20,7 @@ function autoPlayWithMCTS(game: Game) {
 
   // Iniciando jogo
   let state = game.getInitialState();
-  game.printState(state);
+  game.printState();
 
   let value,
     terminated = false;
@@ -30,23 +30,22 @@ function autoPlayWithMCTS(game: Game) {
     // Descobrindo melhor jogada e gerando novo estado a partir de tal
 
     let bestAction = mcts.search(state);
-    state = game.getNextState(state, bestAction);
+    game.playAction(bestAction);
     
-    game.printState(state);
+    game.printState();
 
-    terminated = game.getTermination(state);
+    terminated = game.getTermination();
   }
 
   console.log(
-    value == 0 ? "Velha" : `${game.getPlayerName(state.lastPlayer)} ganhou`
+    value == 0 ? "Velha" : `${game.getPlayerChar(state.lastPlayer)} ganhou`
   );
 }
 
 function autoPlayWithRandom(game: Game) {
 
   // Iniciando jogo
-  let state = game.getInitialState();
-  game.printState(state);
+  game.printState();
 
   let value,
     terminated = false;
@@ -54,16 +53,16 @@ function autoPlayWithRandom(game: Game) {
   // Simulando jogo MCTS
   while (!terminated) {
     // Descobrindo melhor jogada e gerando novo estado a partir de tal
-    let validActions = game.getValidActions(state);
+    let validActions = game.getValidActions();
     let randomIndex = Math.floor(Math.random() * validActions.length);
     let bestAction = validActions[randomIndex];
-    state = game.getNextState(state, bestAction);
-
-    game.printState(state);
+    
+    game.playAction(bestAction);
+    game.printState();
 
     // Terminação
-    value = game.getValue(state);
-    terminated = game.getTermination(state);
+    value = game.getValue();
+    terminated = game.getTermination();
   }
 
   console.log(
@@ -74,4 +73,4 @@ function autoPlayWithRandom(game: Game) {
 // =========================================================
 
 //autoPlayWithRandom(new Boop());
-autoPlayWithMCTS(new TicTacToe());
+autoPlayWithRandom(new Boop());
