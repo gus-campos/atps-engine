@@ -1,4 +1,4 @@
-import { Game, State, Action } from "../src/Game";
+import { Game, Action } from "../src/Game";
 
 export type Args = {
   C: number;
@@ -6,9 +6,9 @@ export type Args = {
 };
 
 export class Node {
+    
   private readonly game: Game;
   private readonly args: Args;
-  private readonly state: State;
   private readonly parent: Node | null;
   private readonly actionTaken: Action | null;
 
@@ -18,21 +18,14 @@ export class Node {
   private visitCount: number;
   private valueSum: number;
 
-  constructor(
-    game: Game,
-    args: Args,
-    state: State,
-    parent: Node | null = null,
-    actionTaken: Action | null = null
-  ) {
+  constructor(game: Game, args: Args, parent: Node | null = null, actionTaken: Action | null = null) {
     this.game = game;
     this.args = args;
-    this.state = state;
     this.parent = parent;
     this.actionTaken = actionTaken;
 
     this.children = [];
-    this.expandableActions = game.getValidActions(state);
+    this.expandableActions = game.getValidActions();
 
     this.visitCount = 0;
     this.valueSum = 0;
@@ -69,8 +62,7 @@ export class Node {
     exploit = (exploit + 1) / 2;
     exploit = 1 - exploit;
 
-    let explore =
-      this.args.C * Math.sqrt(Math.log(this.visitCount) / child.visitCount);
+    let explore = this.args.C * Math.sqrt(Math.log(this.visitCount) / child.visitCount);
 
     return exploit + explore;
   }
@@ -103,12 +95,12 @@ export class Node {
     // nova ação
     let action = this.removeRandomAction();
 
-    // novo estado
-    let childState = this.game.getNextState(this.state, action);
-    //childState = this.game.changePerspective(childState, this.game.getNumberOfPlayers(), 0);
+    // Novo jogo/estado
+    let newGame = this.game.clone();
+    newGame.playAction(action);
 
     // novo child
-    let child = new Node(this.game, this.args, childState, this, action);
+    let child = new Node(newGame, this.args, this, action);
     this.children.push(child);
     return child;
   }
@@ -119,25 +111,27 @@ export class Node {
     retornando valor resultante
     */
 
-    let currentState = structuredClone(this.state);
     let action, value;
 
     while (true) {
+
+      let simulatedGame = this.game.clone();
+
       // Verificando terminação e definindo valor de acordo com o player
-      value = this.game.getValue(currentState);
-      if (this.game.getTermination(currentState)) {
+      value = simulatedGame.getValue();
+      if (simulatedGame.getTermination()) {
         // Se é o mesmo jogador do início da simulação, considerar resultado como sendo favorável
-        let factor = currentState.lastPlayer == this.state.lastPlayer ? 1 : -1;
+        let factor = simulatedGame.getLastPlayer() == this.game.getLastPlayer() ? 1 : -1;
         return value * factor;
       }
 
       // Ação aleatória
-      let validActions = this.game.getValidActions(currentState);
+      let validActions = simulatedGame.getValidActions();
       let randomIndex = Math.floor(Math.random() * validActions.length);
       action = validActions[randomIndex];
 
       // Atualizar estado
-      currentState = this.game.getNextState(currentState, action);
+      simulatedGame.playAction(action);
     }
   }
 
@@ -171,26 +165,32 @@ export class Node {
   public getChildren() {
     return this.children;
   }
+
   public getParent() {
     return this.parent;
   }
-  public getState() {
-    return this.state;
-  }
+
   public getValueSum() {
     return this.valueSum;
   }
+
   public getVisitCount() {
     return this.visitCount;
   }
+
   public getExpandableActions() {
     return this.expandableActions;
+  }
+
+  public getGame(): Game {
+    return this.game;
   }
 
   // Setters (for testing)
   public setVisitCount(count: number) {
     this.visitCount = count;
   }
+
   public setValueSum(sum: number) {
     this.valueSum = sum;
   }
@@ -205,26 +205,26 @@ export class MCTS {
     this.args = args;
   }
 
-  search(state: State): Action {
+  search(): Action {
     /* Realiza uma busca de MCTS e retorna a melhor ação a ser jogada */
 
-    let root = new Node(this.game, this.args, state);
+    let root = new Node(this.game, this.args);
 
     for (let i = 0; i < this.args.searches; i++) {
       // Selecionar leaf node
       let child = root;
 
-      while (child.isFullyExpanded()) child = child.getBestChild();
+      while (child.isFullyExpanded()) 
+        child = child.getBestChild();
 
       // Expansão e simulação
-      let value = this.game.getValue(child.getState());
-      if (!this.game.getTermination(child.getState())) {
+      let value = this.game.getValue();
+      if (!this.game.getTermination()) {
         child = child.expand();
         value = child.simulate();
       }
 
-      let factor =
-        root.getState().lastPlayer == child.getState().lastPlayer ? 1 : -1;
+      let factor = root.getGame().getLastPlayer() == child.getGame().getLastPlayer() ? 1 : -1;
       child.backpropagate(factor * value);
     }
 

@@ -4,18 +4,16 @@ import { GgAction, GgState, GobbletGobblers } from "../src/GobbletGobblers";
 describe("GobbletGobblers", () => {
 
   let gg: GobbletGobblers;
-  let initialState: GgState;
   let state: GgState;
   beforeEach(() => {
     gg = new GobbletGobblers();
-    initialState = gg.getInitialState();
   });
 
   describe("getInitialState", () => {
 
     it("should return a state that have 9x3 dimensions", () => {
   
-      expect(initialState.board.slots).toHaveLength(9);
+      expect(gg.board.slots).toHaveLength(9);
       expect(gg.getInitialState().board.slots.every(cell => cell.length == 3)).toBeTruthy();
     });
   

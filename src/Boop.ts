@@ -11,16 +11,16 @@ interface Coord {
   y: number
 }
 
-export interface BoopPiece {
+interface BoopPiece {
   author: Player,
   type: PieceType
 }
 
-export interface BoopBoard {
+interface BoopBoard {
   slots: (BoopPiece|null)[][]
 }
 
-export interface BoopState extends State {
+interface BoopState extends State {
   board: BoopBoard,
   stock: number[][],
 
@@ -31,7 +31,7 @@ export interface BoopState extends State {
   value: number
 }
 
-export interface BoopAction extends Action {
+interface BoopAction extends Action {
   piece: BoopPiece|null,
   coord: Coord,
   sequenceChose: number
@@ -42,14 +42,207 @@ export interface BoopAction extends Action {
 
 export class Boop implements Game {
   
-  private readonly numberOfPlayers: number;
-  private readonly boardShape: Coord;
+  private numberOfPlayers: number;
+  private boardShape: Coord;
   private state: BoopState;
   
   constructor() {
     this.numberOfPlayers = 2;
     this.boardShape = { x: 6, y: 6};
     this.state = this.getInitialState();
+  }
+
+  // Public
+
+  public clone(): Boop {
+    let newGame = new Boop();
+    newGame.state = structuredClone(this.state);
+    return newGame;
+  }
+  
+  public getValidActions(): Action[] {
+      
+    let validActions: Action[] = [];
+    let playerStock = this.state.stock[this.state.currentPlayer];
+
+    // ================ ESCOLHA DE SEQUÊNCIA ==========================
+
+
+
+    // ================ REMOÇÃO DE PEÇA ==========================
+
+    if (this.state.stock[this.state.currentPlayer].reduce((a, b) => a+b, 0) < 1) {
+      
+      for (let j=0; j<this.boardShape.y; j++) {
+        for (let i=0; i<this.boardShape.x; i++) {
+
+          let coord = { x: i, y: j};
+          let piece = this.getPiece(coord);
+
+          if (piece != null && piece.author == this.state.currentPlayer) {
+            validActions.push({ piece: null, coord: coord });
+          }
+        }
+      }
+    }
+
+    // ================ POSICIONAMENTO DE PEÇA ==========================
+
+    else {
+
+      for (let j=0; j<this.boardShape.y; j++) {
+        for (let i=0; i<this.boardShape.x; i++) {
+  
+          let coord = { x: i, y: j};
+  
+          if (this.getPiece(coord) == null) {
+  
+            if (playerStock[PieceType.KITTEN]) {
+  
+              let newPiece = { 
+                author: this.state.currentPlayer, 
+                type: PieceType.KITTEN 
+              };
+  
+              validActions.push({ piece: newPiece, coord: coord });
+            }
+  
+            if (playerStock[PieceType.CAT]) {
+  
+              let newPiece = { 
+                author: this.state.currentPlayer, 
+                type: PieceType.CAT 
+              };
+  
+              validActions.push({ piece: newPiece, coord: coord });
+            }
+          }
+        }
+      }
+    }
+
+    return validActions;
+    
+  }
+
+  public playAction(action: BoopAction): void {
+    
+    /* 
+    Returns next state, based on action taken, 
+    null piece indicates lone piece promotion,
+    
+    TODO
+    coord with two equals negative values, indicates 
+    which sequence is being chosen to promote 
+    BUG ???
+    */
+
+    // ========================== REMOÇÃO ============================
+    
+    if (action.piece == null) {
+
+      this.setPiece(action.coord, null);
+      this.state.stock[this.state.currentPlayer][PieceType.CAT]++;
+    }
+
+    else {
+      
+      // ========================== POSICIONAMENTO =====================
+      
+      // TODO: Habilitar limitação de estoque
+    
+      if (this.state.stock[action.piece.author][action.piece.type] < 1)
+        throw new Error("Out of stock");
+
+      // Adiciona peça
+      this.setPiece(action.coord, action.piece);
+
+      // Decrementa estoque
+      this.state.stock[action.piece.author][action.piece.type]--;
+
+      // ====== Booping ======
+
+      this.updateBoopings(action.coord);
+
+      this.promoteOrWin();
+    }
+    
+    // Só passar a vez se o jogador tiver estoque
+    if (this.state.stock[this.state.currentPlayer].reduce((a, b) => a+b, 0) > 0)
+      this.state.currentPlayer = this.getNextPlayer();
+  }
+
+  public printState(): void {
+
+    /* Prints a string that represents the game's board */
+
+    let table = "";
+
+    for (let j=0; j<this.boardShape.y; j++) {
+      for (let i=0; i<this.boardShape.x; i++) {
+
+        table += this.getPieceChar(this.getPiece({ x: i, y: j })) + " ";  
+      }
+
+      table += "\n"
+    }
+
+    let stock = "Estoque: ";
+
+    for (let k=0; k<2; k++)  
+      for (let l=0; l<2; l++) 
+        stock += `${this.getPieceChar({ author: k, type: l})}: ${this.state.stock[k][l]} | `;
+
+    let currentPlayer = `Vez do ${this.getPieceChar({ author: this.state.currentPlayer, type: 1})}`;
+
+    console.log(table + "\n" + stock + "\n" + currentPlayer + "\n");
+  }
+
+  // Getters
+
+  public getNumberOfPlayers(): number {
+      return this.numberOfPlayers;
+  }
+
+  public getValue(): number {
+    return this.state.value;
+  }
+
+  public getTermination(): boolean {
+    return this.state.terminated;
+  }
+
+  public getLastPlayer(): Player {
+      return this.state.lastPlayer;
+  }
+
+  public getCurrentPlayer(): Player {
+    return this.state.currentPlayer;
+  }
+
+  // Private
+
+  private getInitialState(): BoopState {
+
+    /* Returns initial Boop state */
+  
+    let slots = Array.from(Array(this.boardShape.x), () => Array(this.boardShape.y).fill(null));
+
+    return {
+      board: { slots: slots },
+      stock: [[8,0] , [8,0]],
+      currentPlayer: 0,
+      lastPlayer: 1,
+      terminated: false, 
+      value: 0
+    }
+  }
+
+  private getNextPlayer(skipPlayers: number=0): Player {
+    
+    /* Returns next player */
+    
+    return (this.state.currentPlayer + 1 + skipPlayers) % (this.numberOfPlayers);
   }
 
   private getPiece(coord: Coord): BoopPiece {
@@ -122,7 +315,7 @@ export class Boop implements Game {
     }
   }
 
-  private getPieceRepr(piece: BoopPiece): string {
+  private getPieceChar(piece: BoopPiece): string {
 
     /* Return an one charcater string that represents the piece */
     
@@ -137,12 +330,16 @@ export class Boop implements Game {
   }
 
   private boopedToCoord(pusherCoord:  Coord, neighborCoord: Coord): Coord {
+    /* Returns the coord to which a given piece is booped to */
+    
     let displacement = { x: neighborCoord.x - pusherCoord.x, y: neighborCoord.y - pusherCoord.y };
     let newCoord = { x: neighborCoord.x + displacement.x, y: neighborCoord.y + displacement.y };
     return newCoord;
   }
 
   private validCoord(coord: Coord): boolean {
+    /* return if a coord inside board limits */
+
     let validRow = coord.x >= 0 && coord.x < this.boardShape.x;
     let validCollum = coord.y >= 0 && coord.y < this.boardShape.y;
     return validCollum && validRow;
@@ -202,184 +399,11 @@ export class Boop implements Game {
     }
   }
 
-  // =============================================================
-
-  public getInitialState(): BoopState {
-
-    /* Returns initial Boop state */
-  
-    let slots = Array.from(Array(this.boardShape.x), () => Array(this.boardShape.y).fill(null));
-
-    return {
-      board: { slots: slots },
-      stock: [[8,0] , [8,0]],
-      currentPlayer: 0,
-      lastPlayer: 1,
-      terminated: false, 
-      value: 0
-    }
-  }
-  
-  public getNextPlayer(skipPlayers: number=0): Player {
-    
-    /* Returns next player */
-    
-    return (this.state.currentPlayer + 1 + skipPlayers) % (this.numberOfPlayers);
-  }
-
-  public playAction(action: BoopAction): void {
-    
-    /* 
-    Returns next state, based on action taken, 
-    null piece indicates lone piece promotion,
-    
-    TODO
-    coord with two equals negative values, indicates 
-    which sequence is being chosen to promote 
-    BUG ???
-    */
-
-    // ========================== REMOÇÃO ============================
-    
-    if (action.piece == null) {
-
-      this.setPiece(action.coord, null);
-      this.state.stock[this.state.currentPlayer][PieceType.CAT]++;
-    }
-
-    else {
-      
-      // ========================== POSICIONAMENTO =====================
-      
-      // TODO: Habilitar limitação de estoque
-    
-      if (this.state.stock[action.piece.author][action.piece.type] < 1)
-        throw new Error("Out of stock");
-
-      // Adiciona peça
-      this.setPiece(action.coord, action.piece);
-
-      // Decrementa estoque
-      this.state.stock[action.piece.author][action.piece.type]--;
-
-      // ====== Booping ======
-
-      this.updateBoopings(action.coord);
-
-      this.promoteOrWin();
-    }
-    
-    // Só passar a vez se o jogador tiver estoque
-    if (this.state.stock[this.state.currentPlayer].reduce((a, b) => a+b, 0) > 0)
-      this.state.currentPlayer = this.getNextPlayer();
-  }
-
-  public getValidActions(): Action[] {
-      
-    let validActions: Action[] = [];
-    let playerStock = this.state.stock[this.state.currentPlayer];
-
-    // ================ ESCOLHA DE SEQUÊNCIA ==========================
-
-
-
-    // ================ REMOÇÃO DE PEÇA ==========================
-
-    if (this.state.stock[this.state.currentPlayer].reduce((a, b) => a+b, 0) < 1) {
-      
-      for (let j=0; j<this.boardShape.y; j++) {
-        for (let i=0; i<this.boardShape.x; i++) {
-
-          let coord = { x: i, y: j};
-          let piece = this.getPiece(coord);
-
-          if (piece != null && piece.author == this.state.currentPlayer) {
-            validActions.push({ piece: null, coord: coord });
-          }
-        }
-      }
-    }
-
-    // ================ POSICIONAMENTO DE PEÇA ==========================
-
-    else {
-
-      for (let j=0; j<this.boardShape.y; j++) {
-        for (let i=0; i<this.boardShape.x; i++) {
-  
-          let coord = { x: i, y: j};
-  
-          if (this.getPiece(coord) == null) {
-  
-            if (playerStock[PieceType.KITTEN]) {
-  
-              let newPiece = { 
-                author: this.state.currentPlayer, 
-                type: PieceType.KITTEN 
-              };
-  
-              validActions.push({ piece: newPiece, coord: coord });
-            }
-  
-            if (playerStock[PieceType.CAT]) {
-  
-              let newPiece = { 
-                author: this.state.currentPlayer, 
-                type: PieceType.CAT 
-              };
-  
-              validActions.push({ piece: newPiece, coord: coord });
-            }
-          }
-        }
-      }
-    }
-
-    return validActions;
-    
-  }
-
-  public printState(): void {
-
-    /* Prints a string that represents the game's board */
-
-    let table = "";
-
-    for (let j=0; j<this.boardShape.y; j++) {
-      for (let i=0; i<this.boardShape.x; i++) {
-
-        table += this.getPieceRepr(this.getPiece({ x: i, y: j })) + " ";  
-      }
-
-      table += "\n"
-    }
-
-    let stock = "Estoque: ";
-
-    for (let k=0; k<2; k++)  
-      for (let l=0; l<2; l++) 
-        stock += `${this.getPieceRepr({ author: k, type: l})}: ${this.state.stock[k][l]} | `;
-
-    let currentPlayer = `Vez do ${this.getPieceRepr({ author: this.state.currentPlayer, type: 1})}`;
-
-    console.log(table + "\n" + stock + "\n" + currentPlayer + "\n");
-  }
-
-  public getPlayerChar(player: Player) {
+  private getPlayerChar(player: Player) {
     return (player == 0) ? "A" : "B"
   }
 
   // =============================================================
 
-  public getNumberOfPlayers(): number {
-      return this.numberOfPlayers;
-  }
-
-  public getValue(): number {
-    return this.state.value;
-  }
-
-  public getTermination(): boolean {
-    return this.state.terminated;
-  }
+  
 }

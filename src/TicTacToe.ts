@@ -3,15 +3,15 @@ import { Game, Player, Piece, Board, State, Action } from "./Game"
 
 // TODO: Estudar significado dessas estruturas
 
-export interface TicTacToePiece extends Piece {
+interface TicTacToePiece extends Piece {
   author: Player
 }
 
-export interface TicTacToeBoard extends Board {
+interface TicTacToeBoard extends Board {
   slots: (TicTacToePiece | null)[]
 }
 
-export interface TicTacToeState extends State {
+interface TicTacToeState extends State {
   board: TicTacToeBoard,
   currentPlayer: Player,
   lastPlayer: Player,
@@ -19,7 +19,7 @@ export interface TicTacToeState extends State {
   value: number
 }
 
-export interface TicTacToeAction extends Action {
+interface TicTacToeAction extends Action {
   piece: TicTacToePiece,
   slot: number
 }
@@ -27,44 +27,36 @@ export interface TicTacToeAction extends Action {
 // Game and MCTS
 export class TicTacToe implements Game {
   
-  private readonly shape: number[];
-  private readonly numberOfPlayers: number;
+  private shape: number[];
+  private numberOfPlayers: number;
+  private state: TicTacToeState;
   
   constructor() {
     this.shape = [3,3];
     this.numberOfPlayers = 2;
+    this.state = this.getInitialState();
   }
 
-  // Public methods
+  // Public
 
-  public getNextPlayer(currentPlayer: Player, numberOfPlayers: number=2, skipPlayers: number=0): Player {
-    return (currentPlayer + 1 + skipPlayers) % (numberOfPlayers);
+  public clone(): TicTacToe {
+    let newGame = new TicTacToe();
+    newGame.state = structuredClone(this.state);
+    return newGame;
   }
 
-  public changePerspective(state: TicTacToeState, numberOfPlayers: number=2, skipPlayers: number=0): TicTacToeState {
-
-    let newState = structuredClone(state);
-    let slots = newState.board.slots;
-
-    for (let i=0; i<slots.length; i++)
-      if (slots[i] != null) 
-        slots[i].author = this.getNextPlayer(slots[i].author!, numberOfPlayers, skipPlayers);
-
-    return newState;
-  }
-
-  public getValidActions(state: TicTacToeState): TicTacToeAction[] {
+  public getValidActions(): TicTacToeAction[] {
 
     let actions = [];
 
-    let slots = state.board.slots;
+    let slots = this.state.board.slots;
 
     for (let i=0; i<slots.length; i++) {
       if (slots[i] == null) {
 
         let action: TicTacToeAction = {
           slot: i,
-          piece: { author: state.currentPlayer }
+          piece: { author: this.state.currentPlayer }
         };
         
         actions.push(action);
@@ -74,7 +66,87 @@ export class TicTacToe implements Game {
     return actions;
   }
 
-  public checkWin(state: TicTacToeState): boolean {
+  public playAction(action: TicTacToeAction): void {
+
+    /* 
+    Atualiza o estado de acordo com uma ação
+    */
+
+    // Asserting
+    if (this.state.board.slots[action.slot] != null)
+      throw new Error("Invalid action")
+
+    this.state.board.slots[action.slot] = action.piece;
+    
+    // Changing player
+    this.state.lastPlayer = this.state.currentPlayer;
+    this.state.currentPlayer = this.getNextPlayer();
+
+    // Avaliar estado
+    this.evaluateState();
+  }
+
+  public printState(): void {
+
+    /* Gera uma string que representa o tabuleiro do jogo */
+
+    let table = "";
+
+    for (let i=0; i<this.shape[0]; i++) {
+      for (let j=0; j<this.shape[1]; j++) {
+      
+        table += this.getPieceChar(this.state.board.slots[3*i+j]) + " ";
+      }
+      table += "\n";
+    }
+
+    console.log(table);
+  }
+
+  // Getters
+
+  public getNumberOfPlayers() {
+    return this.numberOfPlayers;
+  }
+
+  public getTermination(): boolean {
+    return this.state.terminated;
+  }
+
+  public getValue(): number {
+    return this.state.value;
+  }
+
+  public getLastPlayer(): Player {
+    return this.state.currentPlayer;
+  }
+
+  public getCurrentPlayer(): Player {
+    return this.state.currentPlayer;
+  }
+
+  // Private
+
+  public getInitialState(): TicTacToeState {
+    
+    /* Gera estado inicial do jogo (tabuleiro linearizado) */
+
+    let board: TicTacToeBoard = {
+      slots: Array.from(Array(9), () => null),
+    }
+
+    let state: TicTacToeState = {
+      board: board,
+      currentPlayer: 0, // Começa com o 0 (o X)
+      lastPlayer: 1,     // Não é verdade, mas supões-se que não gere efeitos negativo 
+      terminated: false,
+      value: 0
+    }
+
+    return state;
+  }
+
+  private checkWin(): boolean {
     
     /* 
     Verifica se jogo foi ganho.
@@ -92,7 +164,7 @@ export class TicTacToe implements Game {
       [2,4,6]
     ];
     
-    let slots = state.board.slots;
+    let slots = this.state.board.slots;
 
     for (const row of rows) {
       
@@ -106,78 +178,34 @@ export class TicTacToe implements Game {
     return false; 
   }
 
-  private evaluatedState(state: TicTacToeState) {
-
-    let newState = structuredClone(state);
+  private evaluateState() {
 
     // Vitória
-    if (this.checkWin(state)) {
-      newState.terminated = true;
-      newState.value = 1;
-      return newState;
+    if (this.checkWin()) {
+      this.state.terminated = true;
+      this.state.value = 1;
     }
 
     // Empate
-    if (this.getValidActions(state).length == 0) {
-      newState.terminated = true;
-      newState.value = 0;
-      return newState;
+    if (this.getValidActions().length == 0) {
+      this.state.terminated = true;
+      this.state.value = 0;
     }
-    
-    // Em curso, não mudar estado
-    return newState;
   }
 
-  public getTermination(state: TicTacToeState): boolean {
-      return state.terminated;
+  private getPieceChar(piece: TicTacToePiece|null): string {
+
+    if (piece == null)
+      return ".";
+
+    return this.getPlayerChar(piece.author);
   }
 
-  public getValue(state: TicTacToeState): number {
-      return state.value;
+  private getNextPlayer(skipPlayers: number=0): Player {
+    return (this.state.currentPlayer + 1 + skipPlayers) % (this.numberOfPlayers);
   }
 
-  public getInitialState(): TicTacToeState {
-    
-    /* Gera estado inicial do jogo (tabuleiro linearizado) */
-
-    let board: TicTacToeBoard = {
-      slots: Array.from(Array(9), () => structuredClone(null)),
-    }
-
-    let state: TicTacToeState = {
-      board: board,
-      currentPlayer: 0, // Começa com o 0 (o X)
-      lastPlayer: 1,     // Não é verdade, mas supões-se que não gere efeitos negativo 
-      terminated: false,
-      value: 0
-    }
-
-    return state;
-  }
-
-  public getNextState(state: TicTacToeState, action: TicTacToeAction) : TicTacToeState {
-
-    /* 
-    Gera um novo estado a partir da realização de uma ação
-    */
-    
-    let newState = structuredClone(state);
-
-    // Asserting
-    if (newState.board.slots[action.slot] != null)
-      throw new Error("Invalid action")
-
-    newState.board.slots[action.slot] = action.piece;
-    
-    // Changing player
-    newState.lastPlayer = state.currentPlayer;
-    newState.currentPlayer = this.getNextPlayer(state.currentPlayer);
-
-    // Avaliar estado e retornar
-    return this.evaluatedState(newState);
-  }
-
-  public getPlayerName(player: Player): string {
+  private getPlayerChar(player: Player): string {
 
     let symbol = "";
 
@@ -195,42 +223,4 @@ export class TicTacToe implements Game {
     return symbol;
   }
 
-  private getPieceAuthorName(piece: TicTacToePiece|null): string {
-
-    if (piece == null)
-      return ".";
-
-    return this.getPlayerName(piece.author);
-  }
-
-  public printState(state: TicTacToeState): void {
-
-    /* Gera uma string que representa o tabuleiro do jogo */
-
-    let table = "";
-
-    for (let i=0; i<this.shape[0]; i++) {
-      for (let j=0; j<this.shape[1]; j++) {
-      
-        table += this.getPieceAuthorName(state.board.slots[3*i+j]) + " ";
-      }
-      table += "\n";
-    }
-
-    console.log(table);
-  }
-
-  public getNumberOfPlayers() {
-    return this.numberOfPlayers;
-  }
-
-  public setCurrentAndLastPlayer(state: TicTacToeState, current: Player, lastPlayer: Player) {
-    
-    let newState = structuredClone(state);
-    
-    newState.currentPlayer = current;
-    newState.lastPlayer = lastPlayer;
-
-    return newState;
-  }
 }
