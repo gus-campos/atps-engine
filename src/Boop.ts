@@ -1,5 +1,6 @@
 
 import { Game, Player, State, Action } from "./Game"
+import { Outcome, outcomeValues } from "./Game";
 
 enum PieceType {
     KITTEN = 0,
@@ -28,7 +29,9 @@ interface BoopState extends State {
   lastPlayer: Player,
 
   terminated: boolean,
-  value: number
+  value: number,
+
+  winner: null|Player
 }
 
 interface BoopAction extends Action {
@@ -67,7 +70,7 @@ export class Boop implements Game {
 
     // ================ ESCOLHA DE SEQUÊNCIA ==========================
 
-
+    // TODO?
 
     // ================ REMOÇÃO DE PEÇA ==========================
 
@@ -198,11 +201,15 @@ export class Boop implements Game {
     console.log(table + "\n" + stock + "\n" + currentPlayer + "\n");
   }
 
-  // Getters
+  public getAbsValue(): number {
 
-  public getNumberOfPlayers(): number {
-      return this.numberOfPlayers;
+    if (this.state.winner == null)
+      return outcomeValues.get(Outcome.DRAW);
+
+    return outcomeValues.get(Outcome.WIN);
   }
+
+  // Getters
 
   public getValue(): number {
     return this.state.value;
@@ -220,6 +227,10 @@ export class Boop implements Game {
     return this.state.currentPlayer;
   }
 
+  public getWinner(): null|Player {
+      return this.state.winner;
+  }
+
   // Private
 
   private getInitialState(): BoopState {
@@ -234,7 +245,8 @@ export class Boop implements Game {
       currentPlayer: 0,
       lastPlayer: 1,
       terminated: false, 
-      value: 0
+      value: 0,
+      winner: null
     }
   }
 
@@ -243,6 +255,35 @@ export class Boop implements Game {
     /* Returns next player */
     
     return (this.state.currentPlayer + 1 + skipPlayers) % (this.numberOfPlayers);
+  }
+
+  private getNextGivenPlayer(player: Player): Player {
+    
+    /* Returns next player */
+    
+    return (player + 1) % (this.numberOfPlayers);
+  }
+
+  public changePerspective(): void {
+
+    let slots = this.state.board.slots;
+    
+    // Chnage perspective of slots
+    for (let i=0; i<slots.length; i++)
+      for (let j=0; j<slots[i].length; j++)
+
+        if (slots[i][j] != null) 
+            slots[i][j].author = this.getNextGivenPlayer(slots[i][j].author);
+
+    // Change perspective of players
+    this.state.currentPlayer = this.getNextGivenPlayer(this.state.currentPlayer);
+    this.state.lastPlayer = this.getNextGivenPlayer(this.state.lastPlayer);
+
+    // Change perspective of stock
+    let stockCopy = structuredClone(this.state.stock);
+
+    for (let i=0; i<this.numberOfPlayers; i++)
+      this.state.stock[i] = stockCopy[this.getNextGivenPlayer(i)];
   }
 
   private getPiece(coord: Coord): BoopPiece {
@@ -257,7 +298,7 @@ export class Boop implements Game {
 
     /* Search for rows of 3, promoting them, or declaring victory */
 
-    
+    // TODO: fica sendo recriado
     let rows: Coord[][] = [
       // Horizontais
       [{x:-1, y:-1}, {x:-1, y: 0}, {x:-1, y: 1}],
@@ -294,7 +335,7 @@ export class Boop implements Game {
             if (pieces.every(piece => piece.type == PieceType.CAT)) {
               this.state.terminated = true;
               this.state.value = 1;
-              return;
+              this.state.winner = pieces[0].author;
             }
 
             // Se não, promover sequência
@@ -387,7 +428,7 @@ export class Boop implements Game {
 
           this.state.stock[neighborPiece.author][neighborPiece.type]++; // TODO: Aumentar nível de abstração -> Transformar em função
           this.setPiece(neighborCoord, null);
-        }
+        } // TODO: "SendToStock"
 
         // Se a nova coordenada estiver vazia, mover peça para a nova posição
         else if (this.getPiece(newCoord) == null) {

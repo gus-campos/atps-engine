@@ -1,5 +1,6 @@
 import { Game, Action } from "../src/Game";
 
+
 export type Args = {
   C: number;
   searches: number;
@@ -40,7 +41,7 @@ export class Node {
     if (this.expandableActions.length == 0)
       throw new Error("No expandable action in the pool");
 
-    let randomIndex = Math.floor(Math.random() * this.expandableActions.length);
+    let randomIndex = Math.floor(random.float() * this.expandableActions.length);
     let action = this.expandableActions.splice(randomIndex, 1)[0];
     return action;
   }

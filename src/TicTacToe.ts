@@ -1,5 +1,6 @@
 
 import { Game, Player, Piece, Board, State, Action } from "./Game"
+import { Outcome, outcomeValues } from "./Game";
 
 // TODO: Estudar significado dessas estruturas
 
@@ -7,7 +8,7 @@ interface TicTacToePiece extends Piece {
   author: Player
 }
 
-interface TicTacToeBoard extends Board {
+export interface TicTacToeBoard extends Board {
   slots: (TicTacToePiece | null)[]
 }
 
@@ -16,12 +17,12 @@ interface TicTacToeState extends State {
   currentPlayer: Player,
   lastPlayer: Player,
   terminated: boolean,
-  value: number
+  winner: (null|Player)
 }
 
-interface TicTacToeAction extends Action {
-  piece: TicTacToePiece,
+export interface TicTacToeAction extends Action {
   slot: number
+  piece: TicTacToePiece,
 }
 
 // Game and MCTS
@@ -46,6 +47,9 @@ export class TicTacToe implements Game {
   }
 
   public getValidActions(): TicTacToeAction[] {
+
+    if (this.state.terminated)
+        return [];
 
     let actions = [];
 
@@ -74,7 +78,7 @@ export class TicTacToe implements Game {
 
     // Asserting
     if (this.state.board.slots[action.slot] != null)
-      throw new Error("Invalid action")
+      throw new Error("Invalid action");
 
     this.state.board.slots[action.slot] = action.piece;
     
@@ -84,6 +88,22 @@ export class TicTacToe implements Game {
 
     // Avaliar estado
     this.evaluateState();
+  }
+
+  public changePerspective(): void {
+
+    let slots = this.state.board.slots;
+
+    for (let i=0; i<slots.length; i++) {
+        
+        if (slots[i] == null) 
+            continue;
+        
+        slots[i].author = this.getNextGivenPlayer(slots[i].author);
+    }
+
+    this.state.currentPlayer = this.getNextGivenPlayer(this.state.currentPlayer);
+    this.state.lastPlayer = this.getNextGivenPlayer(this.state.lastPlayer);
   }
 
   public printState(): void {
@@ -103,18 +123,18 @@ export class TicTacToe implements Game {
     console.log(table);
   }
 
-  // Getters
+  public getAbsValue(): number {
 
-  public getNumberOfPlayers() {
-    return this.numberOfPlayers;
+    if (this.state.winner == null)
+      return outcomeValues.get(Outcome.DRAW);
+
+    return outcomeValues.get(Outcome.WIN);
   }
+
+  // Getters
 
   public getTermination(): boolean {
     return this.state.terminated;
-  }
-
-  public getValue(): number {
-    return this.state.value;
   }
 
   public getLastPlayer(): Player {
@@ -123,6 +143,14 @@ export class TicTacToe implements Game {
 
   public getCurrentPlayer(): Player {
     return this.state.currentPlayer;
+  }
+
+  public getWinner(): Player {
+    return this.state.winner;
+  }
+
+  public getState(): TicTacToeState {
+    return this.state;
   }
 
   // Private
@@ -137,10 +165,10 @@ export class TicTacToe implements Game {
 
     let state: TicTacToeState = {
       board: board,
-      currentPlayer: 0, // Começa com o 0 (o X)
+      currentPlayer: 0,  // Começa com o 0 (o X)
       lastPlayer: 1,     // Não é verdade, mas supões-se que não gere efeitos negativo 
       terminated: false,
-      value: 0
+      winner: null
     }
 
     return state;
@@ -183,13 +211,13 @@ export class TicTacToe implements Game {
     // Vitória
     if (this.checkWin()) {
       this.state.terminated = true;
-      this.state.value = 1;
+      this.state.winner = this.state.lastPlayer;
     }
 
     // Empate
-    if (this.getValidActions().length == 0) {
+    else if (this.getValidActions().length == 0) {
       this.state.terminated = true;
-      this.state.value = 0;
+      this.state.winner = null;
     }
   }
 
@@ -203,6 +231,10 @@ export class TicTacToe implements Game {
 
   private getNextPlayer(skipPlayers: number=0): Player {
     return (this.state.currentPlayer + 1 + skipPlayers) % (this.numberOfPlayers);
+  }
+
+  private getNextGivenPlayer(player: Player) : null|Player {
+    return (player + 1) % (this.numberOfPlayers);
   }
 
   private getPlayerChar(player: Player): string {
@@ -222,5 +254,4 @@ export class TicTacToe implements Game {
 
     return symbol;
   }
-
 }

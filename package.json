@@ -1,17 +1,19 @@
 {
-  "main": "src/index.ts",
+  "main": "index.ts",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx watch index.ts",
+    "dev-no-reload" : "tsx index.ts",
     "test": "vitest"
   },
   "keywords": [],
   "license": "AGPL-3.0-only",
   "devDependencies": {
     "@eslint/js": "^9.12.0",
-    "@types/eslint-config-prettier": "^6.11.3",
+    "@types/eslint": "^9.6.1",
     "@types/eslint__js": "^8.42.3",
-    "@types/node": "^22.7.5",
+    "@types/eslint-config-prettier": "^6.11.3",
+    "@types/node": "^22.10.1",
     "@types/prompts": "^2.4.9",
     "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
@@ -19,8 +21,10 @@
     "globals": "^15.11.0",
     "prettier": "^3.3.3",
     "prettier-plugin-organize-imports": "^4.1.0",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "tsx": "^4.19.1",
-    "typescript": "^5.6.3",
+    "typescript": "^5.7.2",
     "typescript-eslint": "^8.9.0"
   },
   "dependencies": {
@@ -30,7 +34,9 @@
     "commander": "^12.1.0",
     "dotenv": "^16.4.5",
     "prompts": "^2.4.2",
-    "vitest": "^2.1.5"
+    "random-seedable": "^1.0.8",
+    "vitest": "^2.1.8",
+    "viz.js": "^2.1.2"
   },
   "include": [
     "src"

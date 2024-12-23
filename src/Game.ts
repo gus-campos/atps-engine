@@ -15,6 +15,17 @@ export type State = {
 
 export type Action = {}
 
+export enum Outcome {
+    WIN,
+    LOSE,
+    DRAW
+}
+
+export let outcomeValues = new Map();
+outcomeValues.set(Outcome.WIN, 1);
+outcomeValues.set(Outcome.LOSE, 0);
+outcomeValues.set(Outcome.DRAW, 0.5);
+
 // =========================================================
 
 export interface Game {
@@ -26,9 +37,11 @@ export interface Game {
   
   getValidActions(): Action[];
   playAction(action: Action): void;
+  changePerspective(): void;
   
-  getValue(): number;
   getTermination(): boolean;
-  
+  getWinner(): number;
+  getAbsValue(): number
+
   printState(): void;
 }

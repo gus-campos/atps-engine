@@ -1,5 +1,6 @@
 
 import { Game, Player, Piece, Board, State, Action } from "./Game"
+import { Outcome, outcomeValues } from "./Game"
 
 // TODO: Estudar significado dessas estruturas
 
@@ -31,7 +32,9 @@ interface GgState extends State {
   lastPlayer: Player,
 
   terminated: boolean,
-  value: number
+  value: number,
+
+  winner: null|Player
 }
 
 interface GgAction extends Action {
@@ -104,6 +107,10 @@ export class GobbletGobblers implements Game {
     return (this.state.currentPlayer + 1 + skipPlayers) % (this.numberOfPlayers);
   }
 
+  private getNextGivenPlayer(player: Player): Player {
+    return (player + 1) % (this.numberOfPlayers);
+  }
+
   public getValidActions(): GgAction[] {
     
     let actions = [];
@@ -169,19 +176,26 @@ export class GobbletGobblers implements Game {
     return actions;
   }
 
+  public changePerspective(): void {
+
+    let slots = this.state.board.slots;
+
+    for (let i=0; i<slots.length; i++) {
+        for (let j=0; j<slots.length; j++) {
+        
+            if (slots[i][j] == null) 
+                continue;
+            
+            slots[i][j].author = this.getNextGivenPlayer(slots[i][j].author);
+        
+        }
+    }
+
+    this.state.currentPlayer = this.getNextGivenPlayer(this.state.currentPlayer);
+    this.state.lastPlayer = this.getNextGivenPlayer(this.state.lastPlayer);
+  }
+
   // Getters
-
-  public getCurrentPlayer(): Player {
-    return this.state.currentPlayer;
-  }
-  
-  public getLastPlayer(): Player {
-    return this.state.lastPlayer;
-  }
-
-  public getNumberOfPlayers(): number {
-    return this.numberOfPlayers;
-  }
 
   public getValue(): number {
     return this.state.value;
@@ -191,7 +205,26 @@ export class GobbletGobblers implements Game {
     return this.state.terminated;
   }
 
+  public getCurrentPlayer(): Player {
+    return this.state.currentPlayer;
+  }
   
+  public getLastPlayer(): Player {
+    return this.state.lastPlayer;
+  }
+
+  public getWinner(): number {
+      return this.state.winner;
+  }
+
+  public getAbsValue(): number {
+
+    if (this.state.winner == null)
+      return outcomeValues.get(Outcome.DRAW);
+
+    return outcomeValues.get(Outcome.WIN);
+  }
+
   public printState(): void {
 
     let slots = this.state.board.slots;
@@ -250,7 +283,8 @@ export class GobbletGobblers implements Game {
       currentPlayer: 0,
       lastPlayer: 1,
       terminated: false, 
-      value: 0
+      value: 0,
+      winner: null
     }
   }
 
@@ -305,6 +339,7 @@ export class GobbletGobblers implements Game {
     if (this.checkWin()) {
       this.state.terminated = true;
       this.state.value = 1;
+      this.state.winner = this.state.currentPlayer;
     }
 
     // Empate
