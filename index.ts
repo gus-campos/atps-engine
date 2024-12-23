@@ -20,7 +20,7 @@ function mctsAction(game: Game): Action {
 
   let root = new Node(null, game, null) 
   let gameTree = new GameTree(root);
-  return gameTree.searches()
+  return gameTree.searches(10_000)
 }
 
 function randomAction(game: Game): Action {
@@ -52,15 +52,17 @@ function autoPlay(game: Game, actors: Function[], print: boolean): null|Player {
 let rounds = 1;
 let mctsWins = 0;
 let defeats = 0;
+let draws = 0;
 
 for (let i=0; i<rounds; i++) {
 
   console.log(`Progresso: ${100*i/rounds}%`);
 
-  let winner = autoPlay(new Boop(), [mctsAction, randomAction], true);
+  let winner = autoPlay(new TicTacToe(), [mctsAction, randomAction], true);
   
-  winner == 0 ? mctsWins++ : defeats++;
+  winner == 0 ? mctsWins++ : winner == 1 ? defeats++ : draws++;
 }
 
 console.log(`Vitórias: ${100*mctsWins/rounds}`);
 console.log(`Derrotas: ${100*defeats/rounds}`);
+console.log(`Empates: ${100*draws/rounds}`);

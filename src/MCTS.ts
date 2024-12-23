@@ -1,13 +1,13 @@
-import { Game, Action } from "./Game";
+import { Game, Action, Player } from "./Game";
 import { XORShift } from "random-seedable";
 
 let seed = Date.now();//100;
 const random = new XORShift(seed);
 
 enum Outcome {
-  WIN,
-  LOSE,
-  DRAW
+  WIN = 1,
+  DRAW = 0,
+  LOSE = -1,
 }
 
 let outcomeValues = new Map();
@@ -101,23 +101,38 @@ export class Node {
     return bestChild;
   }
 
-  public simulate(): number {
+  public getGameOutcome(game: Game, perspectivePlayer: Player) {
+
+    if (game.getWinner() == null)
+      return Outcome.DRAW;
+  
+    if (game.getWinner() == perspectivePlayer)
+      return Outcome.WIN;
+
+    return Outcome.LOSE;
+  }
+
+  public getGameValue(game: Game, perspectivePlayer: Player) {
+
+    let outcome = this.getGameOutcome(game, perspectivePlayer);
+    return outcomeValues.get(outcome);
+  }
+
+  public simulate(perspectivePlayer: Player): number {
 
     let game = this.game.clone();
 
     while (!game.getTermination()) {
-        
+
       let action = random.choice(game.getValidActions());
       game.playAction(action);
     }
 
-    if (game.getWinner() == null)
-      return outcomeValues.get(Outcome.DRAW);
+    let outcome = this.getGameOutcome(game, perspectivePlayer);
 
-    if (game.getWinner() == this.game.getCurrentPlayer())
-      return outcomeValues.get(Outcome.WIN);
+    //throw new Error("");
 
-    return outcomeValues.get(Outcome.LOSE);
+    return outcomeValues.get(outcome);
   }
 
   public backpropagate(value: number) {
@@ -174,9 +189,11 @@ export class Node {
 export class GameTree {
   
   private root: Node;
+  private perspectivePlayer: Player;
   
   constructor(root: Node) {
     this.root = root;
+    this.perspectivePlayer = root.getGame().getLastPlayer();
   }
 
   private select(): Node {
@@ -189,7 +206,7 @@ export class GameTree {
     // Quando chega num jogo terminado, dá erro, pois é considerado não expandido
 
     while (node.isFullyExpanded())
-        node = node.bestChild();
+      node = node.bestChild();
 
     return node;
   }
@@ -198,21 +215,23 @@ export class GameTree {
     
     let node = this.select();
 
-    // TODO: Fix value
-    let terminal = node.getGame().getTermination();
-    let value = node.getGame().getAbsValue();
-
+    let value, terminal = node.getGame().getTermination();
+    
     if (!terminal) { 
       node = node.expand();
-      value = node.simulate();
+      value = node.simulate(this.perspectivePlayer);
+    }
+
+    else {
+      value = node.getGameValue(node.getGame(), this.perspectivePlayer);
     }
 
     node.backpropagate(value);   
   }
 
-  searches(): Action {
+  searches(nSearches: number): Action {
 
-    for (let i=0; i<1_000; i++)
+    for (let i=0; i<nSearches; i++)
       this.search();
     
     let visits = this.root.getChildren().map(child => child.getVisits());

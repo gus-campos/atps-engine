@@ -1,6 +1,5 @@
 
 import { Game, Player, Piece, Board, State, Action } from "./Game"
-import { Outcome, outcomeValues } from "./Game"
 
 // TODO: Estudar significado dessas estruturas
 
@@ -32,8 +31,6 @@ interface GgState extends State {
   lastPlayer: Player,
 
   terminated: boolean,
-  value: number,
-
   winner: null|Player
 }
 
@@ -42,6 +39,17 @@ interface GgAction extends Action {
   slot: number // Número da posição no 2D
   movedFrom: number|null;
 }
+
+const rows: number[][] = [
+  [0,1,2],
+  [3,4,5],
+  [6,7,8],
+  [0,3,6],
+  [1,4,7],
+  [2,5,8],
+  [0,4,8],
+  [2,4,6]
+];
 
 // Game and MCTS
 export class GobbletGobblers implements Game {
@@ -105,10 +113,6 @@ export class GobbletGobblers implements Game {
 
   public getNextPlayer(skipPlayers: number=0): Player {
     return (this.state.currentPlayer + 1 + skipPlayers) % (this.numberOfPlayers);
-  }
-
-  private getNextGivenPlayer(player: Player): Player {
-    return (player + 1) % (this.numberOfPlayers);
   }
 
   public getValidActions(): GgAction[] {
@@ -176,30 +180,7 @@ export class GobbletGobblers implements Game {
     return actions;
   }
 
-  public changePerspective(): void {
-
-    let slots = this.state.board.slots;
-
-    for (let i=0; i<slots.length; i++) {
-        for (let j=0; j<slots.length; j++) {
-        
-            if (slots[i][j] == null) 
-                continue;
-            
-            slots[i][j].author = this.getNextGivenPlayer(slots[i][j].author);
-        
-        }
-    }
-
-    this.state.currentPlayer = this.getNextGivenPlayer(this.state.currentPlayer);
-    this.state.lastPlayer = this.getNextGivenPlayer(this.state.lastPlayer);
-  }
-
   // Getters
-
-  public getValue(): number {
-    return this.state.value;
-  }
 
   public getTermination(): boolean {
     return this.state.terminated;
@@ -215,14 +196,6 @@ export class GobbletGobblers implements Game {
 
   public getWinner(): number {
       return this.state.winner;
-  }
-
-  public getAbsValue(): number {
-
-    if (this.state.winner == null)
-      return outcomeValues.get(Outcome.DRAW);
-
-    return outcomeValues.get(Outcome.WIN);
   }
 
   public printState(): void {
@@ -282,8 +255,7 @@ export class GobbletGobblers implements Game {
       stock: [[2,2,2], [2,2,2]],
       currentPlayer: 0,
       lastPlayer: 1,
-      terminated: false, 
-      value: 0,
+      terminated: false,
       winner: null
     }
   }
@@ -304,48 +276,43 @@ export class GobbletGobblers implements Game {
     return boardTop;
   }
 
-  private checkWin(): boolean {
+  private checkWin(): null|Player {
     
     /* 
     Verifica se jogo foi ganho.
     Pode ser melhorado ao verificar apenas onde foi jogado
     */
     
-    let rows: number[][] = [
-      [0,1,2],
-      [3,4,5],
-      [6,7,8],
-      [0,3,6],
-      [1,4,7],
-      [2,5,8],
-      [0,4,8],
-      [2,4,6]
-    ];
-    
     let boardTop = this.getBoardTop();
     //console.log(boardTop);
 
-    for (const row of rows) 
-      if (row.every(cell => boardTop[cell] != null)) 
-        if (row.every(cell => boardTop[cell].author == boardTop[row[0]].author))
-          return true;
+    for (const row of rows) {
+
+      if (row.every(cell => boardTop[cell] != null)) {
+
+        if (row.every(cell => boardTop[cell].author == boardTop[row[0]].author)) {
+
+          return boardTop[row[0]].author;
+        }
+      } 
+    }
     
-    return false; 
+    return null; 
   }
 
   private evaluateState(): void {
 
+    let winner = this.checkWin();
+
     // Vitória
-    if (this.checkWin()) {
+    if (winner != null) {
       this.state.terminated = true;
-      this.state.value = 1;
-      this.state.winner = this.state.currentPlayer;
+      this.state.winner = winner;
     }
 
     // Empate
     if (this.getValidActions().length == 0) {
       this.state.terminated = true;
-      this.state.value = 0;
     }
   }
 

@@ -1,6 +1,5 @@
 
 import { Game, Player, State, Action } from "./Game"
-import { Outcome, outcomeValues } from "./Game";
 
 enum PieceType {
     KITTEN = 0,
@@ -29,8 +28,6 @@ interface BoopState extends State {
   lastPlayer: Player,
 
   terminated: boolean,
-  value: number,
-
   winner: null|Player
 }
 
@@ -39,6 +36,20 @@ interface BoopAction extends Action {
   coord: Coord,
   sequenceChose: number
 }
+
+const rows: Coord[][] = [
+  // Horizontais
+  [{x:-1, y:-1}, {x:-1, y: 0}, {x:-1, y: 1}],
+  [{x: 0, y:-1}, {x: 0, y: 0}, {x: 0, y: 1}],
+  [{x: 1, y:-1}, {x: 1, y: 0}, {x: 1, y: 1}],
+  // Verticais
+  [{x:-1, y:-1}, {x: 0, y:-1}, {x: 1, y:-1}],
+  [{x:-1, y: 0}, {x: 0, y: 0}, {x: 1, y: 0}],
+  [{x:-1, y: 1}, {x: 0, y: 1}, {x: 1, y: 1}],
+  // Diagonais
+  [{x:-1, y:-1}, {x: 0, y: 0}, {x: 1, y: 1}],
+  [{x: 1, y:-1}, {x: 0, y: 0}, {x:-1, y: 1}],
+];
 
 // TODO: Invés de terminated ser um boolean, indicar quem ganhou
 // TODO: Incluir ação de escolher qual sequência será promovida
@@ -133,11 +144,6 @@ export class Boop implements Game {
     /* 
     Returns next state, based on action taken, 
     null piece indicates lone piece promotion,
-    
-    TODO
-    coord with two equals negative values, indicates 
-    which sequence is being chosen to promote 
-    BUG ???
     */
 
     // ========================== REMOÇÃO ============================
@@ -201,19 +207,7 @@ export class Boop implements Game {
     console.log(table + "\n" + stock + "\n" + currentPlayer + "\n");
   }
 
-  public getAbsValue(): number {
-
-    if (this.state.winner == null)
-      return outcomeValues.get(Outcome.DRAW);
-
-    return outcomeValues.get(Outcome.WIN);
-  }
-
   // Getters
-
-  public getValue(): number {
-    return this.state.value;
-  }
 
   public getTermination(): boolean {
     return this.state.terminated;
@@ -245,7 +239,6 @@ export class Boop implements Game {
       currentPlayer: 0,
       lastPlayer: 1,
       terminated: false, 
-      value: 0,
       winner: null
     }
   }
@@ -255,35 +248,6 @@ export class Boop implements Game {
     /* Returns next player */
     
     return (this.state.currentPlayer + 1 + skipPlayers) % (this.numberOfPlayers);
-  }
-
-  private getNextGivenPlayer(player: Player): Player {
-    
-    /* Returns next player */
-    
-    return (player + 1) % (this.numberOfPlayers);
-  }
-
-  public changePerspective(): void {
-
-    let slots = this.state.board.slots;
-    
-    // Chnage perspective of slots
-    for (let i=0; i<slots.length; i++)
-      for (let j=0; j<slots[i].length; j++)
-
-        if (slots[i][j] != null) 
-            slots[i][j].author = this.getNextGivenPlayer(slots[i][j].author);
-
-    // Change perspective of players
-    this.state.currentPlayer = this.getNextGivenPlayer(this.state.currentPlayer);
-    this.state.lastPlayer = this.getNextGivenPlayer(this.state.lastPlayer);
-
-    // Change perspective of stock
-    let stockCopy = structuredClone(this.state.stock);
-
-    for (let i=0; i<this.numberOfPlayers; i++)
-      this.state.stock[i] = stockCopy[this.getNextGivenPlayer(i)];
   }
 
   private getPiece(coord: Coord): BoopPiece {
@@ -297,21 +261,6 @@ export class Boop implements Game {
   private promoteOrWin() {
 
     /* Search for rows of 3, promoting them, or declaring victory */
-
-    // TODO: fica sendo recriado
-    let rows: Coord[][] = [
-      // Horizontais
-      [{x:-1, y:-1}, {x:-1, y: 0}, {x:-1, y: 1}],
-      [{x: 0, y:-1}, {x: 0, y: 0}, {x: 0, y: 1}],
-      [{x: 1, y:-1}, {x: 1, y: 0}, {x: 1, y: 1}],
-      // Verticais
-      [{x:-1, y:-1}, {x: 0, y:-1}, {x: 1, y:-1}],
-      [{x:-1, y: 0}, {x: 0, y: 0}, {x: 1, y: 0}],
-      [{x:-1, y: 1}, {x: 0, y: 1}, {x: 1, y: 1}],
-      // Diagonais
-      [{x:-1, y:-1}, {x: 0, y: 0}, {x: 1, y: 1}],
-      [{x: 1, y:-1}, {x: 0, y: 0}, {x:-1, y: 1}],
-    ];
     
     let slots = this.state.board.slots;
     
@@ -334,7 +283,6 @@ export class Boop implements Game {
             // Se todos forem gatos, vitória
             if (pieces.every(piece => piece.type == PieceType.CAT)) {
               this.state.terminated = true;
-              this.state.value = 1;
               this.state.winner = pieces[0].author;
             }
 

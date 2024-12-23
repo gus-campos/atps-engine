@@ -37,11 +37,9 @@ export interface Game {
   
   getValidActions(): Action[];
   playAction(action: Action): void;
-  changePerspective(): void;
   
   getTermination(): boolean;
   getWinner(): number;
-  getAbsValue(): number
 
   printState(): void;
 }
