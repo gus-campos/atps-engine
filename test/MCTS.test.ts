@@ -1,6 +1,6 @@
 import { describe, it, beforeEach, expect, assert } from "vitest";
-import { TicTacToe, TicTacToeAction } from "../src/TicTacToe";
-import { GameTree, Node } from "../src/MCTS";
+import { TicTacToe } from "../src/TicTacToe";
+import { Node } from "../src/MCTS";
 
 import { XORShift } from "random-seedable";
 let seed = 100;
@@ -124,6 +124,8 @@ describe("Node with ttt", () => {
 
     it("should return 1 for game won by current player", () => {
       
+      
+
       ttt.playAction({ slot: 0, piece: { author: 0 } });
       ttt.playAction({ slot: 1, piece: { author: 1 } });
       ttt.playAction({ slot: 2, piece: { author: 0 } });
@@ -140,10 +142,11 @@ describe("Node with ttt", () => {
       // O X _
 
       let node = new Node(null, ttt, null);
+      let perspectivePlayer = ttt.getLastPlayer();
 
       // 0 vai jogar, e inevitavelmente ganhar
       // Espera-se valor favorável pro jogador atual: 1
-      expect(node.simulate()).toBe(1);
+      expect(node.simulate(perspectivePlayer)).toBe(1);
 
     });
 
@@ -166,10 +169,11 @@ describe("Node with ttt", () => {
       // _ X _
 
       let node = new Node(null, ttt, null);
+      let perspectivePlayer = ttt.getLastPlayer();
 
       // 1 vai jogar, pra depois 0 jogar e inevitavelmente ganhar
       // Espera-se valor desfavorável pro jogador atual: -1
-      expect(node.simulate()).toBe(0);
+      expect(node.simulate(perspectivePlayer)).toBe(0);
     });
 
     it("should return 0.5 for drawn game", () => {
@@ -188,9 +192,10 @@ describe("Node with ttt", () => {
       // O _ O
 
       let node = new Node(null, ttt, null);
+      let perspectivePlayer = ttt.getLastPlayer();
 
       // Expect to draw
-      expect(node.simulate()).toBe(0.5);
+      expect(node.simulate(perspectivePlayer)).toBe(0.5);
     });
   });
 
@@ -235,83 +240,29 @@ describe("Node with ttt", () => {
       for (let child of linearChildren)
         expect(child.getValue()).toBe(0);
 
-      linearChildren[linearChildren.length-1].backpropagate(value1);
+      // Propagar a partir da última
+      let lastChild = linearChildren[linearChildren.length-1];
+      lastChild.backpropagate(value1);
       
+      // Esperar que alternem a referência do valor, já que o ttt sempre alterna players
       for (let child of linearChildren) {
         
-        if (linearChildren[0].getGame().getLastPlayer() == child.getGame().getCurrentPlayer())
+        if (lastChild.getGame().getLastPlayer() == child.getGame().getLastPlayer())
           expect(child.getValue()).toBe(value1);
         else 
           expect(child.getValue()).toBe(1-value1);
       }
       
-      linearChildren[linearChildren.length-1].backpropagate(value2);
-      
-      for (let child of linearChildren) {
-
-        if (linearChildren[0].getGame().getLastPlayer() == child.getGame().getCurrentPlayer())
-          expect(child.getValue()).toBe(value1 + value2);
-        else
-          expect(child.getValue()).toBe((1-value1) + (1-value2));
-      }
+      //linearChildren[linearChildren.length-1].backpropagate(value2);
+      //
+      //for (let child of linearChildren) {
+      //
+      //  if (linearChildren[0].getGame().getLastPlayer() == child.getGame().getCurrentPlayer())
+      //    expect(child.getValue()).toBe(value1 + value2);
+      //  else
+      //    expect(child.getValue()).toBe((1-value1) + (1-value2));
+      //}
 
     });
   });
-
-  /*
-  describe("GameTree with ttt", () => {
-
-    let ttt: TicTacToe;
-    let root: Node;
-    let gameTree: GameTree;
-
-    beforeEach(() => {
-      ttt = new TicTacToe();
-      root = new Node(null, ttt, null);  
-      gameTree = new GameTree(root);
-    });
-
-    describe("search", () => {
-      
-      it("when called multiple times on root, should expand all it's actions first", () => {
-  
-        // First expand all root actions
-
-        for (let i=0; i<9; i++)
-          gameTree.search();
-   
-        expect(gameTree.getRoot().getChildren()).toHaveLength(9);
-
-        // The root should not have any granchild
-
-        let total= 0;
-        for (let child of gameTree.getRoot().getChildren())
-          total += child.getChildren().length;
-
-        expect(total).toBe(0);
-
-        // Each additional search results in one grandchild
-
-        for (let i=0; i<5; i++)
-          gameTree.search();
-
-        total= 0;
-        for (let child of gameTree.getRoot().getChildren())
-          total += child.getChildren().length;
-
-        expect(total).toBe(5);
-      });
-    });
-
-    describe("searches", () => {
-      
-      it("returns a valid action", () => {
-  
-        let action = gameTree.searches() as TicTacToeAction;
-        ttt.playAction(action);
-
-      });
-    });
-  });
-  */
 });

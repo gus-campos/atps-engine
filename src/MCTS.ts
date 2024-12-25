@@ -1,14 +1,16 @@
 import { Game, Action, Player } from "./Game";
 import { XORShift } from "random-seedable";
 
-let seed = Date.now();//100;
-const random = new XORShift(seed);
+let seed = Date.now();
+//let seed = 100;
+export const random = new XORShift(seed);
 
 enum Outcome {
   WIN = 1,
   DRAW = 0,
   LOSE = -1,
 }
+
 
 let outcomeValues = new Map();
 outcomeValues.set(Outcome.WIN, 1);
@@ -18,10 +20,9 @@ outcomeValues.set(Outcome.DRAW, 0.5);
 // =================================================
 
 export class Node {
-
   private game: Game;
-  private actionTaken: (Action|null);
-  private parent: (Node|null);
+  private actionTaken: Action | null;
+  private parent: Node | null;
 
   private visits: number;
   private value: number;
@@ -30,7 +31,6 @@ export class Node {
   private children: Node[];
 
   constructor(parent: Node, game: Game, actionTaken: Action) {
-
     this.parent = parent;
     this.game = game;
     this.actionTaken = actionTaken;
@@ -43,11 +43,9 @@ export class Node {
   }
 
   public expand(): Node {
-    
     let expandableActions = this.getExpandableActions();
 
-    if (expandableActions.length == 0)
-      throw new Error("No expandable actions");
+    if (expandableActions.length == 0) throw new Error("No expandable actions");
 
     let actionTaken = random.choice(expandableActions);
 
@@ -65,7 +63,6 @@ export class Node {
   }
 
   public isFullyExpanded(): boolean {
-
     // Não tem ações expansíveis, e tem algum filho
     // O critério de ter filho faz com que nós terminais sejam considerados não expandíveis
 
@@ -73,7 +70,6 @@ export class Node {
   }
 
   public ucb(): number {
-
     let explore = Math.sqrt(Math.log(this.parent.getVisits()) / this.visits);
     let exploit = this.value / this.visits;
     return exploit + 1.41 * explore;
@@ -81,17 +77,14 @@ export class Node {
   }
 
   public bestChild() {
+    if (this.children.length == 0) throw new Error("It has no children");
 
-    if (this.children.length == 0)
-      throw new Error("It has no children");
-    
     let bestUcb = Number.NEGATIVE_INFINITY;
     let bestChild = this.children[0];
 
     for (let child of this.children) {
-      
       let ucb = child.ucb();
-      
+
       if (ucb > bestUcb) {
         bestChild = child;
         bestUcb = ucb;
@@ -102,45 +95,47 @@ export class Node {
   }
 
   public getGameOutcome(game: Game, perspectivePlayer: Player) {
+    if (game.getWinner() == null) return Outcome.DRAW;
 
-    if (game.getWinner() == null)
-      return Outcome.DRAW;
-  
-    if (game.getWinner() == perspectivePlayer)
-      return Outcome.WIN;
+    if (game.getWinner() == perspectivePlayer) return Outcome.WIN;
 
     return Outcome.LOSE;
   }
 
   public getGameValue(game: Game, perspectivePlayer: Player) {
-
     let outcome = this.getGameOutcome(game, perspectivePlayer);
     return outcomeValues.get(outcome);
   }
 
   public simulate(perspectivePlayer: Player): number {
-
     let game = this.game.clone();
 
     while (!game.getTermination()) {
-
       let action = random.choice(game.getValidActions());
       game.playAction(action);
     }
 
     let outcome = this.getGameOutcome(game, perspectivePlayer);
 
-    //throw new Error("");
-
     return outcomeValues.get(outcome);
   }
 
   public backpropagate(value: number) {
-    
+    /*
+    Propaga o valor aos parents, invertendo o valor quando o 
+    parent é de outra perspectiva
+    */
+
     this.visits++;
     this.value += value;
-    
+
     if (this.parent != null) {
+
+      if (this.parent.getLastPlayer() != this.getLastPlayer()) {
+        value = 1 - value;
+        console.log("inverteu");
+      } 
+      
       this.parent.backpropagate(1-value);
     }
   }
@@ -157,6 +152,11 @@ export class Node {
 
   getGame(): Game {
     return this.game;
+  }
+
+  getLastPlayer(): Player {
+
+    return this.game.getLastPlayer();
   }
 
   getParent(): Node {
@@ -187,54 +187,49 @@ export class Node {
 }
 
 export class GameTree {
-  
   private root: Node;
   private perspectivePlayer: Player;
-  
+
   constructor(root: Node) {
     this.root = root;
     this.perspectivePlayer = root.getGame().getLastPlayer();
   }
 
   private select(): Node {
-
     /* Selects first leaf node in a chain of best childs */
-    
+
     let node = this.root;
 
     // Procura o primeiro leaf node seguindo o caminho dos melhores
     // Quando chega num jogo terminado, dá erro, pois é considerado não expandido
 
-    while (node.isFullyExpanded())
-      node = node.bestChild();
+    while (node.isFullyExpanded()) node = node.bestChild();
 
     return node;
   }
 
   search() {
-    
     let node = this.select();
 
-    let value, terminal = node.getGame().getTermination();
-    
-    if (!terminal) { 
+    let value,
+      terminal = node.getGame().getTermination();
+
+    if (!terminal) {
       node = node.expand();
       value = node.simulate(this.perspectivePlayer);
-    }
-
-    else {
+    } else {
       value = node.getGameValue(node.getGame(), this.perspectivePlayer);
     }
 
-    node.backpropagate(value);   
+    node.backpropagate(value);
   }
 
-  searches(nSearches: number): Action {
+  searches(timeCriteria: number): Action {
+    let startTime = Date.now();
 
-    for (let i=0; i<nSearches; i++)
-      this.search();
-    
-    let visits = this.root.getChildren().map(child => child.getVisits());
+    while (Date.now() - startTime < timeCriteria) this.search();
+
+    let visits = this.root.getChildren().map((child) => child.getVisits());
     let childIndex = visits.indexOf(Math.max(...visits));
     return this.root.getChildren()[childIndex].getActionTaken();
   }

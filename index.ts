@@ -1,14 +1,17 @@
 // =========================================================
 
 import { Action, Game, Player } from "./src/Game";
+import { GameTree, Node } from "./src/MCTS";
+
 import { TicTacToe } from "./src/TicTacToe";
 import { GobbletGobblers } from "./src/GobbletGobblers";
 import { Boop } from "./src/Boop";
-import { GameTree, Node } from "./src/MCTS";
+
 import { XORShift } from "random-seedable";
 
-let seed = 100;
-const random = new XORShift(seed);
+let seed = Date.now();
+//let seed = 100;
+export const random = new XORShift(seed);
 
 function randRange(range: number) {
   return Math.floor(random.float() * range);
@@ -20,7 +23,7 @@ function mctsAction(game: Game): Action {
 
   let root = new Node(null, game, null) 
   let gameTree = new GameTree(root);
-  return gameTree.searches(10_000)
+  return gameTree.searches(500);
 }
 
 function randomAction(game: Game): Action {
@@ -37,6 +40,7 @@ function autoPlay(game: Game, actors: Function[], print: boolean): null|Player {
   while (!game.getTermination()) {
 
     let actor = actors[game.getCurrentPlayer()];
+    //console.log(actor, game.getCurrentPlayer(), game.getValidActions().length);
     let bestAction = actor(game);
     game.playAction(bestAction);
 
@@ -57,9 +61,7 @@ let draws = 0;
 for (let i=0; i<rounds; i++) {
 
   console.log(`Progresso: ${100*i/rounds}%`);
-
-  let winner = autoPlay(new TicTacToe(), [mctsAction, randomAction], true);
-  
+  let winner = autoPlay(new TicTacToe(), [mctsAction, mctsAction], true);
   winner == 0 ? mctsWins++ : winner == 1 ? defeats++ : draws++;
 }
 

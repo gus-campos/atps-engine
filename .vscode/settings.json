@@ -46,6 +46,7 @@
   "plantuml.exportIncludeFolderHeirarchy": false,
   "plantuml.exportOutDir": "docs",
   "plantuml.exportSubFolder": false,
-  "plantuml.render": "Local"
+"plantuml.render": "Local",
+"editor.tabSize": 2
   // "typescript.tsserver.experimental.enableProjectDiagnostics": true
 }

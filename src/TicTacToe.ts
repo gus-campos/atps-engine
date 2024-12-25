@@ -25,6 +25,17 @@ export interface TicTacToeAction extends Action {
   piece: TicTacToePiece,
 }
 
+const rows: number[][] = [
+  [0,1,2],
+  [3,4,5],
+  [6,7,8],
+  [0,3,6],
+  [1,4,7],
+  [2,5,8],
+  [0,4,8],
+  [2,4,6]
+];
+
 // Game and MCTS
 export class TicTacToe implements Game {
   
@@ -82,28 +93,11 @@ export class TicTacToe implements Game {
 
     this.state.board.slots[action.slot] = action.piece;
     
-    // Changing player
     this.state.lastPlayer = this.state.currentPlayer;
     this.state.currentPlayer = this.getNextPlayer();
 
     // Avaliar estado
     this.evaluateState();
-  }
-
-  public changePerspective(): void {
-
-    let slots = this.state.board.slots;
-
-    for (let i=0; i<slots.length; i++) {
-        
-        if (slots[i] == null) 
-            continue;
-        
-        slots[i].author = this.getNextGivenPlayer(slots[i].author);
-    }
-
-    this.state.currentPlayer = this.getNextGivenPlayer(this.state.currentPlayer);
-    this.state.lastPlayer = this.getNextGivenPlayer(this.state.lastPlayer);
   }
 
   public printState(): void {
@@ -117,6 +111,7 @@ export class TicTacToe implements Game {
       
         table += this.getPieceChar(this.state.board.slots[3*i+j]) + " ";
       }
+
       table += "\n";
     }
 
@@ -181,17 +176,6 @@ export class TicTacToe implements Game {
     Pode ser melhorado ao verificar apenas onde foi jogado
     */
     
-    let rows: number[][] = [
-      [0,1,2],
-      [3,4,5],
-      [6,7,8],
-      [0,3,6],
-      [1,4,7],
-      [2,5,8],
-      [0,4,8],
-      [2,4,6]
-    ];
-    
     let slots = this.state.board.slots;
 
     for (const row of rows) {
@@ -231,10 +215,6 @@ export class TicTacToe implements Game {
 
   private getNextPlayer(skipPlayers: number=0): Player {
     return (this.state.currentPlayer + 1 + skipPlayers) % (this.numberOfPlayers);
-  }
-
-  private getNextGivenPlayer(player: Player) : null|Player {
-    return (player + 1) % (this.numberOfPlayers);
   }
 
   private getPlayerChar(player: Player): string {

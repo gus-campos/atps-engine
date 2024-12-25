@@ -276,7 +276,7 @@ export class GobbletGobblers implements Game {
     return boardTop;
   }
 
-  private checkWin(): null|Player {
+  private checkWinner(): null|Player {
     
     /* 
     Verifica se jogo foi ganho.
@@ -284,25 +284,18 @@ export class GobbletGobblers implements Game {
     */
     
     let boardTop = this.getBoardTop();
-    //console.log(boardTop);
 
-    for (const row of rows) {
-
-      if (row.every(cell => boardTop[cell] != null)) {
-
-        if (row.every(cell => boardTop[cell].author == boardTop[row[0]].author)) {
-
+    for (const row of rows)
+      if (row.every(cell => boardTop[cell] != null))
+        if (row.every(cell => boardTop[cell].author == boardTop[row[0]].author))
           return boardTop[row[0]].author;
-        }
-      } 
-    }
-    
+
     return null; 
   }
 
   private evaluateState(): void {
 
-    let winner = this.checkWin();
+    let winner = this.checkWinner();
 
     // Vitória
     if (winner != null) {
