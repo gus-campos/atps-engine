@@ -100,7 +100,7 @@ export class TicTacToe implements Game {
     this.evaluateState();
   }
 
-  public printState(): void {
+  public stateToString(): string {
 
     /* Gera uma string que representa o tabuleiro do jogo */
 
@@ -115,7 +115,12 @@ export class TicTacToe implements Game {
       table += "\n";
     }
 
-    console.log(table);
+    return table;
+  }
+
+  public printState(): void {
+
+    console.log(this.stateToString());
   }
 
   public getAbsValue(): number {
@@ -208,7 +213,7 @@ export class TicTacToe implements Game {
   private getPieceChar(piece: TicTacToePiece|null): string {
 
     if (piece == null)
-      return ".";
+      return "-";
 
     return this.getPlayerChar(piece.author);
   }

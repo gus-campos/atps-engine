@@ -41,5 +41,6 @@ export interface Game {
   getTermination(): boolean;
   getWinner(): number;
 
+  stateToString(): string;
   printState(): void;
 }

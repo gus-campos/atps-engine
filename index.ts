@@ -23,7 +23,11 @@ function mctsAction(game: Game): Action {
 
   let root = new Node(null, game, null) 
   let gameTree = new GameTree(root);
-  return gameTree.searches(500);
+  let action = gameTree.searches(1000);
+  gameTree.genGraph();
+  console.log();
+
+  return action;
 }
 
 function randomAction(game: Game): Action {

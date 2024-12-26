@@ -1,6 +1,9 @@
 import { Game, Action, Player } from "./Game";
 import { XORShift } from "random-seedable";
 
+import { Graph, NodeModel, Edge, toDot } from 'ts-graphviz'
+
+
 let seed = Date.now();
 //let seed = 100;
 export const random = new XORShift(seed);
@@ -8,14 +11,20 @@ export const random = new XORShift(seed);
 enum Outcome {
   WIN = 1,
   DRAW = 0,
-  LOSE = -1,
+  LOSE = -1
 }
-
 
 let outcomeValues = new Map();
 outcomeValues.set(Outcome.WIN, 1);
-outcomeValues.set(Outcome.LOSE, 0);
-outcomeValues.set(Outcome.DRAW, 0.5);
+outcomeValues.set(Outcome.DRAW, 0);
+outcomeValues.set(Outcome.LOSE, -1);
+
+function opossiteValue() {
+
+  
+}
+
+let id = 0;
 
 // =================================================
 
@@ -133,10 +142,26 @@ export class Node {
 
       if (this.parent.getLastPlayer() != this.getLastPlayer()) {
         value = 1 - value;
-        console.log("inverteu");
-      } 
+      }
       
-      this.parent.backpropagate(1-value);
+      this.parent.backpropagate(value);
+    }
+  }
+
+  public genNode(G: Graph): NodeModel {
+
+    return G.node(String(id++), { label : `Visits: ${this.visits}\nValue: ${this.value}\n${this.getGame().stateToString()}` });
+  } 
+
+  public genGraph(G: Graph, parent: NodeModel) {
+
+    // Adicionar seus children
+    for (let child of this.children) {
+      
+      let childNode = child.genNode(G);
+      G.addEdge(new Edge([parent, childNode]));
+
+      child.genGraph(G, childNode);
     }
   }
 
@@ -232,6 +257,23 @@ export class GameTree {
     let visits = this.root.getChildren().map((child) => child.getVisits());
     let childIndex = visits.indexOf(Math.max(...visits));
     return this.root.getChildren()[childIndex].getActionTaken();
+  }
+
+  genGraph() {
+
+    let G = new Graph("G");
+
+    // Adicionar este
+    let rootNode = this.root.genNode(G); 
+    G.addNode(rootNode);
+    
+    // Fazer primeira chamada
+    this.root.genGraph(G, rootNode);
+
+    var fs = require('fs');
+    fs.writeFileSync('teste.dot', toDot(G));
+
+
   }
 
   // Getters
