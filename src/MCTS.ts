@@ -19,12 +19,12 @@ outcomeValues.set(Outcome.WIN, 1);
 outcomeValues.set(Outcome.DRAW, 0);
 outcomeValues.set(Outcome.LOSE, -1);
 
-function opossiteValue() {
+let oppositeOutcome = new Map();
+oppositeOutcome.set(Outcome.WIN, Outcome.LOSE);
+oppositeOutcome.set(Outcome.DRAW, Outcome.DRAW);
+oppositeOutcome.set(Outcome.LOSE, Outcome.WIN);
 
-  
-}
-
-let id = 0;
+let graphId = 0;
 
 // =================================================
 
@@ -116,7 +116,7 @@ export class Node {
     return outcomeValues.get(outcome);
   }
 
-  public simulate(perspectivePlayer: Player): number {
+  public simulate(perspectivePlayer: Player): Outcome {
     let game = this.game.clone();
 
     while (!game.getTermination()) {
@@ -126,31 +126,30 @@ export class Node {
 
     let outcome = this.getGameOutcome(game, perspectivePlayer);
 
-    return outcomeValues.get(outcome);
+    return outcome;
   }
 
-  public backpropagate(value: number) {
+  public backpropagate(outcome: Outcome) {
     /*
     Propaga o valor aos parents, invertendo o valor quando o 
     parent é de outra perspectiva
     */
 
     this.visits++;
-    this.value += value;
+    this.value += outcomeValues.get(outcome);
 
     if (this.parent != null) {
 
-      if (this.parent.getLastPlayer() != this.getLastPlayer()) {
-        value = 1 - value;
-      }
+      if (this.parent.getLastPlayer() != this.getLastPlayer())
+        outcome = oppositeOutcome.get(outcome);
       
-      this.parent.backpropagate(value);
+      this.parent.backpropagate(outcomeValues.get(outcome));
     }
   }
 
   public genNode(G: Graph): NodeModel {
 
-    return G.node(String(id++), { label : `Visits: ${this.visits}\nValue: ${this.value}\n${this.getGame().stateToString()}` });
+    return G.node(String(graphId++), { label : `Visits: ${this.visits}\nValue: ${this.value}\n${this.getGame().stateToString()}` });
   } 
 
   public genGraph(G: Graph, parent: NodeModel) {
@@ -236,17 +235,16 @@ export class GameTree {
   search() {
     let node = this.select();
 
-    let value,
-      terminal = node.getGame().getTermination();
+    let outcome, terminal = node.getGame().getTermination();
 
     if (!terminal) {
       node = node.expand();
-      value = node.simulate(this.perspectivePlayer);
+      outcome = node.simulate(this.perspectivePlayer);
     } else {
-      value = node.getGameValue(node.getGame(), this.perspectivePlayer);
+      outcome = node.getGameValue(node.getGame(), this.perspectivePlayer);
     }
 
-    node.backpropagate(value);
+    node.backpropagate(outcome);
   }
 
   searches(timeCriteria: number): Action {
