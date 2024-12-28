@@ -25,7 +25,6 @@ function mctsAction(game: Game): Action {
   let gameTree = new GameTree(root);
   let action = gameTree.searches(1000);
   gameTree.genGraph();
-  console.log();
 
   return action;
 }
@@ -36,7 +35,7 @@ function randomAction(game: Game): Action {
   return validActions[randRange(validActions.length)];
 }
 
-function autoPlay(game: Game, actors: Function[], print: boolean): null|Player {
+function autoPlay(game: Game, actors: Function[], print: boolean): Game {
 
   if (print) 
     game.printState();
@@ -44,7 +43,6 @@ function autoPlay(game: Game, actors: Function[], print: boolean): null|Player {
   while (!game.getTermination()) {
 
     let actor = actors[game.getCurrentPlayer()];
-    //console.log(actor, game.getCurrentPlayer(), game.getValidActions().length);
     let bestAction = actor(game);
     game.playAction(bestAction);
 
@@ -52,23 +50,39 @@ function autoPlay(game: Game, actors: Function[], print: boolean): null|Player {
       game.printState();
   }
 
-  return game.getWinner();
+  return game;
 }
 
 // =========================================================
 
-let rounds = 1;
-let mctsWins = 0;
-let defeats = 0;
-let draws = 0;
+let score = {
+  wins: 0,
+  defeats: 0,
+  draws: 0
+}
+
+let faults = {
+  aCounter: 0,
+  bCounter: 0,
+};
+
+let rounds = 100;
 
 for (let i=0; i<rounds; i++) {
 
   console.log(`Progresso: ${100*i/rounds}%`);
-  let winner = autoPlay(new TicTacToe(), [mctsAction, mctsAction], true);
-  winner == 0 ? mctsWins++ : winner == 1 ? defeats++ : draws++;
+  let game = autoPlay(new GobbletGobblers(), [mctsAction, randomAction], false);
+
+  let winner = game.getWinner();
+
+  winner == 0 ? score.wins++ : winner == 1 ? score.defeats++ : score.draws++;
+
+  if (game.getLastPlayer() == 0 && game.getWinner() == 1)
+    faults.aCounter++;
+
+  if (game.getLastPlayer() == 1 && game.getWinner() == 0)
+    faults.bCounter++;
 }
 
-console.log(`Vitórias: ${100*mctsWins/rounds}`);
-console.log(`Derrotas: ${100*defeats/rounds}`);
-console.log(`Empates: ${100*draws/rounds}`);
+console.log(score);
+console.log(faults);
