@@ -39,16 +39,16 @@ interface BoopAction extends Action {
 
 const rows: Coord[][] = [
   // Horizontais
-  [{x:-1, y:-1}, {x:-1, y: 0}, {x:-1, y: 1}],
-  [{x: 0, y:-1}, {x: 0, y: 0}, {x: 0, y: 1}],
-  [{x: 1, y:-1}, {x: 1, y: 0}, {x: 1, y: 1}],
+  [{x: 0, y: 0}, {x: 0, y: 1}, {x: 0, y: 2}],
+  [{x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2}],
+  [{x: 2, y: 0}, {x: 2, y: 1}, {x: 2, y: 2}],
   // Verticais
-  [{x:-1, y:-1}, {x: 0, y:-1}, {x: 1, y:-1}],
-  [{x:-1, y: 0}, {x: 0, y: 0}, {x: 1, y: 0}],
-  [{x:-1, y: 1}, {x: 0, y: 1}, {x: 1, y: 1}],
+  [{x: 0, y: 0}, {x: 1, y: 0}, {x: 2, y: 0}],
+  [{x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}],
+  [{x: 0, y: 2}, {x: 1, y: 2}, {x: 2, y: 2}],
   // Diagonais
-  [{x:-1, y:-1}, {x: 0, y: 0}, {x: 1, y: 1}],
-  [{x: 1, y:-1}, {x: 0, y: 0}, {x:-1, y: 1}],
+  [{x: 0, y: 0}, {x: 1, y: 1}, {x: 2, y: 2}],
+  [{x: 0, y: 2}, {x: 1, y: 1}, {x: 2, y: 0}],
 ];
 
 // TODO: Invés de terminated ser um boolean, indicar quem ganhou
@@ -86,16 +86,12 @@ export class Boop implements Game {
 
     if (this.emptyStock(this.state.currentPlayer)) {
       
-      for (let j=0; j<this.boardShape.y; j++) {
-        for (let i=0; i<this.boardShape.x; i++) {
+      for (const coord of this.boardIter()) {
 
-          let coord = this.createCoord(i, j);
-          let piece = this.getPiece(coord);
+        let piece = this.getPiece(coord);
 
-          if (piece != null && piece.author == this.state.currentPlayer) {
-            validActions.push({ piece: null, coord: coord });
-          }
-        }
+        if (piece != null && piece.author == this.state.currentPlayer)
+          validActions.push({ piece: null, coord: coord });
       }
     }
 
@@ -103,24 +99,20 @@ export class Boop implements Game {
 
     else {
 
-      for (let j=0; j<this.boardShape.y; j++) {
-        for (let i=0; i<this.boardShape.x; i++) {
+      for (const coord of this.boardIter()) {
   
-          let coord = this.createCoord(i, j);
-  
-          if (this.getPiece(coord) == null) {
-  
-            if (this.getStock(this.state.currentPlayer, PieceType.KITTEN) > 0) {
-  
-              let newPiece = this.createPiece(this.state.currentPlayer, PieceType.KITTEN);
-              validActions.push({ piece: newPiece, coord: coord });
-            }
-  
-            if (this.getStock(this.state.currentPlayer, PieceType.CAT) > 0) {
-  
-              let newPiece = this.createPiece(this.state.currentPlayer, PieceType.CAT);
-              validActions.push({ piece: newPiece, coord: coord });
-            }
+        if (this.getPiece(coord) == null) {
+
+          if (this.getStock(this.state.currentPlayer, PieceType.KITTEN) > 0) {
+
+            let newPiece = this.createPiece(this.state.currentPlayer, PieceType.KITTEN);
+            validActions.push({ piece: newPiece, coord: coord });
+          }
+
+          if (this.getStock(this.state.currentPlayer, PieceType.CAT) > 0) {
+
+            let newPiece = this.createPiece(this.state.currentPlayer, PieceType.CAT);
+            validActions.push({ piece: newPiece, coord: coord });
           }
         }
       }
@@ -211,6 +203,31 @@ export class Boop implements Game {
 
   // Private
 
+  private *boardIter(): Generator<Coord> {
+    for (let j = 0; j < this.boardShape.y; j++)
+      for (let i = 0; i < this.boardShape.x; i++)
+        yield this.createCoord(i, j);
+  }
+
+  private *neighborIter(center: Coord): Generator<Coord> {
+    
+    // Para todas as posições adjacentes
+    for (let k=-1; k<=1; k++) 
+      for (let l=-1; l<=1; l++) 
+        if (!(k == 0 && l == 0)) 
+          yield this.createCoord(center.x + k,  center.y + l);
+  }
+
+  private *subBoardOffsetIter(): Generator<Coord> {
+
+    for (let i=0; i<this.boardShape.x-2; i++) {
+      for (let j=0; j<this.boardShape.x-2; j++) {
+
+        yield this.createCoord(i, j);
+      }
+    }
+  }
+
   private getInitialState(): BoopState {
 
     /* Returns initial Boop state */
@@ -276,47 +293,44 @@ export class Boop implements Game {
   private promoteOrWin() {
 
     /* Search for rows of 3, promoting them, or declaring victory */
-    
-    let slots = this.state.board.slots;
-    
-    // Para cada possível centro de subtabuleiro 3x3
-    for (let i=1; i<this.boardShape.x-1; i++) {
-      for (let j=1; j<this.boardShape.x-1; j++) {
-        
-        // Extraindo subtabuleiro
-        let subBoard = slots.slice(i-1, i+2);
-        subBoard = subBoard.map(row => row.slice(j-1, j+2));
 
-        for (const row of rows) {
+    // BUG: Se houverem, por exemplo, 2 sequências com 4 peças, e ele encontrar
+    // primeiro a sequência promovível, invés da sequência ganhável, o player vai 
+    // deixar de ganhar o jogo, sendo que cumpriu os requisitos para vitória
 
-          // Peças da fileira
-          let pieces = row.map(coord => this.getPiece(this.createCoord(i+coord.x, j+coord.y)));
+    // Para cada possível centro de subtabuleiro
+    for (let subBoardOffset of this.subBoardOffsetIter()) {
 
-          // Se essas fileira tiver preenchida com peças do mesmo autor
-          if (pieces.every(piece => piece != null) && pieces.every(piece => piece.author == pieces[0].author)) {
-            
-            // BUG: Se houverem, por exemplo, 2 sequências com 4 peças, e ele encontrar
-            // primeiro a sequência promovível, invés da sequência ganhável, o player vai 
-            // deixar de ganhar o jogo, sendo que cumpriu os requisitos para vitória
+      // Pra cada fileira do subtabuleiro
+      for (const row of rows) {
 
-            // Se todos forem gatos, vitória
-            if (pieces.every(piece => piece.type == PieceType.CAT)) {
-              this.state.terminated = true;
-              this.state.winner = pieces[0].author;
-              return;
-            }
+        // Peças da fileira
+        let pieces = row.map(coord => this.getPiece(this.createCoord(subBoardOffset.x+coord.x, 
+                                                                     subBoardOffset.y+coord.y)));
 
-            // Se não, promover sequência
-            else {
+        // Se todas forem do mesmo autor
+        if (pieces.every(piece => piece != null) 
+            && pieces.every(piece => piece.author == pieces[0].author)) {
+          
+          // Se todos forem gatos -> vitória
+          if (pieces.every(piece => piece.type == PieceType.CAT)) {
+            this.state.terminated = true;
+            this.state.winner = pieces[0].author;
+            return;
+          }
 
-              for (const coord of row) {
+          // Se não, promover sequência
+          else {
 
-                let absoluteCoord = this.createCoord(i+coord.x, j+coord.y);
-                let piece = this.getPiece(absoluteCoord);
-                
-                this.incrementStock(piece.author, PieceType.CAT);
-                this.setPiece(absoluteCoord, null);
-              }
+            for (const coord of row) {
+
+              let absoluteCoord = this.createCoord(subBoardOffset.x+coord.x, 
+                                                   subBoardOffset.y+coord.y);
+
+              let piece = this.getPiece(absoluteCoord);
+              
+              this.incrementStock(piece.author, PieceType.CAT);
+              this.setPiece(absoluteCoord, null);
             }
           }
         }
@@ -358,21 +372,9 @@ export class Boop implements Game {
 
     let neighborsCoords = [];
 
-    // Varrendo vizinhos
-    for (let k=-1; k<=1; k++) {
-      for (let l=-1; l<=1; l++) {
-    
-        if (!(k == 0 && l == 0)) {
-          
-          let neighborCoord = this.createCoord(pusherCoord.x + k, pusherCoord.y + l);
-
-          if (this.validCoord(neighborCoord) && this.getPiece(neighborCoord) != null) {
-
-            neighborsCoords.push(neighborCoord);
-          }
-        }
-      }
-    }
+    for (const neighborCoord of this.neighborIter(pusherCoord))
+      if (this.validCoord(neighborCoord) && this.getPiece(neighborCoord) != null)
+        neighborsCoords.push(neighborCoord);
 
     return neighborsCoords;
   }
