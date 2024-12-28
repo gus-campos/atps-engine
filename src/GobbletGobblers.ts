@@ -198,8 +198,8 @@ export class GobbletGobblers implements Game {
       return this.state.winner;
   }
 
-  public printState(): void {
-
+  public stateToString(): string {
+      
     let slots = this.state.board.slots;
     let slotsTop = this.getBoardTop();
 
@@ -238,6 +238,13 @@ export class GobbletGobblers implements Game {
       }
       table += "\n"
     }
+
+    return table;
+  }
+
+  public printState(): void {
+
+    let table = this.stateToString();
 
     // Imprimindo tabuleiro
     console.log(table);

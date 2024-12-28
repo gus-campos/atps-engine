@@ -85,6 +85,7 @@ export class Boop implements Game {
 
     // ================ REMOÇÃO DE PEÇA ==========================
 
+    // Se sem estoque
     if (this.state.stock[this.state.currentPlayer].reduce((a, b) => a+b, 0) < 1) {
       
       for (let j=0; j<this.boardShape.y; j++) {
@@ -111,7 +112,7 @@ export class Boop implements Game {
   
           if (this.getPiece(coord) == null) {
   
-            if (playerStock[PieceType.KITTEN]) {
+            if (playerStock[PieceType.KITTEN] > 0) {
   
               let newPiece = { 
                 author: this.state.currentPlayer, 
@@ -121,7 +122,7 @@ export class Boop implements Game {
               validActions.push({ piece: newPiece, coord: coord });
             }
   
-            if (playerStock[PieceType.CAT]) {
+            if (playerStock[PieceType.CAT] > 0) {
   
               let newPiece = { 
                 author: this.state.currentPlayer, 
@@ -150,6 +151,11 @@ export class Boop implements Game {
     
     if (action.piece == null) {
 
+      let pieceToRemove = this.getPiece(action.coord);
+
+      if (pieceToRemove.author != this.state.currentPlayer)
+        throw new Error("Can only remove it's own pieces");
+
       this.setPiece(action.coord, null);
       this.state.stock[this.state.currentPlayer][PieceType.CAT]++;
     }
@@ -157,9 +163,10 @@ export class Boop implements Game {
     else {
       
       // ========================== POSICIONAMENTO =====================
-      
-      // TODO: Habilitar limitação de estoque
     
+      if (action.piece.author != this.state.currentPlayer)
+        throw new Error("Can only place it's own pieces");
+
       if (this.state.stock[action.piece.author][action.piece.type] < 1)
         throw new Error("Out of stock");
 
@@ -177,13 +184,17 @@ export class Boop implements Game {
     }
     
     // Só passar a vez se o jogador tiver estoque
-    if (this.state.stock[this.state.currentPlayer].reduce((a, b) => a+b, 0) > 0)
+    if (this.state.stock[this.state.currentPlayer].reduce((a, b) => a+b, 0) > 0) {
+      this.state.lastPlayer = this.state.currentPlayer;
       this.state.currentPlayer = this.getNextPlayer();
+    }
   }
 
-  public printState(): void {
-
+  public stateToString(): string {
+      
     /* Prints a string that represents the game's board */
+
+    let currentPlayer = `Vez do ${this.getPieceChar({ author: this.state.lastPlayer, type: 1})}:\n`;
 
     let table = "";
 
@@ -202,9 +213,13 @@ export class Boop implements Game {
       for (let l=0; l<2; l++) 
         stock += `${this.getPieceChar({ author: k, type: l})}: ${this.state.stock[k][l]} | `;
 
-    let currentPlayer = `Vez do ${this.getPieceChar({ author: this.state.currentPlayer, type: 1})}`;
+    return currentPlayer + "\n" + table + "\n" + stock + "\n";
+  }
 
-    console.log(table + "\n" + stock + "\n" + currentPlayer + "\n");
+  public printState(): void {
+
+    let table = this.stateToString();
+    console.log(table);
   }
 
   // Getters
@@ -279,11 +294,16 @@ export class Boop implements Game {
 
           // Se essas fileira tiver preenchida com peças do mesmo autor
           if (pieces.every(piece => piece != null) && pieces.every(piece => piece.author == pieces[0].author)) {
-              
+            
+            // BUG: Se houverem, por exemplo, 2 sequências com 4 peças, e ele encontrar
+            // primeiro a sequência promovível, invés da sequência ganhável, o player vai 
+            // deixar de ganhar o jogo, sendo que cumpriu os requisitos para vitória
+
             // Se todos forem gatos, vitória
             if (pieces.every(piece => piece.type == PieceType.CAT)) {
               this.state.terminated = true;
               this.state.winner = pieces[0].author;
+              return;
             }
 
             // Se não, promover sequência

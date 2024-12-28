@@ -1,6 +1,5 @@
 
 import { Game, Player, Piece, Board, State, Action } from "./Game"
-import { Outcome, outcomeValues } from "./Game";
 
 // TODO: Estudar significado dessas estruturas
 
@@ -92,7 +91,7 @@ export class TicTacToe implements Game {
       throw new Error("Invalid action");
 
     this.state.board.slots[action.slot] = action.piece;
-    
+
     this.state.lastPlayer = this.state.currentPlayer;
     this.state.currentPlayer = this.getNextPlayer();
 
@@ -105,6 +104,8 @@ export class TicTacToe implements Game {
     /* Gera uma string que representa o tabuleiro do jogo */
 
     let table = "";
+
+    table += `\nVez do ${this.getPlayerChar(this.state.lastPlayer)}:\n\n`;
 
     for (let i=0; i<this.shape[0]; i++) {
       for (let j=0; j<this.shape[1]; j++) {
@@ -121,14 +122,6 @@ export class TicTacToe implements Game {
   public printState(): void {
 
     console.log(this.stateToString());
-  }
-
-  public getAbsValue(): number {
-
-    if (this.state.winner == null)
-      return outcomeValues.get(Outcome.DRAW);
-
-    return outcomeValues.get(Outcome.WIN);
   }
 
   // Getters

@@ -19,12 +19,12 @@ outcomeValues.set(Outcome.WIN, 1);
 outcomeValues.set(Outcome.DRAW, 0);
 outcomeValues.set(Outcome.LOSE, -1);
 
-function opossiteValue() {
+let oppositeOutcome = new Map();
+oppositeOutcome.set(Outcome.WIN, Outcome.LOSE);
+oppositeOutcome.set(Outcome.DRAW, Outcome.DRAW);
+oppositeOutcome.set(Outcome.LOSE, Outcome.WIN);
 
-  
-}
-
-let id = 0;
+let graphId = 0;
 
 // =================================================
 
@@ -82,11 +82,12 @@ export class Node {
     let explore = Math.sqrt(Math.log(this.parent.getVisits()) / this.visits);
     let exploit = this.value / this.visits;
     return exploit + 1.41 * explore;
-    //return this.value / this.visits;
   }
 
   public bestChild() {
-    if (this.children.length == 0) throw new Error("It has no children");
+
+    if (this.children.length == 0) 
+      throw new Error("It has no children");
 
     let bestUcb = Number.NEGATIVE_INFINITY;
     let bestChild = this.children[0];
@@ -103,20 +104,25 @@ export class Node {
     return bestChild;
   }
 
-  public getGameOutcome(game: Game, perspectivePlayer: Player) {
-    if (game.getWinner() == null) return Outcome.DRAW;
+  public getGameOutcome(game: Game, maximizingPlayer: Player) {
+    
+    
+    if (!game.getTermination())
+      throw new Error("A not ended game has no outcome");
+    
+    let winner = game.getWinner();
+    
+    if (winner == null)
+      return Outcome.DRAW;
 
-    if (game.getWinner() == perspectivePlayer) return Outcome.WIN;
-
-    return Outcome.LOSE;
+    //maximizingPlayer = (maximizingPlayer+1) % 2;
+    
+    // TODO: Voltar pra "=="
+    return winner == maximizingPlayer ? Outcome.WIN : Outcome.LOSE;
   }
 
-  public getGameValue(game: Game, perspectivePlayer: Player) {
-    let outcome = this.getGameOutcome(game, perspectivePlayer);
-    return outcomeValues.get(outcome);
-  }
+  public simulate(maximizingPlayer: Player): Outcome {
 
-  public simulate(perspectivePlayer: Player): number {
     let game = this.game.clone();
 
     while (!game.getTermination()) {
@@ -124,33 +130,46 @@ export class Node {
       game.playAction(action);
     }
 
-    let outcome = this.getGameOutcome(game, perspectivePlayer);
-
-    return outcomeValues.get(outcome);
+    return this.getGameOutcome(game, maximizingPlayer);
   }
 
-  public backpropagate(value: number) {
+  public backpropagate(outcome: Outcome) {
     /*
     Propaga o valor aos parents, invertendo o valor quando o 
     parent é de outra perspectiva
     */
 
     this.visits++;
-    this.value += value;
+    this.value += outcomeValues.get(outcome);
 
     if (this.parent != null) {
 
-      if (this.parent.getLastPlayer() != this.getLastPlayer()) {
-        value = 1 - value;
-      }
-      
-      this.parent.backpropagate(value);
+      if (this.parent.getLastPlayer() != this.getLastPlayer())
+        outcome = oppositeOutcome.get(outcome);
+
+      this.parent.backpropagate(outcomeValues.get(outcome));
     }
   }
 
   public genNode(G: Graph): NodeModel {
 
-    return G.node(String(id++), { label : `Visits: ${this.visits}\nValue: ${this.value}\n${this.getGame().stateToString()}` });
+    let label;
+
+    //if (this.parent == null) {
+
+      label = `Visits: ${(this.visits)}\nValue: ${this.value}\n${this.getGame().stateToString()}`;
+    //}
+
+    /* else {
+
+      label = (
+        `Visits: ${(100*this.visits/this.parent.visits).toFixed(2)}%
+        Value: ${this.value}
+        ${this.getGame().stateToString()}` 
+      )
+    } */
+
+    return G.node(String(graphId++), { label : label });
   } 
 
   public genGraph(G: Graph, parent: NodeModel) {
@@ -213,11 +232,11 @@ export class Node {
 
 export class GameTree {
   private root: Node;
-  private perspectivePlayer: Player;
+  private maximizingPlayer: Player;
 
   constructor(root: Node) {
     this.root = root;
-    this.perspectivePlayer = root.getGame().getLastPlayer();
+    this.maximizingPlayer = root.getGame().getCurrentPlayer();
   }
 
   private select(): Node {
@@ -226,33 +245,38 @@ export class GameTree {
     let node = this.root;
 
     // Procura o primeiro leaf node seguindo o caminho dos melhores
-    // Quando chega num jogo terminado, dá erro, pois é considerado não expandido
 
-    while (node.isFullyExpanded()) node = node.bestChild();
+    while (node.isFullyExpanded()) 
+      node = node.bestChild();
 
     return node;
   }
 
   search() {
+
     let node = this.select();
+    let outcome, terminal = node.getGame().getTermination();
 
-    let value,
-      terminal = node.getGame().getTermination();
+    if (terminal) {
 
-    if (!terminal) {
-      node = node.expand();
-      value = node.simulate(this.perspectivePlayer);
+      outcome = node.getGameOutcome(node.getGame(), this.maximizingPlayer);
+      
     } else {
-      value = node.getGameValue(node.getGame(), this.perspectivePlayer);
+      
+      node = node.expand();
+      outcome = node.simulate(this.maximizingPlayer);
     }
 
-    node.backpropagate(value);
+    node.backpropagate(outcome);
   }
 
   searches(timeCriteria: number): Action {
-    let startTime = Date.now();
+    //let i = 0;
+    //while (i++ < 1000)
 
-    while (Date.now() - startTime < timeCriteria) this.search();
+    let startTime = Date.now();
+    while (Date.now() - startTime < timeCriteria) 
+      this.search();
 
     let visits = this.root.getChildren().map((child) => child.getVisits());
     let childIndex = visits.indexOf(Math.max(...visits));
@@ -262,6 +286,7 @@ export class GameTree {
   genGraph() {
 
     let G = new Graph("G");
+    G.node({'fontname': 'Courier'});
 
     // Adicionar este
     let rootNode = this.root.genNode(G); 
@@ -272,8 +297,6 @@ export class GameTree {
 
     var fs = require('fs');
     fs.writeFileSync('teste.dot', toDot(G));
-
-
   }
 
   // Getters
