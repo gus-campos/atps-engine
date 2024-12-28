@@ -77,7 +77,6 @@ export class Boop implements Game {
   public getValidActions(): Action[] {
       
     let validActions: Action[] = [];
-    let playerStock = this.state.stock[this.state.currentPlayer];
 
     // ================ ESCOLHA DE SEQUÊNCIA ==========================
 
@@ -85,8 +84,7 @@ export class Boop implements Game {
 
     // ================ REMOÇÃO DE PEÇA ==========================
 
-    // Se sem estoque
-    if (this.state.stock[this.state.currentPlayer].reduce((a, b) => a+b, 0) < 1) {
+    if (this.emptyStock(this.state.currentPlayer)) {
       
       for (let j=0; j<this.boardShape.y; j++) {
         for (let i=0; i<this.boardShape.x; i++) {
@@ -112,7 +110,7 @@ export class Boop implements Game {
   
           if (this.getPiece(coord) == null) {
   
-            if (playerStock[PieceType.KITTEN] > 0) {
+            if (this.getStock(this.state.currentPlayer, PieceType.KITTEN) > 0) {
   
               let newPiece = { 
                 author: this.state.currentPlayer, 
@@ -122,7 +120,7 @@ export class Boop implements Game {
               validActions.push({ piece: newPiece, coord: coord });
             }
   
-            if (playerStock[PieceType.CAT] > 0) {
+            if (this.getStock(this.state.currentPlayer, PieceType.CAT) > 0) {
   
               let newPiece = { 
                 author: this.state.currentPlayer, 
@@ -157,7 +155,7 @@ export class Boop implements Game {
         throw new Error("Can only remove it's own pieces");
 
       this.setPiece(action.coord, null);
-      this.state.stock[this.state.currentPlayer][PieceType.CAT]++;
+      this.incrementStock(this.state.currentPlayer, PieceType.CAT);
     }
 
     else {
@@ -167,24 +165,20 @@ export class Boop implements Game {
       if (action.piece.author != this.state.currentPlayer)
         throw new Error("Can only place it's own pieces");
 
-      if (this.state.stock[action.piece.author][action.piece.type] < 1)
+      if (this.getStock(action.piece.author, action.piece.type) < 1)
         throw new Error("Out of stock");
 
-      // Adiciona peça
       this.setPiece(action.coord, action.piece);
-
-      // Decrementa estoque
-      this.state.stock[action.piece.author][action.piece.type]--;
+      this.decrementStock(action.piece.author, action.piece.type);
 
       // ====== Booping ======
 
       this.updateBoopings(action.coord);
-
       this.promoteOrWin();
     }
     
     // Só passar a vez se o jogador tiver estoque
-    if (this.state.stock[this.state.currentPlayer].reduce((a, b) => a+b, 0) > 0) {
+    if (!this.emptyStock(this.state.currentPlayer)) {
       this.state.lastPlayer = this.state.currentPlayer;
       this.state.currentPlayer = this.getNextPlayer();
     }
@@ -209,9 +203,9 @@ export class Boop implements Game {
 
     let stock = "Estoque: ";
 
-    for (let k=0; k<2; k++)  
-      for (let l=0; l<2; l++) 
-        stock += `${this.getPieceChar({ author: k, type: l})}: ${this.state.stock[k][l]} | `;
+    for (let player=0; player<2; player++)  
+      for (let type=0; type<2; type++) 
+        stock += `${this.getPieceChar({ author: player, type: type})}: ${this.getStock(player, type)} | `;
 
     return currentPlayer + "\n" + table + "\n" + stock + "\n";
   }
@@ -220,24 +214,6 @@ export class Boop implements Game {
 
     let table = this.stateToString();
     console.log(table);
-  }
-
-  // Getters
-
-  public getTermination(): boolean {
-    return this.state.terminated;
-  }
-
-  public getLastPlayer(): Player {
-      return this.state.lastPlayer;
-  }
-
-  public getCurrentPlayer(): Player {
-    return this.state.currentPlayer;
-  }
-
-  public getWinner(): null|Player {
-      return this.state.winner;
   }
 
   // Private
@@ -271,6 +247,22 @@ export class Boop implements Game {
 
   private setPiece(coord: Coord, piece: BoopPiece) {
     this.state.board.slots[coord.x][coord.y] = piece;
+  }
+
+  private incrementStock(player: Player, type: PieceType): void {
+    this.state.stock[player][type]++
+  }
+
+  private decrementStock(player: Player, type: PieceType): void {
+    this.state.stock[player][type]--;
+  }
+
+  private getStock(player: Player, type: PieceType): number {
+    return this.state.stock[player][type];
+  }
+
+  private emptyStock(player: Player) {
+    return this.getStock(player, PieceType.KITTEN) + this.getStock(player, PieceType.CAT) < 1;
   }
 
   private promoteOrWin() {
@@ -314,7 +306,7 @@ export class Boop implements Game {
                 let absoluteCoord = { x: i + coord.x, y: j + coord.y };
                 let piece = this.getPiece(absoluteCoord);
                 
-                this.state.stock[piece.author][PieceType.CAT]++;
+                this.incrementStock(piece.author, PieceType.CAT);
                 this.setPiece(absoluteCoord, null);
               }
             }
@@ -394,7 +386,7 @@ export class Boop implements Game {
         // Se a nova coordenada não for válida, peça caiu do tabuleiro, devolver pro estoque
         if (!this.validCoord(newCoord)) {
 
-          this.state.stock[neighborPiece.author][neighborPiece.type]++; // TODO: Aumentar nível de abstração -> Transformar em função
+          this.incrementStock(neighborPiece.author, neighborPiece.type);
           this.setPiece(neighborCoord, null);
         } // TODO: "SendToStock"
 
@@ -414,5 +406,22 @@ export class Boop implements Game {
 
   // =============================================================
 
+  // Getters
+
+  public getTermination(): boolean {
+    return this.state.terminated;
+  }
+
+  public getLastPlayer(): Player {
+      return this.state.lastPlayer;
+  }
+
+  public getCurrentPlayer(): Player {
+    return this.state.currentPlayer;
+  }
+
+  public getWinner(): null|Player {
+      return this.state.winner;
+  }
   
 }
