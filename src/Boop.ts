@@ -89,7 +89,7 @@ export class Boop implements Game {
       for (let j=0; j<this.boardShape.y; j++) {
         for (let i=0; i<this.boardShape.x; i++) {
 
-          let coord = { x: i, y: j};
+          let coord = this.createCoord(i, j);
           let piece = this.getPiece(coord);
 
           if (piece != null && piece.author == this.state.currentPlayer) {
@@ -106,27 +106,19 @@ export class Boop implements Game {
       for (let j=0; j<this.boardShape.y; j++) {
         for (let i=0; i<this.boardShape.x; i++) {
   
-          let coord = { x: i, y: j};
+          let coord = this.createCoord(i, j);
   
           if (this.getPiece(coord) == null) {
   
             if (this.getStock(this.state.currentPlayer, PieceType.KITTEN) > 0) {
   
-              let newPiece = { 
-                author: this.state.currentPlayer, 
-                type: PieceType.KITTEN 
-              };
-  
+              let newPiece = this.createPiece(this.state.currentPlayer, PieceType.KITTEN);
               validActions.push({ piece: newPiece, coord: coord });
             }
   
             if (this.getStock(this.state.currentPlayer, PieceType.CAT) > 0) {
   
-              let newPiece = { 
-                author: this.state.currentPlayer, 
-                type: PieceType.CAT 
-              };
-  
+              let newPiece = this.createPiece(this.state.currentPlayer, PieceType.CAT);
               validActions.push({ piece: newPiece, coord: coord });
             }
           }
@@ -195,7 +187,8 @@ export class Boop implements Game {
     for (let j=0; j<this.boardShape.y; j++) {
       for (let i=0; i<this.boardShape.x; i++) {
 
-        table += this.getPieceChar(this.getPiece({ x: i, y: j })) + " ";  
+        // Get Piece At?
+        table += this.getPieceChar(this.getPiece(this.createCoord(i, j))) + " ";  
       }
 
       table += "\n"
@@ -241,6 +234,21 @@ export class Boop implements Game {
     return (this.state.currentPlayer + 1 + skipPlayers) % (this.numberOfPlayers);
   }
 
+  private createCoord(x: number, y: number): Coord {
+    return { x: x, y: y};
+  }
+
+  private createPiece(author: Player, type: PieceType): BoopPiece {
+
+    if (author != 0 && author != 1)
+      throw new Error("Invalid author for piece");
+
+    if (type != PieceType.KITTEN && type != PieceType.CAT)
+      throw new Error("Invalid piece type");
+
+    return { author: author, type: type };
+  }
+
   private getPiece(coord: Coord): BoopPiece {
     return this.state.board.slots[coord.x][coord.y];
   }
@@ -282,7 +290,7 @@ export class Boop implements Game {
         for (const row of rows) {
 
           // Peças da fileira
-          let pieces = row.map(coord => this.getPiece({x: i + coord.x, y: j + coord.y}));
+          let pieces = row.map(coord => this.getPiece(this.createCoord(i+coord.x, j+coord.y)));
 
           // Se essas fileira tiver preenchida com peças do mesmo autor
           if (pieces.every(piece => piece != null) && pieces.every(piece => piece.author == pieces[0].author)) {
@@ -303,7 +311,7 @@ export class Boop implements Game {
 
               for (const coord of row) {
 
-                let absoluteCoord = { x: i + coord.x, y: j + coord.y };
+                let absoluteCoord = this.createCoord(i+coord.x, j+coord.y);
                 let piece = this.getPiece(absoluteCoord);
                 
                 this.incrementStock(piece.author, PieceType.CAT);
@@ -333,8 +341,8 @@ export class Boop implements Game {
   private boopedToCoord(pusherCoord:  Coord, neighborCoord: Coord): Coord {
     /* Returns the coord to which a given piece is booped to */
     
-    let displacement = { x: neighborCoord.x - pusherCoord.x, y: neighborCoord.y - pusherCoord.y };
-    let newCoord = { x: neighborCoord.x + displacement.x, y: neighborCoord.y + displacement.y };
+    let displacement = this.createCoord(neighborCoord.x - pusherCoord.x, neighborCoord.y - pusherCoord.y);
+    let newCoord = this.createCoord(neighborCoord.x + displacement.x, neighborCoord.y + displacement.y);
     return newCoord;
   }
 
@@ -356,7 +364,7 @@ export class Boop implements Game {
     
         if (!(k == 0 && l == 0)) {
           
-          let neighborCoord = { x: pusherCoord.x + k, y: pusherCoord.y + l };
+          let neighborCoord = this.createCoord(pusherCoord.x + k, pusherCoord.y + l);
 
           if (this.validCoord(neighborCoord) && this.getPiece(neighborCoord) != null) {
 
