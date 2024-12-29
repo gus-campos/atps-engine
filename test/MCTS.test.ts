@@ -1,6 +1,6 @@
 import { describe, it, beforeEach, expect, assert } from "vitest";
 import { TicTacToe } from "../src/TicTacToe";
-import { Node } from "../src/MCTS";
+import { Node, Outcome, outcomeValues } from "../src/MCTS";
 
 import { XORShift } from "random-seedable";
 let seed = 100;
@@ -20,7 +20,7 @@ describe("Node with ttt", () => {
 
   describe("expand", () => {
 
-    it("should define new child parent as the node expanded", () => {
+    it("should define new parent's child as the node expanded", () => {
 
       let parent = root.expand();
       let child = parent.expand();
@@ -122,7 +122,7 @@ describe("Node with ttt", () => {
 
   describe("simulate", () => {
 
-    it("should return 1 for game won by current player", () => {
+    it("should return WIN for game won by current player", () => {
       
       
 
@@ -146,11 +146,11 @@ describe("Node with ttt", () => {
 
       // 0 vai jogar, e inevitavelmente ganhar
       // Espera-se valor favorável pro jogador atual: 1
-      expect(node.simulate(perspectivePlayer)).toBe(1);
+      expect(node.simulate(perspectivePlayer)).toBe(Outcome.WIN);
 
     });
 
-    it("should return 0 for game won by opponent", () => {
+    it("should return LOSE for game won by opponent", () => {
       
       ttt.playAction({ slot: 0, piece: { author: 0 } });
       ttt.playAction({ slot: 1, piece: { author: 1 } });
@@ -173,10 +173,10 @@ describe("Node with ttt", () => {
 
       // 1 vai jogar, pra depois 0 jogar e inevitavelmente ganhar
       // Espera-se valor desfavorável pro jogador atual: -1
-      expect(node.simulate(perspectivePlayer)).toBe(0);
+      expect(node.simulate(perspectivePlayer)).toBe(Outcome.LOSE);
     });
 
-    it("should return 0.5 for drawn game", () => {
+    it("should return DRAW for drawn game", () => {
       
       ttt.playAction({ slot: 0, piece: { author: 0 } });
       ttt.playAction({ slot: 1, piece: { author: 1 } });
@@ -195,7 +195,7 @@ describe("Node with ttt", () => {
       let perspectivePlayer = ttt.getLastPlayer();
 
       // Expect to draw
-      expect(node.simulate(perspectivePlayer)).toBe(0.5);
+      expect(node.simulate(perspectivePlayer)).toBe(Outcome.DRAW);
     });
   });
 
@@ -234,34 +234,23 @@ describe("Node with ttt", () => {
 
     it("should increment parents value", () => {
 
-      let value1 = random.float();
-      let value2 = random.float();
-
       for (let child of linearChildren)
         expect(child.getValue()).toBe(0);
-
+      
       // Propagar a partir da última
       let lastChild = linearChildren[linearChildren.length-1];
-      lastChild.backpropagate(value1);
+      lastChild.backpropagate(Outcome.LOSE);
+
+      let referencePlayer = lastChild.getGame().getLastPlayer();
       
       // Esperar que alternem a referência do valor, já que o ttt sempre alterna players
       for (let child of linearChildren) {
         
-        if (lastChild.getGame().getLastPlayer() == child.getGame().getLastPlayer())
-          expect(child.getValue()).toBe(value1);
+        if (child.getGame().getLastPlayer() == referencePlayer)
+          expect(child.getValue()).toBe(outcomeValues.get(Outcome.LOSE));
         else 
-          expect(child.getValue()).toBe(1-value1);
+          expect(child.getValue()).toBe(outcomeValues.get(Outcome.WIN));
       }
-      
-      //linearChildren[linearChildren.length-1].backpropagate(value2);
-      //
-      //for (let child of linearChildren) {
-      //
-      //  if (linearChildren[0].getGame().getLastPlayer() == child.getGame().getCurrentPlayer())
-      //    expect(child.getValue()).toBe(value1 + value2);
-      //  else
-      //    expect(child.getValue()).toBe((1-value1) + (1-value2));
-      //}
 
     });
   });
