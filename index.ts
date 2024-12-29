@@ -1,6 +1,6 @@
 // =========================================================
 
-import { Action, Game, Player } from "./src/Game";
+import { Action, Game } from "./src/Game";
 import { GameTree, Node } from "./src/MCTS";
 
 import { TicTacToe } from "./src/TicTacToe";
@@ -66,12 +66,12 @@ let faults = {
   bCounter: 0,
 };
 
-let rounds = 100;
+let rounds = 15;
 
 for (let i=0; i<rounds; i++) {
 
   console.log(`Progresso: ${100*i/rounds}%`);
-  let game = autoPlay(new GobbletGobblers(), [mctsAction, randomAction], false);
+  let game = autoPlay(new Boop(), [mctsAction, randomAction], true);
 
   let winner = game.getWinner();
 

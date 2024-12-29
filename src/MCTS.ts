@@ -116,10 +116,7 @@ export class Node {
     
     if (winner == null)
       return Outcome.DRAW;
-
-    //maximizingPlayer = (maximizingPlayer+1) % 2;
     
-    // TODO: Voltar pra "=="
     return winner == maximizingPlayer ? Outcome.WIN : Outcome.LOSE;
   }
 
@@ -156,21 +153,7 @@ export class Node {
 
   public genNode(G: Graph): NodeModel {
 
-    let label;
-
-    //if (this.parent == null) {
-
-      label = `Visits: ${(this.visits)}\nValue: ${this.value}\n${this.getGame().stateToString()}`;
-    //}
-
-    /* else {
-
-      label = (
-        `Visits: ${(100*this.visits/this.parent.visits).toFixed(2)}%
-        Value: ${this.value}
-        ${this.getGame().stateToString()}` 
-      )
-    } */
+    let label = `Visits: ${(this.visits)}\nValue: ${this.value}\n${this.getGame().stateToString()}`;
 
     return G.node(String(graphId++), { label : label });
   } 
@@ -183,6 +166,7 @@ export class Node {
       let childNode = child.genNode(G);
       G.addEdge(new Edge([parent, childNode]));
 
+      // Chamar recursivamente
       child.genGraph(G, childNode);
     }
   }
@@ -274,8 +258,6 @@ export class GameTree {
   }
 
   searches(timeCriteria: number): Action {
-    //let i = 0;
-    //while (i++ < 1000)
 
     let startTime = Date.now();
     while (Date.now() - startTime < timeCriteria) 

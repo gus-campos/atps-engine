@@ -1,5 +1,5 @@
 import { describe, it, beforeEach, expect } from "vitest";
-import { Boop } from "../src/Boop";
+import { Boop, Coord } from "../src/Boop";
 
 // =================== TicTacToe ===================
 
@@ -53,7 +53,7 @@ describe("Boop", () => {
       
       ], [8,8,8,8]);
 
-      boop.playAction({ piece: { author: 0, type: 1 }, coord: { x: 0, y: 2 }});
+      boop.playAction({ piece: { author: 0, type: 1 }, slot: new Coord(0,2)});
 
       expect(boop.getValidActions().length).toBe(0);
 
@@ -77,7 +77,7 @@ describe("Boop", () => {
       
       ], [8,0,8,0], [1,0]);
 
-      boop.playAction({ piece: { author: 0, type: 0 }, coord: { x: 1, y: 0 }});
+      boop.playAction({ piece: { author: 0, type: 0 }, slot: new Coord(1,0)});
 
       // ===========================================================================
 
@@ -111,7 +111,7 @@ describe("Boop", () => {
       
       ], [8,0,7,0], [1, 0]);
 
-      boop.playAction({ piece: { author: 0, type: 0 }, coord: { x: 1, y: 1 }});
+      boop.playAction({ piece: { author: 0, type: 0 }, slot: new Coord(1,1)});
 
       // ===========================================================================
 
@@ -145,7 +145,7 @@ describe("Boop", () => {
       
       ], [7,0,8,1], [0, 1]);
 
-      boop.playAction({ piece: { author: 1, type: 1 }, coord: { x: 1, y: 1 }});
+      boop.playAction({ piece: { author: 1, type: 1 }, slot: new Coord(1,1) });
 
       // ===========================================================================
 
@@ -178,7 +178,7 @@ describe("Boop", () => {
       
       ], [8,0,8,0], [1, 0]);
 
-      boop.playAction({ piece: { author: 0, type: 0 }, coord: { x: 1, y: 1 }});
+      boop.playAction({ piece: { author: 0, type: 0 }, slot: new Coord(1,1)});
 
       // ===========================================================================
 
@@ -211,7 +211,7 @@ describe("Boop", () => {
       
       ], [8,0,8,1], [0, 1]);
 
-      boop.playAction({ piece: { author: 1, type: 1 }, coord: { x: 1, y: 1 }});
+      boop.playAction({ piece: { author: 1, type: 1 }, slot: new Coord(1,1)});
 
       // ===========================================================================
 
@@ -338,7 +338,7 @@ describe("Boop", () => {
       
       ], [0,1,0,0]);
 
-      boop.playAction({ piece: { author: 0, type: 1 }, coord: { x: 1, y: 4 }});
+      boop.playAction({ piece: { author: 0, type: 1 }, slot: new Coord(1,4)});
 
       expect(boop.getTermination()).toBeTruthy();
       expect(boop.getWinner()).toBe(1);
@@ -357,7 +357,7 @@ describe("Boop", () => {
       
       ], [0,0,0,0], [1,0]);
 
-      boop.playAction({ piece: null, coord: { x: 1, y: 1 }});
+      boop.playAction({ piece: null, slot: new Coord(1,1)});
 
       // ===========================================================
 
