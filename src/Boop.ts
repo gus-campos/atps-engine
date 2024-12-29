@@ -164,7 +164,7 @@ export class Boop implements Game {
     }
     
     // Só passa vez se quem jogou terminar turno com algum estoque
-    if (!this.isStockEmpty(this.state.currentPlayer)) {
+    if (!this.emptyStock(this.state.currentPlayer)) {
       this.state.lastPlayer = this.state.currentPlayer;
       this.state.currentPlayer = this.getNextPlayer();
     }
@@ -230,6 +230,11 @@ export class Boop implements Game {
     /* Returns next player */
     
     return (this.state.currentPlayer + 1 + skipPlayers) % (this.numberOfPlayers);
+  }
+
+  private progressPlayers() {
+    this.state.lastPlayer = this.state.currentPlayer;
+    this.state.currentPlayer = this.getNextPlayer();
   }
 
   private createPiece(author: Player, type: PieceType): BoopPiece {
