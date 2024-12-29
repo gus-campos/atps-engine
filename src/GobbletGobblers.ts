@@ -1,17 +1,15 @@
 
 import { Game, Player, Piece, Board, State, Action } from "./Game"
 
-// TODO: Estudar significado dessas estruturas
-
 enum Size {
   S = 0, // Small
   M = 1, // Medium
   L = 2  // Large
 }
 
-type Shape = {
-  rows: number,
-  columns: number
+type Coord = {
+  x: number,
+  y: number
 }
 
 interface GgPiece extends Piece {
@@ -55,16 +53,16 @@ const rows: number[][] = [
 export class GobbletGobblers implements Game {
   
   private numberOfPlayers: number;
-  private slotsNum: number;
-  private sizesNum: number;
-  private boardShape: Shape;
+  private nSlots: number;
+  private nSizes: number;
+  private boardShape: Coord;
   private state: GgState;
   
   constructor() {
     this.numberOfPlayers = 2;
-    this.slotsNum = 9;
-    this.sizesNum = 3;
-    this.boardShape = {rows: 3, columns: 3}
+    this.nSlots = 9;
+    this.nSizes = 3;
+    this.boardShape = { x: 3, y: 3 }
 
     this.state = this.getInitialState();
   }
@@ -78,36 +76,24 @@ export class GobbletGobblers implements Game {
   }
 
   public playAction(action: GgAction): void {
-
-    let boardTop = this.getBoardTop();
     
-    // Se não foi movida, decrementar do estoque
-    if (action.movedFrom == null){
-      this.state.stock[action.piece.author][action.piece.size] -= 1;
-    } 
+    // Se do estoque, atualizar quantidade
+    if (action.movedFrom == null) {
+      this.decrementStock(action.piece);
     
-    // Se foi movida, remover antiga e fazer checagens
-    else {
+    // Se mover, remover do tabuleiro
+    } else {
 
-      let slots = this.state.board.slots;
-      let pieceMoved = boardTop[action.movedFrom];
+      let pieceMoved = this.getTopPieceAt(action.movedFrom);
 
       if (pieceMoved.author != action.piece.author || pieceMoved.size != action.piece.size) 
-      {
         throw new Error("Not valid piece realocation");
-      }
 
-      // Remove from board
-      slots[action.movedFrom][pieceMoved.size] = null;
+      this.setPiece(action.movedFrom, null);
     }
 
-    // Put piece in place
-    this.state.board.slots[action.slot][action.piece.size] = action.piece;
-
-    // Update players
-    this.state.lastPlayer = this.state.currentPlayer;
-    this.state.currentPlayer = this.getNextPlayer();
-
+    this.setPiece(action.slot, action.piece);
+    this.progressPlayers();
     this.evaluateState();
   }
 
@@ -116,68 +102,11 @@ export class GobbletGobblers implements Game {
   }
 
   public getValidActions(): GgAction[] {
-    
-    let actions = [];
-    let slotsTop = this.getBoardTop();
 
-    // ============== Colocando peças do estoque ==============
+    let placeActions = this.getValidPlaceActions();
+    let moveActions = this.getValidMoveActions();
 
-    // Para cada tamanho
-    for (let size=0; size<this.sizesNum; size++) {
-
-      // Se houver estoque de tal tamanho
-      if (this.state.stock[this.state.currentPlayer][size] > 0) {
-        
-        // Para cada slot do tabuleiro
-        for (let slot=0; slot<this.slotsNum; slot++) {
-          
-          // Se o tamanho da peça for maior que o tamanho da maior peça do slot
-          if (slotsTop[slot] == null || size > slotsTop[slot].size) {
-
-            let action: GgAction = {
-              slot: slot, 
-              movedFrom: null, 
-              piece: { 
-                author: this.state.currentPlayer,
-                size: size
-              }
-            }
-
-            actions.push(action);
-          }
-        }
-      }
-    } 
-
-    // ============== Movendo peças ==============
-
-    // Para cada slot de origem
-    for (let fromSlot=0; fromSlot<this.slotsNum; fromSlot++) {
-      
-      // Se tiver peça, e ela for do jogador
-      if (slotsTop[fromSlot] != null && slotsTop[fromSlot].author == this.state.currentPlayer) {
-        
-        let pieceToBeMoved = slotsTop[fromSlot];
-
-        // Para cada slot de destino
-        for (let toSlot=0; toSlot<this.slotsNum; toSlot++) {
-          
-          // Se for diferente do de origem e além disso a peça for maior que a maior do slot
-          if (toSlot != fromSlot && (slotsTop[toSlot] == null || pieceToBeMoved.size > slotsTop[toSlot].size)) {
-            
-            let action: GgAction = {
-              slot: toSlot, 
-              movedFrom: fromSlot, 
-              piece: pieceToBeMoved
-            }
-
-            actions.push(action);
-          }
-        }
-      }
-    }
-
-    return actions;
+    return placeActions.concat(moveActions);
   }
 
   // Getters
@@ -199,63 +128,44 @@ export class GobbletGobblers implements Game {
   }
 
   public stateToString(): string {
+
+    /*
+    Retorna uma string que representa o estado do jogo
+    Alcança isso ao conectar a string que representa cada
+    nível
+    */
+
+    // Gathering levels strings
+    let levels = [];
+
+    for (let size of this.iterSizes())
+      levels.push(this.boardLevelToString(size));
+    levels.push(this.topPiecesToString());
+
+    // Concatenating each line
+    let state = "";
+    for (let i=0; i<this.boardShape.y; i++) {
       
-    let slots = this.state.board.slots;
-    let slotsTop = this.getBoardTop();
-
-    // Escrevendo tabuleiro como matrix 4x3 de símbolos (boardtop na quarta)
-    let boards = Array.from(Array(this.sizesNum+1), ()=>
-      Array.from(Array(this.boardShape.rows), ()=>Array(this.boardShape.columns).fill(null))
-    );
-
-    for (let k=0; k<this.sizesNum+1; k++) {               // Cada nível
-      for (let i=0; i<this.boardShape.rows; i++) {        // Cada coluna
-        for (let j=0; j<this.boardShape.columns; j++) {   // Cada fileira
-          
-          let slot = j*this.boardShape.columns + i;
-          
-          if (k < this.sizesNum)
-            boards[k][i][j] = this.getPieceChar(slots[slot][k]);
-          else
-            boards[k][i][j] = this.getPieceChar(slotsTop[slot]);
-        }
-      }
+      for (let table of levels)
+        state += table.split("\n")[i] + "   ";    
+      
+      state += "\n";
     }
 
-    // Criando string dos tabuleiros, com níveis lado a lado
-    let table = "";
-    for (let j=0; j<this.boardShape.columns; j++) {     // Cada fileira
-      for (let k=0; k<this.sizesNum+1; k++) {           // Cada nível
-        for (let i=0; i<this.boardShape.rows; i++) {    // Cada coluna
-          table += boards[k][i][j] + " ";
-        }
-
-        // Separando table top
-        if (k != this.sizesNum - 1)
-          table += "\t";
-        else
-          table += "\t=>\t";
-      }
-      table += "\n"
-    }
-
-    return table;
+    return state + "\n";
   }
 
   public printState(): void {
 
-    let table = this.stateToString();
-
-    // Imprimindo tabuleiro
-    console.log(table);
+    console.log(this.stateToString());
   }
 
   // Private
 
   private getInitialState(): GgState {
     
-    let slots = Array.from(Array(this.slotsNum), ()=> 
-      (Array.from(Array(this.sizesNum), ()=>null)));
+    let slots = Array.from(Array(this.nSlots), ()=> 
+      (Array.from(Array(this.nSizes), ()=>null)));
 
     return {
       board: { slots: slots },
@@ -267,21 +177,115 @@ export class GobbletGobblers implements Game {
     }
   }
 
-  private getBoardTop(): GgPiece[] {
+  private getValidPlaceActions(): GgAction[] {
 
-    let boardTop = Array(this.slotsNum).fill(null);
+    let actions = [];
+    let topPieces = this.getTopPieces();
 
-    for (let i=0; i<this.slotsNum; i++) {
-      for (let j=this.sizesNum-1; j>=0; j--) {
-        if (this.state.board.slots[i][j] != null) {
-          boardTop[i] = this.state.board.slots[i][j];
-          break;
+    for (let size of this.iterSizes()) {
+      if (!this.isStockEmpty(this.state.currentPlayer, size)) {
+        for (let slot of this.iterSlots()) {
+          
+          // Se o tamanho da peça for maior que o tamanho da maior peça do slot
+          if (topPieces[slot] == null || size > topPieces[slot].size) {
+
+            let action: GgAction = {
+              slot: slot, 
+              movedFrom: null, 
+              piece: { 
+                author: this.state.currentPlayer,
+                size: size
+              }
+            }
+
+            actions.push(action);
+          }
+        }
+      }
+    } 
+
+    return actions;
+  }
+
+  private getValidMoveActions(): GgAction[] {
+
+    let actions = [];
+    let topPieces = this.getTopPieces();
+
+    // Para cada slot de origem
+    for (let fromSlot of this.iterSlots()) {
+      if (this.isMovablePiece(topPieces[fromSlot])) {
+        
+        let pieceToBeMoved = topPieces[fromSlot];
+
+        for (let toSlot of this.iterSlots()) {
+          if (toSlot != fromSlot && this.canGobble(pieceToBeMoved, topPieces[toSlot])) {    
+
+            let action: GgAction = {
+              slot: toSlot, 
+              movedFrom: fromSlot, 
+              piece: pieceToBeMoved
+            }
+
+            actions.push(action);
+          }
         }
       }
     }
 
+    return actions;
+  }
+
+  private isMovablePiece(piece: GgPiece): boolean {
+
+    /*
+    Retorna se uma peça é movível. Para isso deve existir
+    e ser do jogador atual.
+    */
+
+    return piece != null && piece.author == this.state.currentPlayer;
+  }
+
+  private canGobble(piece: GgPiece, placedPiece: GgPiece) {
+
+    return placedPiece == null || piece.size > placedPiece.size
+  }
+
+  private setPiece(slot: number, piece: GgPiece): void {
+
+    if (piece == null)
+      piece = this.getTopPieceAt(slot);
+
+    this.state.board.slots[slot][piece.size] = piece;
+  } 
+
+  private getTopPieceAt(slot: number): GgPiece {
+
+    for (let size of this.iterSizes(true))
+      if (this.state.board.slots[slot][size] != null)
+        return this.state.board.slots[slot][size]
+
+    return null;
+  }
+
+  private getTopPieces(): GgPiece[] {
+
+    let boardTop = Array(this.nSlots).fill(null);
+
+    for (let slot=0; slot<this.nSlots; slot++)
+      boardTop[slot] = this.getTopPieceAt(slot);
+
     return boardTop;
   }
+
+  private decrementStock(piece: GgPiece): void {
+
+    this.state.stock[piece.author][piece.size]--;
+  }
+
+  private isStockEmpty(player: Player, size: number) {
+    return this.state.stock[player][size] <= 0
+  } 
 
   private checkWinner(): null|Player {
     
@@ -290,7 +294,7 @@ export class GobbletGobblers implements Game {
     Pode ser melhorado ao verificar apenas onde foi jogado
     */
     
-    let boardTop = this.getBoardTop();
+    let boardTop = this.getTopPieces();
 
     for (const row of rows)
       if (row.every(cell => boardTop[cell] != null))
@@ -316,6 +320,31 @@ export class GobbletGobblers implements Game {
     }
   }
 
+  private progressPlayers() {
+
+    this.state.lastPlayer = this.state.currentPlayer;
+    this.state.currentPlayer = this.getNextPlayer();
+  }
+
+  private *iterSizes(reverse: boolean=false): Generator<number> {
+
+    if (reverse) {
+
+      for (let size=this.nSizes-1; size>=0; size--)
+        yield size;
+    
+    } else {
+
+      for (let size=0; size<this.nSizes; size++)
+        yield size;
+    }
+  }
+
+  private *iterSlots(): Generator<number> {
+    for (let slot=0; slot<this.nSlots; slot++)
+      yield slot;
+  }
+
   private getPlayerChar(player: Player): string {
 
     let symbol = "";
@@ -332,6 +361,41 @@ export class GobbletGobblers implements Game {
     }
 
     return symbol;
+  }
+
+  private slotsToString(slots: GgPiece[]): string {
+    
+    let table = "";
+
+    for (let slot of this.iterSlots()) {
+
+      const piece = slots[slot];
+      table += this.getPieceChar(piece) + " ";
+
+      if (slot % this.boardShape.y == this.boardShape.y - 1)
+        table += "\n"
+    }
+
+    return table + "\n";
+  }
+
+  private getBoardLevel(levelSize: number): GgPiece[] {
+
+    let boardLevel = Array(9).fill(null);
+    for (let slot of this.iterSlots())
+      boardLevel[slot] = this.state.board.slots[slot][levelSize];
+
+    return boardLevel;
+  }
+
+  private boardLevelToString(levelSize: number): string {
+
+    return this.slotsToString(this.getBoardLevel(levelSize));
+  }
+
+  private topPiecesToString(): string {
+
+    return this.slotsToString(this.getTopPieces());
   }
 
   private getPieceChar(piece: GgPiece): string {
