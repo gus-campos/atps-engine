@@ -8,18 +8,18 @@ let seed = Date.now();
 //let seed = 100;
 export const random = new XORShift(seed);
 
-enum Outcome {
+export enum Outcome {
   WIN = 1,
   DRAW = 0,
   LOSE = -1
 }
 
-let outcomeValues = new Map();
+export const outcomeValues = new Map();
 outcomeValues.set(Outcome.WIN, 1);
 outcomeValues.set(Outcome.DRAW, 0);
 outcomeValues.set(Outcome.LOSE, -1);
 
-let oppositeOutcome = new Map();
+export const oppositeOutcome = new Map();
 oppositeOutcome.set(Outcome.WIN, Outcome.LOSE);
 oppositeOutcome.set(Outcome.DRAW, Outcome.DRAW);
 oppositeOutcome.set(Outcome.LOSE, Outcome.WIN);
@@ -52,9 +52,11 @@ export class Node {
   }
 
   public expand(): Node {
+  
     let expandableActions = this.getExpandableActions();
 
-    if (expandableActions.length == 0) throw new Error("No expandable actions");
+    if (expandableActions.length == 0) 
+      throw new Error("No expandable actions");
 
     let actionTaken = random.choice(expandableActions);
 
@@ -149,6 +151,7 @@ export class Node {
 
       this.parent.backpropagate(outcomeValues.get(outcome));
     }
+
   }
 
   public genNode(G: Graph): NodeModel {
