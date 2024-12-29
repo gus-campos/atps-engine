@@ -86,7 +86,7 @@ export class Boop implements Game {
 
     if (this.emptyStock(this.state.currentPlayer)) {
       
-      for (const coord of this.boardIter()) {
+      for (const coord of this.cellsIter()) {
 
         let piece = this.getPiece(coord);
 
@@ -99,7 +99,7 @@ export class Boop implements Game {
 
     else {
 
-      for (const coord of this.boardIter()) {
+      for (const coord of this.cellsIter()) {
   
         if (this.getPiece(coord) == null) {
 
@@ -138,8 +138,7 @@ export class Boop implements Game {
       if (pieceToRemove.author != this.state.currentPlayer)
         throw new Error("Can only remove it's own pieces");
 
-      this.setPiece(action.coord, null);
-      this.incrementStock(this.state.currentPlayer, PieceType.CAT);
+      this.promotePiece(action.coord);
     }
 
     else {
@@ -152,8 +151,7 @@ export class Boop implements Game {
       if (this.getStock(action.piece.author, action.piece.type) < 1)
         throw new Error("Out of stock");
 
-      this.setPiece(action.coord, action.piece);
-      this.decrementStock(action.piece.author, action.piece.type);
+      this.placePiece(action.piece, action.coord);
 
       // ====== Booping ======
 
@@ -203,7 +201,8 @@ export class Boop implements Game {
 
   // Private
 
-  private *boardIter(): Generator<Coord> {
+  private *cellsIter(): Generator<Coord> {
+
     for (let j = 0; j < this.boardShape.y; j++)
       for (let i = 0; i < this.boardShape.x; i++)
         yield this.createCoord(i, j);
@@ -222,7 +221,6 @@ export class Boop implements Game {
 
     for (let i=0; i<this.boardShape.x-2; i++) {
       for (let j=0; j<this.boardShape.x-2; j++) {
-
         yield this.createCoord(i, j);
       }
     }
@@ -274,12 +272,35 @@ export class Boop implements Game {
     this.state.board.slots[coord.x][coord.y] = piece;
   }
 
+  private placePiece(piece: BoopPiece, coord: Coord): void {
+    this.decrementStock(piece.author, piece.type);
+    this.setPiece(coord, piece);
+  }
+
   private incrementStock(player: Player, type: PieceType): void {
     this.state.stock[player][type]++
   }
 
   private decrementStock(player: Player, type: PieceType): void {
     this.state.stock[player][type]--;
+  }
+
+  private promotePiece(coord: Coord): void {
+    let piece = this.getPiece(coord);
+    this.setPiece(coord, null);
+    this.incrementStock(piece.author, PieceType.CAT);
+  }
+
+  private sendPieceToStock(coord: Coord): void {
+    let piece = this.getPiece(coord);
+    this.setPiece(coord, null);
+    this.incrementStock(piece.author, piece.type);
+  }
+
+  private movePiece(fromCoord: Coord, toCoord: Coord): void {
+    let piece = this.getPiece(fromCoord);
+    this.setPiece(fromCoord, null);
+    this.setPiece(toCoord, piece);
   }
 
   private getStock(player: Player, type: PieceType): number {
@@ -297,6 +318,12 @@ export class Boop implements Game {
     // BUG: Se houverem, por exemplo, 2 sequências com 4 peças, e ele encontrar
     // primeiro a sequência promovível, invés da sequência ganhável, o player vai 
     // deixar de ganhar o jogo, sendo que cumpriu os requisitos para vitória
+
+    // Para cada subtabuleiro
+      // Para cada possível sequência
+
+
+
 
     // Para cada possível centro de subtabuleiro
     for (let subBoardOffset of this.subBoardOffsetIter()) {
@@ -326,11 +353,8 @@ export class Boop implements Game {
 
               let absoluteCoord = this.createCoord(subBoardOffset.x+coord.x, 
                                                    subBoardOffset.y+coord.y);
-
-              let piece = this.getPiece(absoluteCoord);
               
-              this.incrementStock(piece.author, PieceType.CAT);
-              this.setPiece(absoluteCoord, null);
+              this.promotePiece(absoluteCoord);
             }
           }
         }
@@ -394,18 +418,13 @@ export class Boop implements Game {
         let newCoord = this.boopedToCoord(pusherCoord, neighborCoord);
 
         // Se a nova coordenada não for válida, peça caiu do tabuleiro, devolver pro estoque
-        if (!this.validCoord(newCoord)) {
-
-          this.incrementStock(neighborPiece.author, neighborPiece.type);
-          this.setPiece(neighborCoord, null);
-        } // TODO: "SendToStock"
-
+        if (!this.validCoord(newCoord))
+          this.sendPieceToStock(neighborCoord);
+        
         // Se a nova coordenada estiver vazia, mover peça para a nova posição
-        else if (this.getPiece(newCoord) == null) {
-          
-          this.setPiece(newCoord, neighborPiece);
-          this.setPiece(neighborCoord, null);
-        }
+        else if (this.getPiece(newCoord) == null)
+          this.movePiece(neighborCoord, newCoord);
+      
       }
     }
   }
