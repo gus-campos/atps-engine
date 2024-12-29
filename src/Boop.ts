@@ -103,13 +103,13 @@ export class Boop implements Game {
   
         if (this.getPiece(coord) == null) {
 
-          if (this.getStock(this.state.currentPlayer, PieceType.KITTEN) > 0) {
+          if (!this.emptyStockOfType(this.state.currentPlayer, PieceType.KITTEN)) {
 
             let newPiece = this.createPiece(this.state.currentPlayer, PieceType.KITTEN);
             validActions.push({ piece: newPiece, coord: coord });
           }
 
-          if (this.getStock(this.state.currentPlayer, PieceType.CAT) > 0) {
+          if (!this.emptyStockOfType(this.state.currentPlayer, PieceType.CAT)) {
 
             let newPiece = this.createPiece(this.state.currentPlayer, PieceType.CAT);
             validActions.push({ piece: newPiece, coord: coord });
@@ -307,8 +307,12 @@ export class Boop implements Game {
     return this.state.stock[player][type];
   }
 
-  private emptyStock(player: Player) {
-    return this.getStock(player, PieceType.KITTEN) + this.getStock(player, PieceType.CAT) < 1;
+  private emptyStockOfType(player: Player, type: PieceType): boolean {
+    return this.getStock(player, type) <= 0;
+  }
+
+  private emptyStock(player: Player): boolean {
+    return this.emptyStockOfType(player, PieceType.KITTEN) && this.emptyStockOfType(player, PieceType.CAT);
   }
 
   private promoteOrWin() {
@@ -318,6 +322,9 @@ export class Boop implements Game {
     // BUG: Se houverem, por exemplo, 2 sequências com 4 peças, e ele encontrar
     // primeiro a sequência promovível, invés da sequência ganhável, o player vai 
     // deixar de ganhar o jogo, sendo que cumpriu os requisitos para vitória
+
+    // TODO: aumentar abstração
+    // Seleção de sequência?
 
     // Para cada subtabuleiro
       // Para cada possível sequência
@@ -404,6 +411,8 @@ export class Boop implements Game {
   }
 
   private updateBoopings(pusherCoord: Coord): void {
+
+    // TODO: aumentar abstração
 
     let pusherPiece = this.getPiece(pusherCoord);
     
