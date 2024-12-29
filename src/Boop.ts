@@ -26,6 +26,14 @@ interface BoopState extends State {
   winner: null|Player
 }
 
+let PLAYERS_CHARS = new Map();
+PLAYERS_CHARS.set(0, "A");
+PLAYERS_CHARS.set(1, "B");
+
+let CHARS_PLAYERS = new Map();
+CHARS_PLAYERS.set("A", 0);
+CHARS_PLAYERS.set("B", 1);
+
 interface BoopAction extends Action {
   piece: BoopPiece|null,
   slot: Coord
@@ -50,7 +58,7 @@ export class Coord {
   }
 }
 
-const ROWS_ARR = [
+const WINNING_ROWS_ARR = [
   // Verticais
   [[0, 0], [0, 1], [0, 2]],
   [[1, 0], [1, 1], [1, 2]],
@@ -64,7 +72,7 @@ const ROWS_ARR = [
   [[0, 2], [1, 1], [2, 0]],
 ];
 
-let ROWS: Coord[][] = ROWS_ARR.map(tuples => tuples.map(tuple => new Coord(tuple[0], tuple[1])));
+let WINNING_ROWS: Coord[][] = WINNING_ROWS_ARR.map(tuples => tuples.map(tuple => new Coord(tuple[0], tuple[1])));
 
 export class Boop implements Game {
   
@@ -92,7 +100,7 @@ export class Boop implements Game {
     Sets the state accordingly to the data provided
     */
 
-    for (let slot of this.slotsIter())
+    for (let slot of this.iterateSlots())
       this.state.board.slots[slot.x][slot.y] = this.getPieceFromRep(boardDraw[slot.x][slot.y])
 
     if (stock != null)
@@ -103,7 +111,8 @@ export class Boop implements Game {
       this.state.currentPlayer = players[1];
     }
 
-    this.promoteOrWin();
+    this.updateTermination();
+    this.updatePromotions();
   }
   
   public getValidActions(): Action[] {
@@ -113,7 +122,7 @@ export class Boop implements Game {
     if (this.state.terminated)
       return [];
 
-    if (this.emptyStock(this.state.currentPlayer))
+    if (this.isStockEmpty(this.state.currentPlayer))
       return this.getValidRemoveActions();
     else
       return this.getValidPlaceActions();
@@ -130,7 +139,7 @@ export class Boop implements Game {
     // Ação de remoção de peça
     if (action.piece == null) {
 
-      if (!this.emptyStock(this.state.currentPlayer))
+      if (!this.isStockEmpty(this.state.currentPlayer))
         throw new Error("Can't remove a piece, if thhe player has any stock");
       
       if (this.getPiece(action.slot).author != this.state.currentPlayer)
@@ -145,19 +154,18 @@ export class Boop implements Game {
       if (action.piece.author != this.state.currentPlayer)
         throw new Error("Can only place it's own pieces");
 
-      if (this.emptyStockOfType(action.piece.author, action.piece.type))
+      if (this.isStockEmptyOfType(action.piece.author, action.piece.type))
         throw new Error("Out of stock");
 
       this.placePiece(action.piece, action.slot);
       this.updateBoopings(action.slot);
-      this.promoteOrWin();
+      this.updateTermination();
+      this.updatePromotions();
     }
     
     // Só passa vez se quem jogou terminar turno com algum estoque
-    if (!this.emptyStock(this.state.currentPlayer)) {
-      this.state.lastPlayer = this.state.currentPlayer;
-      this.state.currentPlayer = this.getNextPlayer();
-    }
+    if (!this.isStockEmpty(this.state.currentPlayer))
+      this.progressPlayers();
   }
 
   public stateToString(): string {
@@ -167,7 +175,7 @@ export class Boop implements Game {
     // Board to string
 
     let board = "";
-    for (let coord of this.slotsIter()) {
+    for (let coord of this.iterateSlots()) {
 
       board += this.getPieceRep(this.getPiece(coord)) + " ";
       
@@ -220,6 +228,11 @@ export class Boop implements Game {
     /* Returns next player */
     
     return (this.state.currentPlayer + 1 + skipPlayers) % (this.numberOfPlayers);
+  }
+
+  private progressPlayers() {
+    this.state.lastPlayer = this.state.currentPlayer;
+    this.state.currentPlayer = this.getNextPlayer();
   }
 
   private createPiece(author: Player, type: PieceType): BoopPiece {
@@ -285,32 +298,21 @@ export class Boop implements Game {
     return this.state.stock[player][type];
   }
 
-  private emptyStockOfType(player: Player, type: PieceType): boolean {
+  private isStockEmptyOfType(player: Player, type: PieceType): boolean {
     return this.getStock(player, type) <= 0;
   }
 
-  private emptyStock(player: Player): boolean {
-    return this.emptyStockOfType(player, PieceType.KITTEN) && this.emptyStockOfType(player, PieceType.CAT);
+  private isStockEmpty(player: Player): boolean {
+    return this.isStockEmptyOfType(player, PieceType.KITTEN) && this.isStockEmptyOfType(player, PieceType.CAT);
   }
 
-  private promoteOrWin() {
+  private updateTermination(): void {
 
-    /* Search for ROWS of 3, promoting them, or declaring victory */
+    for (let subBoardOffset of this.iterateSubBoardsOffsets()) {
+      for (let row of WINNING_ROWS) {
 
-    // BUG: Se houverem, por exemplo, 2 sequências com 4 peças, e ele encontrar
-    // primeiro a sequência promovível, invés da sequência ganhável, o player vai 
-    // deixar de ganhar o jogo, sendo que cumpriu os requisitos para vitória
-
-    // Para cada possível centro de subtabuleiro
-    for (let subBoardOffset of this.subBoardOffsetIter()) {
-
-      // Pra cada fileira do subtabuleiro
-      for (let row of ROWS) {
-
-        // Peças da fileira
+        // Se todas do mesmo autor
         const pieces = row.map(subBoardCoord => this.getPiece(subBoardOffset.add(subBoardCoord)));
-
-        // Se todas forem do mesmo autor
         if (pieces.every(piece => piece != null && piece.author == pieces[0].author)) {
           
           // Se todos forem gatos -> vitória
@@ -319,15 +321,22 @@ export class Boop implements Game {
             this.state.winner = pieces[0].author;
             return;
           }
+        }
+      }
+    }
+  }
 
-          // Se não, promover sequência
-          else {
+  private updatePromotions(): void {
+
+    for (let subBoardOffset of this.iterateSubBoardsOffsets()) {
+      for (let row of WINNING_ROWS) {
+
+        // Se todas do mesmo autor
+        const pieces = row.map(subBoardCoord => this.getPiece(subBoardOffset.add(subBoardCoord)));
+        if (pieces.every(piece => piece != null && piece.author == pieces[0].author)) {
             
-            for (let subBoardCoord of row) {
-              const slot = subBoardOffset.add(subBoardCoord);
-              this.promotePiece(slot);
-            }
-          }
+          for (let subBoardCoord of row)
+            this.promotePiece(subBoardOffset.add(subBoardCoord));
         }
       }
     }
@@ -340,7 +349,7 @@ export class Boop implements Game {
     if (piece == null)
       return ".";
 
-    let character = this.getPlayerChar(piece.author);
+    let character = PLAYERS_CHARS.get(piece.author);
     character = (piece.type == PieceType.CAT) ? character : character.toLowerCase();
     
     return character; 
@@ -350,11 +359,12 @@ export class Boop implements Game {
 
     const playerRep = pieceRep.toUpperCase();
     
-    if (playerRep != "A" && playerRep != "B")
+    const playersChars = [...CHARS_PLAYERS.keys()];
+    if (!playersChars.includes(playerRep))
       return null;
     
     const type = (pieceRep == pieceRep.toLowerCase()) ? PieceType.KITTEN : PieceType.CAT;
-    const player = (playerRep == "A") ? 0 : 1;
+    const player = CHARS_PLAYERS.get(playerRep);
 
     return this.createPiece(player, type);
   }
@@ -390,8 +400,8 @@ export class Boop implements Game {
 
     let validActions: BoopAction[] = [];
 
-    if (this.emptyStock(this.state.currentPlayer)) {
-      for (let coord of this.slotsIter()) {
+    if (this.isStockEmpty(this.state.currentPlayer)) {
+      for (let coord of this.iterateSlots()) {
 
         const piece = this.getPiece(coord);
         if (piece != null && piece.author == this.state.currentPlayer)
@@ -415,10 +425,10 @@ export class Boop implements Game {
     for (let pieceType of [PieceType.KITTEN, PieceType.CAT]) {
 
       // Se tiver estoque
-      if (!this.emptyStockOfType(this.state.currentPlayer, pieceType)) {
+      if (!this.isStockEmptyOfType(this.state.currentPlayer, pieceType)) {
       
         // Para cada slot vazio
-        for (let slot of this.slotsIter()) {
+        for (let slot of this.iterateSlots()) {
           if (this.getPiece(slot) == null) {
   
             // Listar posicionamento de tal tipo em tal slot 
@@ -434,6 +444,12 @@ export class Boop implements Game {
   }
 
   private updateBoopings(pusherCoord: Coord): void {
+
+    /*
+    Empurra de forma centrifuga em 1 slot de unidade, as peças
+    vizinhas de um dado centro. Usado quando uma nova peça é
+    colocada no tabuleiro.
+    */
 
     const pusherPiece = this.getPiece(pusherCoord);
     
@@ -458,7 +474,7 @@ export class Boop implements Game {
     return pusherType == PieceType.CAT || neighborType == PieceType.KITTEN;
   }
 
-  private *slotsIter(): Generator<Coord> {
+  private *iterateSlots(): Generator<Coord> {
 
     for (let j = 0; j < this.boardShape.y; j++)
       for (let i = 0; i < this.boardShape.x; i++)
@@ -474,17 +490,13 @@ export class Boop implements Game {
           yield center.add(new Coord(k,l));
   }
 
-  private *subBoardOffsetIter(): Generator<Coord> {
+  private *iterateSubBoardsOffsets(): Generator<Coord> {
 
     for (let i=0; i<this.boardShape.x-2; i++) {
       for (let j=0; j<this.boardShape.x-2; j++) {
         yield new Coord(i, j);
       }
     }
-  }
-
-  private getPlayerChar(player: Player) {
-    return (player == 0) ? "A" : "B"
   }
 
   // =============================================================
