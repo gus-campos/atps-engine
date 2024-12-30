@@ -184,13 +184,16 @@ export class TicTacToe implements Game {
   }
 
   private evaluateState() {
+
     // Vitória
+
     if (this.checkWin()) {
       this.state.terminated = true;
       this.state.winner = this.state.lastPlayer;
     }
 
     // Empate
+    
     else if (this.getValidActions().length == 0) {
       this.state.terminated = true;
       this.state.winner = null;

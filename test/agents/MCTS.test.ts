@@ -33,7 +33,7 @@ describe("NodeMCTS with ttt", () => {
       // O X _
 
       let node = new NodeMCTS(null, ttt, null);
-      let perspectivePlayer = ttt.getLastPlayer();
+      let perspectivePlayer = ttt.getCurrentPlayer();
 
       // 0 vai jogar, e inevitavelmente ganhar
       // Espera-se valor favorável pro jogador atual: 1
@@ -58,7 +58,7 @@ describe("NodeMCTS with ttt", () => {
       // _ X _
 
       let node = new NodeMCTS(null, ttt, null);
-      let perspectivePlayer = ttt.getLastPlayer();
+      let perspectivePlayer = ttt.getCurrentPlayer();
 
       // 1 vai jogar, pra depois 0 jogar e inevitavelmente ganhar
       // Espera-se valor desfavorável pro jogador atual: -1
@@ -80,7 +80,7 @@ describe("NodeMCTS with ttt", () => {
       // O _ O
 
       let node = new NodeMCTS(null, ttt, null);
-      let perspectivePlayer = ttt.getLastPlayer();
+      let perspectivePlayer = ttt.getCurrentPlayer();
 
       // Expect to draw
       expect(node.simulate(perspectivePlayer)).toBe(Outcome.DRAW);

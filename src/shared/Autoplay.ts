@@ -34,7 +34,7 @@ export enum Agent {
 }
 
 const MCTS_TIME_CRITERIA = 1000;
-const MCTS_GEN_GRAPH = true;
+const MCTS_GEN_GRAPH = false;
 
 export class AutoPlay {
 
@@ -164,6 +164,7 @@ export class AutoPlay {
     const winner = this.game.getWinner();
 
     // Score
+
     if (winner == 0)
       this.score.victories++;
 
@@ -172,13 +173,12 @@ export class AutoPlay {
     
     else
       this.score.draws++;
+    
+    // Own Goal
 
-    // BUG: ERRO NO GOL CONTRA
-
-    // Own Goals
     const lastPlayer = this.game.getLastPlayer();
 
-    if (winner != lastPlayer) {
+    if (winner != null && winner != lastPlayer) {
 
       if (winner == 0)
         this.ownGoals.favorable++;
