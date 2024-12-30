@@ -1,16 +1,16 @@
-import { Game, Player, Piece, Board, State, Action } from "../shared/Game";
+import { Game, Player, Action } from "../shared/Game";
 
 // TODO: Estudar significado dessas estruturas
 
-interface TicTacToePiece extends Piece {
+interface TicTacToePiece {
   author: Player;
 }
 
-export interface TicTacToeBoard extends Board {
+export interface TicTacToeBoard {
   slots: (TicTacToePiece | null)[];
 }
 
-interface TicTacToeState extends State {
+interface TicTacToeState {
   board: TicTacToeBoard;
   currentPlayer: Player;
   lastPlayer: Player;
@@ -130,7 +130,7 @@ export class TicTacToe implements Game {
   }
 
   public getLastPlayer(): Player {
-    return this.state.currentPlayer;
+    return this.state.lastPlayer;
   }
 
   public getCurrentPlayer(): Player {
