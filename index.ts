@@ -9,8 +9,7 @@ import { Boop } from "./src/games/Boop";
 
 import { XORShift } from "random-seedable";
 
-let seed = Date.now();
-//let seed = 100;
+let seed = Date.now(); // = 100;
 export const random = new XORShift(seed);
 
 function randRange(range: number) {
@@ -47,35 +46,36 @@ function autoPlay(game: Game, actors: Function[], print: boolean): Game {
   return game;
 }
 
-// =========================================================
+function multipleAutoPlay(rounds: number, print: boolean) {
 
-let score = {
-  wins: 0,
-  defeats: 0,
-  draws: 0,
-};
-
-let faults = {
-  aCounter: 0,
-  bCounter: 0,
-};
-
-let rounds = 1;
-
-for (let i = 0; i < rounds; i++) {
-
-  console.log(`Progresso: ${(100 * i) / rounds}%`);
-
-  let game = autoPlay(new GobbletGobblers(), [mctsAction, randomAction], true);
-  let winner = game.getWinner();
-  winner == 0 ? score.wins++ : winner == 1 ? score.defeats++ : score.draws++;
-
-  if (game.getLastPlayer() == 0 && game.getWinner() == 1) 
-    faults.aCounter++;
-
-  if (game.getLastPlayer() == 1 && game.getWinner() == 0) 
-    faults.bCounter++;
+  let score = {
+    wins: 0,
+    defeats: 0,
+    draws: 0,
+  };
+  
+  let faults = {
+    aCounter: 0,
+    bCounter: 0,
+  };
+  
+  for (let i = 0; i < rounds; i++) {
+  
+    console.log(`Progresso: ${(100 * i) / rounds}%`);
+  
+    let game = autoPlay(new GobbletGobblers(), [mctsAction, randomAction], print);
+    let winner = game.getWinner();
+    winner == 0 ? score.wins++ : winner == 1 ? score.defeats++ : score.draws++;
+  
+    if (game.getLastPlayer() == 0 && game.getWinner() == 1) 
+      faults.aCounter++;
+  
+    if (game.getLastPlayer() == 1 && game.getWinner() == 0) 
+      faults.bCounter++;
+  }
+  
+  console.log(score);
+  console.log(faults);
 }
 
-console.log(score);
-console.log(faults);
+// =========================================================
