@@ -1,0 +1,8 @@
+graph "G" {
+  node [
+    fontname = "Courier";
+  ];
+  "2" [
+    label = "Visits: 0\nValue: 0\n. . .    X . O    . . .    X . O    \nO . .    . . .    . X .    O X .    \n. . .    . . .    . . .    . . .    \n\n";
+  ];
+}

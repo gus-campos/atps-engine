@@ -1,5 +1,5 @@
 
-import { Game, Player, State, Action } from "../shared/Game"
+import { Game, Player, Action } from "../shared/Game"
 
 enum PieceType {
     KITTEN = 0,
@@ -15,7 +15,7 @@ interface BoopBoard {
   slots: (BoopPiece|null)[][]
 }
 
-interface BoopState extends State {
+interface BoopState {
   board: BoopBoard,
   stock: number[][],
 
@@ -160,7 +160,11 @@ export class Boop implements Game {
       this.placePiece(action.piece, action.slot);
       this.updateBoopings(action.slot);
       this.updateTermination();
-      this.updatePromotions();
+
+      // Só promove quando não há vitória, pois por eficiência
+      // o tipo na promoção não é verificado
+      if (!this.state.terminated)
+        this.updatePromotions();
     }
     
     // Só passa vez se quem jogou terminar turno com algum estoque
@@ -314,7 +318,7 @@ export class Boop implements Game {
         // Se todas do mesmo autor
         const pieces = row.map(subBoardCoord => this.getPiece(subBoardOffset.add(subBoardCoord)));
         if (pieces.every(piece => piece != null && piece.author == pieces[0].author)) {
-          
+
           // Se todos forem gatos -> vitória
           if (pieces.every(piece => piece.type == PieceType.CAT)) {
             this.state.terminated = true;

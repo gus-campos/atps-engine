@@ -1,5 +1,5 @@
 import { describe, it, beforeEach, expect } from "vitest";
-import { Boop, Coord } from "../src/games/Boop";
+import { Boop, Coord } from "src/games/Boop";
 
 // =================== TicTacToe ===================
 
