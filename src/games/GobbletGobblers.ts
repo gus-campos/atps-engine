@@ -156,7 +156,7 @@ export class GobbletGobblers implements Game {
       if (pieceToPlace.author != this.state.currentPlayer)
         throw new Error("Can only move it's own pieces");
 
-      if (!this.canGobble(action.piece, topPieceAt))
+      if (!this.canGobble(pieceToPlace, topPieceAt))
         throw new Error("Invalid piece placement");
 
       this.setPiece(action.movedFrom, null);
@@ -318,6 +318,7 @@ export class GobbletGobblers implements Game {
   }
 
   private canGobble(piece: GgPiece, placedPiece: GgPiece) {
+
     return placedPiece == null || piece.size > placedPiece.size;
   }
 
