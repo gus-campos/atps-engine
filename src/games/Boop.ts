@@ -1,5 +1,5 @@
 
-import { Game, Player, State, Action } from "./Game"
+import { Game, Player, State, Action } from "../shared/Game"
 
 enum PieceType {
     KITTEN = 0,
@@ -164,10 +164,8 @@ export class Boop implements Game {
     }
     
     // Só passa vez se quem jogou terminar turno com algum estoque
-    if (!this.emptyStock(this.state.currentPlayer)) {
-      this.state.lastPlayer = this.state.currentPlayer;
-      this.state.currentPlayer = this.getNextPlayer();
-    }
+    if (!this.isStockEmpty(this.state.currentPlayer))
+      this.progressPlayers();
   }
 
   public stateToString(): string {

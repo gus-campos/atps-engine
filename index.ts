@@ -1,11 +1,11 @@
 // =========================================================
 
-import { Action, Game } from "./src/Game";
-import { GameTree, Node } from "./src/MCTS";
+import { Action, Game } from "./src/shared/Game";
+import { GameTree, Node } from "./src/shared/MCTS";
 
-import { TicTacToe } from "./src/TicTacToe";
-import { GobbletGobblers } from "./src/GobbletGobblers";
-import { Boop } from "./src/Boop";
+import { TicTacToe } from "./src/games/TicTacToe";
+import { GobbletGobblers } from "./src/games/GobbletGobblers";
+import { Boop } from "./src/games/Boop";
 
 import { XORShift } from "random-seedable";
 
@@ -20,8 +20,7 @@ function randRange(range: number) {
 // =========================================================
 
 function mctsAction(game: Game): Action {
-
-  let root = new Node(null, game, null) 
+  let root = new Node(null, game, null);
   let gameTree = new GameTree(root);
   let action = gameTree.searches(1000);
   gameTree.genGraph();
@@ -30,24 +29,19 @@ function mctsAction(game: Game): Action {
 }
 
 function randomAction(game: Game): Action {
-
   let validActions = game.getValidActions();
   return validActions[randRange(validActions.length)];
 }
 
 function autoPlay(game: Game, actors: Function[], print: boolean): Game {
-
-  if (print) 
-    game.printState();
+  if (print) game.printState();
 
   while (!game.getTermination()) {
-
     let actor = actors[game.getCurrentPlayer()];
     let bestAction = actor(game);
     game.playAction(bestAction);
 
-    if (print) 
-      game.printState();
+    if (print) game.printState();
   }
 
   return game;
@@ -58,29 +52,28 @@ function autoPlay(game: Game, actors: Function[], print: boolean): Game {
 let score = {
   wins: 0,
   defeats: 0,
-  draws: 0
-}
+  draws: 0,
+};
 
 let faults = {
   aCounter: 0,
   bCounter: 0,
 };
 
-let rounds = 15;
+let rounds = 1;
 
-for (let i=0; i<rounds; i++) {
+for (let i = 0; i < rounds; i++) {
 
-  console.log(`Progresso: ${100*i/rounds}%`);
-  let game = autoPlay(new Boop(), [mctsAction, randomAction], true);
+  console.log(`Progresso: ${(100 * i) / rounds}%`);
 
+  let game = autoPlay(new GobbletGobblers(), [mctsAction, randomAction], true);
   let winner = game.getWinner();
-
   winner == 0 ? score.wins++ : winner == 1 ? score.defeats++ : score.draws++;
 
-  if (game.getLastPlayer() == 0 && game.getWinner() == 1)
+  if (game.getLastPlayer() == 0 && game.getWinner() == 1) 
     faults.aCounter++;
 
-  if (game.getLastPlayer() == 1 && game.getWinner() == 0)
+  if (game.getLastPlayer() == 1 && game.getWinner() == 0) 
     faults.bCounter++;
 }
 
