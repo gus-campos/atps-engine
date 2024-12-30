@@ -54,6 +54,11 @@ PLAYERS_SYMBOLS.set(0, "X");
 PLAYERS_SYMBOLS.set(1, "O");
 PLAYERS_SYMBOLS.set(null, ".");
 
+let SYMBOLS_PLAYERS = new Map();
+SYMBOLS_PLAYERS.set("X", 0);
+SYMBOLS_PLAYERS.set("O", 1);
+SYMBOLS_PLAYERS.set(".", null);
+
 // TODO: Escrever testes usando um método "setState"
 
 // Game and MCTS
@@ -81,25 +86,83 @@ export class GobbletGobblers implements Game {
     return newGame;
   }
 
+  public setState(boardDraw: string[][][], stock: number[]=null, players: Player[]=null) {
+
+    if (stock != null && stock.length != 6)
+      throw new Error("stock has wrong dimensions");
+
+    if (players != null && players.length != 2)
+      throw new Error("players has wrong dimensions");
+
+    if (boardDraw.length != 3 || boardDraw.some(level => level.length != 3 || level.some(row => row.length != 3)))
+      throw new Error("boardDraw has wrong dimensions");
+
+    // Slots
+
+    let slots = this.state.board.slots;
+
+    for (let slot of this.iterSlots()) {
+      for (let size of this.iterSizes()) {
+
+        const i = Math.floor(slot / this.boardShape.y);
+        const j = slot % this.boardShape.y;
+
+        const player = SYMBOLS_PLAYERS.get(boardDraw[size][i][j]);
+        const piece: GgPiece|null = player != null ? { author: player, size: size } : null;
+
+        slots[slot][size] = piece;
+      }
+    }
+
+    // Stock
+
+    if (stock != null)
+      this.state.stock = [[stock[0],stock[1],stock[2]],[stock[3],stock[4],stock[5]]]
+    
+    // Players
+
+    if (players != null) {
+      this.state.lastPlayer = players[0];
+      this.state.currentPlayer = players[1];
+    }
+
+    this.evaluateState();
+  }
+
   public playAction(action: GgAction): void {
-    // Se do estoque, atualizar quantidade
+
+    let pieceToPlace;
+    const topPieceAt = this.getTopPieceAt(action.slot); 
+
+    // Colocação 
     if (action.movedFrom == null) {
+
+      pieceToPlace = action.piece;
+
+      if (pieceToPlace.author != this.state.currentPlayer)
+        throw new Error("Can only place it's own pieces");
+
+      if (!this.canGobble(pieceToPlace, topPieceAt))
+        throw new Error("Invalid piece placement");
+
       this.decrementStock(action.piece);
+    } 
+    
+    // Movimentação
+    else {
 
-      // Se mover, remover do tabuleiro
-    } else {
-      let pieceMoved = this.getTopPieceAt(action.movedFrom);
+      pieceToPlace = this.getTopPieceAt(action.movedFrom);
+      
+      if (pieceToPlace.author != this.state.currentPlayer)
+        throw new Error("Can only move it's own pieces");
 
-      if (
-        pieceMoved.author != action.piece.author ||
-        pieceMoved.size != action.piece.size
-      )
-        throw new Error("Not valid piece realocation");
+      if (!this.canGobble(action.piece, topPieceAt))
+        throw new Error("Invalid piece placement");
 
       this.setPiece(action.movedFrom, null);
     }
 
-    this.setPiece(action.slot, action.piece);
+    this.setPiece(action.slot, pieceToPlace);
     this.progressPlayers();
     this.evaluateState();
   }
@@ -109,6 +172,10 @@ export class GobbletGobblers implements Game {
   }
 
   public getValidActions(): GgAction[] {
+
+    if (this.state.terminated)
+      return [];
+
     let placeActions = this.getValidPlaceActions();
     let moveActions = this.getValidMoveActions();
 
@@ -183,6 +250,7 @@ export class GobbletGobblers implements Game {
   }
 
   private getValidPlaceActions(): GgAction[] {
+
     let actions = [];
     let topPieces = this.getTopPieces();
 
@@ -191,6 +259,7 @@ export class GobbletGobblers implements Game {
         for (let slot of this.iterSlots()) {
           // Se o tamanho da peça for maior que o tamanho da maior peça do slot
           if (topPieces[slot] == null || size > topPieces[slot].size) {
+            
             let action: GgAction = {
               slot: slot,
               movedFrom: null,
@@ -210,23 +279,24 @@ export class GobbletGobblers implements Game {
   }
 
   private getValidMoveActions(): GgAction[] {
+
     let actions = [];
     let topPieces = this.getTopPieces();
 
     // Para cada slot de origem
     for (let fromSlot of this.iterSlots()) {
       if (this.isMovablePiece(topPieces[fromSlot])) {
+
         let pieceToBeMoved = topPieces[fromSlot];
 
         for (let toSlot of this.iterSlots()) {
-          if (
-            toSlot != fromSlot &&
-            this.canGobble(pieceToBeMoved, topPieces[toSlot])
-          ) {
-            let action: GgAction = {
+          if (toSlot != fromSlot && this.canGobble(pieceToBeMoved, topPieces[toSlot])) {
+            
+
+            const action: GgAction = {
               slot: toSlot,
               movedFrom: fromSlot,
-              piece: pieceToBeMoved,
+              piece: null,
             };
 
             actions.push(action);
@@ -251,10 +321,11 @@ export class GobbletGobblers implements Game {
     return placedPiece == null || piece.size > placedPiece.size;
   }
 
-  private setPiece(slot: number, piece: GgPiece): void {
-    if (piece == null) piece = this.getTopPieceAt(slot);
+  private setPiece(slot: number, piece: GgPiece|null): void {
 
-    this.state.board.slots[slot][piece.size] = piece;
+    const size = piece != null ? piece.size : this.getTopPieceAt(slot).size;
+    
+    this.state.board.slots[slot][size] = piece;
   }
 
   private getTopPieceAt(slot: number): GgPiece {
@@ -282,37 +353,39 @@ export class GobbletGobblers implements Game {
     return this.state.stock[player][size] <= 0;
   }
 
-  private checkWinner(): null | Player {
+  private checkWinner(): Player[] {
     /* 
     Verifica se jogo foi ganho.
     Pode ser melhorado ao verificar apenas onde foi jogado
     */
 
     let boardTop = this.getTopPieces();
+    let winners = [];
 
     for (const row of rows)
       if (row.every((cell) => boardTop[cell] != null))
-        if (
-          row.every((cell) => boardTop[cell].author == boardTop[row[0]].author)
-        )
-          return boardTop[row[0]].author;
-
-    return null;
+        if (row.every((cell) => boardTop[cell].author == boardTop[row[0]].author))
+          winners.push(boardTop[row[0]].author)
+    
+    return [...new Set(winners)];
   }
 
   private evaluateState(): void {
-    let winner = this.checkWinner();
 
-    // Vitória
-    if (winner != null) {
-      this.state.terminated = true;
-      this.state.winner = winner;
-    }
+    let winners = this.checkWinner();
 
     // Empate
-    if (this.getValidActions().length == 0) {
+    if (winners.length == 1) {
       this.state.terminated = true;
+      this.state.winner = winners[0];
     }
+
+    // Vitória
+    if (winners.length == 2) {
+      this.state.terminated = true;
+      this.state.winner = null;
+    }
+
   }
 
   private progressPlayers() {
