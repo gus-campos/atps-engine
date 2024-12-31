@@ -1,13 +1,7 @@
 import { Game, Action, Player } from "./Game";
 import { Graph, NodeModel, Edge, toDot } from 'ts-graphviz'
+import { RANDOM } from "src/utils/Random";
 
-// ============ RANDON ==========================
-
-import { XORShift } from "random-seedable";
-let seed = Date.now(); //= 100;
-export const random = new XORShift(seed);
-
-// ==============================================
 
 export enum Outcome {
   WIN = 1,
@@ -66,7 +60,7 @@ export class Node {
     if (expandableActions.length == 0) 
       throw new Error("No expandable actions");
 
-    let actionTaken = random.choice(expandableActions);
+    let actionTaken = RANDOM.choice<Action>(expandableActions);
 
     // Removing from expandable
     let index = expandableActions.indexOf(actionTaken);

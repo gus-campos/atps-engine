@@ -2,7 +2,7 @@
 
 import { Action, Game } from "src/shared/Game";
 import { MCTS } from "src/agents/MCTS";
-import { RandomAgent } from "src/agents/Random";
+import { RandomAgent } from "src/agents/RandomAgent";
 
 import { TicTacToe } from "src/games/TicTacToe";
 import { GobbletGobblers } from "src/games/GobbletGobblers";

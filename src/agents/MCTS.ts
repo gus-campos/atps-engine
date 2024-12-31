@@ -1,5 +1,6 @@
-import { Node, GameTree, Outcome, random } from "../shared/GameTree";
+import { Node, GameTree, Outcome } from "../shared/GameTree";
 import { Game, Action, Player } from "../shared/Game"
+import { RANDOM } from "src/utils/Random";
 
 const MAX_PLAYOUT_DEPTH = Number.POSITIVE_INFINITY;
 
@@ -11,6 +12,8 @@ export class NodeMCTS extends Node {
 
   public override expand(): NodeMCTS {
   
+    console.log("ACESSANDO EXPAND DO MCTS");
+
     let actionTaken = this.getRandomExpAction();
 
     let newGame = this.game.clone();
@@ -28,7 +31,7 @@ export class NodeMCTS extends Node {
     let game = this.game.clone();
 
     while (!game.getTermination()) {
-      let action = random.choice(game.getValidActions());
+      let action = RANDOM.choice<Action>(game.getValidActions());
       game.playAction(action);
 
       // Limiting playout depth
@@ -69,8 +72,9 @@ export class MCTS extends GameTree<NodeMCTS> {
 
   public searches(timeCriteria: number): Action {
 
-    let startTime = Date.now();
-    while (Date.now() - startTime < timeCriteria) 
+    //let startTime = Date.now();
+    //while (Date.now() - startTime < timeCriteria) 
+    for (let i=0; i<200; i++)
       this.search();
 
     let visits = this.root.getChildren().map((child) => child.getVisits());
@@ -92,6 +96,8 @@ export class MCTS extends GameTree<NodeMCTS> {
       node = node.expand();
       outcome = node.simulate(this.maximizingPlayer);
     }
+
+    this.genGraph("graph.dot");
 
     node.backpropagate(outcome);
   }

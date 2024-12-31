@@ -1,8 +1,5 @@
 import { Action, Game } from "src/shared/Game";
-
-import { XORShift } from "random-seedable";
-let seed = Date.now(); // = 100;
-export const random = new XORShift(seed);
+import { RANDOM } from "src/utils/Random";
 
 export class RandomAgent {
 
@@ -22,11 +19,7 @@ export class RandomAgent {
   public nextAction(): Action {
 
     let validActions = this.game.getValidActions();
-    let randomIndex = this.randRange(validActions.length);
+    let randomIndex = RANDOM.range(validActions.length);
     return validActions[randomIndex];
-  }
-
-  private randRange(range: number) {
-    return Math.floor(random.float() * range);
   }
 }

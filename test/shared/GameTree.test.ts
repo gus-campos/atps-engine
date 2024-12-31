@@ -1,10 +1,7 @@
 import { describe, it, beforeEach, expect, assert } from "vitest";
 import { TicTacToe } from "src/games/TicTacToe";
 import { Node, Outcome } from "src/shared/GameTree";
-
-import { XORShift } from "random-seedable";
-let seed = 100;
-const random = new XORShift(seed);
+import { RANDOM } from "src/utils/Random";
 
 // =================== TicTacToe ===================
 
@@ -101,8 +98,8 @@ describe("Node with ttt", () => {
       children.push(parent.expand());
 
       for (let child of children) {
-        child.setVisits(1 + (random.int() % 200));
-        child.setValue(random.float());
+        child.setVisits(1 + (RANDOM.int() % 200));
+        child.setValue(RANDOM.float());
       }
 
       let ucbs = children.map((child) => child.ucb());
