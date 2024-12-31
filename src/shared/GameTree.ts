@@ -16,9 +16,9 @@ export enum Outcome {
 }
 
 export const outcomeValues = new Map();
-outcomeValues.set(Outcome.WIN, 1);
-outcomeValues.set(Outcome.DRAW, 0);
-outcomeValues.set(Outcome.LOSE, -1);
+outcomeValues.set(Outcome.WIN,  1.0);
+outcomeValues.set(Outcome.DRAW, 0.5);
+outcomeValues.set(Outcome.LOSE, 0.0);
 
 export const oppositeOutcome = new Map();
 oppositeOutcome.set(Outcome.WIN, Outcome.LOSE);
@@ -97,8 +97,9 @@ export class Node {
   }
 
   public ucb(): number {
-    let explore = Math.sqrt(Math.log(this.parent.getVisits()) / this.visits);
-    let exploit = this.value / this.visits;
+    const visits = this.visits + Number.EPSILON;
+    let explore = Math.sqrt(Math.log(this.parent.getVisits()) / visits);
+    let exploit = this.value / visits;
     return exploit + EXPLORE_FACTOR * explore;
   }
 

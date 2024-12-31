@@ -1,7 +1,7 @@
 import { Node, GameTree, Outcome, random } from "../shared/GameTree";
 import { Game, Action, Player } from "../shared/Game"
-import { override } from "prompts";
 
+const MAX_PLAYOUT_DEPTH = Number.POSITIVE_INFINITY;
 
 export class NodeMCTS extends Node {
 
@@ -9,8 +9,7 @@ export class NodeMCTS extends Node {
     super(parent, game, actionTaken);
   }
 
-  @override
-  public expand(): NodeMCTS {
+  public override expand(): NodeMCTS {
   
     let actionTaken = this.getRandomExpAction();
 
@@ -25,11 +24,17 @@ export class NodeMCTS extends Node {
 
   public simulate(maximizingPlayer: Player): Outcome {
 
+    let playoutDepth = 0;
     let game = this.game.clone();
 
     while (!game.getTermination()) {
       let action = random.choice(game.getValidActions());
       game.playAction(action);
+
+      // Limiting playout depth
+      playoutDepth++;
+      if (playoutDepth >= MAX_PLAYOUT_DEPTH)
+        return Outcome.DRAW;
     }
 
     return this.getGameOutcome(game, maximizingPlayer);
