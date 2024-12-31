@@ -2,6 +2,7 @@ import { describe, it, beforeEach, expect, assert } from "vitest";
 import { TicTacToe } from "src/games/TicTacToe";
 import { Node, Outcome } from "src/shared/GameTree";
 import { RANDOM } from "src/utils/Random";
+import { OUTCOME_VALUE } from "src/shared/GameTree";
 
 // =================== TicTacToe ===================
 
@@ -154,9 +155,9 @@ describe("Node with ttt", () => {
         const lastPlayer = child.getGame().getLastPlayer();
 
         if (lastPlayer == maximizingPlayer)
-          expect(child.getValue()).toBe(0);
+          expect(child.getValue()).toBe(OUTCOME_VALUE.get(Outcome.LOSE));
         else 
-          expect(child.getValue()).toBe(1); 
+          expect(child.getValue()).toBe(OUTCOME_VALUE.get(Outcome.WIN)); 
         
       }
     });

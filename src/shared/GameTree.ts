@@ -11,8 +11,8 @@ export enum Outcome {
 
 export const OUTCOME_VALUE = new Map<Outcome, number>([
   [Outcome.WIN, 1.0],
-  [Outcome.DRAW, 0.5],
-  [Outcome.LOSE, 0.0]
+  [Outcome.DRAW, 0.0],
+  [Outcome.LOSE, -10.0]
 ]);
 
 export const OPPOSITE_OUTCOME = new Map<Outcome, Outcome>([
@@ -93,9 +93,12 @@ export class Node {
   }
 
   public ucb(): number {
-    const visits = this.visits + Number.EPSILON;
-    let explore = Math.sqrt(Math.log(this.parent.getVisits()) / visits);
-    let exploit = this.value / visits;
+
+    let explore = Math.sqrt(Math.log(this.parent.getVisits()) / this.visits);
+
+    let exploit = this.value / this.visits;
+    exploit = Node.normalizeExploit(exploit);
+
     return exploit + EXPLORE_FACTOR * explore;
   }
 
@@ -184,6 +187,19 @@ export class Node {
     G.addEdge(new Edge([parent, childNode]));
 
     return childNode;
+  }
+
+  private static normalizeExploit(exploit: number): number {
+
+    /*
+    Normaliza o valor do exploit, para que independente dos
+    valores atribuídos à vitória e à derrota, ele varia entre 0 e 1
+    */
+
+    const delta = 0 - OUTCOME_VALUE.get(Outcome.LOSE);
+    const range = OUTCOME_VALUE.get(Outcome.WIN) - OUTCOME_VALUE.get(Outcome.LOSE);
+
+    return (exploit + delta) / range; 
   }
 
   //===========

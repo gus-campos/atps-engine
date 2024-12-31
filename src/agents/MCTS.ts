@@ -12,8 +12,6 @@ export class NodeMCTS extends Node {
 
   public override expand(): NodeMCTS {
   
-    console.log("ACESSANDO EXPAND DO MCTS");
-
     let actionTaken = this.getRandomExpAction();
 
     let newGame = this.game.clone();
@@ -77,12 +75,16 @@ export class MCTS extends GameTree<NodeMCTS> {
     for (let i=0; i<200; i++)
       this.search();
 
+    // Obs: É denecessário dividir pela quantidade total, já que o 
+    // objetivo é escolher o mais visitado
     let visits = this.root.getChildren().map((child) => child.getVisits());
     let childIndex = visits.indexOf(Math.max(...visits));
     return this.root.getChildren()[childIndex].getActionTaken();
   }
 
-  private search() {
+  private search(): void {
+
+    this.genGraph("graph.dot");
 
     let node = this.select();
     let outcome: Outcome;
@@ -96,8 +98,6 @@ export class MCTS extends GameTree<NodeMCTS> {
       node = node.expand();
       outcome = node.simulate(this.maximizingPlayer);
     }
-
-    this.genGraph("graph.dot");
 
     node.backpropagate(outcome);
   }
