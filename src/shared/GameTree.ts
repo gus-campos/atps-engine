@@ -55,6 +55,11 @@ export class Node {
 
   public getRandomExpAction(): Action {
 
+    /*
+    Get a random expandable actions, removes it from the
+    array, and returns it
+    */
+
     let expandableActions = this.getExpandableActions();
 
     if (expandableActions.length == 0) 
@@ -62,7 +67,6 @@ export class Node {
 
     let actionTaken = RANDOM.choice<Action>(expandableActions);
 
-    // Removing from expandable
     let index = expandableActions.indexOf(actionTaken);
     expandableActions.splice(index, 1);
 
@@ -70,6 +74,10 @@ export class Node {
   }
 
   public expand(): Node {
+
+    /*
+    Cria um novo nó a partir de uma ação aleatória
+    */
   
     let actionTaken = this.getRandomExpAction();
 
@@ -82,14 +90,12 @@ export class Node {
     return child;
   }
 
-  public isFullyExpanded(): boolean {
-    /*
-    Não tem ações expansíveis, e tem algum filho
-    O critério de ter filho faz com que nós terminais sejam considerados
-    não expandíveis
-    */
+  public isExpandableOrTerminal(): boolean {
 
-    return this.expandableActions.length == 0 && this.children.length > 0;
+    // Obs: Apenas nós terminais possuem 0 filhos ao mesmo tempo que
+    // não possuem ações expansíveis
+
+    return this.expandableActions.length != 0 || this.children.length == 0;
   }
 
   public ucb(): number {
@@ -103,6 +109,10 @@ export class Node {
   }
 
   public bestChild() {
+
+    /*
+    Returns their child that has the greater ucb
+    */
 
     if (this.children.length == 0) 
       throw new Error("It has no children");
@@ -142,6 +152,11 @@ export class Node {
   }
 
   public getGameOutcome(game: Game, maximizingPlayer: Player) {
+
+    /*
+    Retorna o outcome do jogo, de acordo com o maximizing player
+    de referência
+    */
     
     if (!game.getTermination())
       throw new Error("A not ended game has no valid outcome");
@@ -156,6 +171,11 @@ export class Node {
 
   public genGraphNodes(G: Graph, parent: NodeModel) {
 
+    /*
+    Gera recursivamente nós de grafo do graphviz, a partir
+    de cada nó da árvore
+    */
+
     // Adicionar seus children
     for (let child of this.children) {
       
@@ -166,7 +186,7 @@ export class Node {
 
   public nodeToString(): string {
 
-    /* Generates a label that represents the node*/
+    /* Generates a label that represents the node */
 
     const state = this.getGame().stateToString();
     return `Visits: ${(this.visits)}\nValue: ${this.value}\n${state}`;
@@ -259,6 +279,10 @@ export class GameTree<TNode extends Node> {
 
   public genGraph(dirOut: string) {
 
+    /*
+    Gera o grafo que representa esta árvore
+    */
+
     let G = new Graph("G");
     G.node({'fontname': 'Courier'});
 
@@ -290,11 +314,11 @@ export class GameTree<TNode extends Node> {
 
   protected select(): TNode {
 
-    /* Selects first leaf node in a chain of best childs */
+    /* Selects first viable not fully expanded node */
 
     let node = this.root;
 
-    while (node.isFullyExpanded()) 
+    while (!node.isExpandableOrTerminal()) 
       node = node.bestChild() as TNode;
 
     return node;

@@ -61,7 +61,9 @@ export class TicTacToe implements Game {
   }
 
   public getValidActions(): TicTacToeAction[] {
-    if (this.state.terminated) return [];
+    
+    if (this.state.terminated) 
+      return [];
 
     let actions = [];
 

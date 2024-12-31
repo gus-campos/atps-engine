@@ -70,18 +70,18 @@ describe("Node with ttt", () => {
 
   describe("isFullyExpanded", () => {
     it("should return false for root node", () => {
-      expect(root.isFullyExpanded()).toBeFalsy();
+      expect(root.isExpandableOrTerminal()).toBeTruthy();
     });
 
     it("should return false only for fully expanded nodes", () => {
       let node = root;
 
       while (node.getExpandableActions().length > 0) {
-        expect(node.isFullyExpanded()).toBeFalsy();
+        expect(node.isExpandableOrTerminal()).toBeTruthy();
         node.expand();
       }
 
-      expect(node.isFullyExpanded()).toBeTruthy();
+      expect(node.isExpandableOrTerminal()).toBeFalsy();
     });
   });
 
