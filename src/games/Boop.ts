@@ -209,6 +209,10 @@ export class Boop implements Game {
     console.log(stateString);
   }
 
+  public getChannels(): void {
+      
+  }
+
   // Private
 
   private getInitialState(): BoopState {

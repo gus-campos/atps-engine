@@ -1,4 +1,4 @@
-import { Game, Player, Piece, Board, State, Action } from "../shared/Game";
+import { Game, Player, Action } from "../shared/Game";
 
 // TODO: Usar??
 enum Size {
@@ -12,16 +12,16 @@ type Coord = {
   y: number;
 };
 
-interface GgPiece extends Piece {
+interface GgPiece {
   author: Player;
   size: Size;
 }
 
-interface GgBoard extends Board {
+interface GgBoard {
   slots: (GgPiece | null)[][]; // Número da posição no 3D
 }
 
-interface GgState extends State {
+interface GgState {
   board: GgBoard;
   stock: number[][];
 
@@ -182,24 +182,6 @@ export class GobbletGobblers implements Game {
     return placeActions.concat(moveActions);
   }
 
-  // Getters
-
-  public getTermination(): boolean {
-    return this.state.terminated;
-  }
-
-  public getCurrentPlayer(): Player {
-    return this.state.currentPlayer;
-  }
-
-  public getLastPlayer(): Player {
-    return this.state.lastPlayer;
-  }
-
-  public getWinner(): number {
-    return this.state.winner;
-  }
-
   public stateToString(): string {
     /*
     Retorna uma string que representa o estado do jogo
@@ -227,6 +209,28 @@ export class GobbletGobblers implements Game {
 
   public printState(): void {
     console.log(this.stateToString());
+  }
+
+  public getChannels(): void {
+      
+  }
+
+  // Getters
+
+  public getTermination(): boolean {
+    return this.state.terminated;
+  }
+
+  public getCurrentPlayer(): Player {
+    return this.state.currentPlayer;
+  }
+
+  public getLastPlayer(): Player {
+    return this.state.lastPlayer;
+  }
+
+  public getWinner(): number {
+    return this.state.winner;
   }
 
   // Private

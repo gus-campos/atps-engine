@@ -123,6 +123,10 @@ export class TicTacToe implements Game {
     console.log(this.stateToString());
   }
 
+  public getChannels(): void {
+      
+  }
+
   // Getters
 
   public getTermination(): boolean {

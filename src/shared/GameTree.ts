@@ -15,15 +15,17 @@ export enum Outcome {
   LOSE = -1
 }
 
-export const outcomeValues = new Map();
-outcomeValues.set(Outcome.WIN,  1.0);
-outcomeValues.set(Outcome.DRAW, 0.5);
-outcomeValues.set(Outcome.LOSE, 0.0);
+export const OUTCOME_VALUE = new Map<Outcome, number>([
+  [Outcome.WIN, 1.0],
+  [Outcome.DRAW, 0.5],
+  [Outcome.LOSE, 0.0]
+]);
 
-export const oppositeOutcome = new Map();
-oppositeOutcome.set(Outcome.WIN, Outcome.LOSE);
-oppositeOutcome.set(Outcome.DRAW, Outcome.DRAW);
-oppositeOutcome.set(Outcome.LOSE, Outcome.WIN);
+export const OPPOSITE_OUTCOME = new Map<Outcome, Outcome>([
+  [Outcome.WIN, Outcome.LOSE],
+  [Outcome.DRAW, Outcome.DRAW],
+  [Outcome.LOSE, Outcome.WIN]
+]);
 
 const EXPLORE_FACTOR = 1.41;
 
@@ -130,14 +132,15 @@ export class Node {
     */
 
     this.visits++;
-    this.value += outcomeValues.get(outcome);
+    this.value += OUTCOME_VALUE.get(outcome);
 
     if (this.parent != null) {
 
-      if (this.parent.getLastPlayer() != this.getLastPlayer())
-        outcome = oppositeOutcome.get(outcome);
+      const parentPlayer = this.parent.getGame().getCurrentPlayer();
+      const currentPlayer = this.getGame().getCurrentPlayer();
 
-      this.parent.backpropagate(outcomeValues.get(outcome));
+      outcome = currentPlayer == parentPlayer ? outcome : OPPOSITE_OUTCOME.get(outcome);
+      this.parent.backpropagate(outcome);
     }
   }
 
@@ -199,11 +202,6 @@ export class Node {
 
   public getGame(): Game {
     return this.game;
-  }
-
-  public getLastPlayer(): Player {
-
-    return this.game.getLastPlayer();
   }
 
   public getParent(): Node {

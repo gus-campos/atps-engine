@@ -1,6 +1,6 @@
 import { describe, it, beforeEach, expect, assert } from "vitest";
 import { TicTacToe } from "src/games/TicTacToe";
-import { Node, Outcome, outcomeValues } from "src/shared/GameTree";
+import { Node, Outcome } from "src/shared/GameTree";
 
 import { XORShift } from "random-seedable";
 let seed = 100;
@@ -141,19 +141,26 @@ describe("Node with ttt", () => {
     });
 
     it("should increment parents value", () => {
-      for (let child of linearChildren) expect(child.getValue()).toBe(0);
-
+      
+      for (let child of linearChildren) 
+        expect(child.getValue()).toBe(0);
+      
       // Propagar a partir da última
       let lastChild = linearChildren[linearChildren.length - 1];
       lastChild.backpropagate(Outcome.LOSE);
 
-      let referencePlayer = lastChild.getGame().getLastPlayer();
+      let maximizingPlayer = lastChild.getGame().getLastPlayer();
 
       // Esperar que alternem a referência do valor, já que o ttt sempre alterna players
       for (let child of linearChildren) {
-        if (child.getGame().getLastPlayer() == referencePlayer)
-          expect(child.getValue()).toBe(outcomeValues.get(Outcome.LOSE));
-        else expect(child.getValue()).toBe(outcomeValues.get(Outcome.WIN));
+
+        const lastPlayer = child.getGame().getLastPlayer();
+
+        if (lastPlayer == maximizingPlayer)
+          expect(child.getValue()).toBe(0);
+        else 
+          expect(child.getValue()).toBe(1); 
+        
       }
     });
   });
