@@ -22,6 +22,11 @@ interface OwnGoals {
   favorable: number
 }
 
+interface Results {
+  score: Score,
+  ownGoals: OwnGoals
+}
+
 export enum GameName {
   TIC_TAC_TOE,
   GOBLET_GOBBLERS,
@@ -42,9 +47,7 @@ export class AutoPlay {
   private game: Game;
   private agents: Agent[]
   private print: boolean;
-
-  private score: Score;
-  private ownGoals: OwnGoals;
+  private results: Results;
 
   constructor(gameName: GameName, agents: Agent[], print: boolean) {
     
@@ -52,7 +55,7 @@ export class AutoPlay {
     this.agents = agents;
     this.print = print;
 
-    this.resetInfo();
+    this.resetResults();
     this.resetGame();
   }
 
@@ -61,6 +64,11 @@ export class AutoPlay {
   // ============
 
   public play(): void {
+
+    /* 
+    Plays the game until termination, choosing the action based
+    on the corresponding players agent, and updates the results
+    */
   
     while (!this.game.getTermination()) {
 
@@ -71,10 +79,14 @@ export class AutoPlay {
         this.game.printState();
     }
 
-    this.updateInfo();
+    this.updateResults();
   }
 
   public playMultiple(rounds: number): void {
+
+    /*
+    Plays multiple games, until termination, updating the results
+    */
 
     for (let i=0; i<rounds; i++) {
   
@@ -84,23 +96,30 @@ export class AutoPlay {
     }
   }
 
-  public printInfo(): void {
+  public printResults(): void {
 
-    console.log(this.score);
-    console.log(this.ownGoals);
+    console.log(this.results);
   }
 
-  public resetInfo(): void {
+  public resetResults(): void {
 
-    this.score = {
-      victories: 0,
-      defeats: 0,
-      draws: 0,
-    }
+    /*
+    (Re) initializes the results property, with all
+    values set to 0.
+    */
 
-    this.ownGoals = {
-      favorable: 0,
-      unfavorable: 0
+    this.results = {
+      
+      score: {
+        victories: 0,
+        defeats: 0,
+        draws: 0,
+      },
+
+      ownGoals: {
+        favorable: 0,
+        unfavorable: 0
+      }
     }
   }
 
@@ -109,6 +128,10 @@ export class AutoPlay {
   // ============
 
   private agentAction(): Action {
+
+    /*
+    Chooses next action based on the players agent
+    */
 
     const currentPlayer = this.game.getCurrentPlayer();
     const agent = this.agents[currentPlayer];
@@ -127,6 +150,11 @@ export class AutoPlay {
   }
   
   private resetGame(): void {
+
+    /*
+    Calls the corresponding generator to generate a new
+    game, with initial state.
+    */
 
     switch (this.gameName) {
 
@@ -159,32 +187,55 @@ export class AutoPlay {
     return action
   }
 
-  private updateInfo() {
+  private updateResults() {
+
+    /*
+    Updates score and own goals, player 0 is always maximizing 
+    player. So "victory" means player 0 won, and a favorable
+    own goal means a own goal favorable to player 0.
+    */
+
+    this.updateScore();
+    this.updateOwnGoals();    
+  }
+
+  private updateScore(): void {
+
+    /*
+    Updates score, player 0 is always maximizing 
+    player. So "victory" means player 0 won.
+    */
 
     const winner = this.game.getWinner();
 
-    // Score
-
     if (winner == 0)
-      this.score.victories++;
+      this.results.score.victories++;
 
     else if (winner == 1)
-      this.score.defeats++;
+      this.results.score.defeats++;
     
     else
-      this.score.draws++;
-    
-    // Own Goal
+      this.results.score.draws++;
+  }
 
+  private updateOwnGoals() {
+
+    /*
+    Updates score and own goals, player 0 is always maximizing 
+    player. So favorable own goal means a own goal favorable
+    to player 0.
+    */
+   
+    const winner = this.game.getWinner();
     const lastPlayer = this.game.getLastPlayer();
 
     if (winner != null && winner != lastPlayer) {
 
       if (winner == 0)
-        this.ownGoals.favorable++;
+        this.results.ownGoals.favorable++;
       
       else
-        this.ownGoals.unfavorable++;
+        this.results.ownGoals.unfavorable++;
     }
   }
 }
