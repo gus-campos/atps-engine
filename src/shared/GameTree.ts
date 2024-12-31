@@ -25,6 +25,8 @@ oppositeOutcome.set(Outcome.WIN, Outcome.LOSE);
 oppositeOutcome.set(Outcome.DRAW, Outcome.DRAW);
 oppositeOutcome.set(Outcome.LOSE, Outcome.WIN);
 
+const EXPLORE_FACTOR = 1.41;
+
 let GRAPH_ID = 0;
 
 // =================================================
@@ -97,7 +99,7 @@ export class Node {
   public ucb(): number {
     let explore = Math.sqrt(Math.log(this.parent.getVisits()) / this.visits);
     let exploit = this.value / this.visits;
-    return exploit + 1.41 * explore;
+    return exploit + EXPLORE_FACTOR * explore;
   }
 
   public bestChild() {

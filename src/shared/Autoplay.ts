@@ -24,7 +24,9 @@ interface OwnGoals {
 
 interface Results {
   score: Score,
-  ownGoals: OwnGoals
+  ownGoals: OwnGoals,
+  meanTurns: number,
+  meanTime: number
 }
 
 export enum GameName {
@@ -48,12 +50,16 @@ export class AutoPlay {
   private agents: Agent[]
   private print: boolean;
   private results: Results;
+  private turnsSum: number;
+  private initialTime: number;
 
   constructor(gameName: GameName, agents: Agent[], print: boolean) {
     
     this.gameName = gameName;
     this.agents = agents;
     this.print = print;
+    this.turnsSum = 0;
+    this.initialTime = Date.now();
 
     this.resetResults();
     this.resetGame();
@@ -63,37 +69,24 @@ export class AutoPlay {
   // Public
   // ============
 
-  public play(): void {
-
-    /* 
-    Plays the game until termination, choosing the action based
-    on the corresponding players agent, and updates the results
-    */
-  
-    while (!this.game.getTermination()) {
-
-      let action = this.agentAction();
-      this.game.playAction(action);
-  
-      if (this.print) 
-        this.game.printState();
-    }
-
-    this.updateResults();
-  }
-
-  public playMultiple(rounds: number): void {
+  public playMultiple(rounds: number): Results {
 
     /*
     Plays multiple games, until termination, updating the results
     */
 
+    this.resetResults();
+
     for (let i=0; i<rounds; i++) {
   
       console.log(`Progresso: ${(100 * i) / rounds}%`);
       this.play();
-      this.resetGame();
     }
+
+    this.calcMeanTurns(rounds);
+    this.calcMeanTime(rounds);
+
+    return this.results;
   }
 
   public printResults(): void {
@@ -119,13 +112,39 @@ export class AutoPlay {
       ownGoals: {
         favorable: 0,
         unfavorable: 0
-      }
+      },
+
+      meanTurns: 0,
+      meanTime: 0
     }
   }
 
   // ============
   // Private
   // ============
+
+  private play(): void {
+
+    /* 
+    Plays the game until termination, choosing the action based
+    on the corresponding players agent, and updates the results
+    */
+
+    this.resetGame();
+  
+    while (!this.game.getTermination()) {
+
+      let action = this.agentAction();
+      this.game.playAction(action);
+  
+      if (this.print) 
+        this.game.printState();
+
+      this.turnsSum++;
+    }
+
+    this.updateResults();
+  }
 
   private agentAction(): Action {
 
@@ -196,7 +215,20 @@ export class AutoPlay {
     */
 
     this.updateScore();
-    this.updateOwnGoals();    
+    this.updateOwnGoals();
+  }
+
+  private calcMeanTurns(rounds: number) {
+
+    this.results.meanTurns = this.turnsSum / rounds;
+  }
+
+  private calcMeanTime(rounds: number) {
+
+    const deltaTime = Date.now() - this.initialTime;
+    const meanTime = (deltaTime / rounds) / 1000;
+
+    this.results.meanTime = Math.round(meanTime * 100) / 100;
   }
 
   private updateScore(): void {
