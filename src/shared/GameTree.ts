@@ -156,34 +156,34 @@ export class Node {
     // Adicionar seus children
     for (let child of this.children) {
       
-      let childNode = this.genGraphNode(G);
-      G.addEdge(new Edge([parent, childNode]));
-
-      // Chamar recursivamente
+      let childNode = child.genConnectedNode(G, parent);
       child.genGraphNodes(G, childNode);
     }
+  }
+
+  public nodeToString(): string {
+
+    /* Generates a label that represents the node*/
+
+    const state = this.getGame().stateToString();
+    return `Visits: ${(this.visits)}\nValue: ${this.value}\n${state}`;
   }
 
   //===========
   // Private
   //===========
-
-  public genGraphNode(G: Graph): NodeModel {
+  
+  private genConnectedNode(G: Graph, parent: NodeModel=null): NodeModel {
 
     /* Generates a node to be added in a graphviz graph */
 
     let label = this.nodeToString();
+    let childNode = G.node(String(GRAPH_ID++), { label: label });
 
-    return G.node(String(GRAPH_ID++), { label: label });
-  }
 
-  private nodeToString(): string {
+    G.addEdge(new Edge([parent, childNode]));
 
-    /* Generates a label that represents the node*/
-
-    const state = this.getGame().stateToString();
-
-    return `Visits: ${(this.visits)}\nValue: ${this.value}\n${state}`;
+    return childNode;
   }
 
   //===========
@@ -235,7 +235,6 @@ export class GameTree<TNode extends Node> {
 
   protected root: TNode;
   protected maximizingPlayer: Player;
-  protected nodeAmount: number;
 
   constructor(rootNode: TNode) {
     this.root = rootNode;
@@ -248,10 +247,9 @@ export class GameTree<TNode extends Node> {
     G.node({'fontname': 'Courier'});
 
     // Adicionar este
-    let rootNode = this.root.genGraphNode(G); 
-    G.addNode(rootNode);
-    
-    // Fazer primeira chamada
+    let rootNode = this.genRootGraphNode(G); 
+
+    // Fazer primeira chamada da recursão
     this.root.genGraphNodes(G, rootNode);
 
     // Escrever no arquivo
@@ -262,6 +260,17 @@ export class GameTree<TNode extends Node> {
   // =============
   // PRIVATE
   //==============
+
+  private genRootGraphNode(G: Graph): NodeModel {
+
+    /* Generates a node to be added in a graphviz graph */
+
+    let label = this.root.nodeToString();
+    let childNode = G.node(String(GRAPH_ID++), { label: label });
+    G.addNode(childNode);
+
+    return childNode;
+  }
 
   protected select(): TNode {
 
