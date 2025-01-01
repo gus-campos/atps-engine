@@ -1,16 +1,21 @@
 import { Game, Player, Coord } from "src/shared/Game";
 
-interface CFState {
+interface CfState {
 
-  board: (CFPiece|null)[][],
+  board: (CfPiece|null)[][],
   lastPlayer: Player,
   currentPlayer: Player
 }
 
-interface CFPiece {
+interface CfPiece {
   
+  author: Player
+}
+
+interface CfAction {
+
   author: Player,
-  slot: Coord
+  column: number
 }
 
 export const PLAYERS_SYMBOLS = new Map<Player|null, string>([
@@ -21,25 +26,40 @@ export const PLAYERS_SYMBOLS = new Map<Player|null, string>([
 
 export class ConnectFour implements Game {
 
-  private state: CFState;
+  private state: CfState;
   private boardShape: Coord;
 
   constructor() {
 
     this.boardShape = new Coord(7,6);
     this.state = this.getInitialState();
+  }
 
-    this.printState();
+  public playAction(action: CfAction): void {
 
+    if (action.column < 0 || action.column >= this.boardShape.x)
+      throw new Error("Invalid column");
+
+    let slot = this.lowestFreeSlot(action.column);
+
+    if (slot == null)
+      throw new Error("Column already filled");
+
+    if (action.author != this.state.currentPlayer)
+      throw new Error("A player can only play with its own pieces")
+
+    const piece = this.createPiece(action.author);
+    this.setPiece(slot, piece);
+
+    this.progressPlayers();
   }
 
   public printState(): void {
    
-    let state = this.stateToString();
-    console.log(state);
+    console.log(this.stateToString());
   }
 
-  private stateToString() {
+  public stateToString(): string {
 
     let board = "";
     
@@ -56,9 +76,18 @@ export class ConnectFour implements Game {
     return board;
   }
 
-  private getInitialState(): CFState {
+  private lowestFreeSlot(column: number): Coord {
 
-    let board: CFPiece[][] = Array.from(  
+    for (let slot of this.iterColumn(column))
+      if (this.getPiece(slot) == null)
+        return slot;
+
+    return null;
+  }
+
+  private getInitialState(): CfState {
+
+    let board: CfPiece[][] = Array.from(  
       Array(this.boardShape.x), 
       ()=>Array(this.boardShape.y).fill(null)
     );
@@ -66,20 +95,46 @@ export class ConnectFour implements Game {
     return {
 
       board: board,
-      lastPlayer: 0,
-      currentPlayer: 1
+      lastPlayer: 1,
+      currentPlayer: 0
     }
   }
 
-  private getPiece(coord: Coord) {
+  private progressPlayers(): void {
+    this.state.lastPlayer = this.state.lastPlayer;
+    this.state.currentPlayer = this.nextPlayer();
+  }
+
+  private nextPlayer(): Player {
+    return (this.state.currentPlayer + 1) % 2;
+  }
+
+  private getPiece(coord: Coord): CfPiece|null {
 
     return this.state.board[coord.x][coord.y];
   }
 
+  private setPiece(coord: Coord, piece: CfPiece|null): void {
+
+    this.state.board[coord.x][coord.y] = piece;
+  }
+
+  private createPiece(author: Player): CfPiece {
+
+    return { author: author };
+  }
+
   private *iterBoard() {
 
-    for (let y=0; y<this.boardShape.y; y++)
+    for (let y=this.boardShape.y; y>=0; y--)
       for (let x=0; x<this.boardShape.x; x++)
         yield new Coord(x, y);
+  }
+
+  private *iterColumn(column: number): Generator<Coord> {
+
+    /* Pressupões que coluna já está validada */
+    for (let row=0; row<this.boardShape.y; row++)
+      yield new Coord(column, row);
   }
 }
