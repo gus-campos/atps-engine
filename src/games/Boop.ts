@@ -1,5 +1,5 @@
 
-import { Game, Player, Action } from "../shared/Game"
+import { Game, Player, Action, Coord } from "../shared/Game"
 
 enum PieceType {
     KITTEN = 0,
@@ -37,25 +37,6 @@ CHARS_PLAYERS.set("B", 1);
 interface BoopAction extends Action {
   piece: BoopPiece|null,
   slot: Coord
-}
-
-export class Coord {
-
-  public x: number;
-  public y: number;
-
-  constructor(x: number, y: number) {
-    this.x = x;
-    this.y = y;
-  }
-
-  public sub(coord: Coord): Coord {
-    return new Coord(this.x - coord.x, this.y - coord.y);
-  }
-
-  public add(coord: Coord): Coord {
-    return new Coord(this.x + coord.x, this.y + coord.y);
-  }
 }
 
 const WINNING_ROWS_ARR = [
