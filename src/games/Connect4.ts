@@ -60,6 +60,12 @@ export class ConnectFour implements Game {
     this.setPiece(slot, piece);
 
     this.progressPlayers();
+    
+    if (this.gameWon()) {
+      this.state.terminated = true;
+      this.state.winner = this.state.lastPlayer;
+    }
+
   }
 
   public getValidActions(): Action[] {
@@ -97,6 +103,25 @@ export class ConnectFour implements Game {
     }
 
     return board;
+  }
+
+  private gameWon(): boolean {
+
+    for (let descending of [false, true]) {
+
+      for (let offset of this.iterSubBoardsOffsets(descending)) {
+  
+        const diagonal = [...this.iterDiagonal(offset, descending)];
+        
+        const pieces = diagonal.map(slot => this.getPiece(slot));
+        const win = pieces.every(piece => piece != null && piece.author == this.state.lastPlayer);
+      
+        if (win)
+          return true;
+      }
+    }
+    
+    return false;
   }
 
   private lowestFreeSlot(column: number): Coord {
@@ -170,6 +195,32 @@ export class ConnectFour implements Game {
 
     for (let column=0; column<this.boardShape.x; column++)
       yield column;
+  }
+
+  private *iterSubBoardsOffsets(descending: boolean=false) {
+
+    /*
+    Itera pelos offsets de sub tabuleiros 4x4
+    */
+
+    const subBoardShape = new Coord(4,4);
+    const maxIndex = this.boardShape.sub(subBoardShape);
+    const rowOffset = descending ? 3 : 0;
+
+    const validCollum = (column: number) => column <= maxIndex.x;
+    const validRow = (row: number) => row <= maxIndex.y;
+
+    for (let row of this.iterRows()) if (validRow(row))
+      for (let column of this.iterColumns()) if (validCollum(column))
+        yield new Coord(column, row + rowOffset);
+  }
+
+  private *iterDiagonal(offset: Coord, descending: boolean=false): Generator<Coord> {
+
+    const dirFactor = descending ? -1 : 1;
+
+    for (let i=0; i<4; i++)
+      yield offset.add(new Coord(i, dirFactor*i));
   }
 
   // ==============
