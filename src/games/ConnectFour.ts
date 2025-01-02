@@ -110,7 +110,11 @@ export class ConnectFour implements Game {
       }
     }
 
-    return board;
+    const lastPlayer = PLAYERS_SYMBOLS.get(this.state.lastPlayer);
+    const currentPlayer = PLAYERS_SYMBOLS.get(this.state.currentPlayer);
+    const turns = `O "${lastPlayer}" jogou, vez do "${currentPlayer}":`;
+
+    return board + "\n" + turns;
   }
 
   public setState(boardRep: string[][], players: Player[]) {

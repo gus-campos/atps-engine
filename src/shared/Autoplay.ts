@@ -81,7 +81,8 @@ export class AutoPlay {
 
     for (let i=0; i<rounds; i++) {
   
-      console.log(`Progresso: ${(100 * i) / rounds}%`);
+      const message = `Progresso: ${(100 * i) / rounds}%`
+      process.stdout.write(`\r` + message);
       this.play();
     }
 
@@ -93,6 +94,7 @@ export class AutoPlay {
 
   public printResults(): void {
 
+    console.log("");
     console.log(this.results);
   }
 
@@ -139,8 +141,10 @@ export class AutoPlay {
       let action = this.agentAction();
       this.game.playAction(action);
   
-      if (this.print) 
+      if (this.print) {
+        console.log("");
         this.game.printState();
+      }
 
       this.turnsSum++;
     }

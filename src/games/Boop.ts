@@ -171,17 +171,20 @@ export class Boop implements Game {
     // Stock to string
 
     let stock = "";
-    for (let player=0; player<2; player++)
-      for (let type=0; type<2; type++) 
+    for (let player=0; player<2; player++) {
+      for (let type=0; type<2; type++) {
         stock += `${this.getPieceRep({ author: player, type: type})}: ${this.getStock(player, type)} | `;
+      }
+      stock += "\n"
+    }
 
     // Turns to string
 
     const lastPlayer = this.getPieceRep({ author: this.state.lastPlayer, type: 1});
     const currentPlayer = this.getPieceRep({ author: this.state.currentPlayer, type: 1});
-    let turns = `${lastPlayer} jogou, vez do ${currentPlayer}:`;
+    let turns = `O "${lastPlayer}" jogou, vez do "${currentPlayer}":`;
 
-    return board + "\n" + stock + "\n" + turns + "\n";
+    return board + "\n" + stock + "\n\n" + turns;
   }
 
   public printState(): void {

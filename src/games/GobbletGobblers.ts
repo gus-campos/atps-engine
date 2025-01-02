@@ -50,13 +50,13 @@ const rows: number[][] = [
 ];
 
 let PLAYERS_SYMBOLS = new Map();
-PLAYERS_SYMBOLS.set(0, "X");
-PLAYERS_SYMBOLS.set(1, "O");
+PLAYERS_SYMBOLS.set(0, "A");
+PLAYERS_SYMBOLS.set(1, "B");
 PLAYERS_SYMBOLS.set(null, ".");
 
 let SYMBOLS_PLAYERS = new Map();
-SYMBOLS_PLAYERS.set("X", 0);
-SYMBOLS_PLAYERS.set("O", 1);
+SYMBOLS_PLAYERS.set("A", 0);
+SYMBOLS_PLAYERS.set("B", 1);
 SYMBOLS_PLAYERS.set(".", null);
 
 // TODO: Escrever testes usando um método "setState"
@@ -204,7 +204,24 @@ export class GobbletGobblers implements Game {
       state += "\n";
     }
 
-    return state + "\n";
+    let stock = "";
+    for (let player=0; player<2; player++) {
+
+      const playerSymbol =  PLAYERS_SYMBOLS.get(player);
+
+      for (let size=0; size<3; size++) {
+        stock += `${playerSymbol}${size} - ${this.state.stock[player][size]} | `;
+      }
+
+      stock += "\n";
+    }
+
+
+    const lastPlayer = PLAYERS_SYMBOLS.get(this.state.lastPlayer);
+    const currentPlayer = PLAYERS_SYMBOLS.get(this.state.currentPlayer);
+    const playersTurns = `O "${lastPlayer}" jogou, vez do "${currentPlayer}":`;
+
+    return state + "\n" + stock + "\n\n" + playersTurns;
   }
 
   public printState(): void {

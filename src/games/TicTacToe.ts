@@ -114,7 +114,7 @@ export class TicTacToe implements Game {
 
     const lastPlayer = this.playerSymbol(this.state.lastPlayer);
     const currentPlayer = this.playerSymbol(this.state.currentPlayer);
-    const playersTurns = `${lastPlayer} jogou, vez do ${currentPlayer}:`;
+    const playersTurns = `O "${lastPlayer}" jogou, vez do "${currentPlayer}":`;
 
     return board + "\n" + playersTurns + "\n";
   }
