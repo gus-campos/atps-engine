@@ -2,7 +2,351 @@ graph "G" {
   node [
     fontname = "Courier";
   ];
-  "2" [
-    label = "Visits: 0\nValue: 0\n. . .    X . O    . . .    X . O    \nO . .    . . .    . X .    O X .    \n. . .    . . .    . . .    . . .    \n\n";
+  "107594" [
+    label = "Visits: 322\nValue: -2901\n. . . \nO X . \nO . X \n\nO jogou, vez do X:\n";
   ];
+  "107595" [
+    label = "Visits: 106\nValue: 106\nX . . \nO X . \nO . X \n\nX jogou, vez do O:\n";
+  ];
+  "107596" [
+    label = "Visits: 65\nValue: -1\n. . . \nO X . \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107597" [
+    label = "Visits: 17\nValue: -148\n. . . \nO X O \nO X X \n\nO jogou, vez do X:\n";
+  ];
+  "107598" [
+    label = "Visits: 7\nValue: 7\n. X . \nO X O \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107599" [
+    label = "Visits: 7\nValue: 7\nX . . \nO X O \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107600" [
+    label = "Visits: 2\nValue: -20\n. . X \nO X O \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107601" [
+    label = "Visits: 1\nValue: 1\n. O X \nO X O \nO X X \n\nO jogou, vez do X:\n";
+  ];
+  "107602" [
+    label = "Visits: 15\nValue: -139\n. . O \nO X . \nO X X \n\nO jogou, vez do X:\n";
+  ];
+  "107603" [
+    label = "Visits: 6\nValue: 6\nX . O \nO X . \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107604" [
+    label = "Visits: 5\nValue: 5\n. X O \nO X . \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107605" [
+    label = "Visits: 3\nValue: -8\n. . O \nO X X \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107606" [
+    label = "Visits: 1\nValue: 1\n. O O \nO X X \nO X X \n\nO jogou, vez do X:\n";
+  ];
+  "107607" [
+    label = "Visits: 1\nValue: -10\nO . O \nO X X \nO X X \n\nO jogou, vez do X:\n";
+  ];
+  "107608" [
+    label = "Visits: 13\nValue: -130\nO . . \nO X . \nO X X \n\nO jogou, vez do X:\n";
+  ];
+  "107609" [
+    label = "Visits: 19\nValue: -157\n. O . \nO X . \nO X X \n\nO jogou, vez do X:\n";
+  ];
+  "107610" [
+    label = "Visits: 2\nValue: -20\n. O . \nO X X \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107611" [
+    label = "Visits: 1\nValue: 1\n. O O \nO X X \nO X X \n\nO jogou, vez do X:\n";
+  ];
+  "107612" [
+    label = "Visits: 7\nValue: -4\n. O X \nO X . \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107613" [
+    label = "Visits: 4\nValue: -29\n. O X \nO X O \nO X X \n\nO jogou, vez do X:\n";
+  ];
+  "107614" [
+    label = "Visits: 3\nValue: 3\nX O X \nO X O \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107615" [
+    label = "Visits: 2\nValue: -20\nO O X \nO X . \nO X X \n\nO jogou, vez do X:\n";
+  ];
+  "107616" [
+    label = "Visits: 9\nValue: 9\nX O . \nO X . \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107617" [
+    label = "Visits: 45\nValue: -43\n. X . \nO X . \nO . X \n\nX jogou, vez do O:\n";
+  ];
+  "107618" [
+    label = "Visits: 8\nValue: -80\nO X . \nO X . \nO . X \n\nO jogou, vez do X:\n";
+  ];
+  "107619" [
+    label = "Visits: 13\nValue: -97\n. X O \nO X . \nO . X \n\nO jogou, vez do X:\n";
+  ];
+  "107620" [
+    label = "Visits: 5\nValue: 5\n. X O \nO X . \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107621" [
+    label = "Visits: 2\nValue: -20\n. X O \nO X X \nO . X \n\nX jogou, vez do O:\n";
+  ];
+  "107622" [
+    label = "Visits: 1\nValue: 1\n. X O \nO X X \nO O X \n\nO jogou, vez do X:\n";
+  ];
+  "107623" [
+    label = "Visits: 5\nValue: 5\nX X O \nO X . \nO . X \n\nX jogou, vez do O:\n";
+  ];
+  "107624" [
+    label = "Visits: 12\nValue: -87\n. X . \nO X . \nO O X \n\nO jogou, vez do X:\n";
+  ];
+  "107625" [
+    label = "Visits: 3\nValue: -8\n. X . \nO X X \nO O X \n\nX jogou, vez do O:\n";
+  ];
+  "107626" [
+    label = "Visits: 1\nValue: -10\nO X . \nO X X \nO O X \n\nO jogou, vez do X:\n";
+  ];
+  "107627" [
+    label = "Visits: 1\nValue: 1\n. X O \nO X X \nO O X \n\nO jogou, vez do X:\n";
+  ];
+  "107628" [
+    label = "Visits: 5\nValue: 5\nX X . \nO X . \nO O X \n\nX jogou, vez do O:\n";
+  ];
+  "107629" [
+    label = "Visits: 3\nValue: -19\n. X X \nO X . \nO O X \n\nX jogou, vez do O:\n";
+  ];
+  "107630" [
+    label = "Visits: 1\nValue: -10\nO X X \nO X . \nO O X \n\nO jogou, vez do X:\n";
+  ];
+  "107631" [
+    label = "Visits: 1\nValue: 1\n. X X \nO X O \nO O X \n\nO jogou, vez do X:\n";
+  ];
+  "107632" [
+    label = "Visits: 11\nValue: -88\n. X . \nO X O \nO . X \n\nO jogou, vez do X:\n";
+  ];
+  "107633" [
+    label = "Visits: 4\nValue: 4\n. X . \nO X O \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107634" [
+    label = "Visits: 4\nValue: 4\nX X . \nO X O \nO . X \n\nX jogou, vez do O:\n";
+  ];
+  "107635" [
+    label = "Visits: 2\nValue: -9\n. X X \nO X O \nO . X \n\nX jogou, vez do O:\n";
+  ];
+  "107636" [
+    label = "Visits: 1\nValue: -10\nO X X \nO X O \nO . X \n\nO jogou, vez do X:\n";
+  ];
+  "107637" [
+    label = "Visits: 41\nValue: -58\n. . . \nO X X \nO . X \n\nX jogou, vez do O:\n";
+  ];
+  "107638" [
+    label = "Visits: 12\nValue: -87\n. . O \nO X X \nO . X \n\nO jogou, vez do X:\n";
+  ];
+  "107639" [
+    label = "Visits: 2\nValue: -20\n. . O \nO X X \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107640" [
+    label = "Visits: 1\nValue: 1\n. O O \nO X X \nO X X \n\nO jogou, vez do X:\n";
+  ];
+  "107641" [
+    label = "Visits: 6\nValue: 6\nX . O \nO X X \nO . X \n\nX jogou, vez do O:\n";
+  ];
+  "107642" [
+    label = "Visits: 3\nValue: -8\n. X O \nO X X \nO . X \n\nX jogou, vez do O:\n";
+  ];
+  "107643" [
+    label = "Visits: 1\nValue: -10\nO X O \nO X X \nO . X \n\nO jogou, vez do X:\n";
+  ];
+  "107644" [
+    label = "Visits: 1\nValue: 1\n. X O \nO X X \nO O X \n\nO jogou, vez do X:\n";
+  ];
+  "107645" [
+    label = "Visits: 7\nValue: -70\nO . . \nO X X \nO . X \n\nO jogou, vez do X:\n";
+  ];
+  "107646" [
+    label = "Visits: 11\nValue: -77\n. O . \nO X X \nO . X \n\nO jogou, vez do X:\n";
+  ];
+  "107647" [
+    label = "Visits: 4\nValue: 4\nX O . \nO X X \nO . X \n\nX jogou, vez do O:\n";
+  ];
+  "107648" [
+    label = "Visits: 4\nValue: 4\n. O X \nO X X \nO . X \n\nX jogou, vez do O:\n";
+  ];
+  "107649" [
+    label = "Visits: 2\nValue: -20\n. O . \nO X X \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107650" [
+    label = "Visits: 1\nValue: 1\n. O O \nO X X \nO X X \n\nO jogou, vez do X:\n";
+  ];
+  "107651" [
+    label = "Visits: 10\nValue: -78\n. . . \nO X X \nO O X \n\nO jogou, vez do X:\n";
+  ];
+  "107652" [
+    label = "Visits: 1\nValue: -10\n. X . \nO X X \nO O X \n\nX jogou, vez do O:\n";
+  ];
+  "107653" [
+    label = "Visits: 4\nValue: 4\nX . . \nO X X \nO O X \n\nX jogou, vez do O:\n";
+  ];
+  "107654" [
+    label = "Visits: 4\nValue: 4\n. . X \nO X X \nO O X \n\nX jogou, vez do O:\n";
+  ];
+  "107655" [
+    label = "Visits: 65\nValue: -1\n. . X \nO X . \nO . X \n\nX jogou, vez do O:\n";
+  ];
+  "107656" [
+    label = "Visits: 17\nValue: -148\n. . X \nO X . \nO O X \n\nO jogou, vez do X:\n";
+  ];
+  "107657" [
+    label = "Visits: 6\nValue: 6\n. . X \nO X X \nO O X \n\nX jogou, vez do O:\n";
+  ];
+  "107658" [
+    label = "Visits: 6\nValue: 6\nX . X \nO X . \nO O X \n\nX jogou, vez do O:\n";
+  ];
+  "107659" [
+    label = "Visits: 4\nValue: -7\n. X X \nO X . \nO O X \n\nX jogou, vez do O:\n";
+  ];
+  "107660" [
+    label = "Visits: 1\nValue: -10\nO X X \nO X . \nO O X \n\nO jogou, vez do X:\n";
+  ];
+  "107661" [
+    label = "Visits: 2\nValue: -9\n. X X \nO X O \nO O X \n\nO jogou, vez do X:\n";
+  ];
+  "107662" [
+    label = "Visits: 1\nValue: 1\nX X X \nO X O \nO O X \n\nX jogou, vez do O:\n";
+  ];
+  "107663" [
+    label = "Visits: 13\nValue: -130\nO . X \nO X . \nO . X \n\nO jogou, vez do X:\n";
+  ];
+  "107664" [
+    label = "Visits: 17\nValue: -148\n. . X \nO X O \nO . X \n\nO jogou, vez do X:\n";
+  ];
+  "107665" [
+    label = "Visits: 7\nValue: 7\nX . X \nO X O \nO . X \n\nX jogou, vez do O:\n";
+  ];
+  "107666" [
+    label = "Visits: 5\nValue: -6\n. . X \nO X O \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107667" [
+    label = "Visits: 1\nValue: -10\nO . X \nO X O \nO X X \n\nO jogou, vez do X:\n";
+  ];
+  "107668" [
+    label = "Visits: 3\nValue: -19\n. O X \nO X O \nO X X \n\nO jogou, vez do X:\n";
+  ];
+  "107669" [
+    label = "Visits: 2\nValue: 2\nX O X \nO X O \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107670" [
+    label = "Visits: 4\nValue: -7\n. X X \nO X O \nO . X \n\nX jogou, vez do O:\n";
+  ];
+  "107671" [
+    label = "Visits: 2\nValue: -9\n. X X \nO X O \nO O X \n\nO jogou, vez do X:\n";
+  ];
+  "107672" [
+    label = "Visits: 1\nValue: 1\nX X X \nO X O \nO O X \n\nX jogou, vez do O:\n";
+  ];
+  "107673" [
+    label = "Visits: 1\nValue: -10\nO X X \nO X O \nO . X \n\nO jogou, vez do X:\n";
+  ];
+  "107674" [
+    label = "Visits: 17\nValue: -148\n. O X \nO X . \nO . X \n\nO jogou, vez do X:\n";
+  ];
+  "107675" [
+    label = "Visits: 6\nValue: 6\nX O X \nO X . \nO . X \n\nX jogou, vez do O:\n";
+  ];
+  "107676" [
+    label = "Visits: 6\nValue: 6\n. O X \nO X X \nO . X \n\nX jogou, vez do O:\n";
+  ];
+  "107677" [
+    label = "Visits: 4\nValue: -7\n. O X \nO X . \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107678" [
+    label = "Visits: 1\nValue: -10\nO O X \nO X . \nO X X \n\nO jogou, vez do X:\n";
+  ];
+  "107679" [
+    label = "Visits: 2\nValue: -9\n. O X \nO X O \nO X X \n\nO jogou, vez do X:\n";
+  ];
+  "107680" [
+    label = "Visits: 1\nValue: 1\nX O X \nO X O \nO X X \n\nX jogou, vez do O:\n";
+  ];
+  "107594" -- "107595";
+  "107594" -- "107596";
+  "107596" -- "107597";
+  "107597" -- "107598";
+  "107597" -- "107599";
+  "107597" -- "107600";
+  "107600" -- "107601";
+  "107596" -- "107602";
+  "107602" -- "107603";
+  "107602" -- "107604";
+  "107602" -- "107605";
+  "107605" -- "107606";
+  "107605" -- "107607";
+  "107596" -- "107608";
+  "107596" -- "107609";
+  "107609" -- "107610";
+  "107610" -- "107611";
+  "107609" -- "107612";
+  "107612" -- "107613";
+  "107613" -- "107614";
+  "107612" -- "107615";
+  "107609" -- "107616";
+  "107594" -- "107617";
+  "107617" -- "107618";
+  "107617" -- "107619";
+  "107619" -- "107620";
+  "107619" -- "107621";
+  "107621" -- "107622";
+  "107619" -- "107623";
+  "107617" -- "107624";
+  "107624" -- "107625";
+  "107625" -- "107626";
+  "107625" -- "107627";
+  "107624" -- "107628";
+  "107624" -- "107629";
+  "107629" -- "107630";
+  "107629" -- "107631";
+  "107617" -- "107632";
+  "107632" -- "107633";
+  "107632" -- "107634";
+  "107632" -- "107635";
+  "107635" -- "107636";
+  "107594" -- "107637";
+  "107637" -- "107638";
+  "107638" -- "107639";
+  "107639" -- "107640";
+  "107638" -- "107641";
+  "107638" -- "107642";
+  "107642" -- "107643";
+  "107642" -- "107644";
+  "107637" -- "107645";
+  "107637" -- "107646";
+  "107646" -- "107647";
+  "107646" -- "107648";
+  "107646" -- "107649";
+  "107649" -- "107650";
+  "107637" -- "107651";
+  "107651" -- "107652";
+  "107651" -- "107653";
+  "107651" -- "107654";
+  "107594" -- "107655";
+  "107655" -- "107656";
+  "107656" -- "107657";
+  "107656" -- "107658";
+  "107656" -- "107659";
+  "107659" -- "107660";
+  "107659" -- "107661";
+  "107661" -- "107662";
+  "107655" -- "107663";
+  "107655" -- "107664";
+  "107664" -- "107665";
+  "107664" -- "107666";
+  "107666" -- "107667";
+  "107666" -- "107668";
+  "107668" -- "107669";
+  "107664" -- "107670";
+  "107670" -- "107671";
+  "107671" -- "107672";
+  "107670" -- "107673";
+  "107655" -- "107674";
+  "107674" -- "107675";
+  "107674" -- "107676";
+  "107674" -- "107677";
+  "107677" -- "107678";
+  "107677" -- "107679";
+  "107679" -- "107680";
 }

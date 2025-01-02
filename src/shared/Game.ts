@@ -47,6 +47,4 @@ export interface Game {
 
   stateToString(): string;
   printState(): void;
-
-  getChannels(): void;
 }

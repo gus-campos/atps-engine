@@ -26,6 +26,12 @@ export const PLAYERS_SYMBOLS = new Map<Player|null, string>([
   [null, "."],
 ]);
 
+export const SYMBOLS_PLAYERS = new Map<string, Player|null>([
+  ["X", 0],
+  ["O", 1],
+  [".", null]
+]);
+
 export class ConnectFour implements Game {
 
   private state: CfState;
@@ -37,7 +43,11 @@ export class ConnectFour implements Game {
     this.state = this.getInitialState();
   }
 
-  public clone(): Game {4
+  // ================
+  // Public
+  // ================
+
+  public clone(): Game {
     let newGame = new ConnectFour();
     newGame.state = structuredClone(this.state);
     return newGame;
@@ -60,16 +70,14 @@ export class ConnectFour implements Game {
     this.setPiece(slot, piece);
 
     this.progressPlayers();
-    
-    if (this.gameWon()) {
-      this.state.terminated = true;
-      this.state.winner = this.state.lastPlayer;
-    }
-
+    this.evaluateState();
   }
 
   public getValidActions(): Action[] {
       
+    if (this.state.terminated)
+      return [];
+
     let actions = [];
 
     for (let column of this.iterColumns())
@@ -105,14 +113,79 @@ export class ConnectFour implements Game {
     return board;
   }
 
+  public setState(boardRep: string[][], players: Player[]) {
+
+    /*
+    Seta o estado de acordo com o desenho passado do tabuleiro,
+    e dos player (anterior e atual). 
+    
+    cf.setState(
+
+      [
+        [".", ".", ".", ".", ".", ".", "."],
+        [".", ".", ".", ".", ".", ".", "."],
+        [".", ".", ".", ".", ".", ".", "."],
+        [".", "X", ".", ".", ".", ".", "."],
+        ["O", "O", ".", ".", ".", ".", "."],
+        ["X", "X", ".", "X", ".", ".", "."]
+      ],
+
+      [1,0]
+    );
+
+    */
+
+    const toRepCoord = (coord: Coord) => new Coord(coord.x, 5-coord.y); 
+
+    for (let row of this.iterRows()) {
+      for (let column of this.iterColumns()) {
+
+        const coord = new Coord(column, row);
+        const repCoord = toRepCoord(coord);
+
+        const playerSymbol = boardRep[repCoord.y][repCoord.x];
+        const player = SYMBOLS_PLAYERS.get(playerSymbol);
+        const piece = player == null ? null : this.createPiece(player);
+
+        this.setPiece(coord, piece);
+      }
+    }
+    
+    this.state.lastPlayer = players[0];
+    this.state.currentPlayer = players[1];
+    
+    this.evaluateState();
+  }
+
+  // ================
+  // Private
+  // ================
+
+  private evaluateState(): void {
+
+    if (this.gameWon()) {
+      this.state.terminated = true;
+      this.state.winner = this.state.lastPlayer;
+    }
+
+    else if (this.gameDrawn()) {
+      this.state.terminated = true;
+      this.state.winner = null;
+    }
+  }
+
   private gameWon(): boolean {
+
+    /*
+    Retorna se o jogo foi ganho, verifica isso varrendo
+    todas as possíveis diagonais do tabuleiro
+    */
 
     for (let descending of [false, true]) {
 
-      for (let offset of this.iterSubBoardsOffsets(descending)) {
+      for (let diagonalBegin of this.iterDiagonalsBegins(descending)) {
   
-        const diagonal = [...this.iterDiagonal(offset, descending)];
-        
+        const diagonal = [...this.iterDiagonal(diagonalBegin, descending)];
         const pieces = diagonal.map(slot => this.getPiece(slot));
         const win = pieces.every(piece => piece != null && piece.author == this.state.lastPlayer);
       
@@ -124,7 +197,16 @@ export class ConnectFour implements Game {
     return false;
   }
 
+  private gameDrawn() {
+    return this.getValidActions().length == 0;
+  }
+
   private lowestFreeSlot(column: number): Coord {
+
+    /*
+    Retorna a coordenada do primeiro slot livre de uma 
+    coluna, de baixo pra cima
+    */
 
     for (let slot of this.iterColumnSlots(column))
       if (this.getPiece(slot) == null)
@@ -134,6 +216,10 @@ export class ConnectFour implements Game {
   }
 
   private getInitialState(): CfState {
+
+    /*
+    Retorna o estado inicial do jogo
+    */
 
     let board: CfPiece[][] = Array.from(  
       Array(this.boardShape.x), 
@@ -151,7 +237,12 @@ export class ConnectFour implements Game {
   }
 
   private progressPlayers(): void {
-    this.state.lastPlayer = this.state.lastPlayer;
+
+    /*
+    Passa a vez, alternando os players atual e último
+    */
+
+    this.state.lastPlayer = this.state.currentPlayer;
     this.state.currentPlayer = this.nextPlayer();
   }
 
@@ -174,13 +265,27 @@ export class ConnectFour implements Game {
     return { author: author };
   }
 
+  // ================
+  // Itarators
+  // ================
+
   private *iterColumnSlots(column: number): Generator<Coord> {
+
+    /*
+    Itera pelas coordenadas dos slots de uma coluna do tabuleiro
+    Assume que a coluna é valida
+    */
 
     for (let row of this.iterRows())
       yield new Coord(column, row);
   }
 
   private *iterRows(reverse: boolean=false): Generator<number> {
+
+    /*
+    Itera pelos índices das linhas do tabuleiro, em
+    ordem direta ou inversa
+    */
 
     if (reverse)
       for (let row=this.boardShape.y-1; row>=0; row--)
@@ -193,14 +298,18 @@ export class ConnectFour implements Game {
 
   private *iterColumns(): Generator<number> {
 
+    /*
+    Itera pelos índices das colunas do tabuleiro
+    */
+
     for (let column=0; column<this.boardShape.x; column++)
       yield column;
   }
 
-  private *iterSubBoardsOffsets(descending: boolean=false) {
+  private *iterDiagonalsBegins(descending: boolean=false) {
 
     /*
-    Itera pelos offsets de sub tabuleiros 4x4
+    Itera pelos offsets das possíveis diagonais
     */
 
     const subBoardShape = new Coord(4,4);
@@ -216,6 +325,10 @@ export class ConnectFour implements Game {
   }
 
   private *iterDiagonal(offset: Coord, descending: boolean=false): Generator<Coord> {
+
+    /*
+    Itera pelos slots de uma diagonal partindo de um offset
+    */
 
     const dirFactor = descending ? -1 : 1;
 

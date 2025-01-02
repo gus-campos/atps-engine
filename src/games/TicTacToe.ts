@@ -1,7 +1,5 @@
 import { Game, Player, Action } from "../shared/Game";
 
-// TODO: Estudar significado dessas estruturas
-
 interface TicTacToePiece {
   author: Player;
 }
@@ -123,10 +121,6 @@ export class TicTacToe implements Game {
 
   public printState(): void {
     console.log(this.stateToString());
-  }
-
-  public getChannels(): void {
-      
   }
 
   // Getters

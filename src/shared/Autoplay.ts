@@ -7,6 +7,7 @@ import { RandomAgent } from "src/agents/RandomAgent";
 import { TicTacToe } from "src/games/TicTacToe";
 import { GobbletGobblers } from "src/games/GobbletGobblers";
 import { Boop } from "src/games/Boop";
+import { ConnectFour } from "src/games/ConnectFour";
 
 
 // =========================================================
@@ -32,7 +33,8 @@ interface Results {
 export enum GameName {
   TIC_TAC_TOE,
   GOBLET_GOBBLERS,
-  BOOP
+  BOOP,
+  CONNECT_FOUR
 }
 
 export enum Agent {
@@ -187,6 +189,10 @@ export class AutoPlay {
       
       case GameName.BOOP:
         this.game = new Boop();
+        break;
+
+      case GameName.CONNECT_FOUR:
+        this.game = new ConnectFour();
         break;
 
       default:
