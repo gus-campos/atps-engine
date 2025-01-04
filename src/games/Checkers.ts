@@ -1,4 +1,5 @@
 import { Game, Player, Coord } from "src/shared/Game";
+import { RANDOM } from "../utils/Random"
 
 export enum Direction {
   LEFT,
@@ -80,7 +81,8 @@ export class Checkers implements Game {
 
   public playAction(action: CheckersAction): void {
 
-    const captureActions = this.getValidActions(true);
+    let captureActions = this.getValidActions(true);
+    let hasCaptured = false;
 
     const piece = this.getPiece(action.fromSlot);
 
@@ -97,23 +99,29 @@ export class Checkers implements Game {
       if (capturedPiece != null) {
         this.setPiece(capturedSlot, null);
         this.decrementPieceCount(this.getOpponent());
+        hasCaptured = true;
       }
     }
-    
-    
+
     // Move
     this.setPiece(action.fromSlot, null);
     this.setPiece(action.toSlot, piece);
 
+
+
     // Soprar peça se necessário
     if (captureActions.length > 0 && !this.isCaptureAction(action, captureActions)) {
 
-      this.setPiece(action.toSlot, null);      
-      this.decrementPieceCount(this.state.currentPlayer);
+      this.losePiece(action, captureActions);
     }
-    
+
+    // Capturas múltiplas: Não passa a vez se pelo menos mais uma captura puder ser feita
+    let opponentsTurn = true;
+    if (hasCaptured && this.getValidActions(true).length > 0)
+      opponentsTurn = false;
+
     this.updatePromotions();
-    this.progressPlayers()
+    this.progressPlayers(opponentsTurn);
     this.evaluateState();
   }
 
@@ -144,6 +152,7 @@ export class Checkers implements Game {
   public printState(): void {
    
     console.log(this.stateToString());
+    console.log(this.state.piecesCount)
   }
 
   public stateToString(): string {
@@ -354,6 +363,18 @@ export class Checkers implements Game {
     return false;
   }
 
+  private losePiece(action: CheckersAction, captureActions: CheckersAction[]) {
+
+    // TODO: Permitir seleção da peça perdida?
+    let pieceToLoseSlot = RANDOM.choice(captureActions).fromSlot;
+
+    // Correção para caso a peça condenada tenha sido movida
+    pieceToLoseSlot = this.getPiece(pieceToLoseSlot) != null ? pieceToLoseSlot : action.toSlot;
+    
+    this.setPiece(pieceToLoseSlot, null);      
+    this.decrementPieceCount(this.state.currentPlayer);
+  }
+
   private capturedSlot(action: CheckersAction): Coord|null {
 
     const multiplicity = this.moveMultiplicity(action);
@@ -455,15 +476,15 @@ export class Checkers implements Game {
     return SYMBOLS_PIECES.get(symbol);
   }
 
-  private progressPlayers(): void {
+  private progressPlayers(opponentTurn: boolean=true): void {
 
     /*
     Passa a vez, alternando os players atual e último
     */
 
-    // TODO: Mudar ciclagem de players
     this.state.lastPlayer = this.state.currentPlayer;
-    this.state.currentPlayer = this.getOpponent();
+    if (opponentTurn)
+      this.state.currentPlayer = this.getOpponent();
   }
 
   private updatePromotions(): void {

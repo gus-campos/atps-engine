@@ -66,15 +66,8 @@ describe("Checkers", () => {
   
     it("should return all valid actions to a initial game", () => {
       
-      //expect(checkers.getValidActions()).toHaveLength(7);
+      expect(checkers.getValidActions()).toHaveLength(7);
     });
-
-    /* 
-    it("should return all valid actions to a game in course", () => {
-      
-      //expect(checkers.getValidActions()).toHaveLength(7);
-    });
-
 
     it("should return all valid actions to a won game", () => {
 
@@ -94,11 +87,11 @@ describe("Checkers", () => {
         [0,1]
       );
 
-      //expect(model.getValidActions()).toHaveLength(0);
+      expect(model.getValidActions()).toHaveLength(0);
 
     });
 
-    it("should return all valid actions to a won game", () => {
+    it("should return all valid actions to a game in course", () => {
 
       model.setState(
 
@@ -116,8 +109,29 @@ describe("Checkers", () => {
         [1,0]
       );
 
-      //expect(model.getValidActions()).toHaveLength(11);
-    }); */
+      expect(model.getValidActions()).toHaveLength(11);
+    });
+
+    it("should return all valid actions to a game in course involving kings", () => {
+
+      model.setState(
+
+        [
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", " ", "b", " ", " ", " ", " "],
+          ["b", " ", "A", " ", " ", " ", " ", " "],
+          [" ", "a", " ", "a", " ", "A", " ", " "],
+          [" ", " ", " ", " ", " ", " ", "a", " "],
+          [" ", "a", " ", " ", " ", "a", " ", "a"],
+          ["a", " ", "a", " ", "a", " ", "a", " "],
+        ],
+  
+        [1,0]
+      );
+
+      expect(model.getValidActions()).toHaveLength(16);
+    });
   });
 
   describe("playAction", () => {
@@ -198,21 +212,20 @@ describe("Checkers", () => {
         [
           [" ", "b", " ", "b", " ", "b", " ", "b"],
           ["b", " ", "b", " ", "b", " ", "b", " "],
-          [" ", "b", " ", "b", " ", " ", " ", "b"],
+          [" ", "b", " ", "b", " ", "a", " ", "b"],
           [" ", " ", " ", " ", " ", " ", " ", " "],
-          [" ", " ", " ", " ", " ", " ", " ", "a"],
-          ["a", " ", "b", " ", "a", " ", " ", " "],
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          ["a", " ", " ", " ", "a", " ", "a", " "],
           [" ", "a", " ", "a", " ", "a", " ", "a"],
           ["a", " ", "a", " ", "a", " ", "a", " "],
         ],
   
-        [1,0]
+        [0,1]
       );
 
       checkers.playAction({ fromSlot: new Coord(2,2), toSlot: new Coord(3,3) });
       checkers.playAction({ fromSlot: new Coord(5,5), toSlot: new Coord(4,4) });
-      checkers.playAction({ fromSlot: new Coord(6,2), toSlot: new Coord(7,3) });
-      checkers.playAction({ fromSlot: new Coord(4,4), toSlot: new Coord(2,2) });
+      checkers.playAction({ fromSlot: new Coord(3,3), toSlot: new Coord(5,5) });
 
       expect(checkers).toEqual(model);
     });
@@ -394,6 +407,86 @@ describe("Checkers", () => {
       expect(model.getTermination()).toBeTruthy();
       expect(model.getWinner()).toBe(0);
 
+    });
+
+    it("ignoring a piece capture causes player to lose the piece that should capture", () => {
+
+      checkers.setState(
+
+        [
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", "b", " ", " ", " ", " ", " ", " "],
+          [" ", " ", "a", " ", "a", " ", "a", " "],
+          [" ", "a", " ", "a", " ", "a", " ", "a"],
+          ["a", " ", "a", " ", "a", " ", "a", " "],
+        ],
+  
+        [1,0]
+      );
+
+      model.setState(
+
+        [
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", "b", " ", " ", " ", "a", " ", " "],
+          [" ", " ", " ", " ", " ", " ", "a", " "],
+          [" ", "a", " ", "a", " ", "a", " ", "a"],
+          ["a", " ", "a", " ", "a", " ", "a", " "],
+        ],
+  
+        [0,1]
+      );
+      
+      checkers.playAction({ fromSlot: new Coord(4,2), toSlot: new Coord(5,3) });
+      expect(checkers).toEqual(model);
+
+
+    });
+
+    it("should allow multiple captures", () => {
+
+      checkers.setState(
+
+        [
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", " ", "b", " ", "b", " ", " "],
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", "b", " ", " ", " ", " ", " ", " "],
+          ["a", " ", "a", " ", "a", " ", "a", " "],
+          [" ", "a", " ", "a", " ", "a", " ", "a"],
+          ["a", " ", "a", " ", "a", " ", "a", " "],
+        ],
+  
+        [1,0]
+      );
+
+      model.setState(
+
+        [
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", " ", " ", "a", " ", " ", " "],
+          [" ", " ", " ", " ", " ", "b", " ", " "],
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", "a", " ", "a", " ", "a", " "],
+          [" ", "a", " ", "a", " ", "a", " ", "a"],
+          ["a", " ", "a", " ", "a", " ", "a", " "],
+        ],
+  
+        [0,1]
+      );
+      
+      checkers.playAction({ fromSlot: new Coord(0,2), toSlot: new Coord(2,4) });
+      checkers.playAction({ fromSlot: new Coord(2,4), toSlot: new Coord(4,6) });
+      
+      expect(checkers).toEqual(model);
     });
   });
 });
