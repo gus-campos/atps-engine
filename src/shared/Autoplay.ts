@@ -141,6 +141,10 @@ export class AutoPlay {
     while (!this.game.getTermination()) {
 
       let action = this.agentAction();
+
+      if (action == null)
+        throw new Error("No available actions before game termination");
+
       this.game.playAction(action);
   
       if (this.print) {

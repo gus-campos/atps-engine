@@ -61,13 +61,20 @@ describe("Checkers", () => {
     });
   });
   
-  /* 
+
   describe("getValidActions", () => {
   
+    it("should return all valid actions to a initial game", () => {
+      
+      //expect(checkers.getValidActions()).toHaveLength(7);
+    });
+
+    /* 
     it("should return all valid actions to a game in course", () => {
       
       //expect(checkers.getValidActions()).toHaveLength(7);
     });
+
 
     it("should return all valid actions to a won game", () => {
 
@@ -110,11 +117,33 @@ describe("Checkers", () => {
       );
 
       //expect(model.getValidActions()).toHaveLength(11);
-    });
+    }); */
   });
-  */
 
   describe("playAction", () => {
+
+    it("should not allow to not move", () => {
+
+      model.setState(
+
+        [
+          [" ", "b", " ", "b", " ", "b", " ", "b"],
+          ["b", " ", "b", " ", "b", " ", "b", " "],
+          [" ", "b", " ", "b", " ", "b", " ", "b"],
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", " ", "a", " ", " ", " ", " "],
+          ["a", " ", " ", " ", "a", " ", "a", " "],
+          [" ", "a", " ", "a", " ", "a", " ", "a"],
+          ["a", " ", "a", " ", "a", " ", "a", " "],
+        ],
+  
+        [0,1]
+      );
+
+      const notMoving = () => checkers.playAction({ fromSlot: new Coord(2,2), toSlot: new Coord(2,2) });
+
+      expect(notMoving).toThrowError();
+    });
 
     it("should move a piece", () => {
 
@@ -139,6 +168,29 @@ describe("Checkers", () => {
       expect(checkers).toEqual(model);
     });
     
+    it("a man should not be allowed to capture a piece at distance", () => {
+
+      checkers.setState(
+
+        [
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          [" ", " ", " ", " ", "b", " ", " ", " "],
+          [" ", " ", " ", " ", " ", " ", " ", " "],
+          ["a", " ", "a", " ", "a", " ", "a", " "],
+          [" ", "a", " ", "a", " ", "a", " ", "a"],
+          ["a", " ", "a", " ", "a", " ", "a", " "],
+        ],
+  
+        [1,0]
+      );
+
+      const manCapturingAtDistance = () => checkers.playAction({ fromSlot: new Coord(2,2), toSlot: new Coord(5,5) });
+
+      expect(manCapturingAtDistance).toThrowError();
+    });
+
     it("should capture a piece", () => {
 
       model.setState(
