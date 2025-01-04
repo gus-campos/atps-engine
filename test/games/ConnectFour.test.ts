@@ -176,8 +176,6 @@ describe("TicTacToe", () => {
 
       cf.playAction({ author: 1, column: 1 });
 
-      cf.printState()
-
       model.setState(
 
         [

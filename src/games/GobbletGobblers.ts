@@ -94,7 +94,10 @@ export class GobbletGobblers implements Game {
     if (players != null && players.length != 2)
       throw new Error("players has wrong dimensions");
 
-    if (boardDraw.length != 3 || boardDraw.some(level => level.length != 3 || level.some(row => row.length != 3)))
+    if (boardDraw.length != 3 
+        || boardDraw.some(level => level.length != 3 
+        || level.some(row => row.length != 3))
+      )
       throw new Error("boardDraw has wrong dimensions");
 
     // Slots
@@ -131,6 +134,7 @@ export class GobbletGobblers implements Game {
 
   public playAction(action: GgAction): void {
 
+
     let pieceToPlace;
     const topPieceAt = this.getTopPieceAt(action.slot); 
 
@@ -153,6 +157,9 @@ export class GobbletGobblers implements Game {
 
       pieceToPlace = this.getTopPieceAt(action.movedFrom);
       
+      if (pieceToPlace == null)
+        throw new Error("No piece in this slot to move");
+
       if (pieceToPlace.author != this.state.currentPlayer)
         throw new Error("Can only move it's own pieces");
 
@@ -299,26 +306,27 @@ export class GobbletGobblers implements Game {
 
     let actions = [];
     let topPieces = this.getTopPieces();
-
-    // Para cada slot de origem
+    
     for (let fromSlot of this.iterSlots()) {
-      if (this.isMovablePiece(topPieces[fromSlot])) {
+      
+      const pieceToBeMoved = topPieces[fromSlot];
+      
+      if (!this.isMovablePiece(pieceToBeMoved))
+        continue;
 
-        let pieceToBeMoved = topPieces[fromSlot];
 
-        for (let toSlot of this.iterSlots()) {
-          if (toSlot != fromSlot && this.canGobble(pieceToBeMoved, topPieces[toSlot])) {
-            
+      for (let toSlot of this.iterSlots()) {
 
-            const action: GgAction = {
-              slot: toSlot,
-              movedFrom: fromSlot,
-              piece: null,
-            };
+        if (toSlot == fromSlot || !this.canGobble(pieceToBeMoved, topPieces[toSlot])) 
+          continue;
 
-            actions.push(action);
-          }
-        }
+        const action: GgAction = {
+          slot: toSlot,
+          movedFrom: fromSlot,
+          piece: null,
+        };
+
+        actions.push(action);
       }
     }
 
@@ -347,17 +355,23 @@ export class GobbletGobblers implements Game {
   }
 
   private getTopPieceAt(slot: number): GgPiece {
-    for (let size of this.iterSizes(true))
-      if (this.state.board.slots[slot][size] != null)
-        return this.state.board.slots[slot][size];
+
+    for (let size of this.iterSizes(true)) {
+
+      const piece = this.state.board.slots[slot][size];
+      
+      if (piece != null)
+        return piece;
+    }
 
     return null;
   }
 
   private getTopPieces(): GgPiece[] {
+
     let boardTop = Array(this.nSlots).fill(null);
 
-    for (let slot = 0; slot < this.nSlots; slot++)
+    for (let slot of this.iterSlots())
       boardTop[slot] = this.getTopPieceAt(slot);
 
     return boardTop;
@@ -420,11 +434,11 @@ export class GobbletGobblers implements Game {
     else
       for (let size = 0; size < this.nSizes; size++) 
         yield size;
-
   }
 
   private *iterSlots(): Generator<number> {
-    for (let slot = 0; slot < this.nSlots; slot++) yield slot;
+    for (let slot = 0; slot < this.nSlots; slot++) 
+      yield slot;
   }
 
   private slotsToString(slots: GgPiece[]): string {

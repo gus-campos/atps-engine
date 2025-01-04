@@ -27,6 +27,14 @@ export class Coord {
   public add(coord: Coord): Coord {
     return new Coord(this.x + coord.x, this.y + coord.y);
   }
+
+  public equals(coord: Coord): boolean {
+    return this.x == coord.x && this.y == coord.y;
+  }
+
+  public mult(k: number) {
+    return new Coord(k * this.x, k * this.y);
+  }
 }
 
 

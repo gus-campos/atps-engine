@@ -8,6 +8,7 @@ import { TicTacToe } from "src/games/TicTacToe";
 import { GobbletGobblers } from "src/games/GobbletGobblers";
 import { Boop } from "src/games/Boop";
 import { ConnectFour } from "src/games/ConnectFour";
+import { Checkers } from "src/games/Checkers";
 
 
 // =========================================================
@@ -34,7 +35,8 @@ export enum GameName {
   TIC_TAC_TOE,
   GOBLET_GOBBLERS,
   BOOP,
-  CONNECT_FOUR
+  CONNECT_FOUR,
+  CHECKERS
 }
 
 export enum Agent {
@@ -197,6 +199,10 @@ export class AutoPlay {
 
       case GameName.CONNECT_FOUR:
         this.game = new ConnectFour();
+        break;
+
+      case GameName.CHECKERS:
+        this.game = new Checkers();
         break;
 
       default:

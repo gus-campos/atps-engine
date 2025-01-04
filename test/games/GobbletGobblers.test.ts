@@ -31,7 +31,7 @@ describe("GobbletGobblers", () => {
           ],
           [
             [".", ".", "."],
-            [".", "X", "."],
+            [".", "A", "."],
             [".", ".", "."]
           ],
           [
@@ -43,8 +43,8 @@ describe("GobbletGobblers", () => {
         [2,2,2, 2,2,2],
         [1, 0]
       );
-      
-      // O "X" vai poder colocar em qualquer lugar não sobreposto, 
+
+      // O "A" vai poder colocar em qualquer lugar não sobreposto, 
       // ou mover pra qualquer posição do mesmo nível
       let actions = gg.getValidActions();
       expect(actions).toHaveLength(9 + 8 + 8 + 8);
@@ -56,19 +56,19 @@ describe("GobbletGobblers", () => {
 
         [
           [
-            ["X", ".", "."],
+            ["A", ".", "."],
             [".", ".", "."],
             [".", ".", "."]
           ],
           [
             [".", ".", "."],
-            [".", "X", "."],
+            [".", "A", "."],
             [".", ".", "."]
           ],
           [
             [".", ".", "."],
             [".", ".", "."],
-            [".", ".", "X"]
+            [".", ".", "A"]
           ]
         ]
       );
@@ -76,7 +76,6 @@ describe("GobbletGobblers", () => {
       // Jogo finalizado não tem ações possíveis
       let actions = gg.getValidActions();
       expect(actions).toHaveLength(0);
-
     });
   });
 
@@ -96,18 +95,18 @@ describe("GobbletGobblers", () => {
         [
           [
             [".", ".", "."],
-            [".", "X", "."],
+            [".", "A", "."],
             [".", ".", "."]
           ],
           [
             [".", ".", "."],
-            [".", ".", "O"],
+            [".", ".", "B"],
             [".", ".", "."]
           ],
           [
             [".", ".", "."],
             [".", ".", "."],
-            [".", ".", "X"]
+            [".", ".", "A"]
           ]
         ],
         [1,2,1, 2,1,2],
@@ -120,8 +119,6 @@ describe("GobbletGobblers", () => {
     it("should not place a piece to slot occupied with a same size piece", () => {
 
       gg.playAction({ piece: { author: 0, size: 1 }, slot: 4, movedFrom: null });
-      
-
       
       expect(
         
@@ -153,8 +150,8 @@ describe("GobbletGobblers", () => {
 
         [
           [
-            ["O", ".", "."],
-            [".", " ", "X"],
+            ["B", ".", "."],
+            [".", " ", "A"],
             [".", ".", "."]
           ],
           [
@@ -208,19 +205,19 @@ describe("GobbletGobblers", () => {
 
         [
           [
-            ["X", ".", "."],
+            ["A", ".", "."],
             [".", ".", "."],
             [".", ".", "."]
           ],
           [
             [".", ".", "."],
-            [".", "X", "."],
+            [".", "A", "."],
             [".", ".", "."]
           ],
           [
             [".", ".", "."],
             [".", ".", "."],
-            [".", ".", "X"]
+            [".", ".", "A"]
           ]
         ],
         [1,2,2, 1,2,2],
@@ -236,19 +233,19 @@ describe("GobbletGobblers", () => {
 
         [
           [
-            ["O", ".", "."],
+            ["B", ".", "."],
             [".", ".", "."],
             [".", ".", "."]
           ],
           [
-            ["X", ".", "."],
-            [".", "O", "."],
+            ["A", ".", "."],
+            [".", "B", "."],
             [".", ".", "."]
           ],
           [
             [".", ".", "."],
             [".", ".", "."],
-            [".", ".", "O"]
+            [".", ".", "B"]
           ]
         ],
         [1,2,2, 1,2,2],
@@ -270,14 +267,14 @@ describe("GobbletGobblers", () => {
             [".", ".", "."]
           ],
           [
-            [".", ".", "O"],
+            [".", ".", "B"],
             [".", ".", "."],
             [".", ".", "."]
           ],
           [
-            [".", ".", "X"],
-            ["X", ".", "O"],
-            ["X", ".", "O"]
+            [".", ".", "A"],
+            ["A", ".", "B"],
+            ["A", ".", "B"]
           ]
         ],
         [1,2,2, 1,2,2],
@@ -285,7 +282,7 @@ describe("GobbletGobblers", () => {
       );
 
       gg.playAction({ piece: null, slot: 0 , movedFrom: 2 });
-      
+
       expect(gg.getTermination()).toBeTruthy();
       expect(gg.getWinner()).toBe(null);
     });
