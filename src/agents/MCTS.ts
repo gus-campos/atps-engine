@@ -1,6 +1,6 @@
 import { Node, GameTree, Outcome } from "../shared/GameTree";
 import { Game, Action, Player } from "../shared/Game"
-import { RANDOM } from "src/utils/Random";
+import { RandomAgent } from "src/agents/RandomAgent";
 
 const MAX_PLAYOUT_DEPTH = Number.POSITIVE_INFINITY;
 
@@ -38,7 +38,7 @@ export class NodeMCTS extends Node {
     let game = this.game.clone();
 
     while (!game.getTermination()) {
-      let action = RANDOM.choice<Action>(game.getValidActions());
+      let action = RandomAgent.nextGameAction(game);
       game.playAction(action);
 
       // Limiting playout depth
