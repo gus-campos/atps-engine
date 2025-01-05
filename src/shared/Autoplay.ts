@@ -1,7 +1,7 @@
 // =========================================================
 
 import { Action, Game } from "src/shared/Game";
-import { MCTS } from "src/agents/MCTS";
+import { MCTS, MCTSConfig } from "src/agents/MCTS";
 import { RandomAgent } from "src/agents/RandomAgent";
 
 import { TicTacToe } from "src/games/TicTacToe";
@@ -10,8 +10,14 @@ import { Boop } from "src/games/Boop";
 import { ConnectFour } from "src/games/ConnectFour";
 import { Checkers } from "src/games/Checkers";
 
-
 // =========================================================
+
+interface AutoPlayautoPlayConfig {
+
+  gameName: GameName,
+  agents: Agent[],
+  matches: number
+}
 
 interface Score {
   victories: number,
@@ -32,35 +38,36 @@ interface Results {
 }
 
 export enum GameName {
-  TIC_TAC_TOE,
-  GOBLET_GOBBLERS,
-  BOOP,
-  CONNECT_FOUR,
-  CHECKERS
+  TIC_TAC_TOE = "Tic Tac Toe",
+  GOBLET_GOBBLERS = "Gobblets_Gobblers",
+  BOOP = "Boop",
+  CONNECT_FOUR = "Connect Four",
+  CHECKERS = "Checkers"
 }
 
 export enum Agent {
-  MCTS,
-  RANDOM
+  MCTS = "MCTS",
+  RANDOM = "Random"
 }
 
-const MCTS_TIME_CRITERIA = 1000;
-const MCTS_GEN_GRAPH = false;
+const MCTS_GEN_GRAPH: boolean = false;
 
 export class AutoPlay {
 
-  private gameName: GameName;
+  private autoPlayConfig: AutoPlayautoPlayConfig;
+  private mctsConfig: MCTSConfig;
+
   private game: Game;
-  private agents: Agent[]
   private print: boolean;
   private results: Results;
   private turnsSum: number;
   private initialTime: number;
 
-  constructor(gameName: GameName, agents: Agent[], print: boolean) {
+  constructor(autoPlayConfig: AutoPlayautoPlayConfig, mctsConfig: MCTSConfig, print: boolean=false) {
     
-    this.gameName = gameName;
-    this.agents = agents;
+    this.autoPlayConfig = autoPlayConfig;
+    this.mctsConfig = mctsConfig;
+    
     this.print = print;
     this.turnsSum = 0;
     this.initialTime = Date.now();
@@ -73,30 +80,45 @@ export class AutoPlay {
   // Public
   // ============
 
-  public playMultiple(rounds: number): Results {
+  public playMultiple(): Results {
 
     /*
     Plays multiple games, until termination, updating the results
     */
 
-    this.resetResults();
+    this.printAutoPlayConfig();
+    this.printMCTSConfig();
 
-    for (let i=0; i<rounds; i++) {
+    this.resetResults();
+    //this.logProgress(0);
+
+    for (let i=0; i<this.autoPlayConfig.matches; i++) {
   
-      this.logProgress(i, rounds);
       this.play();
+      //this.logProgress(i);
     }
 
-    this.calcMeanTurns(rounds);
-    this.calcMeanTime(rounds);
+    this.calcMeanTurns();
+    this.calcMeanTime();
 
     return this.results;
+  }
+
+  public printMCTSConfig(): void {
+
+    console.log(this.mctsConfig);
+  }
+
+  public printAutoPlayConfig(): void {
+
+    console.log(this.autoPlayConfig);
   }
 
   public printResults(): void {
 
     console.log("");
     console.log(this.results);
+    console.log("");
   }
 
   public resetResults(): void {
@@ -157,9 +179,9 @@ export class AutoPlay {
     this.updateResults();
   }
 
-  private logProgress(i: number, rounds: number): void {
+  private logProgress(i: number): void {
 
-    const message = `Progresso: ${(100 * i) / rounds}%`
+    const message = `Progresso: ${(100 * i) / this.autoPlayConfig.matches}%`
     process.stdout.write(`\r` + message);
   }
 
@@ -170,7 +192,7 @@ export class AutoPlay {
     */
 
     const currentPlayer = this.game.getCurrentPlayer();
-    const agent = this.agents[currentPlayer];
+    const agent = this.autoPlayConfig.agents[currentPlayer];
 
     switch (agent) {
 
@@ -192,7 +214,7 @@ export class AutoPlay {
     game, with initial state.
     */
 
-    switch (this.gameName) {
+    switch (this.autoPlayConfig.gameName) {
 
       case GameName.TIC_TAC_TOE:
         this.game = new TicTacToe();
@@ -221,7 +243,7 @@ export class AutoPlay {
 
   private mctsAction(): Action {
 
-    let action = MCTS.nextGameAction(this.game, MCTS_TIME_CRITERIA, MCTS_GEN_GRAPH);
+    let action = MCTS.nextGameAction(this.game, this.mctsConfig, MCTS_GEN_GRAPH);
     return action;
   }
 
@@ -243,15 +265,15 @@ export class AutoPlay {
     this.updateOwnGoals();
   }
 
-  private calcMeanTurns(rounds: number) {
+  private calcMeanTurns() {
 
-    this.results.meanTurns = this.turnsSum / rounds;
+    this.results.meanTurns = this.turnsSum / this.autoPlayConfig.matches;
   }
 
-  private calcMeanTime(rounds: number) {
+  private calcMeanTime() {
 
     const deltaTime = Date.now() - this.initialTime;
-    const meanTime = (deltaTime / rounds) / 1000;
+    const meanTime = (deltaTime / this.autoPlayConfig.matches) / 1000;
 
     this.results.meanTime = Math.round(meanTime * 100) / 100;
   }

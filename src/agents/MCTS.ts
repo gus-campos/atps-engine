@@ -2,7 +2,14 @@ import { Node, GameTree, Outcome } from "../shared/GameTree";
 import { Game, Action, Player } from "../shared/Game"
 import { RandomAgent } from "src/agents/RandomAgent";
 
-const MAX_PLAYOUT_DEPTH = Number.POSITIVE_INFINITY;
+const STANDARD_TIME_CRITERIA: number = 1000;
+let TURN: number = 0;
+
+export interface MCTSConfig {
+
+  searchesTime: number,
+  maxPlayoutDepth: number
+}
 
 export class NodeMCTS extends Node {
 
@@ -27,7 +34,7 @@ export class NodeMCTS extends Node {
     return child;
   }
 
-  public simulate(maximizingPlayer: Player): Outcome {
+  public simulate(maximizingPlayer: Player, maxPlayoutDepth: number=null): Outcome {
 
     /*
     Joga o jogo com ações aleatórias, até o fim, e
@@ -41,10 +48,12 @@ export class NodeMCTS extends Node {
       let action = RandomAgent.nextGameAction(game);
       game.playAction(action);
 
-      // Limiting playout depth
-      playoutDepth++;
-      if (playoutDepth >= MAX_PLAYOUT_DEPTH)
-        return Outcome.DRAW;
+      // Limitando profundidade das jogadas na simulação
+      if (maxPlayoutDepth != null) {
+        playoutDepth++;
+        if (playoutDepth >= maxPlayoutDepth)
+          return Outcome.DRAW;
+      }
     }
 
     return this.getGameOutcome(game, maximizingPlayer);
@@ -53,54 +62,62 @@ export class NodeMCTS extends Node {
 
 export class MCTS extends GameTree<NodeMCTS> {
 
-  constructor(rootNode: NodeMCTS) {
+  private mctsConfig: MCTSConfig;
+
+  constructor(rootNode: NodeMCTS, mctsConfig: MCTSConfig) {
     super(rootNode);
+    this.mctsConfig = mctsConfig;
   }
   
-  public static nextGameAction(game: Game, timeCriteria: number, genGraph: boolean=false): Action {
+  public static nextGameAction(game: Game, mctsConfig: MCTSConfig, genGraph: boolean=false): Action {
     
     /*
     Baseado num jogo inicial, cria uma árvore do MCTS,
     faz buscas e retorna a próxima melhor ação
     */
 
-    const mcts = MCTS.createFromGame(game);
+    const mcts = MCTS.createFromGame(game, mctsConfig);
 
-    if (genGraph)
-      mcts.genGraph('graph.dot');
-
-    return mcts.nextAction(timeCriteria);
+    return mcts.nextAction(genGraph);
   }
 
-  public static createFromGame(game: Game) {
+  public static createFromGame(game: Game, mctsConfig: MCTSConfig) {
 
     /*
     Creates a MCTS tree directly from a game
     */
 
     let node = new NodeMCTS(null, game, null);
-    return new MCTS(node);
+    return new MCTS(node, mctsConfig);
   }
   
-  public nextAction(timeCriteria: number): Action {
+  public nextAction(genGraph: boolean=false): Action {
     
     /*
     Faz buscas e retorna a próxima melhor ação
     */
 
-    return this.searches(timeCriteria);
+    const action = this.searches();
+
+    if (genGraph)
+      this.genGraph(`graphs/${TURN++}.dot`);
+
+    return action;
   }
 
-  public searches(timeCriteria: number): Action {
+  public searches(): Action {
 
     /*
     Faz diversas buscas baseada num critério de tempo total
     e retorna a próxima melhor ação
     */
 
+    if (this.mctsConfig.searchesTime == null)
+      this.mctsConfig.searchesTime = STANDARD_TIME_CRITERIA;
+    
     let startTime = Date.now();
-    while (Date.now() - startTime < timeCriteria) 
-      this.search();
+    while (Date.now() - startTime < this.mctsConfig.searchesTime) 
+      this.search(this.mctsConfig.maxPlayoutDepth);
 
     return this.mostVisitedChild().getActionTaken();
   }
@@ -118,7 +135,7 @@ export class MCTS extends GameTree<NodeMCTS> {
     return this.root.getChildren()[childIndex];
   }
 
-  private search(): void {
+  private search(maxPlayoutDepth: number=null): void {
 
     /*
     Faz uma busca, realizando as 4 etapas do MCTS,
@@ -138,7 +155,7 @@ export class MCTS extends GameTree<NodeMCTS> {
     
     else {
       node = node.expand();
-      outcome = node.simulate(this.maximizingPlayer);
+      outcome = node.simulate(this.maximizingPlayer, maxPlayoutDepth);
     }
 
     node.backpropagate(outcome);

@@ -152,7 +152,6 @@ export class Checkers implements Game {
   public printState(): void {
    
     console.log(this.stateToString());
-    console.log(this.state.piecesCount)
   }
 
   public stateToString(): string {
