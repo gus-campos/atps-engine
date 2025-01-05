@@ -83,8 +83,7 @@ export class AutoPlay {
 
     for (let i=0; i<rounds; i++) {
   
-      const message = `Progresso: ${(100 * i) / rounds}%`
-      process.stdout.write(`\r` + message);
+      this.logProgress(i, rounds);
       this.play();
     }
 
@@ -156,6 +155,12 @@ export class AutoPlay {
     }
 
     this.updateResults();
+  }
+
+  private logProgress(i: number, rounds: number): void {
+
+    const message = `Progresso: ${(100 * i) / rounds}%`
+    process.stdout.write(`\r` + message);
   }
 
   private agentAction(): Action {
