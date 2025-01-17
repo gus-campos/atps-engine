@@ -50,7 +50,7 @@ export enum Agent {
   RANDOM = "Random"
 }
 
-const MCTS_GEN_GRAPH: boolean = false;
+const MCTS_GEN_GRAPH: boolean = true;
 
 export class AutoPlay {
 
@@ -90,28 +90,17 @@ export class AutoPlay {
     this.printMCTSConfig();
 
     this.resetResults();
-    //this.logProgress(0);
 
     for (let i=0; i<this.autoPlayConfig.matches; i++) {
   
       this.play();
-      //this.logProgress(i);
+      this.logProgress(i);
     }
 
     this.calcMeanTurns();
     this.calcMeanTime();
 
     return this.results;
-  }
-
-  public printMCTSConfig(): void {
-
-    console.log(this.mctsConfig);
-  }
-
-  public printAutoPlayConfig(): void {
-
-    console.log(this.autoPlayConfig);
   }
 
   public printResults(): void {
@@ -183,6 +172,16 @@ export class AutoPlay {
 
     const message = `Progresso: ${(100 * i) / this.autoPlayConfig.matches}%`
     process.stdout.write(`\r` + message);
+  }
+
+  private printMCTSConfig(): void {
+
+    console.log(this.mctsConfig);
+  }
+
+  private printAutoPlayConfig(): void {
+
+    console.log(this.autoPlayConfig);
   }
 
   private agentAction(): Action {

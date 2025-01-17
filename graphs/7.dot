@@ -1,0 +1,20 @@
+graph "G" {
+  node [
+    fontname = "Courier";
+  ];
+  "43912" [
+    label = "Visits: 6189541\nValue: 124\nO X X \nO . O \nX X . \n\nO \"X\" jogou, vez do \"O\":\n";
+  ];
+  "43913" [
+    label = "Visits: 124\nValue: 124\nO X X \nO O O \nX X . \n\nO \"O\" jogou, vez do \"X\":\n";
+  ];
+  "43914" [
+    label = "Visits: 6189417\nValue: 0\nO X X \nO . O \nX X O \n\nO \"O\" jogou, vez do \"X\":\n";
+  ];
+  "43915" [
+    label = "Visits: 6189416\nValue: 0\nO X X \nO X O \nX X O \n\nO \"X\" jogou, vez do \"O\":\n";
+  ];
+  "43912" -- "43913";
+  "43912" -- "43914";
+  "43914" -- "43915";
+}

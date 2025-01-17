@@ -1,26 +1,71 @@
-import { Node, GameTree, Outcome } from "../shared/GameTree";
-import { Game, Action, Player } from "../shared/Game"
+import { Game, Action, Player } from "../shared/Game";
+import { Graph, NodeModel, Edge, toDot } from 'ts-graphviz'
+import { RANDOM } from "src/utils/Random";
 import { RandomAgent } from "src/agents/RandomAgent";
 
-const STANDARD_TIME_CRITERIA: number = 1000;
-let TURN: number = 0;
+
+export enum Outcome {
+  WIN = 1,
+  DRAW = 0,
+  LOSE = -1
+}
 
 export interface MCTSConfig {
 
-  searchesTime: number,
+  searchesTime: number;
   maxPlayoutDepth: number
 }
 
-export class NodeMCTS extends Node {
+export const OUTCOME_VALUE = new Map<Outcome, number>([
+  [Outcome.WIN, 1.0],
+  [Outcome.DRAW, 0.5],
+  [Outcome.LOSE, 0.0]
+]);
+
+export const OPPOSITE_OUTCOME = new Map<Outcome, Outcome>([
+  [Outcome.WIN, Outcome.LOSE],
+  [Outcome.DRAW, Outcome.DRAW],
+  [Outcome.LOSE, Outcome.WIN]
+]);
+
+const EXPLORE_FACTOR = Math.sqrt(2);
+
+const STANDARD_TIME_CRITERIA = 1000;
+let GRAPH_ID = 0;
+let TURN = 0;
+
+// =================================================
+
+export class Node {
+
+  private game: Game;
+  private children: Node[];
+  
+  private actionTaken: Action | null;
+  private parent: Node | null;
+
+  private visits: number;
+  private value: number;
+
+  private expandableActions: Action[];
 
   constructor(parent: Node, game: Game, actionTaken: Action) {
-    super(parent, game, actionTaken);
+
+    this.parent = parent;
+    this.game = game.clone();
+    this.actionTaken = actionTaken;
+
+    this.visits = 0;
+    this.value = 0;
+
+    this.expandableActions = this.game.getValidActions();
+    this.children = [];
   }
 
-  public override expand(): NodeMCTS {
+  public expand(): Node {
 
     /*
-    Expande o nó, com um NodeMCTS e não um Node comum
+    Cria um novo nó a partir de uma ação aleatória
     */
   
     let actionTaken = this.getRandomExpAction();
@@ -28,47 +73,242 @@ export class NodeMCTS extends Node {
     let newGame = this.game.clone();
     newGame.playAction(actionTaken);
 
-    let child = new NodeMCTS(this, newGame, actionTaken);
+    let child = new Node(this, newGame, actionTaken);
     this.children.push(child);
 
     return child;
   }
 
-  public simulate(maximizingPlayer: Player, maxPlayoutDepth: number=null): Outcome {
+  public isExpandableOrTerminal(): boolean {
+
+    // Obs: Apenas nós terminais possuem 0 filhos ao mesmo tempo que
+    // não possuem ações expansíveis
+
+    return this.expandableActions.length != 0 || this.children.length == 0;
+  }
+
+  public ucb(): number {
+
+    let explore = Math.sqrt(Math.log(this.parent.getVisits()) / this.visits);
+    let exploit = this.value / this.visits;
+
+    return exploit + EXPLORE_FACTOR * explore;
+  }
+
+  public bestChild() {
+
+    /*
+    Returns their child that has the greater ucb
+    */
+
+    if (this.children.length == 0) 
+      throw new Error("It has no children");
+
+    let bestUcb = Number.NEGATIVE_INFINITY;
+    let bestChild = this.children[0];
+
+    for (let child of this.children) {
+      let ucb = child.ucb();
+
+      if (ucb > bestUcb) {
+        bestChild = child;
+        bestUcb = ucb;
+      }
+    }
+
+    return bestChild;
+  }
+
+  public backpropagate(outcome: Outcome) {
+    /*
+    Propaga o valor aos parents, invertendo o valor quando o 
+    parent é de outra perspectiva
+    */
+
+    this.visits++;
+    this.value += OUTCOME_VALUE.get(outcome);
+
+    if (this.parent != null)
+      this.parent.backpropagate(outcome);
+  }
+
+  public simulate(maxPlayer: Player): Outcome {
 
     /*
     Joga o jogo com ações aleatórias, até o fim, e
     retorna seu resultado, em relação ao maximizing player
     */
 
-    let playoutDepth = 0;
     let game = this.game.clone();
 
     while (!game.getTermination()) {
       let action = RandomAgent.nextGameAction(game);
       game.playAction(action);
-
-      // Limitando profundidade das jogadas na simulação
-      if (maxPlayoutDepth != null) {
-        playoutDepth++;
-        if (playoutDepth >= maxPlayoutDepth)
-          return Outcome.DRAW;
-      }
     }
 
-    return this.getGameOutcome(game, maximizingPlayer);
+    return Node.getGameOutcome(game, maxPlayer);
+  }
+
+  public static getGameOutcome(game: Game, maximizingPlayer: Player) {
+
+    /*
+    Retorna o outcome do jogo, de acordo com o maximizing player
+    de referência
+
+    Considera que se é terminal, e não empatou, só pode ter sido ganho pelo próprio
+    // BUG: Não é verdade em jogos que o player causa a própria derrota
+    */
+    
+    if (!game.getTermination())
+      throw new Error("A not ended game has no valid outcome");
+    
+    let winner = game.getWinner();
+    
+    if (winner == null)
+      return Outcome.DRAW;
+    
+    return winner == maximizingPlayer ? Outcome.WIN : Outcome.LOSE;
+  }
+
+  public genGraphNodes(G: Graph, parent: NodeModel) {
+
+    /*
+    Gera recursivamente nós de grafo do graphviz, a partir
+    de cada nó da árvore
+    */
+
+    // Adicionar seus children
+    for (let child of this.children) {
+      
+      let childNode = child.genConnectedNode(G, parent);
+      child.genGraphNodes(G, childNode);
+    }
+  }
+
+  public nodeToString(): string {
+
+    /* Generates a label that represents the node */
+
+    const state = this.getGame().stateToString();
+    return `Visits: ${(this.visits)}\nValue: ${this.value}\n${state}`;
+  }
+
+  
+
+  //===========
+  // Private
+  //===========
+  
+  private genConnectedNode(G: Graph, parent: NodeModel=null): NodeModel {
+
+    /* Generates a node to be added in a graphviz graph */
+
+    let label = this.nodeToString();
+    let childNode = G.node(String(GRAPH_ID++), { label: label });
+
+
+    G.addEdge(new Edge([parent, childNode]));
+
+    return childNode;
+  }
+
+  private getRandomExpAction(): Action {
+
+    /*
+    Get a random expandable actions, removes it from the
+    array, and returns it
+    */
+
+    let expandableActions = this.getExpandableActions();
+
+    if (expandableActions.length == 0) 
+      throw new Error("No expandable actions");
+
+    let actionTaken = RANDOM.choice<Action>(expandableActions);
+
+    let index = expandableActions.indexOf(actionTaken);
+    expandableActions.splice(index, 1);
+
+    return actionTaken;
+  }
+
+  //===========
+  // Getters
+  //===========
+
+  public getExpandableActions(): Action[] {
+    return this.expandableActions;
+  }
+
+  public getGame(): Game {
+    return this.game;
+  }
+
+  public getParent(): Node {
+    return this.parent;
+  }
+
+  public getVisits(): number {
+    return this.visits;
+  }
+
+  public getChildren(): Node[] {
+    return this.children;
+  }
+
+  public getValue(): number {
+    return this.value;
+  }
+
+  public getActionTaken() {
+    return this.actionTaken;
+  }
+
+  //===========
+  // Setters 
+  //===========
+
+  public setVisits(visits: number): void {
+    this.visits = visits;
+  }
+
+  public setValue(value: number): void {
+    this.value = value;
   }
 }
 
-export class MCTS extends GameTree<NodeMCTS> {
+export class MCTS {
 
+  private root: Node;
   private mctsConfig: MCTSConfig;
+  private maximizingPlayer: Player;
 
-  constructor(rootNode: NodeMCTS, mctsConfig: MCTSConfig) {
-    super(rootNode);
+  constructor(rooNode: Node, mctsConfig: MCTSConfig) {
+    this.root = rooNode;
     this.mctsConfig = mctsConfig;
+    this.maximizingPlayer = rooNode.getGame().getCurrentPlayer();
   }
-  
+
+  public genGraph(dirOut: string) {
+
+    /*
+    Gera o grafo que representa esta árvore
+    */
+
+    let G = new Graph("G");
+    G.node({'fontname': 'Courier'});
+
+    // Adicionar este
+    let rooNode = this.genRootGraphNode(G); 
+
+    // Fazer primeira chamada da recursão
+    this.root.genGraphNodes(G, rooNode);
+
+    // Escrever no arquivo
+    var fs = require('fs');
+    fs.writeFileSync(dirOut, toDot(G));
+  }
+
   public static nextGameAction(game: Game, mctsConfig: MCTSConfig, genGraph: boolean=false): Action {
     
     /*
@@ -87,7 +327,7 @@ export class MCTS extends GameTree<NodeMCTS> {
     Creates a MCTS tree directly from a game
     */
 
-    let node = new NodeMCTS(null, game, null);
+    let node = new Node(null, game, null);
     return new MCTS(node, mctsConfig);
   }
   
@@ -117,9 +357,36 @@ export class MCTS extends GameTree<NodeMCTS> {
     
     let startTime = Date.now();
     while (Date.now() - startTime < this.mctsConfig.searchesTime) 
-      this.search(this.mctsConfig.maxPlayoutDepth);
+      this.search();
 
     return this.mostVisitedChild().getActionTaken();
+  }
+
+  // =============
+  // PRIVATE
+  //==============
+
+  private genRootGraphNode(G: Graph): NodeModel {
+
+    /* Generates a node to be added in a graphviz graph */
+
+    let label = this.root.nodeToString();
+    let childNode = G.node(String(GRAPH_ID++), { label: label });
+    G.addNode(childNode);
+
+    return childNode;
+  }
+
+  private select(): Node {
+
+    /* Selects first viable not fully expanded node */
+
+    let node = this.root;
+
+    while (!node.isExpandableOrTerminal()) 
+      node = node.bestChild() as Node;
+
+    return node;
   }
   
   private mostVisitedChild() {
@@ -135,7 +402,7 @@ export class MCTS extends GameTree<NodeMCTS> {
     return this.root.getChildren()[childIndex];
   }
 
-  private search(maxPlayoutDepth: number=null): void {
+  private search(): void {
 
     /*
     Faz uma busca, realizando as 4 etapas do MCTS,
@@ -149,15 +416,27 @@ export class MCTS extends GameTree<NodeMCTS> {
     let outcome: Outcome;
     const terminal = node.getGame().getTermination();
 
+    //
+    //  A REFERÊNCIA É SEMPRE O JOGADOR DO NÓ
+    //
+
     if (terminal) {
-      outcome = node.getGameOutcome(node.getGame(), this.maximizingPlayer);
+      outcome = Node.getGameOutcome(node.getGame(), this.maximizingPlayer);
     } 
     
     else {
       node = node.expand();
-      outcome = node.simulate(this.maximizingPlayer, maxPlayoutDepth);
+      outcome = node.simulate(this.maximizingPlayer);
     }
 
     node.backpropagate(outcome);
   }
-} 
+
+  //==========
+  // Getters
+  //==========
+  
+  getRoot(): Node {
+    return this.root;
+  }
+}

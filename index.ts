@@ -11,13 +11,14 @@ const GAME_NAMES = Object.values(GameName);
 const autoplay = new AutoPlay(
   {
     gameName: GameName.TIC_TAC_TOE,
-    agents: [Agent.RANDOM, Agent.RANDOM],
-    matches: 100
+    agents: [Agent.MCTS, Agent.MCTS],
+    matches: 1
   },
   {
     searchesTime: 1000,
     maxPlayoutDepth: null
-  }
+  },
+  true
 );
 
 autoplay.playMultiple();

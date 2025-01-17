@@ -2,455 +2,427 @@ graph "G" {
   node [
     fontname = "Courier";
   ];
-  "45172" [
-    label = "Visits: 1998915\nValue: -19988776\n. O O \n. . . \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26966" [
+    label = "Visits: 2541657\nValue: 2541202\nX . O \n. X O \n. . . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45173" [
-    label = "Visits: 399263\nValue: 399164\n. O O \n. . X \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "26967" [
+    label = "Visits: 501774\nValue: 501659\nX . O \n. X O \nX . . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45174" [
-    label = "Visits: 100033\nValue: -1000286\n. O O \nO . X \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26968" [
+    label = "Visits: 168456\nValue: 168434\nX . O \n. X O \nX O . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45175" [
-    label = "Visits: 33344\nValue: 33333\n. O O \nO X X \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "26969" [
+    label = "Visits: 56872\nValue: 56872\nX . O \n. X O \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45176" [
-    label = "Visits: 16643\nValue: -166430\nO O O \nO X X \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26970" [
+    label = "Visits: 54712\nValue: 54690\nX X O \n. X O \nX O . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45177" [
-    label = "Visits: 16700\nValue: -166989\n. O O \nO X X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26971" [
+    label = "Visits: 54690\nValue: 54690\nX X O \nO X O \nX O . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45178" [
-    label = "Visits: 16699\nValue: 16699\nX O O \nO X X \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "26972" [
+    label = "Visits: 54689\nValue: 54689\nX X O \nO X O \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45179" [
-    label = "Visits: 33267\nValue: 33245\nX O O \nO . X \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "26973" [
+    label = "Visits: 21\nValue: 0\nX X O \n. X O \nX O O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45180" [
-    label = "Visits: 16633\nValue: -166319\nX O O \nO O X \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26974" [
+    label = "Visits: 56871\nValue: 56871\nX . O \nX X O \nX O . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45181" [
-    label = "Visits: 16632\nValue: 16632\nX O O \nO O X \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "26975" [
+    label = "Visits: 168456\nValue: 168434\nX O O \n. X O \nX . . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45182" [
-    label = "Visits: 16633\nValue: -166319\nX O O \nO . X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26976" [
+    label = "Visits: 54778\nValue: 54757\nX O O \n. X O \nX X . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45183" [
-    label = "Visits: 16632\nValue: 16632\nX O O \nO X X \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "26977" [
+    label = "Visits: 54756\nValue: 54756\nX O O \nO X O \nX X . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45184" [
-    label = "Visits: 33421\nValue: 33421\n. O O \nO . X \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "26978" [
+    label = "Visits: 54755\nValue: 54755\nX O O \nO X O \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45185" [
-    label = "Visits: 99535\nValue: -995350\nO O O \n. . X \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26979" [
+    label = "Visits: 21\nValue: 0\nX O O \n. X O \nX X O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45186" [
-    label = "Visits: 99909\nValue: -999057\n. O O \n. . X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26980" [
+    label = "Visits: 56839\nValue: 56839\nX O O \nX X O \nX . . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45187" [
-    label = "Visits: 33303\nValue: 33292\n. O O \n. X X \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "26981" [
+    label = "Visits: 56838\nValue: 56838\nX O O \n. X O \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45188" [
-    label = "Visits: 16679\nValue: -166779\n. O O \nO X X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26982" [
+    label = "Visits: 164835\nValue: 164791\nX . O \nO X O \nX . . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45189" [
-    label = "Visits: 16678\nValue: 16678\nX O O \nO X X \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "26983" [
+    label = "Visits: 54227\nValue: 54205\nX X O \nO X O \nX . . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45190" [
-    label = "Visits: 16623\nValue: -166230\nO O O \n. X X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26984" [
+    label = "Visits: 21\nValue: 0\nX X O \nO X O \nX . O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45191" [
-    label = "Visits: 33303\nValue: 33292\n. O O \nX . X \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "26985" [
+    label = "Visits: 54205\nValue: 54205\nX X O \nO X O \nX O . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45192" [
-    label = "Visits: 16651\nValue: -166510\n. O O \nX O X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26986" [
+    label = "Visits: 54204\nValue: 54204\nX X O \nO X O \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45193" [
-    label = "Visits: 16651\nValue: -166510\nO O O \nX . X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26987" [
+    label = "Visits: 54227\nValue: 54205\nX . O \nO X O \nX X . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45194" [
-    label = "Visits: 33302\nValue: 33291\nX O O \n. . X \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "26988" [
+    label = "Visits: 54205\nValue: 54205\nX O O \nO X O \nX X . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45195" [
-    label = "Visits: 16679\nValue: -166779\nX O O \nO . X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26989" [
+    label = "Visits: 54204\nValue: 54204\nX O O \nO X O \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45196" [
-    label = "Visits: 16678\nValue: 16678\nX O O \nO X X \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "26990" [
+    label = "Visits: 21\nValue: 0\nX . O \nO X O \nX X O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45197" [
-    label = "Visits: 16622\nValue: -166220\nX O O \n. O X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26991" [
+    label = "Visits: 56380\nValue: 56380\nX . O \nO X O \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45198" [
-    label = "Visits: 99785\nValue: -997828\n. O O \n. O X \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26992" [
+    label = "Visits: 26\nValue: 0\nX . O \n. X O \nX . O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45199" [
-    label = "Visits: 33236\nValue: 33225\n. O O \nX O X \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "26993" [
+    label = "Visits: 502329\nValue: 502216\nX . O \nX X O \n. . . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45200" [
-    label = "Visits: 16618\nValue: -166180\nO O O \nX O X \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26994" [
+    label = "Visits: 168695\nValue: 168674\nX . O \nX X O \n. O . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45201" [
-    label = "Visits: 16617\nValue: -166170\n. O O \nX O X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26995" [
+    label = "Visits: 54857\nValue: 54836\nX X O \nX X O \n. O . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45202" [
-    label = "Visits: 33236\nValue: 33225\nX O O \n. O X \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "26996" [
+    label = "Visits: 54835\nValue: 54835\nX X O \nX X O \nO O . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45203" [
-    label = "Visits: 16646\nValue: -166449\nX O O \nO O X \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26997" [
+    label = "Visits: 54834\nValue: 54834\nX X O \nX X O \nO O X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45204" [
-    label = "Visits: 16645\nValue: 16645\nX O O \nO O X \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "26998" [
+    label = "Visits: 21\nValue: 0\nX X O \nX X O \n. O O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45205" [
-    label = "Visits: 16589\nValue: -165890\nX O O \n. O X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "26999" [
+    label = "Visits: 56919\nValue: 56919\nX . O \nX X O \nX O . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45206" [
-    label = "Visits: 33312\nValue: 33312\n. O O \n. O X \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27000" [
+    label = "Visits: 56918\nValue: 56918\nX . O \nX X O \n. O X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45207" [
-    label = "Visits: 401389\nValue: 401389\n. O O \n. . . \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27001" [
+    label = "Visits: 26\nValue: 0\nX . O \nX X O \n. . O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45208" [
-    label = "Visits: 399500\nValue: 399412\n. O O \n. X . \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27002" [
+    label = "Visits: 165076\nValue: 165033\nX . O \nX X O \nO . . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45209" [
-    label = "Visits: 99999\nValue: -999957\n. O O \n. X O \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27003" [
+    label = "Visits: 54373\nValue: 54352\nX X O \nX X O \nO . . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45210" [
-    label = "Visits: 33231\nValue: 33209\n. O O \nX X O \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27004" [
+    label = "Visits: 54351\nValue: 54351\nX X O \nX X O \nO O . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45211" [
-    label = "Visits: 16643\nValue: -166419\n. O O \nX X O \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27005" [
+    label = "Visits: 54350\nValue: 54350\nX X O \nX X O \nO O X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45212" [
-    label = "Visits: 16642\nValue: 16642\nX O O \nX X O \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27006" [
+    label = "Visits: 21\nValue: 0\nX X O \nX X O \nO . O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45213" [
-    label = "Visits: 16587\nValue: -165870\nO O O \nX X O \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27007" [
+    label = "Visits: 54274\nValue: 54252\nX . O \nX X O \nO X . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45214" [
-    label = "Visits: 33384\nValue: 33384\n. O O \n. X O \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27008" [
+    label = "Visits: 54252\nValue: 54252\nX O O \nX X O \nO X . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45215" [
-    label = "Visits: 33383\nValue: 33383\nX O O \n. X O \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27009" [
+    label = "Visits: 54251\nValue: 54251\nX O O \nX X O \nO X X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45216" [
-    label = "Visits: 99626\nValue: -996260\nO O O \n. X . \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27010" [
+    label = "Visits: 21\nValue: 0\nX . O \nX X O \nO X O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45217" [
-    label = "Visits: 99999\nValue: -999957\n. O O \nO X . \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27011" [
+    label = "Visits: 56428\nValue: 56428\nX . O \nX X O \nO . X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45218" [
-    label = "Visits: 33384\nValue: 33384\nX O O \nO X . \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27012" [
+    label = "Visits: 168531\nValue: 168509\nX O O \nX X O \n. . . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45219" [
-    label = "Visits: 33231\nValue: 33209\n. O O \nO X X \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27013" [
+    label = "Visits: 56864\nValue: 56864\nX O O \nX X O \nX . . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45220" [
-    label = "Visits: 16643\nValue: -166419\n. O O \nO X X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27014" [
+    label = "Visits: 54803\nValue: 54782\nX O O \nX X O \n. X . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45221" [
-    label = "Visits: 16642\nValue: 16642\nX O O \nO X X \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27015" [
+    label = "Visits: 54781\nValue: 54781\nX O O \nX X O \nO X . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45222" [
-    label = "Visits: 16587\nValue: -165870\nO O O \nO X X \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27016" [
+    label = "Visits: 54780\nValue: 54780\nX O O \nX X O \nO X X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45223" [
-    label = "Visits: 33383\nValue: 33383\n. O O \nO X . \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27017" [
+    label = "Visits: 21\nValue: 0\nX O O \nX X O \n. X O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45224" [
-    label = "Visits: 99875\nValue: -998728\n. O O \n. X . \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27018" [
+    label = "Visits: 56863\nValue: 56863\nX O O \nX X O \n. . X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45225" [
-    label = "Visits: 33266\nValue: 33255\n. O O \nX X . \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27019" [
+    label = "Visits: 533173\nValue: 533173\nX . O \n. X O \n. . X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45226" [
-    label = "Visits: 16604\nValue: -166040\nO O O \nX X . \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27020" [
+    label = "Visits: 501497\nValue: 501381\nX X O \n. X O \n. . . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45227" [
-    label = "Visits: 16661\nValue: -166599\n. O O \nX X O \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27021" [
+    label = "Visits: 168418\nValue: 168396\nX X O \nO X O \n. . . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45228" [
-    label = "Visits: 16660\nValue: 16660\nX O O \nX X O \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27022" [
+    label = "Visits: 54699\nValue: 54677\nX X O \nO X O \nX . . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45229" [
-    label = "Visits: 33266\nValue: 33255\n. O O \n. X X \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27023" [
+    label = "Visits: 54677\nValue: 54677\nX X O \nO X O \nX O . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45230" [
-    label = "Visits: 16604\nValue: -166040\nO O O \n. X X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27024" [
+    label = "Visits: 54676\nValue: 54676\nX X O \nO X O \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45231" [
-    label = "Visits: 16661\nValue: -166599\n. O O \nO X X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27025" [
+    label = "Visits: 21\nValue: 0\nX X O \nO X O \nX . O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45232" [
-    label = "Visits: 16660\nValue: 16660\nX O O \nO X X \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27026" [
+    label = "Visits: 56859\nValue: 56859\nX X O \nO X O \n. X . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45233" [
-    label = "Visits: 33342\nValue: 33342\nX O O \n. X . \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27027" [
+    label = "Visits: 56859\nValue: 56859\nX X O \nO X O \n. . X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45234" [
-    label = "Visits: 399263\nValue: 399164\nX O O \n. . . \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27028" [
+    label = "Visits: 168254\nValue: 168231\nX X O \n. X O \nO . . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45235" [
-    label = "Visits: 99660\nValue: -996589\nX O O \n. . O \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27029" [
+    label = "Visits: 54645\nValue: 54623\nX X O \nX X O \nO . . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45236" [
-    label = "Visits: 33220\nValue: 33220\nX O O \n. X O \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27030" [
+    label = "Visits: 21\nValue: 0\nX X O \nX X O \nO . O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45237" [
-    label = "Visits: 33220\nValue: 33220\nX O O \nX . O \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27031" [
+    label = "Visits: 54623\nValue: 54623\nX X O \nX X O \nO O . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45238" [
-    label = "Visits: 33219\nValue: 33219\nX O O \n. . O \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27032" [
+    label = "Visits: 54622\nValue: 54622\nX X O \nX X O \nO O X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45239" [
-    label = "Visits: 99784\nValue: -997818\nX O O \n. . . \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27033" [
+    label = "Visits: 56804\nValue: 56804\nX X O \n. X O \nO . X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45240" [
-    label = "Visits: 33210\nValue: 33199\nX O O \n. . X \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27034" [
+    label = "Visits: 56804\nValue: 56804\nX X O \n. X O \nO X . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45241" [
-    label = "Visits: 16576\nValue: -165760\nX O O \n. O X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27035" [
+    label = "Visits: 164798\nValue: 164754\nX X O \n. X O \n. O . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45242" [
-    label = "Visits: 16633\nValue: -166319\nX O O \nO . X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27036" [
+    label = "Visits: 54215\nValue: 54193\nX X O \n. X O \nX O . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45243" [
-    label = "Visits: 16632\nValue: 16632\nX O O \nO X X \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27037" [
+    label = "Visits: 54193\nValue: 54193\nX X O \nO X O \nX O . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45244" [
-    label = "Visits: 33287\nValue: 33287\nX O O \n. X . \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27038" [
+    label = "Visits: 54192\nValue: 54192\nX X O \nO X O \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45245" [
-    label = "Visits: 33286\nValue: 33286\nX O O \nX . . \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27039" [
+    label = "Visits: 21\nValue: 0\nX X O \n. X O \nX O O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45246" [
-    label = "Visits: 99909\nValue: -999057\nX O O \nO . . \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27040" [
+    label = "Visits: 56367\nValue: 56367\nX X O \n. X O \n. O X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45247" [
-    label = "Visits: 33354\nValue: 33354\nX O O \nO . . \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27041" [
+    label = "Visits: 54215\nValue: 54193\nX X O \nX X O \n. O . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45248" [
-    label = "Visits: 33353\nValue: 33353\nX O O \nO X . \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27042" [
+    label = "Visits: 21\nValue: 0\nX X O \nX X O \n. O O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45249" [
-    label = "Visits: 33201\nValue: 33179\nX O O \nO . X \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27043" [
+    label = "Visits: 54193\nValue: 54193\nX X O \nX X O \nO O . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45250" [
-    label = "Visits: 16600\nValue: -165989\nX O O \nO O X \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27044" [
+    label = "Visits: 54192\nValue: 54192\nX X O \nX X O \nO O X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45251" [
-    label = "Visits: 16599\nValue: 16599\nX O O \nO O X \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27045" [
+    label = "Visits: 26\nValue: 0\nX X O \n. X O \n. . O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45252" [
-    label = "Visits: 16600\nValue: -165989\nX O O \nO . X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27046" [
+    label = "Visits: 502884\nValue: 502773\nX . O \n. X O \n. X . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45253" [
-    label = "Visits: 16599\nValue: 16599\nX O O \nO X X \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27047" [
+    label = "Visits: 165205\nValue: 165162\nX O O \n. X O \n. X . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45254" [
-    label = "Visits: 99909\nValue: -999057\nX O O \n. O . \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27048" [
+    label = "Visits: 54416\nValue: 54395\nX O O \n. X O \nX X . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45255" [
-    label = "Visits: 33201\nValue: 33179\nX O O \n. O X \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27049" [
+    label = "Visits: 21\nValue: 0\nX O O \n. X O \nX X O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45256" [
-    label = "Visits: 16628\nValue: -166269\nX O O \nO O X \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27050" [
+    label = "Visits: 54394\nValue: 54394\nX O O \nO X O \nX X . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45257" [
-    label = "Visits: 16627\nValue: 16627\nX O O \nO O X \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27051" [
+    label = "Visits: 54393\nValue: 54393\nX O O \nO X O \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45258" [
-    label = "Visits: 16572\nValue: -165720\nX O O \n. O X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27052" [
+    label = "Visits: 56471\nValue: 56471\nX O O \n. X O \n. X X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45259" [
-    label = "Visits: 33354\nValue: 33354\nX O O \nX O . \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27053" [
+    label = "Visits: 54317\nValue: 54295\nX O O \nX X O \n. X . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45260" [
-    label = "Visits: 33353\nValue: 33353\nX O O \n. O . \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27054" [
+    label = "Visits: 21\nValue: 0\nX O O \nX X O \n. X O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45261" [
-    label = "Visits: 399500\nValue: 399412\n. O O \nX . . \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27055" [
+    label = "Visits: 54295\nValue: 54295\nX O O \nX X O \nO X . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45262" [
-    label = "Visits: 99875\nValue: -998728\n. O O \nX . O \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27056" [
+    label = "Visits: 54294\nValue: 54294\nX O O \nX X O \nO X X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45263" [
-    label = "Visits: 33240\nValue: 33229\n. O O \nX X O \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27057" [
+    label = "Visits: 168826\nValue: 168805\nX . O \nO X O \n. X . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45264" [
-    label = "Visits: 16591\nValue: -165910\nO O O \nX X O \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27058" [
+    label = "Visits: 56963\nValue: 56963\nX X O \nO X O \n. X . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45265" [
-    label = "Visits: 16648\nValue: -166469\n. O O \nX X O \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
+  "27059" [
+    label = "Visits: 54900\nValue: 54879\nX . O \nO X O \nX X . \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45266" [
-    label = "Visits: 16647\nValue: 16647\nX O O \nX X O \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27060" [
+    label = "Visits: 21\nValue: 0\nX . O \nO X O \nX X O \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45267" [
-    label = "Visits: 33317\nValue: 33317\n. O O \nX . O \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27061" [
+    label = "Visits: 54878\nValue: 54878\nX O O \nO X O \nX X . \n\nO \"O\" jogou, vez do \"X\":\n";
   ];
-  "45268" [
-    label = "Visits: 33317\nValue: 33317\nX O O \nX . O \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
+  "27062" [
+    label = "Visits: 54877\nValue: 54877\nX O O \nO X O \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
   ];
-  "45269" [
-    label = "Visits: 99875\nValue: -998728\n. O O \nX O . \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
-  ];
-  "45270" [
-    label = "Visits: 33317\nValue: 33317\nX O O \nX O . \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
-  ];
-  "45271" [
-    label = "Visits: 33317\nValue: 33317\n. O O \nX O . \nX X X \n\nO \"X\" jogou, vez do \"O\":\n";
-  ];
-  "45272" [
-    label = "Visits: 33240\nValue: 33229\n. O O \nX O X \nX . X \n\nO \"X\" jogou, vez do \"O\":\n";
-  ];
-  "45273" [
-    label = "Visits: 16620\nValue: -166200\nO O O \nX O X \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
-  ];
-  "45274" [
-    label = "Visits: 16619\nValue: -166190\n. O O \nX O X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
-  ];
-  "45275" [
-    label = "Visits: 99625\nValue: -996250\nO O O \nX . . \nX . X \n\nO \"O\" jogou, vez do \"X\":\n";
-  ];
-  "45276" [
-    label = "Visits: 100124\nValue: -1001196\n. O O \nX . . \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
-  ];
-  "45277" [
-    label = "Visits: 33451\nValue: 33451\nX O O \nX . . \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
-  ];
-  "45278" [
-    label = "Visits: 33374\nValue: 33363\n. O O \nX . X \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
-  ];
-  "45279" [
-    label = "Visits: 16687\nValue: -166870\n. O O \nX O X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
-  ];
-  "45280" [
-    label = "Visits: 16686\nValue: -166860\nO O O \nX . X \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
-  ];
-  "45281" [
-    label = "Visits: 33298\nValue: 33276\n. O O \nX X . \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
-  ];
-  "45282" [
-    label = "Visits: 16677\nValue: -166759\n. O O \nX X O \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
-  ];
-  "45283" [
-    label = "Visits: 16676\nValue: 16676\nX O O \nX X O \nX O X \n\nO \"X\" jogou, vez do \"O\":\n";
-  ];
-  "45284" [
-    label = "Visits: 16620\nValue: -166200\nO O O \nX X . \nX O X \n\nO \"O\" jogou, vez do \"X\":\n";
-  ];
-  "45172" -- "45173";
-  "45173" -- "45174";
-  "45174" -- "45175";
-  "45175" -- "45176";
-  "45175" -- "45177";
-  "45177" -- "45178";
-  "45174" -- "45179";
-  "45179" -- "45180";
-  "45180" -- "45181";
-  "45179" -- "45182";
-  "45182" -- "45183";
-  "45174" -- "45184";
-  "45173" -- "45185";
-  "45173" -- "45186";
-  "45186" -- "45187";
-  "45187" -- "45188";
-  "45188" -- "45189";
-  "45187" -- "45190";
-  "45186" -- "45191";
-  "45191" -- "45192";
-  "45191" -- "45193";
-  "45186" -- "45194";
-  "45194" -- "45195";
-  "45195" -- "45196";
-  "45194" -- "45197";
-  "45173" -- "45198";
-  "45198" -- "45199";
-  "45199" -- "45200";
-  "45199" -- "45201";
-  "45198" -- "45202";
-  "45202" -- "45203";
-  "45203" -- "45204";
-  "45202" -- "45205";
-  "45198" -- "45206";
-  "45172" -- "45207";
-  "45172" -- "45208";
-  "45208" -- "45209";
-  "45209" -- "45210";
-  "45210" -- "45211";
-  "45211" -- "45212";
-  "45210" -- "45213";
-  "45209" -- "45214";
-  "45209" -- "45215";
-  "45208" -- "45216";
-  "45208" -- "45217";
-  "45217" -- "45218";
-  "45217" -- "45219";
-  "45219" -- "45220";
-  "45220" -- "45221";
-  "45219" -- "45222";
-  "45217" -- "45223";
-  "45208" -- "45224";
-  "45224" -- "45225";
-  "45225" -- "45226";
-  "45225" -- "45227";
-  "45227" -- "45228";
-  "45224" -- "45229";
-  "45229" -- "45230";
-  "45229" -- "45231";
-  "45231" -- "45232";
-  "45224" -- "45233";
-  "45172" -- "45234";
-  "45234" -- "45235";
-  "45235" -- "45236";
-  "45235" -- "45237";
-  "45235" -- "45238";
-  "45234" -- "45239";
-  "45239" -- "45240";
-  "45240" -- "45241";
-  "45240" -- "45242";
-  "45242" -- "45243";
-  "45239" -- "45244";
-  "45239" -- "45245";
-  "45234" -- "45246";
-  "45246" -- "45247";
-  "45246" -- "45248";
-  "45246" -- "45249";
-  "45249" -- "45250";
-  "45250" -- "45251";
-  "45249" -- "45252";
-  "45252" -- "45253";
-  "45234" -- "45254";
-  "45254" -- "45255";
-  "45255" -- "45256";
-  "45256" -- "45257";
-  "45255" -- "45258";
-  "45254" -- "45259";
-  "45254" -- "45260";
-  "45172" -- "45261";
-  "45261" -- "45262";
-  "45262" -- "45263";
-  "45263" -- "45264";
-  "45263" -- "45265";
-  "45265" -- "45266";
-  "45262" -- "45267";
-  "45262" -- "45268";
-  "45261" -- "45269";
-  "45269" -- "45270";
-  "45269" -- "45271";
-  "45269" -- "45272";
-  "45272" -- "45273";
-  "45272" -- "45274";
-  "45261" -- "45275";
-  "45261" -- "45276";
-  "45276" -- "45277";
-  "45276" -- "45278";
-  "45278" -- "45279";
-  "45278" -- "45280";
-  "45276" -- "45281";
-  "45281" -- "45282";
-  "45282" -- "45283";
-  "45281" -- "45284";
+  "27063" [
+    label = "Visits: 56962\nValue: 56962\nX . O \nO X O \n. X X \n\nO \"X\" jogou, vez do \"O\":\n";
+  ];
+  "27064" [
+    label = "Visits: 26\nValue: 0\nX . O \n. X O \n. X O \n\nO \"O\" jogou, vez do \"X\":\n";
+  ];
+  "27065" [
+    label = "Visits: 168826\nValue: 168805\nX . O \n. X O \nO X . \n\nO \"O\" jogou, vez do \"X\":\n";
+  ];
+  "27066" [
+    label = "Visits: 56963\nValue: 56963\nX . O \n. X O \nO X X \n\nO \"X\" jogou, vez do \"O\":\n";
+  ];
+  "27067" [
+    label = "Visits: 54900\nValue: 54879\nX . O \nX X O \nO X . \n\nO \"X\" jogou, vez do \"O\":\n";
+  ];
+  "27068" [
+    label = "Visits: 54878\nValue: 54878\nX O O \nX X O \nO X . \n\nO \"O\" jogou, vez do \"X\":\n";
+  ];
+  "27069" [
+    label = "Visits: 54877\nValue: 54877\nX O O \nX X O \nO X X \n\nO \"X\" jogou, vez do \"O\":\n";
+  ];
+  "27070" [
+    label = "Visits: 21\nValue: 0\nX . O \nX X O \nO X O \n\nO \"O\" jogou, vez do \"X\":\n";
+  ];
+  "27071" [
+    label = "Visits: 56962\nValue: 56962\nX X O \n. X O \nO X . \n\nO \"X\" jogou, vez do \"O\":\n";
+  ];
+  "26966" -- "26967";
+  "26967" -- "26968";
+  "26968" -- "26969";
+  "26968" -- "26970";
+  "26970" -- "26971";
+  "26971" -- "26972";
+  "26970" -- "26973";
+  "26968" -- "26974";
+  "26967" -- "26975";
+  "26975" -- "26976";
+  "26976" -- "26977";
+  "26977" -- "26978";
+  "26976" -- "26979";
+  "26975" -- "26980";
+  "26975" -- "26981";
+  "26967" -- "26982";
+  "26982" -- "26983";
+  "26983" -- "26984";
+  "26983" -- "26985";
+  "26985" -- "26986";
+  "26982" -- "26987";
+  "26987" -- "26988";
+  "26988" -- "26989";
+  "26987" -- "26990";
+  "26982" -- "26991";
+  "26967" -- "26992";
+  "26966" -- "26993";
+  "26993" -- "26994";
+  "26994" -- "26995";
+  "26995" -- "26996";
+  "26996" -- "26997";
+  "26995" -- "26998";
+  "26994" -- "26999";
+  "26994" -- "27000";
+  "26993" -- "27001";
+  "26993" -- "27002";
+  "27002" -- "27003";
+  "27003" -- "27004";
+  "27004" -- "27005";
+  "27003" -- "27006";
+  "27002" -- "27007";
+  "27007" -- "27008";
+  "27008" -- "27009";
+  "27007" -- "27010";
+  "27002" -- "27011";
+  "26993" -- "27012";
+  "27012" -- "27013";
+  "27012" -- "27014";
+  "27014" -- "27015";
+  "27015" -- "27016";
+  "27014" -- "27017";
+  "27012" -- "27018";
+  "26966" -- "27019";
+  "26966" -- "27020";
+  "27020" -- "27021";
+  "27021" -- "27022";
+  "27022" -- "27023";
+  "27023" -- "27024";
+  "27022" -- "27025";
+  "27021" -- "27026";
+  "27021" -- "27027";
+  "27020" -- "27028";
+  "27028" -- "27029";
+  "27029" -- "27030";
+  "27029" -- "27031";
+  "27031" -- "27032";
+  "27028" -- "27033";
+  "27028" -- "27034";
+  "27020" -- "27035";
+  "27035" -- "27036";
+  "27036" -- "27037";
+  "27037" -- "27038";
+  "27036" -- "27039";
+  "27035" -- "27040";
+  "27035" -- "27041";
+  "27041" -- "27042";
+  "27041" -- "27043";
+  "27043" -- "27044";
+  "27020" -- "27045";
+  "26966" -- "27046";
+  "27046" -- "27047";
+  "27047" -- "27048";
+  "27048" -- "27049";
+  "27048" -- "27050";
+  "27050" -- "27051";
+  "27047" -- "27052";
+  "27047" -- "27053";
+  "27053" -- "27054";
+  "27053" -- "27055";
+  "27055" -- "27056";
+  "27046" -- "27057";
+  "27057" -- "27058";
+  "27057" -- "27059";
+  "27059" -- "27060";
+  "27059" -- "27061";
+  "27061" -- "27062";
+  "27057" -- "27063";
+  "27046" -- "27064";
+  "27046" -- "27065";
+  "27065" -- "27066";
+  "27065" -- "27067";
+  "27067" -- "27068";
+  "27068" -- "27069";
+  "27067" -- "27070";
+  "27065" -- "27071";
 }
