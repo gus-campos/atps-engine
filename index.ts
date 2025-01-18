@@ -8,17 +8,17 @@ import { AutoPlay, Agent, GameName } from "src/shared/Autoplay";
 
 const GAME_NAMES = Object.values(GameName);
 
-const autoplay = new AutoPlay(
+let autoplay = new AutoPlay(
   {
-    gameName: GameName.TIC_TAC_TOE,
+    gameName: GameName.GOBLET_GOBBLERS,
     agents: [Agent.MCTS, Agent.MCTS],
-    matches: 1
+    matches: 10
   },
   {
-    searchesTime: 1000,
+    searchesTime: 500,
     maxPlayoutDepth: null
   },
-  true
+  false
 );
 
 autoplay.playMultiple();

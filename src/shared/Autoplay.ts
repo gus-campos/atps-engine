@@ -39,7 +39,7 @@ interface Results {
 
 export enum GameName {
   TIC_TAC_TOE = "Tic Tac Toe",
-  GOBLET_GOBBLERS = "Gobblets_Gobblers",
+  GOBLET_GOBBLERS = "Gobblets Gobblers",
   BOOP = "Boop",
   CONNECT_FOUR = "Connect Four",
   CHECKERS = "Checkers"
@@ -166,6 +166,7 @@ export class AutoPlay {
     }
 
     this.updateResults();
+    this.printResults();
   }
 
   private logProgress(i: number): void {

@@ -1,18 +1,163 @@
-import { describe, it, beforeEach, expect } from "vitest";
+import { describe, it, beforeEach, expect, assert } from "vitest";
 import { TicTacToe } from "src/games/TicTacToe";
 import { Outcome } from "src/agents/MCTS";
-import { NodeMCTS } from "src/agents/MCTS";
+import { Node, OUTCOME_VALUE } from "src/agents/MCTS";
+import { RANDOM } from "src/utils/Random"
 
 // =================== TicTacToe ===================
 
-describe("NodeMCTS with ttt", () => {
-  
+describe("Node with ttt", () => {
   let ttt: TicTacToe;
-  let root: NodeMCTS;
+  let root: Node;
 
   beforeEach(() => {
     ttt = new TicTacToe();
-    root = new NodeMCTS(null, ttt, null);
+    root = new Node(null, ttt, null);
+  });
+
+  describe("expand", () => {
+    it("should define new parent's child as the node expanded", () => {
+      let parent = root.expand();
+      let child = parent.expand();
+      expect(child.getParent()).toBe(parent);
+
+      parent = child;
+      child = parent.expand();
+      expect(child.getParent()).toBe(parent);
+
+      parent = child;
+      child = parent.expand();
+      expect(child.getParent()).toBe(parent);
+    });
+
+    it("should remove the action taken from the expandable actions", () => {
+      let parent = root;
+      let child = parent.expand();
+      expect(parent.getExpandableActions()).not.toContain(
+        child.getActionTaken()
+      );
+
+      parent = child;
+      child = parent.expand();
+      expect(parent.getExpandableActions()).not.toContain(
+        child.getActionTaken()
+      );
+
+      parent = child;
+      child = parent.expand();
+      expect(parent.getExpandableActions()).not.toContain(
+        child.getActionTaken()
+      );
+    });
+
+    it("should create a new game based on action taken and assign it", () => {
+      let parent = root.expand();
+      let child = parent.expand();
+      parent.getGame().playAction(child.getActionTaken());
+      expect(parent.getGame()).toEqual(child.getGame());
+
+      parent = child;
+      child = parent.expand();
+      parent.getGame().playAction(child.getActionTaken());
+      expect(parent.getGame()).toEqual(child.getGame());
+
+      parent = child;
+      child = parent.expand();
+      parent.getGame().playAction(child.getActionTaken());
+      expect(parent.getGame()).toEqual(child.getGame());
+    });
+  });
+
+  describe("isFullyExpanded", () => {
+    it("should return false for root node", () => {
+      expect(root.isExpandableOrTerminal()).toBeTruthy();
+    });
+
+    it("should return false only for fully expanded nodes", () => {
+      let node = root;
+
+      while (node.getExpandableActions().length > 0) {
+        expect(node.isExpandableOrTerminal()).toBeTruthy();
+        node.expand();
+      }
+
+      expect(node.isExpandableOrTerminal()).toBeFalsy();
+    });
+  });
+
+  describe("bestChild", () => {
+    it("should return the child that has the greatest ucb", () => {
+      let parent = root;
+      parent.setVisits(10);
+
+      let children = [];
+
+      children.push(parent.expand());
+      children.push(parent.expand());
+      children.push(parent.expand());
+      children.push(parent.expand());
+      children.push(parent.expand());
+
+      for (let child of children) {
+        child.setVisits(1 + (RANDOM.int() % 200));
+        child.setValue(RANDOM.float());
+      }
+
+      let ucbs = children.map((child) => child.ucb());
+      let maxIndex = ucbs.indexOf(Math.max(...ucbs));
+
+      expect(children[maxIndex]).toEqual(parent.bestChild());
+    });
+  });
+
+  describe("backpropagate", () => {
+    let linearChildren: Node[];
+
+    beforeEach(() => {
+      linearChildren = [];
+      let parent = root;
+      linearChildren.push(parent);
+
+      while (parent.getExpandableActions().length > 0) {
+        let child = parent.expand();
+        linearChildren.push(child);
+        parent = child;
+      }
+
+      for (let i = 1; i < linearChildren.length; i++)
+        assert(linearChildren[i].getParent() === linearChildren[i - 1]);
+    });
+
+    it("should increment parents visit count", () => {
+      linearChildren[linearChildren.length - 1].backpropagate(0);
+
+      for (let child of linearChildren) expect(child.getVisits()).toBe(1);
+
+      linearChildren[linearChildren.length - 1].backpropagate(0);
+
+      for (let child of linearChildren) expect(child.getVisits()).toBe(2);
+    });
+
+    it("should increment parents value", () => {
+      
+      for (let child of linearChildren) 
+        expect(child.getValue()).toBe(0);
+  
+    });
+  });
+});
+
+
+// =================== TicTacToe ===================
+
+describe("Node with ttt", () => {
+  
+  let ttt: TicTacToe;
+  let root: Node;
+
+  beforeEach(() => {
+    ttt = new TicTacToe();
+    root = new Node(null, ttt, null);
   });
 
   describe("simulate", () => {
@@ -32,7 +177,7 @@ describe("NodeMCTS with ttt", () => {
       // O X O
       // O X _
 
-      let node = new NodeMCTS(null, ttt, null);
+      let node = new Node(null, ttt, null);
       let perspectivePlayer = ttt.getCurrentPlayer();
 
       // 0 vai jogar, e inevitavelmente ganhar
@@ -57,7 +202,7 @@ describe("NodeMCTS with ttt", () => {
       // O X O
       // _ X _
 
-      let node = new NodeMCTS(null, ttt, null);
+      let node = new Node(null, ttt, null);
       let perspectivePlayer = ttt.getCurrentPlayer();
 
       // 1 vai jogar, pra depois 0 jogar e inevitavelmente ganhar
@@ -79,7 +224,7 @@ describe("NodeMCTS with ttt", () => {
       // X O X
       // O _ O
 
-      let node = new NodeMCTS(null, ttt, null);
+      let node = new Node(null, ttt, null);
       let perspectivePlayer = ttt.getCurrentPlayer();
 
       // Expect to draw

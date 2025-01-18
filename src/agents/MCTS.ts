@@ -29,8 +29,6 @@ export const OPPOSITE_OUTCOME = new Map<Outcome, Outcome>([
 ]);
 
 const EXPLORE_FACTOR = Math.sqrt(2);
-
-const STANDARD_TIME_CRITERIA = 1000;
 let GRAPH_ID = 0;
 let TURN = 0;
 
@@ -38,28 +36,48 @@ let TURN = 0;
 
 export class Node {
 
-  private game: Game;
-  private children: Node[];
-  
-  private actionTaken: Action | null;
   private parent: Node | null;
-
+  private game: Game;
+  private actionTaken: Action | null;
+  private perspectivePlayer: Player;
+  
   private visits: number;
   private value: number;
-
+  
   private expandableActions: Action[];
+  private children: Node[];
 
   constructor(parent: Node, game: Game, actionTaken: Action) {
 
     this.parent = parent;
     this.game = game.clone();
     this.actionTaken = actionTaken;
+    this.perspectivePlayer = game.getCurrentPlayer();
 
     this.visits = 0;
     this.value = 0;
 
     this.expandableActions = this.game.getValidActions();
     this.children = [];
+  }
+  
+
+  public static getGameOutcome(game: Game) {
+
+    /*
+    // TODO: Para jogos que o player causa a própria derrota, 
+    // considerar de acordo com referência (qual?)
+    */
+    
+    if (!game.getTermination())
+      throw new Error("A not ended game has no valid outcome");
+    
+    let winner = game.getWinner();
+    
+    if (winner == null)
+      return Outcome.DRAW;
+  
+    return Outcome.WIN;
   }
 
   public expand(): Node {
@@ -120,6 +138,7 @@ export class Node {
   }
 
   public backpropagate(outcome: Outcome) {
+
     /*
     Propaga o valor aos parents, invertendo o valor quando o 
     parent é de outra perspectiva
@@ -128,11 +147,16 @@ export class Node {
     this.visits++;
     this.value += OUTCOME_VALUE.get(outcome);
 
-    if (this.parent != null)
+    if (this.parent != null) {
+     
+      if (this.perspectivePlayer != this.parent.perspectivePlayer)
+        outcome = OPPOSITE_OUTCOME.get(outcome);
+      
       this.parent.backpropagate(outcome);
+    }
   }
 
-  public simulate(maxPlayer: Player): Outcome {
+  public simulate(): Outcome {
 
     /*
     Joga o jogo com ações aleatórias, até o fim, e
@@ -146,28 +170,7 @@ export class Node {
       game.playAction(action);
     }
 
-    return Node.getGameOutcome(game, maxPlayer);
-  }
-
-  public static getGameOutcome(game: Game, maximizingPlayer: Player) {
-
-    /*
-    Retorna o outcome do jogo, de acordo com o maximizing player
-    de referência
-
-    Considera que se é terminal, e não empatou, só pode ter sido ganho pelo próprio
-    // BUG: Não é verdade em jogos que o player causa a própria derrota
-    */
-    
-    if (!game.getTermination())
-      throw new Error("A not ended game has no valid outcome");
-    
-    let winner = game.getWinner();
-    
-    if (winner == null)
-      return Outcome.DRAW;
-    
-    return winner == maximizingPlayer ? Outcome.WIN : Outcome.LOSE;
+    return Node.getGameOutcome(game);
   }
 
   public genGraphNodes(G: Graph, parent: NodeModel) {
@@ -281,12 +284,10 @@ export class MCTS {
 
   private root: Node;
   private mctsConfig: MCTSConfig;
-  private maximizingPlayer: Player;
 
   constructor(rooNode: Node, mctsConfig: MCTSConfig) {
     this.root = rooNode;
     this.mctsConfig = mctsConfig;
-    this.maximizingPlayer = rooNode.getGame().getCurrentPlayer();
   }
 
   public genGraph(dirOut: string) {
@@ -337,10 +338,12 @@ export class MCTS {
     Faz buscas e retorna a próxima melhor ação
     */
 
+    TURN = 0;
+
     const action = this.searches();
 
     if (genGraph)
-      this.genGraph(`graphs/${TURN++}.dot`);
+      this.genGraph(`graphs/Turn: ${TURN++}.dot`);
 
     return action;
   }
@@ -352,12 +355,22 @@ export class MCTS {
     e retorna a próxima melhor ação
     */
 
-    if (this.mctsConfig.searchesTime == null)
-      this.mctsConfig.searchesTime = STANDARD_TIME_CRITERIA;
-    
-    let startTime = Date.now();
-    while (Date.now() - startTime < this.mctsConfig.searchesTime) 
-      this.search();
+    const searchesTime = this.mctsConfig.searchesTime;
+
+    // Em caso de tempo definido
+    if (searchesTime != null) {
+
+      const startTime = Date.now();
+      while ((Date.now() - startTime) < searchesTime)
+        this.search();
+    }
+
+    // Em caso de tempo não definido
+    else {
+
+      for (let i=0; i<1_000; i++)
+        this.search(); 
+    }
 
     return this.mostVisitedChild().getActionTaken();
   }
@@ -421,12 +434,12 @@ export class MCTS {
     //
 
     if (terminal) {
-      outcome = Node.getGameOutcome(node.getGame(), this.maximizingPlayer);
+      outcome = Node.getGameOutcome(node.getGame());
     } 
     
     else {
       node = node.expand();
-      outcome = node.simulate(this.maximizingPlayer);
+      outcome = node.simulate();
     }
 
     node.backpropagate(outcome);
