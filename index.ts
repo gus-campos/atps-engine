@@ -10,11 +10,12 @@ const GAME_NAMES = Object.values(GameName);
 
 let autoplay = new AutoPlay(
   {
-    gameName: GameName.GOBLET_GOBBLERS,
-    agents: [Agent.MCTS, Agent.MCTS],
-    matches: 10
+    gameName: GameName.BOOP,
+    agents: [Agent.MCTS, Agent.RANDOM],
+    matches: 100
   },
   {
+    genGraph: false,
     searchesTime: 500,
     maxPlayoutDepth: null
   },

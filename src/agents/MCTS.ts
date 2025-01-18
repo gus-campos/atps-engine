@@ -13,7 +13,8 @@ export enum Outcome {
 export interface MCTSConfig {
 
   searchesTime: number;
-  maxPlayoutDepth: number
+  maxPlayoutDepth: number;
+  genGraph: boolean;
 }
 
 export const OUTCOME_VALUE = new Map<Outcome, number>([
@@ -310,7 +311,7 @@ export class MCTS {
     fs.writeFileSync(dirOut, toDot(G));
   }
 
-  public static nextGameAction(game: Game, mctsConfig: MCTSConfig, genGraph: boolean=false): Action {
+  public static nextGameAction(game: Game, mctsConfig: MCTSConfig): Action {
     
     /*
     Baseado num jogo inicial, cria uma árvore do MCTS,
@@ -319,7 +320,7 @@ export class MCTS {
 
     const mcts = MCTS.createFromGame(game, mctsConfig);
 
-    return mcts.nextAction(genGraph);
+    return mcts.nextAction();
   }
 
   public static createFromGame(game: Game, mctsConfig: MCTSConfig) {
@@ -332,17 +333,15 @@ export class MCTS {
     return new MCTS(node, mctsConfig);
   }
   
-  public nextAction(genGraph: boolean=false): Action {
+  public nextAction(): Action {
     
     /*
     Faz buscas e retorna a próxima melhor ação
     */
 
-    TURN = 0;
-
     const action = this.searches();
 
-    if (genGraph)
+    if (this.mctsConfig.genGraph)
       this.genGraph(`graphs/Turn: ${TURN++}.dot`);
 
     return action;
@@ -421,9 +420,6 @@ export class MCTS {
     Faz uma busca, realizando as 4 etapas do MCTS,
     com seleção, expanção, simulação e retro propagação
     */
-
-    // Debug
-    //this.genGraph("graph.dot");
 
     let node = this.select();
     let outcome: Outcome;

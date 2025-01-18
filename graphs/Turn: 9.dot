@@ -1,0 +1,2352 @@
+graph "G" {
+  node [
+    fontname = "Courier";
+  ];
+  "4432" [
+    label = "Visits: 586\nValue: 327\na . . . a a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4433" [
+    label = "Visits: 27\nValue: 1\n. . . . a a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4434" [
+    label = "Visits: 2\nValue: 2\n. . . . a a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . a . b \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4435" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. A . a . a \n. . . . . . \na b . b b a \n. . . . . . \n. b . a . b \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4436" [
+    label = "Visits: 1\nValue: 1\n. b . . a a \n. . . . . a \n. b . a . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4437" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. . a . . a \n. b . b . b \na . . . . a \n. . . b . . \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4438" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. b . a . a \n. . . . . . \na b . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4439" [
+    label = "Visits: 1\nValue: 1\n. . a . a a \n. . . . . a \nb . b . . . \na . . . b a \n. . . . b . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4440" [
+    label = "Visits: 1\nValue: 1\nb . . . a a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4441" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. . a . . a \n. b . . b . \na . . . b a \n. . b . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4442" [
+    label = "Visits: 1\nValue: 1\n. . . . a . \n. . a . . . \n. b . b . . \na . . b . . \n. . . . . b \n. b . . . . \n\na: 1 | A: 4 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4443" [
+    label = "Visits: 1\nValue: 1\n. . . . . a \n. a . b . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4444" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4445" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nb . a . . a \n. . . . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4446" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. . a . . a \n. b b . b . \na . . . . . \n. . . . b . \n. b . . . . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4447" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. . a . . a \n. b . . . b \na . . b . . \n. . . b . a \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4448" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. . a . . a \na b . . . . \n. . . b b a \nb . . . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4449" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. . a . . . \n. b . . b . \na . . . . . \n. . b . b . \n. b . . a . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4450" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nb . a . . a \n. . . . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4451" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . b . a \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4452" [
+    label = "Visits: 1\nValue: 1\n. a . . a a \n. . . . . a \n. b . b . . \na . . . . a \n. . . b . b \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4453" [
+    label = "Visits: 1\nValue: 1\n. . . . . . \n. . a . b . \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 3 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4454" [
+    label = "Visits: 1\nValue: 1\n. . . b a a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4455" [
+    label = "Visits: 1\nValue: 1\n. . b . a a \n. . . . . a \n. b a . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4456" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. b a . . a \n. . . . . . \n. b . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4457" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. . a . . a \n. b . . . . \n. . . b b a \n. b . . . . \n. . . . a . \n\na: 1 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4458" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. . a . . a \nb . b . . . \n. . . b b a \na . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4459" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4460" [
+    label = "Visits: 27\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . . . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4461" [
+    label = "Visits: 2\nValue: 2\na . . . a a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \nb . b . . . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4462" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \nb . b . . A \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4463" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. a . b . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4464" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . b . \na . . . b a \n. . b . . . \n. . . . . . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4465" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a . . a \n. . . . . . \n. b . b b a \n. . . . . . \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4466" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . b . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4467" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \na b . . . . \n. . . b b a \nb . . . . . \n. . . . . . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4468" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nb . a . . a \n. . . . . . \na . . . . a \n. . . . . . \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4469" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . b . \n. b . . . . \na . . b b a \n. . . . . . \n. b . . . . \n\na: 3 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4470" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . . . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4471" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . b \na . . b . . \n. . . b . a \n. b . . . . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4472" [
+    label = "Visits: 1\nValue: 1\na . . . a . \n. . a . . . \n. b . b . . \na . . b . . \n. . . . . b \n. b . . . . \n\na: 0 | A: 4 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4473" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \nb . b . . . \n. . . b b a \na . . . . . \n. b . . . . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4474" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \nb . b . . . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4475" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . b . b \na . . . . a \n. . . b . . \n. b . . . . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4476" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . b . \na . . . . . \n. . b . b . \n. b . . . . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4477" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . a \n. b . b . . \na . . . . a \n. . . b . b \n. b . . . . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4478" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. . . . . a \n. b a . . . \na . . b b a \n. . . . . . \n. b . . . . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4479" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \n. . . b b a \n. b . . . . \n. . . . . . \n\na: 1 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4480" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . . b \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4481" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b b . b . \na . . . . . \n. . . . b . \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4482" [
+    label = "Visits: 1\nValue: 1\n. b . . a a \n. . . . . a \n. b . a . . \na . . b b a \n. . . . . . \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4483" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . b . . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4484" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. b . a . a \n. . . . . . \na b . b b a \n. . . . . . \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4485" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . a \nb . b . . . \na . . . b a \n. . . . b . \n. b . . . . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4486" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . a \n. . . . . . \na . . . . a \n. . . . . . \n. b . . . . \n\na: 0 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4487" [
+    label = "Visits: 402\nValue: 252\na . . . a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4488" [
+    label = "Visits: 10\nValue: 1\n. . . . a a \n. b . a . . \n. . . . . . \na b . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4489" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. b . a . . \n. . . b . a \na b . b . . \n. . . . . a \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4490" [
+    label = "Visits: 1\nValue: 1\n. . . . . . \n. b . a . A \n. . . . . . \na b . b b a \n. . . . . . \n. b . . a . \n\na: 3 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4491" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. b . a . . \n. . . b . a \na b . b . . \n. . . . . A \n. b . . . . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4492" [
+    label = "Visits: 1\nValue: 1\n. . b . a a \n. . . a . . \nA . . . . . \n. . . . b a \na . . . . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4493" [
+    label = "Visits: 1\nValue: 1\n. . . . . . \n. b a . a . \n. . . . . . \na b . b b a \n. . . . . . \n. b . . a . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4494" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. b . a . . \n. b . . . . \n. . . b b a \n. a . . . . \n. . . . a . \n\na: 1 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4495" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. b . a . . \n. . b . b . \na b . . . . \n. . . . A . \n. b . . . . \n\na: 3 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4496" [
+    label = "Visits: 1\nValue: 1\n. . a . a a \n. b . . . . \n. . . . A . \na b . . . . \n. . b . b . \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4497" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nb . A . a . \n. . . . . . \na b . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4498" [
+    label = "Visits: 20\nValue: 9\na . . . a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4499" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . A . \na . . . . . \n. . b . b . \nb . b . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4500" [
+    label = "Visits: 1\nValue: 1\n. A . . a a \n. . . . . . \n. b . a . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4501" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \n. . . b b a \n. A . . . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 5 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4502" [
+    label = "Visits: 1\nValue: 1\na . A . a a \n. . . . . . \n. b a . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4503" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . A \n. b . . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4504" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nA . b . . . \n. . . b b a \na . . . . . \nb . b . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4505" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \nb . A . . . \na . . . b a \n. . . . b . \nb . b . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4506" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . A . \n. b . . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4507" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . b \na . . . . a \n. . . A . . \nb . . . . . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4508" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . a \na . . b . . \n. . . . . A \nb . b . . . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4509" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . A \na . . b . . \n. . . b . a \nb . b . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4510" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \n. A . b a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4511" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \nb b . A . a \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4512" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b b . b . \na . . . . . \n. . . . A . \nb . b . . . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4513" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a . . . \n. . . . . . \n. A . b b a \n. . . . . . \nb . b . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4514" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . . . \na . A b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4515" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . b . \na . . . b a \n. . A . . . \nb . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4516" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. a . A . . \n. b . . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4517" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. A . a . . \n. . . . . . \na b . b b a \n. . . . . . \nb . b . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4518" [
+    label = "Visits: 10\nValue: 1\n. b . . a a \n. . . . . . \n. b . a . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4519" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \na . . . . . \n. . . a . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4520" [
+    label = "Visits: 1\nValue: 1\n. b . . a a \n. . . . . . \n. b . a . . \n. . . b b a \n. a . . . . \n. . . . a . \n\na: 1 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4521" [
+    label = "Visits: 1\nValue: 1\n. b . . a a \n. b . . . . \n. . . a . . \n. a . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4522" [
+    label = "Visits: 1\nValue: 1\n. b . . a a \n. . . . . . \n. b . a . a \na . . b b . \n. . . . . a \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4523" [
+    label = "Visits: 1\nValue: 1\n. b . . a a \n. . . . . . \nb . A . a . \na . . . b a \n. . . . b . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4524" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. . a . . . \n. b . a . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4525" [
+    label = "Visits: 1\nValue: 1\n. b . . a a \n. . . . . . \n. b . a . . \n. . . b b a \n. A . . . . \n. . . . a . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4526" [
+    label = "Visits: 1\nValue: 1\n. b . . . . \n. . . . a . \n. b . . . . \na . a b b a \n. . . . . . \n. b . . a . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4527" [
+    label = "Visits: 1\nValue: 1\n. b . . a a \n. b . . . . \n. . . a . . \n. A . b b a \n. . . . . . \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4528" [
+    label = "Visits: 16\nValue: 6\na . . . a a \n. . a . . . \nb . b . . . \n. . . b b a \na . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4529" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nb . b . . A \n. . . b . . \na . . b . a \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4530" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . . . . . \nb a b . . . \n. . . b b a \na . . . . . \n. b . . a . \n\na: 0 | A: 3 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4531" [
+    label = "Visits: 1\nValue: 1\n. A . . a a \n. . . . . . \nb . b a . . \n. . . b b a \na . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4532" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nb . b . b . \n. . . . b a \na . A . . . \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4533" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . . . . . \n. A . b . . \n. . . b b a \na . . . . . \n. b . . a . \n\na: 0 | A: 3 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4534" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nb . b . . . \n. . . b b a \na . . . . . \nb . A . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4535" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nb . b . . . \n. . . b b a \na . . . . . \n. b . a . A \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4536" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nb . b . b . \n. . . b . . \na . . . A . \n. b . . . . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4537" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nb . b . . . \n. . . b b a \na . . . . . \n. b . A . a \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4538" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nb . b b . a \n. . . b . . \na . . . . A \n. b . . . . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4539" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a b . . \n. . . . . . \n. A . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4540" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nb . b . A . \n. . . . . . \na . b . b . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4541" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nb . b . . . \n. . . b b a \n. A . . . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4542" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . A \nb . b . . . \n. . . b b a \na . . . . . \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4543" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nA . a . . . \n. . b . . . \nb . . b b a \na . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4544" [
+    label = "Visits: 24\nValue: 13\na . . . a a \n. . a . . . \n. b . . b . \na . . . b a \n. . b . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4545" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b b a \na . . . . . \n. . b . . A \n. . . . . . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4546" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . b . \n. . . . b a \n. A . b . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4547" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a . . . \n. . . . b . \n. A . . b a \n. . . . . . \n. . . b a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4548" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . . \n. b . A . b \na . . . . a \n. . b . . b \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4549" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . b . \na b . . b a \n. . . . . . \n. . . A . a \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4550" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nA . b . b . \n. . . . b a \na . b . . . \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4551" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \nb . A . b . \na . . . b a \n. . b . . . \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4552" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . b b \na . . . . a \n. b . A . . \n. . . . . . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4553" [
+    label = "Visits: 1\nValue: 1\na . A . a a \n. . . . . . \n. b a . b . \na . . . b a \n. . b . . . \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4554" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . b . \na . A . b a \n. . . . . . \n. . b . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4555" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. a . A . . \n. b . . b . \na . . . b a \n. . b . . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4556" [
+    label = "Visits: 1\nValue: 1\n. A . . a a \n. . . . . . \n. b . a b . \na . . . b a \n. . b . . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4557" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . A \na . . . . . \n. . b b . a \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4558" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . b . \na . b . b a \n. . . . . . \n. . A . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4559" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . b . \na . . . b a \n. . b . . . \n. . . a . A \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4560" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . A . \n. b . . b . \na . . . b a \n. . b . . . \n. . . . a . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4561" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . b . \na . . . b a \n. . b . . . \nA . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4562" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nA . a . . . \n. . . . b . \na . b . b a \n. . b . . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4563" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. A . a . . \n. . . . b . \na b . . b a \n. . b . . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4564" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . b \n. b . . . . \na . . A b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4565" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . b . \na . . . b . \n. . b . A . \n. . . . . . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4566" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b . . b . \n. . . . b a \nA . b . . . \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4567" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . A \n. b . . . . \na . . b b a \n. . b . . . \n. . . . a . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4568" [
+    label = "Visits: 21\nValue: 10\na . . . a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \n. b . a . b \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4569" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \nb . A . . . \na . . . b a \n. . . . b . \n. b . a . b \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4570" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b b . b . \na . . . . . \n. . . . A . \n. b . . . . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4571" [
+    label = "Visits: 1\nValue: 1\na . A . a a \n. . . . . . \n. b a . . . \na . . b b a \n. . . . . . \n. b . a . b \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4572" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . . \n. b . A . . \na . . . . a \n. . . b . b \n. b . a . b \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4573" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . A . \na . . . . . \n. . b . b . \n. b . a . b \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4574" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \n. b a . A . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4575" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . A \na . . b . . \n. . . b . a \n. b . a . b \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4576" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b . . . . \n. . . b b a \nA . . . . . \n. . . a . b \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4577" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. a . A . . \n. b . . . . \na . . b b a \n. . . . . . \n. b . a . b \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4578" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . A . \n. b . . . . \na . . b b a \n. . . . . . \n. b . a . b \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4579" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a . . . \n. . . . . . \n. A . b b a \n. . . . . . \n. b . a . b \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4580" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \n. . . b b a \n. A . . . . \n. . . a . b \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4581" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . b . \na . . . b a \n. . A . . . \n. . . . . b \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4582" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \nA . b a . b \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4583" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . . . \na . A b b a \n. . . . . . \n. b . a . b \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4584" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nA . a . . . \n. . . . . . \na . . . . a \n. . . . . . \n. b . a . b \n\na: 1 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4585" [
+    label = "Visits: 1\nValue: 1\n. A . . a a \n. . . . . . \n. b . a . . \na . . b b a \n. . . . . . \n. b . a . b \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4586" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . A \n. b . . . . \na . . b b a \n. . . . . . \n. b . a . b \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4587" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nA . b . . . \n. . . b b a \na . . . . . \n. b . a . b \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4588" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . b \na . . . . a \n. . . A . . \n. b . . . b \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4589" [
+    label = "Visits: 19\nValue: 8\na . . . a a \nb . a . . . \n. . . . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4590" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \nA . . . . . \n. . . . . a \na . . . . . \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4591" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . . a \na . . . . . \n. . . . . A \n. b . . . . \n\na: 1 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4592" [
+    label = "Visits: 1\nValue: 1\na . A . a a \nb . . . . . \n. . a . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4593" [
+    label = "Visits: 1\nValue: 1\na a . . a a \nb . . . . . \n. . . A . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4594" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . . . \na . . . . a \n. . . A . . \n. b . . . . \n\na: 1 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4595" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . . . \na . A . . a \n. . . . . . \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4596" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . . . \n. A . . . a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4597" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . . . \na . . . . a \n. . . . . . \n. b . a . A \n\na: 0 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4598" [
+    label = "Visits: 1\nValue: 1\na . . . . a \nb a . A . . \n. . . . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4599" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . A . \na . . . . . \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4600" [
+    label = "Visits: 1\nValue: 1\n. A . . a a \n. . . . . . \n. . . a . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4601" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . . . . . \n. A . . . . \n. . . . . a \n. . . . . . \n. b . . a . \n\na: 1 | A: 3 | \nb: 4 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4602" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . . . \n. . . . . a \n. A . . . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4603" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . . . \na . . . . . \n. . . . A . \n. b . . . . \n\na: 2 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4604" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . . . \na . . . . a \n. . . . . . \n. b . A . a \n\na: 0 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4605" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . . . \na . . . A . \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4606" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . . . \na . . . . a \n. . A . . . \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4607" [
+    label = "Visits: 1\nValue: 1\na . . . . . \nb . . . . . \n. a . . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 0 | A: 3 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4608" [
+    label = "Visits: 10\nValue: 1\na . . . a a \n. . a . . . \n. b b . b . \na . . . . . \n. . . . b . \n. b . . . . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4609" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b b . b . \n. . . . . . \na . . . b . \n. . . . . . \n\na: 1 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4610" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b b . b . \na . . . b . \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4611" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a b . . \n. . . . b . \n. A . . . . \n. . . . b . \n. b . . . . \n\na: 3 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4612" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \na . a . . . \n. . b . b . \na . b . . . \n. . . . b . \n. b . . . . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4613" [
+    label = "Visits: 1\nValue: 1\n. a . . a a \n. . . . . . \n. b b a b . \na . . . . . \n. . . . b . \n. b . . . . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4614" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . . \n. b b . b . \na . . . . . \n. . . . b . \n. b . . . . \n\na: 2 | A: 3 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4615" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b b . b . \na . . . . b \n. . . . . . \n. b . a . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4616" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nA b b . b . \n. . . . . . \na . . . b . \n. b . . . . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4617" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b b . b . \n. . . . . . \nA . . . b . \n. . . . . . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4618" [
+    label = "Visits: 10\nValue: 1\na . . . a a \n. . a . . . \n. b . . b . \na . . . . . \n. . b . b . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4619" [
+    label = "Visits: 1\nValue: 1\na . A . a a \n. . . . . . \n. b a . b . \na . . . . . \n. . b . b . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4620" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nA . b . b . \n. . . . . . \na . b . b . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4621" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a . . . \n. . . . b . \n. a . . . . \n. . . . b . \n. b . b a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4622" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . a . \n. b . . . . \na . . . b . \n. . b . b . \n. b . . a . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4623" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . . \n. b . . b . \na . . . . . \n. . b . b . \n. b . . a . \n\na: 1 | A: 3 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4624" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . b . \n. . . . . . \n. a . b b . \n. . . . a . \n\na: 1 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4625" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . a \na . . . . . \n. . b . b . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4626" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. A . a . . \n. . . . b . \na b . . . . \n. . b . b . \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4627" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . b . \na . A . . . \n. . . . b . \n. b b . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4628" [
+    label = "Visits: 10\nValue: 1\na . . . . a \n. a . b . . \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4629" [
+    label = "Visits: 1\nValue: 1\na . b . . a \n. a . . . . \n. b . . A . \na . . . . . \n. . b . b . \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4630" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. a . b . . \n. b . . . . \na . . b b a \n. . . . . . \n. b . A . a \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4631" [
+    label = "Visits: 1\nValue: 1\na . b . . a \n. a . . . . \n. b . . a . \na . . . . . \n. . b . b . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4632" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. a . b . . \n. b . . b . \na . . . b a \n. . a . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4633" [
+    label = "Visits: 1\nValue: 1\n. . . . . a \na . a b . . \n. . . . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4634" [
+    label = "Visits: 1\nValue: 1\na . A . . a \n. . . . . . \na b . . b . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4635" [
+    label = "Visits: 1\nValue: 1\na . . . . a \nb a . b . . \n. . . . . . \na . A b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4636" [
+    label = "Visits: 1\nValue: 1\n. . . . b a \n. . . . . . \nb . . . . . \na . . . b a \n. . . . b . \n. b . . a . \n\na: 0 | A: 4 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4637" [
+    label = "Visits: 1\nValue: 1\na . a . . a \n. . . b . . \na . b . . . \n. . . b b a \na . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4638" [
+    label = "Visits: 22\nValue: 11\na . b . a a \n. . . . . . \n. b a . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4639" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. . . . . . \n. b a . A . \na . . . . . \n. . b . b . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4640" [
+    label = "Visits: 1\nValue: 1\na . b . . . \n. . . . A . \n. b a . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4641" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. . . . . . \n. b a . . . \na . . b b a \n. . . . . . \n. b . A . a \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4642" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. . . . . . \n. b a . . . \na . . b b a \n. . . . . . \nb . A . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4643" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. A . . . . \n. . a . . . \na b . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4644" [
+    label = "Visits: 1\nValue: 1\n. . b . a a \nA . . . . . \n. . a . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4645" [
+    label = "Visits: 1\nValue: 1\n. A . b a a \n. . . . . . \n. b a . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4646" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. . . . . . \n. b a . b . \na . . . b a \n. . A . . . \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4647" [
+    label = "Visits: 1\nValue: 1\na . b . a a \nb . a . . . \n. . . . . . \na . A b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4648" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. . . . . . \n. b a . . . \na . . b b a \n. . . . . . \n. b . a . A \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4649" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . A . . . \n. b . . . . \na . a b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4650" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. . . . . . \n. b a . . A \na . . b . . \n. . . b . a \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4651" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. . . . . . \n. b a A . . \na . . . . a \n. . . b . b \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4652" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. . . . . . \na b a . . . \n. . . b b a \nA . . . . . \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4653" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. . . A . . \n. b . . . . \na a . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4654" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. b . a . . \n. . . . . . \n. A . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4655" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. . . . . . \n. b a b . b \na . . . . a \n. . . A . . \n. b . . . . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4656" [
+    label = "Visits: 1\nValue: 1\na . b . . . \n. . . . . A \n. b a . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4657" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. . . . . . \nA b a . . . \n. . . b b a \na . . . . . \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4658" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. . . . . . \n. b a . b . \na . . b . . \n. . . . A . \n. b . . . . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4659" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. . . . . . \n. b a . . . \n. . . b b a \n. A . . . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4660" [
+    label = "Visits: 22\nValue: 11\na . . . a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \n. b . b . a \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4661" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . b . \na . . . b a \n. . A . . . \n. . . . . a \n\na: 0 | A: 0 | \nb: 5 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4662" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \nb . A . . . \na . . . b a \n. . . . b . \n. b . b . a \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4663" [
+    label = "Visits: 1\nValue: 1\n. A . . a a \n. . . . . . \n. b . a . . \na . . b b a \n. . . . . . \n. b . b . a \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4664" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nA . a . . . \n. . . . . . \na . . . . a \n. . . . . . \n. b . b . a \n\na: 1 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4665" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \n. b . b . a \n\na: 0 | A: 3 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4666" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nA . b . . . \n. . . b b a \na . . . . . \n. b . b . a \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4667" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . a \na . . b . . \n. . . . . A \n. b . b . . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4668" [
+    label = "Visits: 1\nValue: 1\na . A . a a \n. . . . . . \n. b a . . . \na . . b b a \n. . . . . . \n. b . b . a \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4669" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b . . . . \n. . . b b a \nA . . . . . \n. . . b . a \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4670" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \nA . b b . a \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4671" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a . . . \n. . . . . . \n. A . b b a \n. . . . . . \n. b . b . a \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4672" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . A \n. b . . . . \na . . b b a \n. . . . . . \n. b . b . a \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4673" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . . . \na . A b b a \n. . . . . . \n. b . b . a \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4674" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. a . A . . \n. b . . . . \na . . b b a \n. . . . . . \n. b . b . a \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4675" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . A . \n. b . . . . \na . . b b a \n. . . . . . \n. b . b . a \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4676" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \n. . . b b a \n. A . . . . \n. . . b . a \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4677" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \n. b b . A . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4678" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . b \na . . . . a \n. . . A . . \n. b . . . a \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4679" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \nb . A . b a \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4680" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . . \n. b . A . . \na . . . . a \n. . . b . b \n. b . b . a \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4681" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b b . b . \na . . . . . \n. . . . A . \n. b . . . . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4682" [
+    label = "Visits: 10\nValue: 1\na . . . a a \n. . a . . . \n. b . b . b \na . . . . a \n. . . b . . \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4683" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. a . a . . \n. b . . . b \na . . b . a \n. . . b . . \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4684" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . b \na . . . . a \n. . . b . . \n. b . . . A \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4685" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. A . a . . \n. . . b . b \na b . . . a \n. . . b . . \n. b . . . . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4686" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . b \n. . . . . a \n. A . b . . \n. . . . . . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4687" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a b . . \n. b . . . b \na . . a . a \n. . . . . . \n. b . b . . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4688" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . b \na . . . b a \n. . . . . . \nb . a . . . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4689" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . . \n. b . b . b \na . . . . a \n. . . b . . \n. b . . . . \n\na: 0 | A: 4 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4690" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . b \na . . . . a \n. . . b . . \na . b . . . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4691" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . . \na . . . A . \n. . . . . . \n. b b . . . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4692" [
+    label = "Visits: 10\nValue: 1\na . . . . . \n. . a . b . \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4693" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . b . \n. b . . . . \na . . b b a \n. . . . . . \n. b . a . a \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4694" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . b . \na . b . . . \n. . . b b a \na . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4695" [
+    label = "Visits: 1\nValue: 1\na . . A . . \n. . a . . . \n. b . . . b \na . . b b a \n. . . . . . \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4696" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . b . \n. b . . . . \na . . b b a \n. . . . . . \na . b . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4697" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . b . \na b . . . . \n. . . b b a \nA . . . . . \n. . . . a . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4698" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . b . \n. b . b . a \na . . b . . \n. . . . . a \n. b . . . . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4699" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . b . \n. b . b . b \na . . . . a \n. . . a . . \n. b . . . . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4700" [
+    label = "Visits: 1\nValue: 1\na . . . A . \n. . a . . . \n. b . . b . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4701" [
+    label = "Visits: 1\nValue: 1\na . a . . . \n. . . . b . \nb . a . . . \na . . . b a \n. . . . b . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4702" [
+    label = "Visits: 24\nValue: 13\na . . . a a \n. . a . . . \n. b . . . b \na . . b . . \n. . . b . a \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4703" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nA . a . . . \n. . . . . b \na . b b . . \n. . . b . a \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4704" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . . \n. b . . . b \na . . b . . \n. . . b . a \n. b . . a . \n\na: 0 | A: 3 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4705" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . . . \na . A . . . \n. . . . . a \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4706" [
+    label = "Visits: 1\nValue: 1\n. A . . a a \n. . . . . . \n. b . a . b \na . . b . . \n. . . b . a \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4707" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nA . b . . b \n. . . b . . \na . . b . a \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4708" [
+    label = "Visits: 1\nValue: 1\na . A . a a \n. . . . . . \n. b a . . b \na . . b . . \n. . . b . a \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4709" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. a . A . . \n. b . . . b \na . . b . . \n. . . b . a \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4710" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \nb . A . . b \na . . . . . \n. . . b b a \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4711" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . b \na . . b . . \n. . . b . a \n. b . A . a \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4712" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . b b \na . . . . . \n. . A . b a \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4713" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b . . . b \n. . . b . . \nA . . b . a \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4714" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . b \na . . b . a \n. . . b . . \n. b . a . A \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4715" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . A . \na . . . . . \n. . b b . a \n. b . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4716" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b b . . b \na . . . . . \n. . b . A . \n. b . . . . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4717" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . . \n. b . A . b \na . . b . . \n. . . b . a \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4718" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . A . \n. b . . . . \na . . b . . \n. . . b . a \n. b . . a . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4719" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . A \n. b . . . . \na . . b . b \n. . . b . a \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4720" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . b \na . . b b . \n. . . . . a \nb . A . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4721" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. A . a . . \n. . . . . b \na b . b . . \n. . . b . a \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4722" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \na . b . A . \n. . . . . . \n. b b . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4723" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . b \n. . . b . . \n. A . b . a \n. . . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4724" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . b \na . . b . . \n. . . b . a \nA . b . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4725" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a . . . \n. . . . . b \n. A . b . . \n. . . b . a \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4726" [
+    label = "Visits: 10\nValue: 1\n. . . . a a \nb . a . . . \n. . . . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4727" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nb . a . . . \n. . . . . . \na . . . . . \n. . . . a . \n. b . . . . \n\na: 2 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4728" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nb . a . . . \n. . . . . . \na . . . . . \n. . . . A . \n. b . . . . \n\na: 3 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4729" [
+    label = "Visits: 1\nValue: 1\n. A . . a a \n. . . . . . \n. . . a . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4730" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nb . a . . . \n. . . . . . \na . . . . a \n. . . . . . \nb . A . a . \n\na: 1 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4731" [
+    label = "Visits: 1\nValue: 1\n. . . . . . \nb . . . . . \n. a . . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 1 | A: 3 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4732" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nb . a . . . \n. . . . . . \n. . . . . a \n. a . . . . \n. . . . a . \n\na: 1 | A: 1 | \nb: 4 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4733" [
+    label = "Visits: 1\nValue: 1\n. a . . a a \nb . . . . . \n. . . a . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4734" [
+    label = "Visits: 1\nValue: 1\n. . a . a a \nb . . . . . \n. . a . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4735" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nb . a . . . \n. . . . . . \na . . . . a \n. . . . . . \na . b . a . \n\na: 0 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4736" [
+    label = "Visits: 10\nValue: 1\na . . . . . \n. . a . . b \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4737" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . . \n. b . . a . \na . . . . . \n. . b . b . \n. b . . a . \n\na: 2 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4738" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . b \n. b . b . a \na . . b . . \n. . . . . a \n. b . . . . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4739" [
+    label = "Visits: 1\nValue: 1\na . a . . . \n. . . . . b \nb . A . . . \na . . . b a \n. . . . b . \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4740" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . b \n. b b . b . \na . . . . . \n. . . . A . \n. b . . . . \n\na: 4 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4741" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . b \n. b . b . b \na . . . . a \n. . . A . . \n. b . . . . \n\na: 3 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4742" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . b \n. b . . . . \na . . b b a \n. . . . . . \n. b . a . A \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4743" [
+    label = "Visits: 1\nValue: 1\n. . . . . . \n. a . a . b \n. . . . . . \na b . b b a \n. . . . . . \n. b . . a . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4744" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . b \n. b . b . a \na . . b . . \n. . . . . A \n. b . . . . \n\na: 3 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4745" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . b \n. b . . b . \na . . . b a \n. . a . . . \n. . . . a . \n\na: 1 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4746" [
+    label = "Visits: 21\nValue: 10\na . a . a a \n. . . . . . \nb . b . . . \na . . . b a \n. . . . b . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4747" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \nb . b . . b \na . . . . a \n. . . A . b \n. b . . . . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4748" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \nb . b . . A \na . . . . . \n. . . b b a \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4749" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \nb . b . . . \na . . . b a \n. . . . b . \nb . A . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4750" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . b . . \n. . . . . . \n. A . . b a \n. . . . b . \n. b . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4751" [
+    label = "Visits: 1\nValue: 1\na a . . . . \n. . . . . . \nb . b . . . \na . . . b a \n. . . . b . \n. b . . a . \n\na: 0 | A: 3 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4752" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \nb . b b . a \na . . . . . \n. . . b . A \n. b . . . . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4753" [
+    label = "Visits: 1\nValue: 1\na . a . . . \n. . . . . A \nb . b . . . \na . . . b a \n. . . . b . \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4754" [
+    label = "Visits: 1\nValue: 1\n. . a . a a \nA . . . . . \nb . b . . . \na . . . b a \n. . . . b . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4755" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \nb . b . . . \na . . b b a \n. . . . . . \n. b . a . A \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4756" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . A . . . \nb . . . . . \na . b . b a \n. . . . b . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4757" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \nb . b . . . \na . . . b a \n. . . . b . \n. b . A . a \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4758" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \nb . b . . . \na . . . b a \nA . . . b . \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4759" [
+    label = "Visits: 1\nValue: 1\na . a . . . \n. . . . A . \nb . b . . . \na . . . b a \n. . . . b . \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4760" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \nb . b . . . \na . . . b a \n. . . . b . \nA . b . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4761" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . b . . . \nb . . . . . \na . A . b a \n. . . . b . \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4762" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. . . A . . \nb . . . . . \na b . . b a \n. . . . b . \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4763" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. b . . . . \nb . . . . . \na . . A b a \n. . . . . . \n. b . . a b \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4764" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \nb b . A . . \na . . . . a \n. . . . b b \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4765" [
+    label = "Visits: 1\nValue: 1\n. A . . . . \n. . . . . . \nb . b . . . \na . . . b a \n. . . . b . \n. b . . a . \n\na: 1 | A: 3 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4766" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \n. A . b . . \n. . . . b a \n. . . . b . \n. b . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4767" [
+    label = "Visits: 22\nValue: 11\na . . . a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4768" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. A . a . . \n. . . . . . \na b . b b a \n. . . . . . \nb . b . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4769" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . a \na . . b . . \n. . . . . A \nb . b . . . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4770" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \nA . b . . . \n. . . b b a \na . . . . . \nb . b . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4771" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . b \na . . . . a \n. . . A . . \nb . . . . . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4772" [
+    label = "Visits: 1\nValue: 1\n. A . . a a \n. . . . . . \n. b . a . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4773" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \nb b . A . a \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4774" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b b . b . \na . . . . . \n. . . . A . \nb . b . . . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4775" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \n. A . b a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4776" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . b . \na . . . b a \n. . A . . . \nb . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4777" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a . . . \n. . . . . . \n. A . b b a \n. . . . . . \nb . b . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4778" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . A . \n. b . . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4779" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . A . \na . . . . . \n. . b . b . \nb . b . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4780" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \n. . . . . . \na . A b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4781" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 3 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4782" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \nb . b a . A \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4783" [
+    label = "Visits: 1\nValue: 1\na . A . a a \n. . . . . . \n. b a . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4784" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nA . a . . . \n. . . . . . \na . . . . a \n. . . . . . \nb . b . a . \n\na: 1 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4785" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . A \na . . b . . \n. . . b . a \nb . b . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4786" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b . . . . \n. . . b b a \nA . . . . . \n. . b . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4787" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \nb . A . . . \na . . . b a \n. . . . b . \nb . b . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4788" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \n. . . b b a \n. A . . . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 5 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4789" [
+    label = "Visits: 24\nValue: 13\na . . b a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4790" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \n. b . A . a \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4791" [
+    label = "Visits: 1\nValue: 1\na a . b a a \n. . . . . . \n. b . A . . \na . . . . a \n. . . b . b \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4792" [
+    label = "Visits: 1\nValue: 1\n. A . b a a \n. . . . . . \n. b . a . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4793" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . a . . . \n. b . . A . \na . . . . . \n. . b . b . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4794" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . a . . . \n. b . b . b \na . . . . a \n. . . A . . \n. b . . . . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4795" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . a . . . \n. b . . . . \n. . . b b a \n. A . . . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4796" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . a . . . \nA . b . . . \n. . . b b a \na . . . . . \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4797" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \nb . A . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4798" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . a . . . \n. b b . b . \na . . . . . \n. . . . A . \n. b . . . . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4799" [
+    label = "Visits: 1\nValue: 1\na . A b a a \n. . . . . . \n. b a . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4800" [
+    label = "Visits: 1\nValue: 1\na . . b a a \nb . a . . . \n. . . . . . \na . A b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4801" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \nA . b . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4802" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . a . . . \n. b . b . a \na . . b . . \n. . . . . A \n. b . . . . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4803" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . a . . . \na b . . . . \n. . . b b a \nA . . . . . \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4804" [
+    label = "Visits: 1\nValue: 1\na . a b a a \n. . . . . . \nb . A . . . \na . . . b a \n. . . . b . \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4805" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \n. b . a . A \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4806" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . a . . . \n. b . . b . \na . . . b a \n. . A . . . \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4807" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . a . . . \n. b . . . A \na . . b . . \n. . . b . a \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4808" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . A . \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4809" [
+    label = "Visits: 1\nValue: 1\n. . . b a a \nA . a . . . \n. . . . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4810" [
+    label = "Visits: 1\nValue: 1\na . . b . . \n. . a . . A \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4811" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. b a . . . \n. . . . . . \n. A . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4812" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. a . A . . \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4813" [
+    label = "Visits: 10\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \n. . . b b a \n. b . . . . \n. . . . a . \n\na: 1 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4814" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \n. . b . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4815" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . . \n. b . . . . \n. . . b b a \n. b . . . . \n. . . . a . \n\na: 0 | A: 4 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4816" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \n. . . b b a \n. b . . . . \n. . . a . a \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4817" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \nA . . b b a \n. . . . . . \n. . b . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4818" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. a . a . . \n. . . . . . \n. b . b b a \n. b . . . . \n. . . . a . \n\na: 1 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4819" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . . \n. . . b b a \nA . b . . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4820" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . a \n. b . . . . \n. . . b b a \n. b . . . . \n. . . . a . \n\na: 2 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4821" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . a \n. . . b . . \n. b . . . a \n. . . . . . \n\na: 1 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4822" [
+    label = "Visits: 1\nValue: 1\n. a . . a a \n. . . . . . \n. b . a . . \n. . . b b a \n. b . . . . \n. . . . a . \n\na: 1 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4823" [
+    label = "Visits: 10\nValue: 1\na . . . a a \n. b a . . . \n. . . . . . \n. b . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4824" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. b a . . A \n. . . . . . \n. b . b b a \n. . . . . . \n. b . . a . \n\na: 3 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4825" [
+    label = "Visits: 1\nValue: 1\na . A . a a \n. . . . . . \nb . a . . . \n. b . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4826" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a . . . \n. . . . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4827" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a . . . \nb . . . b . \n. . . . b a \n. . a . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4828" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a . . . \n. . . b . b \n. b . . . a \n. . . A . . \n. b . . . . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4829" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a . . . \n. . . . . . \n. b . b b a \n. . . . . . \n. b . a . a \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4830" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \na b a . . . \n. . . . . . \n. b . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4831" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. b a . . a \n. . . . . . \n. b . b b a \n. . . . . . \n. b . . a . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4832" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a . . . \n. . . . . . \n. b . b b a \n. . . . . . \n. b . a . A \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4833" [
+    label = "Visits: 10\nValue: 1\na . . . a a \n. . a . . . \n. b . b . a \na . . b . . \n. . . . . b \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4834" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . a \na . . b . . \n. . . . . b \n. b . a . . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4835" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . b . \n. . . . . a \na . A . b . \n. . . . . b \n. b . . . . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4836" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . . \na . b . A . \n. . . . . . \n. b . . . . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4837" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b b a \na . . . . . \n. . A . . b \n. . . . . . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4838" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. . . . . a \na . . . . . \n. . . . A . \n. b . . . . \n\na: 1 | A: 0 | \nb: 4 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4839" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \nb . a . b a \na . . . . . \n. . . . b b \n. b . . . . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4840" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . b . a \na . . b . . \n. . . A . b \n. b . . . . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4841" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . . \n. b . b . a \na . . b . . \n. . . . . b \n. b . . . . \n\na: 1 | A: 3 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4842" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. A . a . . \n. . . b . a \na b . b . . \n. . . . . b \n. b . . . . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4843" [
+    label = "Visits: 26\nValue: 14\na . . . a a \n. . a . . . \na b . . . . \n. . . b b a \nb . . . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4844" [
+    label = "Visits: 1\nValue: 1\na . . . a a \na . a . . . \n. b . . . . \nA . . b b a \n. . . . . . \nb . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4845" [
+    label = "Visits: 1\nValue: 1\n. A . . a a \n. . . . . . \na b . a . . \n. . . b b a \nb . . . . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4846" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nA . a . . . \n. . . . . . \na . . . . a \nb . . . . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4847" [
+    label = "Visits: 1\nValue: 1\na . A . a a \n. . . . . . \na b a . . . \n. . . b b a \nb . . . . . \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4848" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . . \na b . A . . \n. . . . . a \nb . . b . b \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4849" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b . . . . \n. . . b b a \nb . . . . . \n. . . a . A \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4850" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b . . b . \n. . . . b a \nb . A . . . \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4851" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . A \na b . . . . \n. . . b b a \nb . . . . . \n. . . . a . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4852" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. A . a . . \n. . . . . . \n. b . b b a \nb . . . . . \n. . . . a . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4853" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b . b . b \n. . . . . a \nb . . A . . \n. . . . . . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4854" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b . . . . \n. . . b b a \n. . . . . . \n. A . . a . \n\na: 0 | A: 0 | \nb: 5 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4855" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b . . . . \n. . . b b a \n. A . . . . \n. . . . a . \n\na: 0 | A: 0 | \nb: 5 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4856" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b . b . a \n. . . b . . \nb . . . . A \n. . . . . . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4857" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a . . . \n. . . . . . \n. A . b b a \n. . . . . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 5 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4858" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b . . . . \n. . . b b a \nb . . . . . \n. . . A . a \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4859" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . . \na . . . . . \n. . A b b a \nb . . . . . \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4860" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . A . \na b . . . . \n. . . b b a \nb . . . . . \n. . . . a . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4861" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . . \na b A . . . \n. . . . b a \nb . . . b . \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4862" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b . . . A \n. . . b . . \nb . . b . a \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4863" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b . . . . \nb . . b b a \n. . . . . . \nA . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4864" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b b . b . \n. . . . . . \nb . . . A . \n. . . . . . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4865" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. a . A . . \na b . . . . \n. . . b b a \nb . . . . . \n. . . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4866" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b . . . . \n. . . b b a \nb . . . . . \n. . A . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4867" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \na b . . A . \n. . . . . . \nb . b . b . \n. . . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4868" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . . \na b . . . . \n. . . b b a \nb . . . . . \n. . . . a . \n\na: 0 | A: 3 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4869" [
+    label = "Visits: 20\nValue: 9\na a . . a a \n. . . . . . \n. b . b . . \na . . . . a \n. . . b . b \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4870" [
+    label = "Visits: 1\nValue: 1\na a . . . a \n. . . A . . \n. b . . . . \na . . b . a \n. . . b . b \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4871" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . . \n. b . . . . \na . . . . a \n. . . . . . \nb . A . a . \n\na: 0 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4872" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . b . . . \n. b . . . . \na . . . A . \n. . . . . . \n. b b . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4873" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . . \n. b . b . . \na . . . . a \n. . . b . b \nA . b . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4874" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . . \n. b . b . . \na . . . . . \n. . b . A . \n. b . . . . \n\na: 2 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4875" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. A . . . . \n. . . b . . \na b . . . a \n. . . b . b \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4876" [
+    label = "Visits: 1\nValue: 1\na a . . a a \nb . . . b . \n. . . . . . \na . A . . a \n. . . b . b \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4877" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . . \n. b . b . . \na . . b . a \n. . . . . b \n. b . A . a \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4878" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . . \na b . b . . \n. . . . . a \nA . . b . b \n. . . . a . \n\na: 0 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4879" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . b . . \n. b . . . . \na . . A . a \n. . . . . b \n. b . b a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4880" [
+    label = "Visits: 1\nValue: 1\na a . . . . \n. . . . . . \n. b . b . . \na . . . . a \n. . . b . b \n. b . . a . \n\na: 0 | A: 3 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4881" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . . \n. b . b . . \n. . . . . a \n. A . b . b \n. . . . a . \n\na: 1 | A: 0 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4882" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . . \n. b . b . A \na . . . . a \n. . . b . b \n. b . . a . \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4883" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nA . . . . . \n. . . b . . \na . b . . a \n. . . b . b \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4884" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. b . . . . \n. . . b . . \n. A . . . a \n. . . b . b \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4885" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . . \n. b b . A . \na . . . . . \n. . . b . b \n. b . . a . \n\na: 1 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4886" [
+    label = "Visits: 1\nValue: 1\na a . . . . \n. . . . . A \n. b . b . . \na . . . . a \n. . . b . b \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4887" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . . \n. b . b . . \na . . . . a \n. . . b . b \n. b . a . A \n\na: 0 | A: 0 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4888" [
+    label = "Visits: 1\nValue: 1\na a . . . . \n. . . . A . \n. . . . . . \na . . . . a \n. . . . . b \n. b . . a . \n\na: 2 | A: 0 | \nb: 3 | B: 3 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4889" [
+    label = "Visits: 26\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \n. . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4890" [
+    label = "Visits: 1\nValue: 1\n. b . . a a \n. . . . . a \n. b . a . . \n. . . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4891" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . b . \n. . . . . . \n. . b . b . \n. b . . a . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4892" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . a . . a \n. b . . . . \n. . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4893" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \n. . . b b a \n. b . . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4894" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a . . a \n. . . . . . \n. b . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4895" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . b . b \n. . . . . a \n. . . b . . \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4896" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nb . a . . a \n. . . . . . \n. . . . . a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4897" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . b \n. . . b . . \n. . . b . a \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4898" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b b . b . \n. . . . . . \n. . . . b . \n. b . . . . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4899" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . a \n. b . b . . \n. . . . . a \n. . . b . b \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4900" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \n. . . b b a \nb . . . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4901" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . a \n. . . . . . \n. . . . . a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4902" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \n. . . b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4903" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \n. . . b b a \n. . . . . . \n. b . a . b \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4904" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . a \nb . b . . . \n. . . . b a \n. . . . b . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4905" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \n. . . b b a \n. . . . . . \n. b . b . a \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4906" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . b . \n. . . . b a \n. . b . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4907" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. b . a . a \n. . . . . . \n. b . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4908" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \nb . b . . . \n. . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4909" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \n. . . b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4910" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \nb . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4911" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. . . . . a \n. b a . . . \n. . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4912" [
+    label = "Visits: 1\nValue: 1\na . . . a . \n. . a . . . \n. b . b . . \n. . . b . . \n. . . . . b \n. b . . . . \n\na: 1 | A: 4 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4913" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . b . \n. b . . . . \n. . . b b a \n. . . . . . \n. b . . a . \n\na: 3 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4914" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. a . b . a \n. b . . . . \n. . . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4915" [
+    label = "Visits: 26\nValue: 1\na . . . . a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4916" [
+    label = "Visits: 1\nValue: 1\na a . . . a \n. . . . . a \n. b . b . . \na . . . . a \n. . . b . b \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4917" [
+    label = "Visits: 1\nValue: 1\n. b . . . a \n. . . . . a \n. b . a . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4918" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. . a . . a \n. b . . . . \n. . . b b a \n. b . . . . \n. . . . a . \n\na: 1 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4919" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. b a . . a \n. . . . . . \n. b . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4920" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4921" [
+    label = "Visits: 1\nValue: 1\n. . . . . a \n. b . a . a \n. . . . . . \na b . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4922" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . b . \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4923" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. . a . . a \n. b . . b . \na . . . b a \n. . b . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4924" [
+    label = "Visits: 1\nValue: 1\na . b . . a \n. . . . . a \n. b a . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4925" [
+    label = "Visits: 1\nValue: 1\na . a . . a \n. . . . . a \nb . b . . . \na . . . b a \n. . . . b . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4926" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4927" [
+    label = "Visits: 1\nValue: 1\na . . b . a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4928" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. . a . . . \n. b . . b . \na . . . . . \n. . b . b . \n. b . . a . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4929" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . b . a \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4930" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . a . b \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4931" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. . a . . a \na b . . . . \n. . . b b a \nb . . . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4932" [
+    label = "Visits: 1\nValue: 1\na . . . b . \n. . a . . . \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4933" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . . . \n. b . b . . \na . . b . . \n. . . . . b \n. b . . . . \n\na: 1 | A: 4 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4934" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. . a . . a \nb . b . . . \n. . . b b a \na . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4935" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. . a . . a \n. b . b . b \na . . . . a \n. . . b . . \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4936" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. . a . . a \n. b . . . b \na . . b . . \n. . . b . a \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4937" [
+    label = "Visits: 1\nValue: 1\n. . . . . a \nb . a . . a \n. . . . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4938" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. a . b . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4939" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. . a . . a \n. b b . b . \na . . . . . \n. . . . b . \n. b . . . . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4940" [
+    label = "Visits: 1\nValue: 1\na . . . . a \nb . a . . a \n. . . . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4941" [
+    label = "Visits: 26\nValue: 1\na . . . a a \n. . . . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4942" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nb . . . . a \n. . . . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4943" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. b . . . a \n. . . . . . \na b . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4944" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . . . b . \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 3 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4945" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . . . . a \na b . . . . \n. . . b b a \nb . . . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4946" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . . . . a \n. b . . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4947" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . . . . . \n. b . . b . \na . . . . . \n. . b . b . \n. b . . a . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4948" [
+    label = "Visits: 1\nValue: 1\na . . . a . \n. . . . . . \n. b . b . . \na . . b . . \n. . . . . b \n. b . . . . \n\na: 1 | A: 4 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4949" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . . . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . a . b \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4950" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . . . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . b . a \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4951" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . . . . a \n. b . b . . \na . . . . a \n. . . b . b \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4952" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . . . . a \n. b . . . b \na . . b . . \n. . . b . a \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4953" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. . . . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4954" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. . . b . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4955" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . . . . a \n. . . . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4956" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . . . . a \n. b . . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4957" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . . . . a \nb . b . . . \n. . . b b a \na . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4958" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . . . . a \n. b . b . b \na . . . . a \n. . . b . . \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4959" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . . . . a \nb . b . . . \na . . . b a \n. . . . b . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4960" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . b . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4961" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . . . . a \n. b . . . . \n. . . b b a \n. b . . . . \n. . . . a . \n\na: 1 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4962" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . . . . a \n. b b . b . \na . . . . . \n. . . . b . \n. b . . . . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4963" [
+    label = "Visits: 1\nValue: 1\n. b . . a a \n. . . . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4964" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . . . . a \n. b . . b . \na . . . b a \n. . b . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4965" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . . . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4966" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b . . . a \n. . . . . . \n. b . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4967" [
+    label = "Visits: 26\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \na . . b b . \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4968" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . b . \na . . . b . \n. . b . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4969" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . b \na . . b . . \n. . . b . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4970" [
+    label = "Visits: 1\nValue: 1\na . . . a a \nb . a . . a \n. . . . . . \na . . . . . \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4971" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . b . b \na . . . . . \n. . . b . . \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4972" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \na . . b b . \n. . . . . . \nb . b . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4973" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \na . . b b . \n. . . . . . \n. b . b . a \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4974" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. b a . . a \n. . . . . . \n. b . b b . \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4975" [
+    label = "Visits: 1\nValue: 1\na . . b a a \n. . a . . a \n. b . . . . \na . . b b . \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4976" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \nb . b . . . \n. . . b b . \na . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4977" [
+    label = "Visits: 1\nValue: 1\na . a . a a \n. . . . . a \nb . b . . . \na . . . b . \n. . . . b . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4978" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \na . . . . . \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4979" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b b . b . \na . . . . . \n. . . . b . \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4980" [
+    label = "Visits: 1\nValue: 1\n. b . . a a \n. . . . . a \n. b . a . . \na . . b b . \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4981" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . b . . \na . . b . . \n. . . . . b \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4982" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \na . . b b . \n. . . . . . \nb . b . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4983" [
+    label = "Visits: 1\nValue: 1\na . . . . a \n. a . b . a \n. b . . . . \na . . b b . \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4984" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \na . . b b . \n. . . . . . \n. b . a . b \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4985" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \nb . a . . a \n. . . . . . \na . . . . . \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4986" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \n. b . . . . \n. . . b b . \n. b . . . . \n. . . . a . \n\na: 1 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4987" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . b . \n. b . . . . \na . . b b . \n. . . . . . \n. b . . a . \n\na: 3 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4988" [
+    label = "Visits: 1\nValue: 1\na . b . a a \n. . . . . a \n. b a . . . \na . . b b . \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4989" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . b . \na . . . . . \n. . b . b . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4990" [
+    label = "Visits: 1\nValue: 1\na a . . a a \n. . . . . a \n. b . b . . \na . . . . . \n. . . b . b \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4991" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . a \na b . . . . \n. . . b b . \nb . . . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4992" [
+    label = "Visits: 1\nValue: 1\n. . . . a a \n. b . a . a \n. . . . . . \na b . b b . \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4993" [
+    label = "Visits: 26\nValue: 1\na . . . a . \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"A\" jogou, vez do \"B\":";
+  ];
+  "4994" [
+    label = "Visits: 1\nValue: 1\na . . . a . \n. . a . . a \n. b . b . a \na . . b . . \n. . . . . b \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4995" [
+    label = "Visits: 1\nValue: 1\na . . . a . \n. b a . . a \n. . . . . . \n. b . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4996" [
+    label = "Visits: 1\nValue: 1\n. . . . a . \nb . a . . a \n. . . . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4997" [
+    label = "Visits: 1\nValue: 1\na . a . a . \n. . . . . a \nb . b . . . \na . . . b a \n. . . . b . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4998" [
+    label = "Visits: 1\nValue: 1\na . . . a . \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4999" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. a . b . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5000" [
+    label = "Visits: 1\nValue: 1\na . . . a . \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \nb . b . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5001" [
+    label = "Visits: 1\nValue: 1\na . . . a . \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . b . a \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5002" [
+    label = "Visits: 1\nValue: 1\na . . . a . \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . a . b \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5003" [
+    label = "Visits: 1\nValue: 1\na . . . a . \n. . a . . a \n. b . b . b \na . . . . a \n. . . b . . \n. b . . . . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5004" [
+    label = "Visits: 1\nValue: 1\na . b . a . \n. . . . . a \n. b a . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5005" [
+    label = "Visits: 1\nValue: 1\na . . . a . \n. . a . . a \n. b b . b . \na . . . . . \n. . . . b . \n. b . . . . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5006" [
+    label = "Visits: 1\nValue: 1\n. . . . a . \n. b . a . a \n. . . . . . \na b . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5007" [
+    label = "Visits: 1\nValue: 1\na . . . . . \n. . a . b . \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5008" [
+    label = "Visits: 1\nValue: 1\na . . . a . \n. . a . . a \nb . b . . . \n. . . b b a \na . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5009" [
+    label = "Visits: 1\nValue: 1\na . . . a . \nb . a . . a \n. . . . . . \na . . . . a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 3 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5010" [
+    label = "Visits: 1\nValue: 1\na . . . a . \n. . a . . . \n. b . . b . \na . . . . . \n. . b . b . \n. b . . a . \n\na: 2 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5011" [
+    label = "Visits: 1\nValue: 1\na . . a . b \n. . a . . . \n. b . . . a \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5012" [
+    label = "Visits: 1\nValue: 1\na a . . a . \n. . . . . a \n. b . b . . \na . . . . a \n. . . b . b \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5013" [
+    label = "Visits: 1\nValue: 1\na . . . a . \n. . a . . a \n. b . . b . \na . . . b a \n. . b . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5014" [
+    label = "Visits: 1\nValue: 1\n. b . . a . \n. . . . . a \n. b . a . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 1 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5015" [
+    label = "Visits: 1\nValue: 1\na . . b . a \n. . a . . a \n. b . . . . \na . . b b a \n. . . . . . \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5016" [
+    label = "Visits: 1\nValue: 1\na . . . a a \n. . a . . . \n. b . . . b \na . . b . . \n. . . b . a \n. b . . a . \n\na: 0 | A: 1 | \nb: 3 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5017" [
+    label = "Visits: 1\nValue: 1\na . . . a . \n. . a . . a \n. b . . . . \n. . . b b a \n. b . . . . \n. . . . a . \n\na: 1 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "5018" [
+    label = "Visits: 1\nValue: 1\na . . . a . \n. . a . . a \na b . . . . \n. . . b b a \nb . . . . . \n. . . . a . \n\na: 0 | A: 1 | \nb: 4 | B: 0 | \n\n\nO \"B\" jogou, vez do \"A\":";
+  ];
+  "4432" -- "4433";
+  "4433" -- "4434";
+  "4434" -- "4435";
+  "4433" -- "4436";
+  "4433" -- "4437";
+  "4433" -- "4438";
+  "4433" -- "4439";
+  "4433" -- "4440";
+  "4433" -- "4441";
+  "4433" -- "4442";
+  "4433" -- "4443";
+  "4433" -- "4444";
+  "4433" -- "4445";
+  "4433" -- "4446";
+  "4433" -- "4447";
+  "4433" -- "4448";
+  "4433" -- "4449";
+  "4433" -- "4450";
+  "4433" -- "4451";
+  "4433" -- "4452";
+  "4433" -- "4453";
+  "4433" -- "4454";
+  "4433" -- "4455";
+  "4433" -- "4456";
+  "4433" -- "4457";
+  "4433" -- "4458";
+  "4433" -- "4459";
+  "4432" -- "4460";
+  "4460" -- "4461";
+  "4461" -- "4462";
+  "4460" -- "4463";
+  "4460" -- "4464";
+  "4460" -- "4465";
+  "4460" -- "4466";
+  "4460" -- "4467";
+  "4460" -- "4468";
+  "4460" -- "4469";
+  "4460" -- "4470";
+  "4460" -- "4471";
+  "4460" -- "4472";
+  "4460" -- "4473";
+  "4460" -- "4474";
+  "4460" -- "4475";
+  "4460" -- "4476";
+  "4460" -- "4477";
+  "4460" -- "4478";
+  "4460" -- "4479";
+  "4460" -- "4480";
+  "4460" -- "4481";
+  "4460" -- "4482";
+  "4460" -- "4483";
+  "4460" -- "4484";
+  "4460" -- "4485";
+  "4460" -- "4486";
+  "4432" -- "4487";
+  "4487" -- "4488";
+  "4488" -- "4489";
+  "4488" -- "4490";
+  "4488" -- "4491";
+  "4488" -- "4492";
+  "4488" -- "4493";
+  "4488" -- "4494";
+  "4488" -- "4495";
+  "4488" -- "4496";
+  "4488" -- "4497";
+  "4487" -- "4498";
+  "4498" -- "4499";
+  "4498" -- "4500";
+  "4498" -- "4501";
+  "4498" -- "4502";
+  "4498" -- "4503";
+  "4498" -- "4504";
+  "4498" -- "4505";
+  "4498" -- "4506";
+  "4498" -- "4507";
+  "4498" -- "4508";
+  "4498" -- "4509";
+  "4498" -- "4510";
+  "4498" -- "4511";
+  "4498" -- "4512";
+  "4498" -- "4513";
+  "4498" -- "4514";
+  "4498" -- "4515";
+  "4498" -- "4516";
+  "4498" -- "4517";
+  "4487" -- "4518";
+  "4518" -- "4519";
+  "4518" -- "4520";
+  "4518" -- "4521";
+  "4518" -- "4522";
+  "4518" -- "4523";
+  "4518" -- "4524";
+  "4518" -- "4525";
+  "4518" -- "4526";
+  "4518" -- "4527";
+  "4487" -- "4528";
+  "4528" -- "4529";
+  "4528" -- "4530";
+  "4528" -- "4531";
+  "4528" -- "4532";
+  "4528" -- "4533";
+  "4528" -- "4534";
+  "4528" -- "4535";
+  "4528" -- "4536";
+  "4528" -- "4537";
+  "4528" -- "4538";
+  "4528" -- "4539";
+  "4528" -- "4540";
+  "4528" -- "4541";
+  "4528" -- "4542";
+  "4528" -- "4543";
+  "4487" -- "4544";
+  "4544" -- "4545";
+  "4544" -- "4546";
+  "4544" -- "4547";
+  "4544" -- "4548";
+  "4544" -- "4549";
+  "4544" -- "4550";
+  "4544" -- "4551";
+  "4544" -- "4552";
+  "4544" -- "4553";
+  "4544" -- "4554";
+  "4544" -- "4555";
+  "4544" -- "4556";
+  "4544" -- "4557";
+  "4544" -- "4558";
+  "4544" -- "4559";
+  "4544" -- "4560";
+  "4544" -- "4561";
+  "4544" -- "4562";
+  "4544" -- "4563";
+  "4544" -- "4564";
+  "4544" -- "4565";
+  "4544" -- "4566";
+  "4544" -- "4567";
+  "4487" -- "4568";
+  "4568" -- "4569";
+  "4568" -- "4570";
+  "4568" -- "4571";
+  "4568" -- "4572";
+  "4568" -- "4573";
+  "4568" -- "4574";
+  "4568" -- "4575";
+  "4568" -- "4576";
+  "4568" -- "4577";
+  "4568" -- "4578";
+  "4568" -- "4579";
+  "4568" -- "4580";
+  "4568" -- "4581";
+  "4568" -- "4582";
+  "4568" -- "4583";
+  "4568" -- "4584";
+  "4568" -- "4585";
+  "4568" -- "4586";
+  "4568" -- "4587";
+  "4568" -- "4588";
+  "4487" -- "4589";
+  "4589" -- "4590";
+  "4589" -- "4591";
+  "4589" -- "4592";
+  "4589" -- "4593";
+  "4589" -- "4594";
+  "4589" -- "4595";
+  "4589" -- "4596";
+  "4589" -- "4597";
+  "4589" -- "4598";
+  "4589" -- "4599";
+  "4589" -- "4600";
+  "4589" -- "4601";
+  "4589" -- "4602";
+  "4589" -- "4603";
+  "4589" -- "4604";
+  "4589" -- "4605";
+  "4589" -- "4606";
+  "4589" -- "4607";
+  "4487" -- "4608";
+  "4608" -- "4609";
+  "4608" -- "4610";
+  "4608" -- "4611";
+  "4608" -- "4612";
+  "4608" -- "4613";
+  "4608" -- "4614";
+  "4608" -- "4615";
+  "4608" -- "4616";
+  "4608" -- "4617";
+  "4487" -- "4618";
+  "4618" -- "4619";
+  "4618" -- "4620";
+  "4618" -- "4621";
+  "4618" -- "4622";
+  "4618" -- "4623";
+  "4618" -- "4624";
+  "4618" -- "4625";
+  "4618" -- "4626";
+  "4618" -- "4627";
+  "4487" -- "4628";
+  "4628" -- "4629";
+  "4628" -- "4630";
+  "4628" -- "4631";
+  "4628" -- "4632";
+  "4628" -- "4633";
+  "4628" -- "4634";
+  "4628" -- "4635";
+  "4628" -- "4636";
+  "4628" -- "4637";
+  "4487" -- "4638";
+  "4638" -- "4639";
+  "4638" -- "4640";
+  "4638" -- "4641";
+  "4638" -- "4642";
+  "4638" -- "4643";
+  "4638" -- "4644";
+  "4638" -- "4645";
+  "4638" -- "4646";
+  "4638" -- "4647";
+  "4638" -- "4648";
+  "4638" -- "4649";
+  "4638" -- "4650";
+  "4638" -- "4651";
+  "4638" -- "4652";
+  "4638" -- "4653";
+  "4638" -- "4654";
+  "4638" -- "4655";
+  "4638" -- "4656";
+  "4638" -- "4657";
+  "4638" -- "4658";
+  "4638" -- "4659";
+  "4487" -- "4660";
+  "4660" -- "4661";
+  "4660" -- "4662";
+  "4660" -- "4663";
+  "4660" -- "4664";
+  "4660" -- "4665";
+  "4660" -- "4666";
+  "4660" -- "4667";
+  "4660" -- "4668";
+  "4660" -- "4669";
+  "4660" -- "4670";
+  "4660" -- "4671";
+  "4660" -- "4672";
+  "4660" -- "4673";
+  "4660" -- "4674";
+  "4660" -- "4675";
+  "4660" -- "4676";
+  "4660" -- "4677";
+  "4660" -- "4678";
+  "4660" -- "4679";
+  "4660" -- "4680";
+  "4660" -- "4681";
+  "4487" -- "4682";
+  "4682" -- "4683";
+  "4682" -- "4684";
+  "4682" -- "4685";
+  "4682" -- "4686";
+  "4682" -- "4687";
+  "4682" -- "4688";
+  "4682" -- "4689";
+  "4682" -- "4690";
+  "4682" -- "4691";
+  "4487" -- "4692";
+  "4692" -- "4693";
+  "4692" -- "4694";
+  "4692" -- "4695";
+  "4692" -- "4696";
+  "4692" -- "4697";
+  "4692" -- "4698";
+  "4692" -- "4699";
+  "4692" -- "4700";
+  "4692" -- "4701";
+  "4487" -- "4702";
+  "4702" -- "4703";
+  "4702" -- "4704";
+  "4702" -- "4705";
+  "4702" -- "4706";
+  "4702" -- "4707";
+  "4702" -- "4708";
+  "4702" -- "4709";
+  "4702" -- "4710";
+  "4702" -- "4711";
+  "4702" -- "4712";
+  "4702" -- "4713";
+  "4702" -- "4714";
+  "4702" -- "4715";
+  "4702" -- "4716";
+  "4702" -- "4717";
+  "4702" -- "4718";
+  "4702" -- "4719";
+  "4702" -- "4720";
+  "4702" -- "4721";
+  "4702" -- "4722";
+  "4702" -- "4723";
+  "4702" -- "4724";
+  "4702" -- "4725";
+  "4487" -- "4726";
+  "4726" -- "4727";
+  "4726" -- "4728";
+  "4726" -- "4729";
+  "4726" -- "4730";
+  "4726" -- "4731";
+  "4726" -- "4732";
+  "4726" -- "4733";
+  "4726" -- "4734";
+  "4726" -- "4735";
+  "4487" -- "4736";
+  "4736" -- "4737";
+  "4736" -- "4738";
+  "4736" -- "4739";
+  "4736" -- "4740";
+  "4736" -- "4741";
+  "4736" -- "4742";
+  "4736" -- "4743";
+  "4736" -- "4744";
+  "4736" -- "4745";
+  "4487" -- "4746";
+  "4746" -- "4747";
+  "4746" -- "4748";
+  "4746" -- "4749";
+  "4746" -- "4750";
+  "4746" -- "4751";
+  "4746" -- "4752";
+  "4746" -- "4753";
+  "4746" -- "4754";
+  "4746" -- "4755";
+  "4746" -- "4756";
+  "4746" -- "4757";
+  "4746" -- "4758";
+  "4746" -- "4759";
+  "4746" -- "4760";
+  "4746" -- "4761";
+  "4746" -- "4762";
+  "4746" -- "4763";
+  "4746" -- "4764";
+  "4746" -- "4765";
+  "4746" -- "4766";
+  "4487" -- "4767";
+  "4767" -- "4768";
+  "4767" -- "4769";
+  "4767" -- "4770";
+  "4767" -- "4771";
+  "4767" -- "4772";
+  "4767" -- "4773";
+  "4767" -- "4774";
+  "4767" -- "4775";
+  "4767" -- "4776";
+  "4767" -- "4777";
+  "4767" -- "4778";
+  "4767" -- "4779";
+  "4767" -- "4780";
+  "4767" -- "4781";
+  "4767" -- "4782";
+  "4767" -- "4783";
+  "4767" -- "4784";
+  "4767" -- "4785";
+  "4767" -- "4786";
+  "4767" -- "4787";
+  "4767" -- "4788";
+  "4487" -- "4789";
+  "4789" -- "4790";
+  "4789" -- "4791";
+  "4789" -- "4792";
+  "4789" -- "4793";
+  "4789" -- "4794";
+  "4789" -- "4795";
+  "4789" -- "4796";
+  "4789" -- "4797";
+  "4789" -- "4798";
+  "4789" -- "4799";
+  "4789" -- "4800";
+  "4789" -- "4801";
+  "4789" -- "4802";
+  "4789" -- "4803";
+  "4789" -- "4804";
+  "4789" -- "4805";
+  "4789" -- "4806";
+  "4789" -- "4807";
+  "4789" -- "4808";
+  "4789" -- "4809";
+  "4789" -- "4810";
+  "4789" -- "4811";
+  "4789" -- "4812";
+  "4487" -- "4813";
+  "4813" -- "4814";
+  "4813" -- "4815";
+  "4813" -- "4816";
+  "4813" -- "4817";
+  "4813" -- "4818";
+  "4813" -- "4819";
+  "4813" -- "4820";
+  "4813" -- "4821";
+  "4813" -- "4822";
+  "4487" -- "4823";
+  "4823" -- "4824";
+  "4823" -- "4825";
+  "4823" -- "4826";
+  "4823" -- "4827";
+  "4823" -- "4828";
+  "4823" -- "4829";
+  "4823" -- "4830";
+  "4823" -- "4831";
+  "4823" -- "4832";
+  "4487" -- "4833";
+  "4833" -- "4834";
+  "4833" -- "4835";
+  "4833" -- "4836";
+  "4833" -- "4837";
+  "4833" -- "4838";
+  "4833" -- "4839";
+  "4833" -- "4840";
+  "4833" -- "4841";
+  "4833" -- "4842";
+  "4487" -- "4843";
+  "4843" -- "4844";
+  "4843" -- "4845";
+  "4843" -- "4846";
+  "4843" -- "4847";
+  "4843" -- "4848";
+  "4843" -- "4849";
+  "4843" -- "4850";
+  "4843" -- "4851";
+  "4843" -- "4852";
+  "4843" -- "4853";
+  "4843" -- "4854";
+  "4843" -- "4855";
+  "4843" -- "4856";
+  "4843" -- "4857";
+  "4843" -- "4858";
+  "4843" -- "4859";
+  "4843" -- "4860";
+  "4843" -- "4861";
+  "4843" -- "4862";
+  "4843" -- "4863";
+  "4843" -- "4864";
+  "4843" -- "4865";
+  "4843" -- "4866";
+  "4843" -- "4867";
+  "4843" -- "4868";
+  "4487" -- "4869";
+  "4869" -- "4870";
+  "4869" -- "4871";
+  "4869" -- "4872";
+  "4869" -- "4873";
+  "4869" -- "4874";
+  "4869" -- "4875";
+  "4869" -- "4876";
+  "4869" -- "4877";
+  "4869" -- "4878";
+  "4869" -- "4879";
+  "4869" -- "4880";
+  "4869" -- "4881";
+  "4869" -- "4882";
+  "4869" -- "4883";
+  "4869" -- "4884";
+  "4869" -- "4885";
+  "4869" -- "4886";
+  "4869" -- "4887";
+  "4869" -- "4888";
+  "4432" -- "4889";
+  "4889" -- "4890";
+  "4889" -- "4891";
+  "4889" -- "4892";
+  "4889" -- "4893";
+  "4889" -- "4894";
+  "4889" -- "4895";
+  "4889" -- "4896";
+  "4889" -- "4897";
+  "4889" -- "4898";
+  "4889" -- "4899";
+  "4889" -- "4900";
+  "4889" -- "4901";
+  "4889" -- "4902";
+  "4889" -- "4903";
+  "4889" -- "4904";
+  "4889" -- "4905";
+  "4889" -- "4906";
+  "4889" -- "4907";
+  "4889" -- "4908";
+  "4889" -- "4909";
+  "4889" -- "4910";
+  "4889" -- "4911";
+  "4889" -- "4912";
+  "4889" -- "4913";
+  "4889" -- "4914";
+  "4432" -- "4915";
+  "4915" -- "4916";
+  "4915" -- "4917";
+  "4915" -- "4918";
+  "4915" -- "4919";
+  "4915" -- "4920";
+  "4915" -- "4921";
+  "4915" -- "4922";
+  "4915" -- "4923";
+  "4915" -- "4924";
+  "4915" -- "4925";
+  "4915" -- "4926";
+  "4915" -- "4927";
+  "4915" -- "4928";
+  "4915" -- "4929";
+  "4915" -- "4930";
+  "4915" -- "4931";
+  "4915" -- "4932";
+  "4915" -- "4933";
+  "4915" -- "4934";
+  "4915" -- "4935";
+  "4915" -- "4936";
+  "4915" -- "4937";
+  "4915" -- "4938";
+  "4915" -- "4939";
+  "4915" -- "4940";
+  "4432" -- "4941";
+  "4941" -- "4942";
+  "4941" -- "4943";
+  "4941" -- "4944";
+  "4941" -- "4945";
+  "4941" -- "4946";
+  "4941" -- "4947";
+  "4941" -- "4948";
+  "4941" -- "4949";
+  "4941" -- "4950";
+  "4941" -- "4951";
+  "4941" -- "4952";
+  "4941" -- "4953";
+  "4941" -- "4954";
+  "4941" -- "4955";
+  "4941" -- "4956";
+  "4941" -- "4957";
+  "4941" -- "4958";
+  "4941" -- "4959";
+  "4941" -- "4960";
+  "4941" -- "4961";
+  "4941" -- "4962";
+  "4941" -- "4963";
+  "4941" -- "4964";
+  "4941" -- "4965";
+  "4941" -- "4966";
+  "4432" -- "4967";
+  "4967" -- "4968";
+  "4967" -- "4969";
+  "4967" -- "4970";
+  "4967" -- "4971";
+  "4967" -- "4972";
+  "4967" -- "4973";
+  "4967" -- "4974";
+  "4967" -- "4975";
+  "4967" -- "4976";
+  "4967" -- "4977";
+  "4967" -- "4978";
+  "4967" -- "4979";
+  "4967" -- "4980";
+  "4967" -- "4981";
+  "4967" -- "4982";
+  "4967" -- "4983";
+  "4967" -- "4984";
+  "4967" -- "4985";
+  "4967" -- "4986";
+  "4967" -- "4987";
+  "4967" -- "4988";
+  "4967" -- "4989";
+  "4967" -- "4990";
+  "4967" -- "4991";
+  "4967" -- "4992";
+  "4432" -- "4993";
+  "4993" -- "4994";
+  "4993" -- "4995";
+  "4993" -- "4996";
+  "4993" -- "4997";
+  "4993" -- "4998";
+  "4993" -- "4999";
+  "4993" -- "5000";
+  "4993" -- "5001";
+  "4993" -- "5002";
+  "4993" -- "5003";
+  "4993" -- "5004";
+  "4993" -- "5005";
+  "4993" -- "5006";
+  "4993" -- "5007";
+  "4993" -- "5008";
+  "4993" -- "5009";
+  "4993" -- "5010";
+  "4993" -- "5011";
+  "4993" -- "5012";
+  "4993" -- "5013";
+  "4993" -- "5014";
+  "4993" -- "5015";
+  "4993" -- "5016";
+  "4993" -- "5017";
+  "4993" -- "5018";
+}
