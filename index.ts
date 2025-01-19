@@ -8,16 +8,19 @@ import { AutoPlay, Agent, GameName } from "src/shared/Autoplay";
 
 const GAME_NAMES = Object.values(GameName);
 
-function playGames(gameNames: GameName[]) {
+function playGamesA(gameNames: GameName[]) {
 
-  for (let gameName of GAME_NAMES) {
+  for (let gameName of gameNames) {
 
     
     let autoplay = new AutoPlay(
+
+      gameName,
+
       {
-        gameName: gameName,
-        agents: [Agent.RANDOM, Agent.RANDOM],
-        matches: 1000
+        agents: [Agent.MCTS, Agent.RANDOM],
+        matches: 1000,
+        printStates: false
       },
       {
         genGraph: false,
@@ -25,7 +28,6 @@ function playGames(gameNames: GameName[]) {
         searchesAmount: null,
         maxPlayoutDepth: null
       },
-      false
     );
     
     autoplay.playMultiple();
@@ -33,4 +35,32 @@ function playGames(gameNames: GameName[]) {
   }
 }
 
-playGames(GAME_NAMES);
+function playGamesB(gameNames: GameName[]) {
+
+  for (let gameName of gameNames) {
+
+    
+    let autoplay = new AutoPlay(
+
+      gameName,
+
+      {
+        agents: [Agent.MCTS, Agent.MCTS],
+        matches: 1000,
+        printStates: false
+      },
+      {
+        genGraph: false,
+        searchesTime: 1000,
+        searchesAmount: null,
+        maxPlayoutDepth: null
+      },
+    );
+    
+    autoplay.playMultiple();
+    autoplay.printResults();
+  }
+}
+
+playGamesA([GameName.CONNECT_FOUR, GameName.BOOP, GameName.CHECKERS]);
+playGamesB(GAME_NAMES);

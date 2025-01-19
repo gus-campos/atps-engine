@@ -14,9 +14,9 @@ import { Checkers } from "src/games/Checkers";
 
 interface AutoPlayautoPlayConfig {
 
-  gameName: GameName,
   agents: Agent[],
-  matches: number
+  matches: number,
+  printStates: boolean
 }
 
 interface Score {
@@ -34,14 +34,15 @@ interface Results {
   score: Score,
   ownGoals: OwnGoals,
   meanTurns: number,
-  meanTime: number
+  meanMatchTime: number,
+  meanTurnTime: number
 }
 
 export enum GameName {
   TIC_TAC_TOE = "Tic Tac Toe",
   GOBLET_GOBBLERS = "Gobblets Gobblers",
-  BOOP = "Boop",
   CONNECT_FOUR = "Connect Four",
+  BOOP = "Boop",
   CHECKERS = "Checkers"
 }
 
@@ -50,25 +51,23 @@ export enum Agent {
   RANDOM = "Random"
 }
 
-const MCTS_GEN_GRAPH: boolean = true;
-
 export class AutoPlay {
 
+  private gameName: GameName
   private autoPlayConfig: AutoPlayautoPlayConfig;
   private mctsConfig: MCTSConfig;
 
   private game: Game;
-  private print: boolean;
   private results: Results;
   private turnsSum: number;
   private initialTime: number;
 
-  constructor(autoPlayConfig: AutoPlayautoPlayConfig, mctsConfig: MCTSConfig, print: boolean=false) {
+  constructor(gameName: GameName, autoPlayConfig: AutoPlayautoPlayConfig, mctsConfig: MCTSConfig) {
     
+    this.gameName = gameName;
     this.autoPlayConfig = autoPlayConfig;
     this.mctsConfig = mctsConfig;
     
-    this.print = print;
     this.turnsSum = 0;
     this.initialTime = Date.now();
 
@@ -98,7 +97,7 @@ export class AutoPlay {
     }
 
     this.calcMeanTurns();
-    this.calcMeanTime();
+    this.calcMeanTimes();
 
     return this.results;
   }
@@ -131,7 +130,8 @@ export class AutoPlay {
       },
 
       meanTurns: 0,
-      meanTime: 0
+      meanMatchTime: 0,
+      meanTurnTime: 0
     }
   }
 
@@ -150,22 +150,30 @@ export class AutoPlay {
   
     while (!this.game.getTermination()) {
 
-      let action = this.agentAction();
-
-      if (action == null)
-        throw new Error("No available actions before game termination");
-
-      this.game.playAction(action);
-  
-      if (this.print) {
-        console.log("");
-        this.game.printState();
+      try {
+ 
+        this.game.playAction(this.agentAction(), true);
       }
+
+      catch {     // Criar error personalizado e especificar
+
+        this.game.forceDraw();
+      }
+  
+      this.printState();
 
       this.turnsSum++;
     }
 
     this.updateResults();
+  }
+
+  private printState(): void {
+
+    if (this.autoPlayConfig.printStates) {
+      console.log("");
+      this.game.printState();
+    }
   }
 
   private logProgress(i: number): void {
@@ -177,11 +185,15 @@ export class AutoPlay {
   private printMCTSConfig(): void {
 
     console.log(this.mctsConfig);
+    console.log();
   }
 
   private printAutoPlayConfig(): void {
 
+    console.log(this.gameName);
+    console.log();
     console.log(this.autoPlayConfig);
+    console.log();
   }
 
   private agentAction(): Action {
@@ -213,7 +225,7 @@ export class AutoPlay {
     game, with initial state.
     */
 
-    switch (this.autoPlayConfig.gameName) {
+    switch (this.gameName) {
 
       case GameName.TIC_TAC_TOE:
         this.game = new TicTacToe();
@@ -270,12 +282,14 @@ export class AutoPlay {
     this.results.meanTurns = this.turnsSum / this.autoPlayConfig.matches;
   }
 
-  private calcMeanTime() {
+  private calcMeanTimes(): void {
 
     const deltaTime = Date.now() - this.initialTime;
-    const meanTime = (deltaTime / this.autoPlayConfig.matches) / 1000;
+    const meanMatchTime = (deltaTime / this.autoPlayConfig.matches);
+    const meanTurnTime = (deltaTime / this.turnsSum);
 
-    this.results.meanTime = Math.round(meanTime * 100) / 100;
+    this.results.meanTurnTime = Math.round(meanTurnTime * 1000) / 1000;
+    this.results.meanMatchTime = Math.round(meanMatchTime * 1000) / 1000;
   }
 
   private updateScore(): void {
