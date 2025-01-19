@@ -43,7 +43,7 @@ export class TicTacToe implements Game {
   private shape: number[];
   private numberOfPlayers: number;
   private state: TicTacToeState;
-
+  
   constructor() {
     this.shape = [3, 3];
     this.numberOfPlayers = 2;
@@ -81,7 +81,7 @@ export class TicTacToe implements Game {
     return actions;
   }
 
-  public playAction(action: TicTacToeAction): void {
+  public playAction(action: TicTacToeAction, autoPlayMode: boolean=false): void {
     /* 
     Atualiza o estado de acordo com uma ação
     */
@@ -96,7 +96,7 @@ export class TicTacToe implements Game {
     this.state.currentPlayer = this.getNextPlayer();
 
     // Avaliar estado
-    this.evaluateState();
+    this.evaluateState(autoPlayMode);
   }
 
   public stateToString(): string {
@@ -151,7 +151,7 @@ export class TicTacToe implements Game {
     /* Gera estado inicial do jogo (tabuleiro linearizado) */
 
     let board: TicTacToeBoard = {
-      slots: Array.from(Array(9), () => null),
+      slots: Array.from(Array(9), ():null => null),
     };
 
     let state: TicTacToeState = {
@@ -183,7 +183,7 @@ export class TicTacToe implements Game {
     return false;
   }
 
-  private evaluateState() {
+  private evaluateState(autoPlayMode: boolean=false) {
 
     // Vitória
 
@@ -194,10 +194,18 @@ export class TicTacToe implements Game {
 
     // Empate
     
-    else if (this.getValidActions().length == 0) {
+    else if (this.gameDraw(autoPlayMode)) {
       this.state.terminated = true;
       this.state.winner = null;
     }
+  }
+
+  private gameDraw(autoPlayMode: boolean=false): boolean {
+
+    if (autoPlayMode)
+      return false
+
+    return this.getValidActions().length == 0;
   }
 
   private getNextPlayer(skipPlayers: number = 0): Player {
@@ -214,5 +222,10 @@ export class TicTacToe implements Game {
       return this.playerSymbol(null);
 
     return this.playerSymbol(piece.author);
+  }
+
+  public forceDraw(): void {
+    this.state.terminated = true;
+    this.state.winner = null;
   }
 }

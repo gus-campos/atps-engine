@@ -166,7 +166,6 @@ export class AutoPlay {
     }
 
     this.updateResults();
-    this.printResults();
   }
 
   private logProgress(i: number): void {
@@ -243,7 +242,8 @@ export class AutoPlay {
 
   private mctsAction(): Action {
 
-    let action = MCTS.nextGameAction(this.game, this.mctsConfig, MCTS_GEN_GRAPH);
+    let mcts = MCTS.createFromGame(this.game, this.mctsConfig);
+    let action = mcts.nextAction();
     return action;
   }
 

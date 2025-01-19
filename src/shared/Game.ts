@@ -48,11 +48,13 @@ export interface Game {
   getCurrentPlayer(): Player;
   
   getValidActions(): Action[];
-  playAction(action: Action): void;
+  playAction(action: Action, autoPlayMode: boolean): void;
   
   getTermination(): boolean;
   getWinner(): number;
 
   stateToString(): string;
   printState(): void;
+  
+  forceDraw(): void;
 }

@@ -36,9 +36,8 @@ export class ConnectFour implements Game {
 
   private state: CfState;
   private boardShape: Coord;
-
+  
   constructor() {
-
     this.boardShape = new Coord(7,6);
     this.state = this.getInitialState();
   }
@@ -53,7 +52,7 @@ export class ConnectFour implements Game {
     return newGame;
   }
 
-  public playAction(action: CfAction): void {
+  public playAction(action: CfAction, autoPlayMode: boolean=false): void {
 
     if (action.column < 0 || action.column >= this.boardShape.x)
       throw new Error("Invalid column");
@@ -70,7 +69,7 @@ export class ConnectFour implements Game {
     this.setPiece(slot, piece);
 
     this.progressPlayers();
-    this.evaluateState();
+    this.evaluateState(autoPlayMode);
   }
 
   public getValidActions(): Action[] {
@@ -165,14 +164,14 @@ export class ConnectFour implements Game {
   // Private
   // ================
 
-  private evaluateState(): void {
+  private evaluateState(autoPlayMode: boolean=false): void {
 
     if (this.gameWon()) {
       this.state.terminated = true;
       this.state.winner = this.state.lastPlayer;
     }
 
-    else if (this.gameDrawn()) {
+    else if (this.gameDrawn(autoPlayMode)) {
       this.state.terminated = true;
       this.state.winner = null;
     }
@@ -201,7 +200,11 @@ export class ConnectFour implements Game {
     return false;
   }
 
-  private gameDrawn() {
+  private gameDrawn(autoPlayMode: boolean=false) {
+
+    if (autoPlayMode)
+      return false;
+
     return this.getValidActions().length == 0;
   }
 
@@ -358,5 +361,10 @@ export class ConnectFour implements Game {
 
   public getWinner(): number {
     return this.state.winner;
+  }
+
+  public forceDraw(): void {
+    this.state.terminated = true;
+    this.state.winner = null;
   }
 }

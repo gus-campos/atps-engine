@@ -75,14 +75,14 @@ export class Boop implements Game {
     return newGame;
   }
 
-  public setState(boardDraw: string[][], stock: number[]=null, players: Player[]=null): void {
+  public setState(boardDrawing: string[][], stock: number[]=null, players: Player[]=null): void {
 
     /*
     Sets the state accordingly to the data provided
     */
 
     for (let slot of this.iterateSlots())
-      this.state.board.slots[slot.x][slot.y] = this.getPieceFromRep(boardDraw[slot.x][slot.y])
+      this.state.board.slots[slot.x][slot.y] = this.getPieceFromRep(boardDrawing[slot.x][slot.y])
 
     if (stock != null)
       this.state.stock = [[stock[0], stock[1]], [stock[2], stock[3]]];   
@@ -109,8 +109,8 @@ export class Boop implements Game {
       return this.getValidPlaceActions();
   }
 
-  public playAction(action: BoopAction): void {
-    
+  public playAction(action: BoopAction, autoPlayMode: boolean=false): void {
+
     /* 
     Returns next state, based on action taken, null piece indicates 
     piece removal (and promotion), if player ends turn without stock
@@ -119,7 +119,7 @@ export class Boop implements Game {
 
     // Ação de remoção de peça
     if (action.piece == null) {
-
+ 
       if (!this.isStockEmpty(this.state.currentPlayer))
         throw new Error("Can't remove a piece, if thhe player has any stock");
       
@@ -131,10 +131,10 @@ export class Boop implements Game {
 
     // Ação de posicionamento a partir do estoque
     else {
-    
+
       if (action.piece.author != this.state.currentPlayer)
         throw new Error("Can only place it's own pieces");
-
+      
       if (this.isStockEmptyOfType(action.piece.author, action.piece.type))
         throw new Error("Out of stock");
 
@@ -149,8 +149,8 @@ export class Boop implements Game {
     }
     
     // Só passa vez se quem jogou terminar turno com algum estoque
-    if (!this.isStockEmpty(this.state.currentPlayer))
-      this.progressPlayers();
+    const opponentsTurn = !this.isStockEmpty(this.state.currentPlayer)
+    this.progressPlayers(opponentsTurn);
   }
 
   public stateToString(): string {
@@ -218,9 +218,12 @@ export class Boop implements Game {
     return (this.state.currentPlayer + 1 + skipPlayers) % (this.numberOfPlayers);
   }
 
-  private progressPlayers() {
+  private progressPlayers(opponentsTurn: boolean) {
+    
     this.state.lastPlayer = this.state.currentPlayer;
-    this.state.currentPlayer = this.getNextPlayer();
+
+    if (opponentsTurn)
+      this.state.currentPlayer = this.getNextPlayer();
   }
 
   private createPiece(author: Player, type: PieceType): BoopPiece {
@@ -505,6 +508,13 @@ export class Boop implements Game {
 
   public getWinner(): null|Player {
       return this.state.winner;
+  }
+
+  // Setter
+
+  public forceDraw(): void {
+    this.state.terminated = true;
+    this.state.winner = null;
   }
   
 }

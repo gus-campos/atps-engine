@@ -68,13 +68,13 @@ export class GobbletGobblers implements Game {
   private nSizes: number;
   private boardShape: Coord;
   private state: GgState;
-
+  
   constructor() {
     this.numberOfPlayers = 2;
     this.nSlots = 9;
     this.nSizes = 3;
     this.boardShape = { x: 3, y: 3 };
-
+    
     this.state = this.getInitialState();
   }
 
@@ -132,7 +132,7 @@ export class GobbletGobblers implements Game {
     this.evaluateState();
   }
 
-  public playAction(action: GgAction): void {
+  public playAction(action: GgAction, autoPlayMode: boolean=false): void {
 
 
     let pieceToPlace;
@@ -257,7 +257,7 @@ export class GobbletGobblers implements Game {
 
   private getInitialState(): GgState {
     let slots = Array.from(Array(this.nSlots), () =>
-      Array.from(Array(this.nSizes), () => null)
+      Array.from(Array(this.nSizes), ():null => null)
     );
 
     return {
@@ -476,5 +476,10 @@ export class GobbletGobblers implements Game {
       return PLAYERS_SYMBOLS.get(null);
     
     return PLAYERS_SYMBOLS.get(piece.author);
+  }
+
+  public forceDraw(): void {
+    this.state.terminated = true;
+    this.state.winner = null;
   }
 }

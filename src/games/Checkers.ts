@@ -1,6 +1,10 @@
 import { Game, Player, Coord } from "src/shared/Game";
 import { RANDOM } from "../utils/Random"
 
+function even(n: number): boolean {
+  return n%2 == 0;
+}
+
 export enum Direction {
   LEFT,
   RIGHT
@@ -62,13 +66,32 @@ export class Checkers implements Game {
 
   private state: CheckersState;
   private boardShape: Coord;
-
+  private turnsWithoutCapturing: number;
+  
   constructor() {
-
+    
     this.boardShape = new Coord(8,8);
+    this.turnsWithoutCapturing = 0;
     this.state = this.getInitialState();
+    
+    this.setState(
+      
+      [
+        [" ", " ", " ", " ", " ", " ", " ", "b"],
+        [" ", " ", " ", " ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " ", " ", " ", " "],
+        ["a", " ", " ", " ", " ", " ", " ", " "],
+      ],
+      
+      [1,0]
+    );
+    
   }
-
+  
   // ================
   // Public Methods
   // ================
@@ -79,7 +102,7 @@ export class Checkers implements Game {
     return newGame;
   }
 
-  public playAction(action: CheckersAction): void {
+  public playAction(action: CheckersAction, autoPlayMode: boolean=false): void {
 
     let captureActions = this.getValidActions(true);
     let hasCaptured = false;
@@ -87,6 +110,9 @@ export class Checkers implements Game {
     const piece = this.getPiece(action.fromSlot);
 
     this.validateAction(action);
+
+    // Para critério de empate
+    this.turnsWithoutCapturing++;
 
     // Saltos
     if (this.moveMultiplicity(action) > 1) {
@@ -100,14 +126,13 @@ export class Checkers implements Game {
         this.setPiece(capturedSlot, null);
         this.decrementPieceCount(this.getOpponent());
         hasCaptured = true;
+        this.turnsWithoutCapturing = 0;
       }
     }
 
     // Move
     this.setPiece(action.fromSlot, null);
     this.setPiece(action.toSlot, piece);
-
-
 
     // Soprar peça se necessário
     if (captureActions.length > 0 && !this.isCaptureAction(action, captureActions)) {
@@ -122,17 +147,17 @@ export class Checkers implements Game {
 
     this.updatePromotions();
     this.progressPlayers(opponentsTurn);
-    this.evaluateState();
+    this.evaluateState(autoPlayMode);
   }
 
   public getValidActions(captureOnly: boolean=false): CheckersAction[] {
-
+    
     if (this.state.terminated)
       return [];
 
     let actions: CheckersAction[] = [];
 
-    for (let fromSlot of this.iterSlots()) {
+    for (let fromSlot of this.iterValidSlots()) {
 
       const piece = this.getPiece(fromSlot);
       
@@ -140,10 +165,10 @@ export class Checkers implements Game {
         continue;
 
       if (piece.type == PieceType.MAN)
-        actions = actions.concat(this.manValidActions(fromSlot, captureOnly));
+        actions.push(...this.manValidActions(fromSlot, captureOnly));
 
       if (piece.type == PieceType.KING)
-        actions = actions.concat(this.kingValidActions(fromSlot, captureOnly));
+        actions.push(...this.kingValidActions(fromSlot, captureOnly));
     }
 
     return actions;
@@ -175,7 +200,7 @@ export class Checkers implements Game {
     const currentPlayer = this.pieceToSymbol({ author: this.state.currentPlayer, type: PieceType.KING });
     const turns = `O "${lastPlayer}" jogou, vez do "${currentPlayer}":`;
 
-    return board + "\n" + turns + "\n";
+    return board + "\n" + turns + "\n" + this.turnsWithoutCapturing;
   }
 
   public setState(boardRep: string[][], players: Player[]) {
@@ -307,13 +332,17 @@ export class Checkers implements Game {
     if (!validXBound || !validYBound)
       return false;
     
-    const even = (n: number) => n%2==0;
-    let darkSquare = (even(coord.x) && even(coord.y)) || (!even(coord.x) && !even(coord.y));
+    const darkSquare = this.darkSquare(coord);
 
     if (!darkSquare)
       return false;
 
     return true;
+  }
+
+  private darkSquare(coord: Coord): boolean {
+
+    return (even(coord.x) && even(coord.y)) || (!even(coord.x) && !even(coord.y));
   }
 
   // =========================
@@ -402,14 +431,15 @@ export class Checkers implements Game {
   // Main private methods
   // =====================
 
-  private evaluateState(): void {
+  private evaluateState(autoPlayMode: boolean=false): void {
 
     if (this.gameWon()) {
       this.state.terminated = true;
       this.state.winner = this.state.lastPlayer;
+      return;
     }
 
-    else if (this.gameDrawn()) {
+    else if (this.gameDrawn(autoPlayMode)) {
       this.state.terminated = true;
       this.state.winner = null;
     }
@@ -421,9 +451,16 @@ export class Checkers implements Game {
     return this.state.piecesCount[this.state.currentPlayer] <= 0;
   }
 
-  private gameDrawn(): boolean {
+  private gameDrawn(autoPlayMode: boolean=false): boolean {
 
-    return this.getValidActions().length == 0;
+    if (this.turnsWithoutCapturing >= 20)
+      return true;
+
+    if (autoPlayMode)
+      return false;
+
+    if (this.getValidActions().length == 0)
+      return true;
   }
 
   private getInitialState(): CheckersState {
@@ -439,12 +476,12 @@ export class Checkers implements Game {
 
     const filledRows = 3;
 
-    for (let slot of this.iterSlots()) {
+    for (let slot of this.iterValidSlots()) {
 
-      if (slot.y < filledRows && this.validSlot(slot))
+      if (slot.y < filledRows)
         board[slot.x][slot.y] = this.createPiece(0);
 
-      if (slot.y >= this.boardShape.y-filledRows && this.validSlot(slot))
+      if (slot.y >= this.boardShape.y-filledRows)
         board[slot.x][slot.y] = this.createPiece(1);
     }
 
@@ -475,14 +512,14 @@ export class Checkers implements Game {
     return SYMBOLS_PIECES.get(symbol);
   }
 
-  private progressPlayers(opponentTurn: boolean=true): void {
+  private progressPlayers(opponentsTurn: boolean=true): void {
 
     /*
     Passa a vez, alternando os players atual e último
     */
 
     this.state.lastPlayer = this.state.currentPlayer;
-    if (opponentTurn)
+    if (opponentsTurn)
       this.state.currentPlayer = this.getOpponent();
   }
 
@@ -563,6 +600,8 @@ export class Checkers implements Game {
 
   private kingValidActions(fromSlot: Coord, captureOnly: boolean=false): CheckersAction[] {
 
+    //return [];
+
     let actions: CheckersAction[] = [];
 
     for (let direction of DIRECTIONS) {
@@ -599,13 +638,12 @@ export class Checkers implements Game {
   // Itarators
   // ================
 
-  private *iterSlots(): Generator<Coord> {
+  private *iterValidSlots(): Generator<Coord> {
 
     for (let row of this.iterRows()) {
-
       for (let column of this.iterColumns()) {
         const slot = new Coord(column, row);
-        if (this.validSlot(slot))
+        if (this.darkSquare(slot))
           yield slot;
       }
     }
@@ -662,5 +700,10 @@ export class Checkers implements Game {
 
   public getWinner(): number {
     return this.state.winner;
+  }
+
+  public forceDraw(): void {
+    this.state.terminated = true;
+    this.state.winner = null;
   }
 }
