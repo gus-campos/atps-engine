@@ -22,6 +22,7 @@ export interface MCTSStats {
 
   nodesAmount: number;
   maxDepth: number;
+  searchesAmount: number;
 }
 
 export const OUTCOME_VALUE = new Map<Outcome, number>([
@@ -343,6 +344,7 @@ export class MCTS {
     
     this.mctsStats = {
 
+      searchesAmount: 0,
       nodesAmount: 0,
       maxDepth: 0
     } 
@@ -470,11 +472,12 @@ export class MCTS {
     com seleção, expanção, simulação e retro propagação
     */
 
+    // Atualizando quantidade de buscas
+    this.mctsStats.searchesAmount++;
+
     let node = this.select();
     let outcome: Outcome;
     const terminal = node.getGame().getTermination();
-
-
 
     if (terminal) {
       outcome = node.getGameOutcome(node.getGame());

@@ -1,7 +1,7 @@
 // =========================================================
 
 import { Action, Game } from "src/shared/Game";
-import { MCTS, MCTSConfig } from "src/agents/MCTS";
+import { MCTS, MCTSConfig, MCTSStats } from "src/agents/MCTS";
 import { RandomAgent } from "src/agents/RandomAgent";
 
 import { TicTacToe } from "src/games/TicTacToe";
@@ -56,6 +56,7 @@ export class AutoPlay {
   private gameName: GameName
   private autoPlayConfig: AutoPlayConfig;
   private mctsConfig: MCTSConfig;
+  private meanMctsStats: MCTSStats;
 
   private game: Game;
   private results: Results;
@@ -110,16 +111,22 @@ export class AutoPlay {
 
     this.calcMeanTurns();
     this.calcMeanTimes();
+    this.calcMeanMctsStats();
 
     return this.results;
   }
 
   public printResults(): void {
 
-    console.log("");
+    console.log();
     console.log(this.results);
-    //console.log()
-    console.log("");
+    console.log();
+
+    if (this.meanMctsStats.searchesAmount != 0) {
+      
+      console.log(this.meanMctsStats);
+      console.log();
+    }
   }
 
   public resetResults(): void {
@@ -146,6 +153,13 @@ export class AutoPlay {
       meanMatchTime: 0,
       meanTurnTime: 0
     }
+
+    this.meanMctsStats = {
+
+      searchesAmount:0,
+      nodesAmount: 0,
+      maxDepth: 0,
+    }
   }
 
   // ============
@@ -164,7 +178,7 @@ export class AutoPlay {
     while (!this.game.getTermination()) {
 
       try {
- 
+        
         this.game.playAction(this.agentAction(), true);
       }
 
@@ -271,7 +285,12 @@ export class AutoPlay {
   private mctsAction(): Action {
 
     let mcts = MCTS.createFromGame(this.game, this.mctsConfig);
+
+    const mctsStats = mcts.getStats();
     let action = mcts.nextAction();
+
+    this.updateMctsStats(mctsStats);
+    
     return action;
   }
 
@@ -293,6 +312,14 @@ export class AutoPlay {
     this.updateOwnGoals();
   }
 
+  private updateMctsStats(mctsStats: MCTSStats): void {
+
+    this.meanMctsStats.searchesAmount += mctsStats.searchesAmount;
+    this.meanMctsStats.maxDepth += mctsStats.maxDepth;
+    this.meanMctsStats.nodesAmount += mctsStats.nodesAmount;
+
+  }
+
   private calcMeanTurns() {
 
     this.results.meanTurns = this.turnsSum / this.autoPlayConfig.matches;
@@ -306,6 +333,13 @@ export class AutoPlay {
 
     this.results.meanTurnTime = Math.round(meanTurnTime * 1000) / 1000;
     this.results.meanMatchTime = Math.round(meanMatchTime * 1000) / 1000;
+  }
+
+  private calcMeanMctsStats() {
+
+    this.meanMctsStats.maxDepth /= this.turnsSum;
+    this.meanMctsStats.nodesAmount /= this.turnsSum;
+    this.meanMctsStats.searchesAmount /= this.turnsSum;   
   }
 
   private updateScore(): void {
