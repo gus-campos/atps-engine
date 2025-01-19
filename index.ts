@@ -13,17 +13,17 @@ for (let config of [
   
   {
     agents: [Agent.RANDOM, Agent.RANDOM],
-    matches: 0,
+    matches: 1,
     searchesTime: null
   },
   {
     agents: [Agent.MCTS, Agent.RANDOM],
-    matches: 1,
+    matches: 0,
     searchesTime: 1000
   },
   {
     agents: [Agent.MCTS, Agent.MCTS],
-    matches: 1,
+    matches: 0,
     searchesTime: 2000
   },
 

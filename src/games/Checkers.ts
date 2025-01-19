@@ -121,6 +121,7 @@ export class Checkers implements Game {
     if (captureActions.length > 0 && !this.isCaptureAction(action, captureActions)) {
 
       this.losePiece(action, captureActions);
+      this.turnsWithoutCapturing = 0;
     }
 
     // Capturas múltiplas: Não passa a vez se pelo menos mais uma captura puder ser feita

@@ -131,7 +131,7 @@ export class AutoPlay {
     console.log(this.results);
     console.log();
 
-    if (this.meanMctsStats.searchesAmount != 0) {
+    if (this.autoPlayConfig.agents.includes(Agent.MCTS)) {
       
       console.log("Mean: ", this.meanMctsStats);
       console.log();
