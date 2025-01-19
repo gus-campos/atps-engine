@@ -190,8 +190,11 @@ export class AutoPlay {
 
   private logProgress(i: number): void {
 
-    const message = `Progresso: ${(100 * i) / this.autoPlayConfig.matches}%`
-    process.stdout.write(`\r` + message);
+    // De 10 em 10%
+    if (i % (this.autoPlayConfig.matches/10) == 0) { 
+      const message = `Progresso: ${(100 * i) / this.autoPlayConfig.matches}%`
+      console.log(message);
+    }
   }
 
   private printMCTSConfig(): void {
