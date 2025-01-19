@@ -92,11 +92,14 @@ export class AutoPlay {
   // Public
   // ============
 
-  public playMultiple(): Results {
+  public playMultiple(): void {
 
     /*
     Plays multiple games, until termination, updating the results
     */
+
+    if (this.autoPlayConfig.matches == 0)
+      return;
 
     this.printAutoPlayConfig();
     this.printMCTSConfig();
@@ -112,11 +115,15 @@ export class AutoPlay {
     this.calcMeanTurns();
     this.calcMeanTimes();
     this.calcMeanMctsStats();
-
-    return this.results;
   }
 
   public printResults(): void {
+
+    if (this.autoPlayConfig.matches == 0) {
+
+      console.log("No matches played");
+      return;
+    }
 
     console.log();
     console.log(this.results);

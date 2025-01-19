@@ -11,22 +11,20 @@ const GAME_NAMES = Object.values(GameName);
 
 for (let config of [
   
-  /*
   {
     agents: [Agent.RANDOM, Agent.RANDOM],
-    matches: 100_000,
+    matches: 0,
     searchesTime: null
   },
-  */
   {
     agents: [Agent.MCTS, Agent.RANDOM],
-    matches: 5,
-    searchesTime: 200
+    matches: 0,
+    searchesTime: 1000
   },
   {
     agents: [Agent.MCTS, Agent.MCTS],
-    matches: 5,
-    searchesTime: 200
+    matches: 10,
+    searchesTime: 1000
   },
 
 ]) {
@@ -35,16 +33,17 @@ for (let config of [
     
     agents: config.agents,
     matches: config.matches,
-    printStates: false
+    printStates: true
   };
   
   const mctsConfig: MCTSConfig = {
     
-    genGraph: false,
+    genGraph: true,
+    maxDepthPrinted: 3,
     searchesTime: config.searchesTime,
     searchesAmount: null,
     maxPlayoutDepth: null
   };
   
-  AutoPlay.playGames([GameName.TIC_TAC_TOE], autoPlayConfig, mctsConfig);
+  AutoPlay.playGames([GameName.GOBLET_GOBBLERS], autoPlayConfig, mctsConfig);
 }

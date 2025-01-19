@@ -16,6 +16,7 @@ export interface MCTSConfig {
   searchesAmount: number;
   maxPlayoutDepth: number;
   genGraph: boolean;
+  maxDepthPrinted: number;
 }
 
 export interface MCTSStats {
@@ -38,7 +39,7 @@ export const OPPOSITE_OUTCOME = new Map<Outcome, Outcome>([
 ]);
 
 const EXPLORE_FACTOR = Math.sqrt(2);
-let GRAPH_ID = 0;
+let NODE_ID = 0;
 let TURN = 0;
 
 // =================================================
@@ -74,8 +75,7 @@ export class Node {
     this.depth = 0;
   }
   
-
-  public getGameOutcome(game: Game) {
+  public getGameOutcome(game: Game, perspectivePlayer: Player=null): Outcome {
 
     /*
     Obtêm o outcome de um jogo
@@ -106,8 +106,13 @@ export class Node {
     
     if (winner == null)
       return Outcome.DRAW;
+
+    if (perspectivePlayer == null)
+      return Outcome.WIN;
+
+    return winner == perspectivePlayer ? Outcome.WIN : Outcome.LOSE;
   
-    return Outcome.WIN;
+    //return Outcome.WIN;
   }
 
   public expand(): Node {
@@ -220,10 +225,10 @@ export class Node {
       game.playAction(action, true);
     }
 
-    return this.getGameOutcome(game);
+    return this.getGameOutcome(game, this.parent.perspectivePlayer);
   }
 
-  public genGraphNodes(G: Graph, parent: NodeModel) {
+  public genGraphNodes(G: Graph, parent: NodeModel, maxDepthPrinted: number): void {
 
     /*
     Gera recursivamente nós de grafo do graphviz, a partir
@@ -232,9 +237,12 @@ export class Node {
 
     // Adicionar seus children
     for (let child of this.children) {
+
+      if (child.depth > maxDepthPrinted)
+        break;
       
       let childNode = child.genConnectedNode(G, parent);
-      child.genGraphNodes(G, childNode);
+      child.genGraphNodes(G, childNode, maxDepthPrinted);
     }
   }
 
@@ -255,7 +263,7 @@ export class Node {
     /* Generates a node to be added in a graphviz graph */
 
     let label = this.nodeToString();
-    let childNode = G.node(String(GRAPH_ID++), { label: label });
+    let childNode = G.node(String(NODE_ID++), { label: label });
 
 
     G.addEdge(new Edge([parent, childNode]));
@@ -315,8 +323,12 @@ export class Node {
     return this.actionTaken;
   }
 
-  getDepth(): number {
+  public getDepth(): number {
     return this.depth;
+  }
+
+  public getPerspectivePlayer() {
+    return this.perspectivePlayer;
   }
 
   //===========
@@ -348,6 +360,8 @@ export class MCTS {
       nodesAmount: 0,
       maxDepth: 0
     } 
+
+    TURN = 0;
   }
 
   public genGraph(dirOut: string) {
@@ -363,7 +377,8 @@ export class MCTS {
     let rooNode = this.genRootGraphNode(G); 
 
     // Fazer primeira chamada da recursão
-    this.root.genGraphNodes(G, rooNode);
+    NODE_ID = 0;
+    this.root.genGraphNodes(G, rooNode, this.mctsConfig.maxDepthPrinted);
 
     // Escrever no arquivo
     var fs = require('fs');
@@ -434,7 +449,7 @@ export class MCTS {
     /* Generates a node to be added in a graphviz graph */
 
     let label = this.root.nodeToString();
-    let childNode = G.node(String(GRAPH_ID++), { label: label });
+    let childNode = G.node(String(NODE_ID++), { label: label });
     G.addNode(childNode);
 
     return childNode;
@@ -480,7 +495,11 @@ export class MCTS {
     const terminal = node.getGame().getTermination();
 
     if (terminal) {
-      outcome = node.getGameOutcome(node.getGame());
+
+      const game = node.getGame();
+      const parentPerspective = node.getParent().getPerspectivePlayer();
+
+      outcome = node.getGameOutcome(game, parentPerspective);
     } 
     
     else {
