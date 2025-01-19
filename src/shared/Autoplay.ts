@@ -12,7 +12,7 @@ import { Checkers } from "src/games/Checkers";
 
 // =========================================================
 
-interface AutoPlayautoPlayConfig {
+export interface AutoPlayConfig {
 
   agents: Agent[],
   matches: number,
@@ -54,7 +54,7 @@ export enum Agent {
 export class AutoPlay {
 
   private gameName: GameName
-  private autoPlayConfig: AutoPlayautoPlayConfig;
+  private autoPlayConfig: AutoPlayConfig;
   private mctsConfig: MCTSConfig;
 
   private game: Game;
@@ -62,7 +62,7 @@ export class AutoPlay {
   private turnsSum: number;
   private initialTime: number;
 
-  constructor(gameName: GameName, autoPlayConfig: AutoPlayautoPlayConfig, mctsConfig: MCTSConfig) {
+  constructor(gameName: GameName, autoPlayConfig: AutoPlayConfig, mctsConfig: MCTSConfig) {
     
     this.gameName = gameName;
     this.autoPlayConfig = autoPlayConfig;
@@ -73,6 +73,18 @@ export class AutoPlay {
 
     this.resetResults();
     this.resetGame();
+  }
+
+  public static playGames(gameNames: GameName[], autoPlayConfig: AutoPlayConfig, mctsConfig: MCTSConfig): void {
+
+    for (let gameName of gameNames) {
+  
+      
+      let autoplay = new AutoPlay(gameName, autoPlayConfig, mctsConfig);
+      
+      autoplay.playMultiple();
+      autoplay.printResults();
+    }
   }
 
   // ============
