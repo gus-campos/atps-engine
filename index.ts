@@ -10,20 +10,22 @@ import { AutoPlay, AutoPlayConfig, Agent, GameName } from "src/shared/Autoplay";
 const GAME_NAMES = Object.values(GameName);
 
 for (let config of [
-
+  
+  /*
   {
     agents: [Agent.RANDOM, Agent.RANDOM],
     matches: 100_000,
     searchesTime: null
   },
+  */
   {
     agents: [Agent.MCTS, Agent.RANDOM],
-    matches: 100,
-    searchesTime: 1000
+    matches: 5,
+    searchesTime: 200
   },
   {
     agents: [Agent.MCTS, Agent.MCTS],
-    matches: 10,
+    matches: 5,
     searchesTime: 200
   },
 
