@@ -45,5 +45,5 @@ for (let config of [
     maxPlayoutDepth: null
   };
   
-  AutoPlay.playGames([GameName.GOBLET_GOBBLERS], autoPlayConfig, mctsConfig);
+  AutoPlay.playGames([GameName.TIC_TAC_TOE], autoPlayConfig, mctsConfig);
 }

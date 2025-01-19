@@ -75,7 +75,7 @@ export class Node {
     this.depth = 0;
   }
   
-  public getGameOutcome(game: Game, perspectivePlayer: Player=null): Outcome {
+  public getGameOutcome(game: Game): Outcome {
 
     /*
     Obtêm o outcome de um jogo
@@ -107,12 +107,9 @@ export class Node {
     if (winner == null)
       return Outcome.DRAW;
 
-    if (perspectivePlayer == null)
-      return Outcome.WIN;
+    const parentPerspective = this.parent.perspectivePlayer;
 
-    return winner == perspectivePlayer ? Outcome.WIN : Outcome.LOSE;
-  
-    //return Outcome.WIN;
+    return winner == parentPerspective ? Outcome.WIN : Outcome.LOSE;
   }
 
   public expand(): Node {
@@ -225,7 +222,7 @@ export class Node {
       game.playAction(action, true);
     }
 
-    return this.getGameOutcome(game, this.parent.perspectivePlayer);
+    return this.getGameOutcome(game);
   }
 
   public genGraphNodes(G: Graph, parent: NodeModel, maxDepthPrinted: number): void {
@@ -499,7 +496,7 @@ export class MCTS {
       const game = node.getGame();
       const parentPerspective = node.getParent().getPerspectivePlayer();
 
-      outcome = node.getGameOutcome(game, parentPerspective);
+      outcome = node.getGameOutcome(game);
     } 
     
     else {
