@@ -23,8 +23,8 @@ for (let config of [
   },
   {
     agents: [Agent.MCTS, Agent.MCTS],
-    matches: 10,
-    searchesTime: 1000
+    matches: 1,
+    searchesTime: 2000
   },
 
 ]) {
@@ -38,12 +38,12 @@ for (let config of [
   
   const mctsConfig: MCTSConfig = {
     
-    genGraph: true,
+    genGraph: false,
     maxDepthPrinted: 3,
     searchesTime: config.searchesTime,
     searchesAmount: null,
     maxPlayoutDepth: null
   };
   
-  AutoPlay.playGames([GameName.GOBLET_GOBBLERS], autoPlayConfig, mctsConfig);
+  AutoPlay.playGames([GameName.TIC_TAC_TOE], autoPlayConfig, mctsConfig);
 }

@@ -61,6 +61,7 @@ export class AutoPlay {
   private game: Game;
   private results: Results;
   private turnsSum: number;
+  private mctsTurnsSum: number;
   private initialTime: number;
 
   constructor(gameName: GameName, autoPlayConfig: AutoPlayConfig, mctsConfig: MCTSConfig) {
@@ -68,6 +69,7 @@ export class AutoPlay {
     this.gameName = gameName;
     this.autoPlayConfig = autoPlayConfig;
     this.mctsConfig = mctsConfig;
+    this.mctsTurnsSum = 0;
     
     this.turnsSum = 0;
     this.initialTime = Date.now();
@@ -131,7 +133,7 @@ export class AutoPlay {
 
     if (this.meanMctsStats.searchesAmount != 0) {
       
-      console.log(this.meanMctsStats);
+      console.log("Mean: ", this.meanMctsStats);
       console.log();
     }
   }
@@ -163,10 +165,12 @@ export class AutoPlay {
 
     this.meanMctsStats = {
 
-      searchesAmount:0,
+      searchesAmount: 0,
       nodesAmount: 0,
       maxDepth: 0,
     }
+
+    this.mctsTurnsSum = 0;
   }
 
   // ============
@@ -321,10 +325,10 @@ export class AutoPlay {
 
   private updateMctsStats(mctsStats: MCTSStats): void {
 
+    this.mctsTurnsSum++;
     this.meanMctsStats.searchesAmount += mctsStats.searchesAmount;
     this.meanMctsStats.maxDepth += mctsStats.maxDepth;
     this.meanMctsStats.nodesAmount += mctsStats.nodesAmount;
-
   }
 
   private calcMeanTurns() {
@@ -344,9 +348,11 @@ export class AutoPlay {
 
   private calcMeanMctsStats() {
 
-    this.meanMctsStats.maxDepth /= this.turnsSum;
-    this.meanMctsStats.nodesAmount /= this.turnsSum;
-    this.meanMctsStats.searchesAmount /= this.turnsSum;   
+    const turnsSum = this.mctsTurnsSum;
+
+    this.meanMctsStats.maxDepth /= turnsSum;
+    this.meanMctsStats.nodesAmount /= turnsSum;
+    this.meanMctsStats.searchesAmount /= turnsSum;   
   }
 
   private updateScore(): void {
