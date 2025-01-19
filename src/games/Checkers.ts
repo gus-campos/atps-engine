@@ -437,7 +437,7 @@ export class Checkers implements Game {
 
   private gameDrawn(autoPlayMode: boolean=false): boolean {
 
-    if (this.turnsWithoutCapturing >= 20)
+    if (this.turnsWithoutCapturing >= 10)
       return true;
 
     if (autoPlayMode)
