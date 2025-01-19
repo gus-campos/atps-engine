@@ -18,7 +18,7 @@ for (let config of [
   },
   {
     agents: [Agent.MCTS, Agent.RANDOM],
-    matches: 0,
+    matches: 1,
     searchesTime: 1000
   },
   {
@@ -45,5 +45,5 @@ for (let config of [
     maxPlayoutDepth: null
   };
   
-  AutoPlay.playGames([GameName.TIC_TAC_TOE], autoPlayConfig, mctsConfig);
+  AutoPlay.playGames([GameName.CHECKERS], autoPlayConfig, mctsConfig);
 }
