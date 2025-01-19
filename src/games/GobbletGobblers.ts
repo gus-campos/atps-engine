@@ -50,8 +50,8 @@ const rows: number[][] = [
 ];
 
 let PLAYERS_SYMBOLS = new Map();
-PLAYERS_SYMBOLS.set(0, "A");
-PLAYERS_SYMBOLS.set(1, "B");
+PLAYERS_SYMBOLS.set(0, ["a", "â", "A"]);
+PLAYERS_SYMBOLS.set(1, ["o", "ô", "O"]);
 PLAYERS_SYMBOLS.set(null, ".");
 
 let SYMBOLS_PLAYERS = new Map();
@@ -214,7 +214,7 @@ export class GobbletGobblers implements Game {
     let stock = "";
     for (let player=0; player<2; player++) {
 
-      const playerSymbol =  PLAYERS_SYMBOLS.get(player);
+      const playerSymbol =  PLAYERS_SYMBOLS.get(player)[2];
 
       for (let size=0; size<3; size++) {
         stock += `${playerSymbol}${size} - ${this.state.stock[player][size]} | `;
@@ -224,8 +224,8 @@ export class GobbletGobblers implements Game {
     }
 
 
-    const lastPlayer = PLAYERS_SYMBOLS.get(this.state.lastPlayer);
-    const currentPlayer = PLAYERS_SYMBOLS.get(this.state.currentPlayer);
+    const lastPlayer = PLAYERS_SYMBOLS.get(this.state.lastPlayer)[2];
+    const currentPlayer = PLAYERS_SYMBOLS.get(this.state.currentPlayer)[2];
     const playersTurns = `O "${lastPlayer}" jogou, vez do "${currentPlayer}":`;
 
     return state + "\n" + stock + "\n\n" + playersTurns;
@@ -475,7 +475,7 @@ export class GobbletGobblers implements Game {
     if (piece == null)
       return PLAYERS_SYMBOLS.get(null);
     
-    return PLAYERS_SYMBOLS.get(piece.author);
+    return PLAYERS_SYMBOLS.get(piece.author)[piece.size];
   }
 
   public forceDraw(): void {

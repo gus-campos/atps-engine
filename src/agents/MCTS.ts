@@ -492,11 +492,7 @@ export class MCTS {
     const terminal = node.getGame().getTermination();
 
     if (terminal) {
-
-      const game = node.getGame();
-      const parentPerspective = node.getParent().getPerspectivePlayer();
-
-      outcome = node.getGameOutcome(game);
+      outcome = node.getGameOutcome(node.getGame());
     } 
     
     else {
