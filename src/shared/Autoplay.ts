@@ -218,7 +218,10 @@ export class AutoPlay {
 
     // De 10 em 10%
     if (i % (this.autoPlayConfig.matches/10) == 0) { 
+      
+      this.printResults();
       const message = `Progresso: ${(100 * i) / this.autoPlayConfig.matches}%`
+
       console.log(message);
     }
   }
