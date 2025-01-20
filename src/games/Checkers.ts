@@ -24,7 +24,9 @@ interface CheckersState {
   piecesCount: number[],
 
   terminated: boolean,
-  winner: Player|null
+  winner: Player|null,
+
+  turnsWithoutCapturing: number
 }
 
 interface CheckersPiece {
@@ -66,12 +68,10 @@ export class Checkers implements Game {
 
   private state: CheckersState;
   private boardShape: Coord;
-  private turnsWithoutCapturing: number;
   
   constructor() {
     
     this.boardShape = new Coord(8,8);
-    this.turnsWithoutCapturing = 0;
     this.state = this.getInitialState();
   }
   
@@ -95,7 +95,7 @@ export class Checkers implements Game {
     this.validateAction(action);
 
     // Para critério de empate
-    this.turnsWithoutCapturing++;
+    this.state.turnsWithoutCapturing++;
 
     // Saltos
     if (this.moveMultiplicity(action) > 1) {
@@ -109,7 +109,7 @@ export class Checkers implements Game {
         this.setPiece(capturedSlot, null);
         this.decrementPieceCount(this.getOpponent());
         hasCaptured = true;
-        this.turnsWithoutCapturing = 0;
+        this.state.turnsWithoutCapturing = 0;
       }
     }
 
@@ -121,7 +121,7 @@ export class Checkers implements Game {
     if (captureActions.length > 0 && !this.isCaptureAction(action, captureActions)) {
 
       this.losePiece(action, captureActions);
-      this.turnsWithoutCapturing = 0;
+      this.state.turnsWithoutCapturing = 0;
     }
 
     // Capturas múltiplas: Não passa a vez se pelo menos mais uma captura puder ser feita
@@ -184,7 +184,7 @@ export class Checkers implements Game {
     const currentPlayer = this.pieceToSymbol({ author: this.state.currentPlayer, type: PieceType.KING });
     const turns = `O "${lastPlayer}" jogou, vez do "${currentPlayer}":`;
 
-    return board + "\n" + turns + "\n" + this.turnsWithoutCapturing;
+    return board + "\n" + turns + "\n" + this.state.turnsWithoutCapturing;
   }
 
   public setState(boardRep: string[][], players: Player[]) {
@@ -437,7 +437,7 @@ export class Checkers implements Game {
 
   private gameDrawn(autoPlayMode: boolean=false): boolean {
 
-    if (this.turnsWithoutCapturing >= 10)
+    if (this.state.turnsWithoutCapturing >= 20)
       return true;
 
     if (autoPlayMode)
@@ -476,7 +476,8 @@ export class Checkers implements Game {
       currentPlayer: 0,
       piecesCount: [12, 12],
       terminated: false,
-      winner: null
+      winner: null,
+      turnsWithoutCapturing: 0
     }
   }
 

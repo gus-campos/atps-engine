@@ -1,0 +1,39 @@
+[
+  {
+    "gameName": "Checkers"
+  },
+  {
+    "agents": [
+      "Random",
+      "Random"
+    ],
+    "matches": 1,
+    "printStates": true
+  },
+  {
+    "genGraph": false,
+    "maxDepthPrinted": null,
+    "searchesTime": 200,
+    "searchesAmount": null,
+    "maxPlayoutDepth": null
+  },
+  {
+    "score": {
+      "victories": 0,
+      "defeats": 1,
+      "draws": 0
+    },
+    "ownGoals": {
+      "favorable": 0,
+      "unfavorable": 0
+    },
+    "meanTurns": 67,
+    "meanMatchTime": 12,
+    "meanTurnTime": 0.179
+  },
+  {
+    "searchesAmount": null,
+    "nodesAmount": null,
+    "maxDepth": null
+  }
+]

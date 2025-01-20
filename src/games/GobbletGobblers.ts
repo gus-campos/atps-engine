@@ -30,6 +30,8 @@ interface GgState {
 
   terminated: boolean;
   winner: null | Player;
+
+  turns: number;
 }
 
 interface GgAction extends Action {
@@ -48,6 +50,8 @@ const rows: number[][] = [
   [0, 4, 8],
   [2, 4, 6],
 ];
+
+const TURNS_TO_DRAW = 30;
 
 let PLAYERS_SYMBOLS = new Map();
 PLAYERS_SYMBOLS.set(0, ["a", "â", "A"]);
@@ -172,6 +176,8 @@ export class GobbletGobblers implements Game {
     this.setPiece(action.slot, pieceToPlace);
     this.progressPlayers();
     this.evaluateState();
+
+    this.state.turns++;
   }
 
   public getNextPlayer(skipPlayers: number = 0): Player {
@@ -270,6 +276,7 @@ export class GobbletGobblers implements Game {
       lastPlayer: 1,
       terminated: false,
       winner: null,
+      turns: 0
     };
   }
 
@@ -405,15 +412,15 @@ export class GobbletGobblers implements Game {
   private evaluateState(): void {
 
     let winners = this.checkWinner();
-
+    
     // Vitória
     if (winners.length == 1) {
       this.state.terminated = true;
       this.state.winner = winners[0];
     }
-    
+
     // Empate
-    if (winners.length == 2) {
+    else if (winners.length == 2 || this.state.turns >= TURNS_TO_DRAW) {
       this.state.terminated = true;
       this.state.winner = null;
     }
