@@ -95,8 +95,9 @@ export class AutoPlay {
       autoplay.printMCTSConfig();
 
       autoplay.playMultiple();
+      const agents = autoplay.autoPlayConfig.agents;
       
-      const path = `data/${gameName}-${id}.json`
+      const path = `data/${gameName}-${agents.join("-")}-${id}.json`
 
       autoplay.writeResults(path);
 
