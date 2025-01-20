@@ -1,4 +1,5 @@
 
+const args = process.argv;
 
 // ===================================
 // Autoplay
@@ -9,6 +10,7 @@ import { AutoPlay, AutoPlayConfig, Agent, GameName } from "src/shared/Autoplay";
 
 const GAME_NAMES = Object.values(GameName);
 
+
 for (let config of [
   
   {
@@ -18,13 +20,13 @@ for (let config of [
   },
   {
     agents: [Agent.MCTS, Agent.RANDOM],
-    matches: 0,
-    searchesTime: 1000
+    matches: 1,
+    searchesTime: 200
   },
   {
     agents: [Agent.MCTS, Agent.MCTS],
-    matches: 0,
-    searchesTime: 2000
+    matches: 1,
+    searchesTime: 200
   },
 
 ]) {
@@ -33,17 +35,17 @@ for (let config of [
     
     agents: config.agents,
     matches: config.matches,
-    printStates: true
+    printStates: false
   };
   
   const mctsConfig: MCTSConfig = {
     
     genGraph: false,
-    maxDepthPrinted: 3,
-    searchesTime: config.searchesTime,
+    maxDepthPrinted: null,
+    searchesTime: 200,
     searchesAmount: null,
     maxPlayoutDepth: null
   };
-  
-  AutoPlay.playGames([GameName.CHECKERS], autoPlayConfig, mctsConfig);
+
+  AutoPlay.playGames(GAME_NAMES, autoPlayConfig, mctsConfig, args[2]);
 }

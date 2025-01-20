@@ -10,6 +10,9 @@ import { Boop } from "src/games/Boop";
 import { ConnectFour } from "src/games/ConnectFour";
 import { Checkers } from "src/games/Checkers";
 
+import { writeObject } from "src/utils/Write";
+
+
 // =========================================================
 
 export interface AutoPlayConfig {
@@ -51,6 +54,8 @@ export enum Agent {
   RANDOM = "Random"
 }
 
+
+
 export class AutoPlay {
 
   private gameName: GameName
@@ -78,17 +83,27 @@ export class AutoPlay {
     this.resetGame();
   }
 
-  public static playGames(gameNames: GameName[], autoPlayConfig: AutoPlayConfig, mctsConfig: MCTSConfig): void {
+  public static playGames(gameNames: GameName[], autoPlayConfig: AutoPlayConfig, mctsConfig: MCTSConfig, id: string): void {
+
+    let games = 0;
 
     for (let gameName of gameNames) {
-  
       
       let autoplay = new AutoPlay(gameName, autoPlayConfig, mctsConfig);
       
+      autoplay.printAutoPlayConfig();
+      autoplay.printMCTSConfig();
+
       autoplay.playMultiple();
-      autoplay.printResults();
+      
+      const path = `data/${gameName}-${id}.json`
+
+      autoplay.writeResults(path);
+
+      games++;
     }
   }
+
 
   // ============
   // Public
@@ -103,9 +118,6 @@ export class AutoPlay {
     if (this.autoPlayConfig.matches == 0)
       return;
 
-    this.printAutoPlayConfig();
-    this.printMCTSConfig();
-
     this.resetResults();
 
     for (let i=0; i<this.autoPlayConfig.matches; i++) {
@@ -117,6 +129,21 @@ export class AutoPlay {
     this.calcMeanTurns();
     this.calcMeanTimes();
     this.calcMeanMctsStats();
+  }
+
+  public writeResults(dir: string): void {
+
+    const obj = [
+
+      { gameName : this.gameName }, 
+      this.autoPlayConfig, 
+      this.mctsConfig, 
+      this.results, 
+      this.meanMctsStats
+  
+    ]
+
+    writeObject(obj, dir);
   }
 
   public printResults(): void {
@@ -198,7 +225,8 @@ export class AutoPlay {
         this.game.forceDraw();
       }
   
-      this.printState();
+      if (this.autoPlayConfig.printStates)
+        this.printState();
 
       this.turnsSum++;
     }
@@ -208,10 +236,10 @@ export class AutoPlay {
 
   private printState(): void {
 
-    if (this.autoPlayConfig.printStates) {
-      console.log("");
-      this.game.printState();
-    }
+     
+    console.log("");
+    this.game.printState();
+    
   }
 
   private logProgress(i: number): void {
@@ -219,7 +247,7 @@ export class AutoPlay {
     // De 10 em 10%
     if (i % (this.autoPlayConfig.matches/10) == 0) { 
       
-      this.printResults();
+      //this.printResults();
       const message = `Progresso: ${(100 * i) / this.autoPlayConfig.matches}%`
 
       console.log(message);
