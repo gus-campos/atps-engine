@@ -1,0 +1,39 @@
+[
+  {
+    "gameName": "Gobblets Gobblers"
+  },
+  {
+    "agents": [
+      "Random",
+      "Random"
+    ],
+    "matches": 1,
+    "printStates": false
+  },
+  {
+    "genGraph": false,
+    "maxDepthPrinted": null,
+    "searchesTime": 200,
+    "searchesAmount": null,
+    "maxPlayoutDepth": null
+  },
+  {
+    "score": {
+      "victories": 0,
+      "defeats": 1,
+      "draws": 0
+    },
+    "ownGoals": {
+      "favorable": 0,
+      "unfavorable": 1
+    },
+    "meanTurns": 15,
+    "meanMatchTime": 1,
+    "meanTurnTime": 0.067
+  },
+  {
+    "searchesAmount": null,
+    "nodesAmount": null,
+    "maxDepth": null
+  }
+]
