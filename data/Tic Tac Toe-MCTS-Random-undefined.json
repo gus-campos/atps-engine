@@ -1,14 +1,14 @@
 [
   {
-    "gameName": "Gobblets Gobblers"
+    "gameName": "Tic Tac Toe"
   },
   {
     "agents": [
       "MCTS",
       "Random"
     ],
-    "matches": 1,
-    "printStates": false
+    "matches": 0,
+    "printStates": true
   },
   {
     "genGraph": false,
@@ -19,7 +19,7 @@
   },
   {
     "score": {
-      "victories": 1,
+      "victories": 0,
       "defeats": 0,
       "draws": 0
     },
@@ -27,13 +27,13 @@
       "favorable": 0,
       "unfavorable": 0
     },
-    "meanTurns": 5,
-    "meanMatchTime": 601,
-    "meanTurnTime": 120.2
+    "meanTurns": 0,
+    "meanMatchTime": 0,
+    "meanTurnTime": 0
   },
   {
-    "searchesAmount": 7787.333333333333,
-    "nodesAmount": 1167.6666666666667,
-    "maxDepth": 3
+    "searchesAmount": 0,
+    "nodesAmount": 0,
+    "maxDepth": 0
   }
 ]

@@ -1,14 +1,14 @@
 [
   {
-    "gameName": "Connect Four"
+    "gameName": "Tic Tac Toe"
   },
   {
     "agents": [
-      "Random",
-      "Random"
+      "MCTS",
+      "MCTS"
     ],
     "matches": 1,
-    "printStates": false
+    "printStates": true
   },
   {
     "genGraph": false,
@@ -19,21 +19,21 @@
   },
   {
     "score": {
-      "victories": 1,
+      "victories": 0,
       "defeats": 0,
-      "draws": 0
+      "draws": 1
     },
     "ownGoals": {
       "favorable": 0,
       "unfavorable": 0
     },
-    "meanTurns": 17,
-    "meanMatchTime": 2,
-    "meanTurnTime": 0.118
+    "meanTurns": 9,
+    "meanMatchTime": 1801,
+    "meanTurnTime": 200.111
   },
   {
-    "searchesAmount": null,
-    "nodesAmount": null,
-    "maxDepth": null
+    "searchesAmount": 566618.7777777778,
+    "nodesAmount": 2086.5555555555557,
+    "maxDepth": 4.777777777777778
   }
 ]

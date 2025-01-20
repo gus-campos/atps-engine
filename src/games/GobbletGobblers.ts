@@ -406,13 +406,13 @@ export class GobbletGobblers implements Game {
 
     let winners = this.checkWinner();
 
-    // Empate
+    // Vitória
     if (winners.length == 1) {
       this.state.terminated = true;
       this.state.winner = winners[0];
     }
-
-    // Vitória
+    
+    // Empate
     if (winners.length == 2) {
       this.state.terminated = true;
       this.state.winner = null;

@@ -1,14 +1,14 @@
 [
   {
-    "gameName": "Checkers"
+    "gameName": "Tic Tac Toe"
   },
   {
     "agents": [
       "Random",
       "Random"
     ],
-    "matches": 1,
-    "printStates": false
+    "matches": 0,
+    "printStates": true
   },
   {
     "genGraph": false,
@@ -20,20 +20,20 @@
   {
     "score": {
       "victories": 0,
-      "defeats": 1,
+      "defeats": 0,
       "draws": 0
     },
     "ownGoals": {
       "favorable": 0,
       "unfavorable": 0
     },
-    "meanTurns": 65,
-    "meanMatchTime": 8,
-    "meanTurnTime": 0.123
+    "meanTurns": 0,
+    "meanMatchTime": 0,
+    "meanTurnTime": 0
   },
   {
-    "searchesAmount": null,
-    "nodesAmount": null,
-    "maxDepth": null
+    "searchesAmount": 0,
+    "nodesAmount": 0,
+    "maxDepth": 0
   }
 ]

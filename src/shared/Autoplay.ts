@@ -85,8 +85,6 @@ export class AutoPlay {
 
   public static playGames(gameNames: GameName[], autoPlayConfig: AutoPlayConfig, mctsConfig: MCTSConfig, id: string): void {
 
-    let games = 0;
-
     for (let gameName of gameNames) {
       
       let autoplay = new AutoPlay(gameName, autoPlayConfig, mctsConfig);
@@ -100,8 +98,6 @@ export class AutoPlay {
       const path = `data/${gameName}-${agents.join("-")}-${id}.json`
 
       autoplay.writeResults(path);
-
-      games++;
     }
   }
 
@@ -224,6 +220,7 @@ export class AutoPlay {
       catch {     // Criar error personalizado e especificar
 
         this.game.forceDraw();
+        break;
       }
   
       if (this.autoPlayConfig.printStates)
