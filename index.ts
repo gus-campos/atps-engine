@@ -47,5 +47,5 @@ for (let config of [
     maxPlayoutDepth: null
   };
 
-  AutoPlay.playGames([GameName.CHECKERS], autoPlayConfig, mctsConfig, args[2]);
+  AutoPlay.playGames([GameName.BOOP], autoPlayConfig, mctsConfig, args[2]);
 }

@@ -23,7 +23,9 @@ interface BoopState {
   lastPlayer: Player,
 
   terminated: boolean,
-  winner: null|Player
+  winner: null|Player,
+
+  turns: number
 }
 
 let PLAYERS_CHARS = new Map();
@@ -52,6 +54,8 @@ const WINNING_ROWS_ARR = [
   [[0, 0], [1, 1], [2, 2]],
   [[0, 2], [1, 1], [2, 0]],
 ];
+
+const DRAW_CRITERIA = 90;
 
 let WINNING_ROWS: Coord[][] = WINNING_ROWS_ARR.map(tuples => tuples.map(tuple => new Coord(tuple[0], tuple[1])));
 
@@ -151,6 +155,8 @@ export class Boop implements Game {
     // Só passa vez se quem jogou terminar turno com algum estoque
     const opponentsTurn = !this.isStockEmpty(this.state.currentPlayer)
     this.progressPlayers(opponentsTurn);
+
+    this.state.turns++;
   }
 
   public stateToString(): string {
@@ -207,7 +213,8 @@ export class Boop implements Game {
       currentPlayer: 0,
       lastPlayer: 1,
       terminated: false, 
-      winner: null
+      winner: null,
+      turns: 0
     }
   }
 
@@ -298,6 +305,12 @@ export class Boop implements Game {
   }
 
   private updateTermination(): void {
+
+    if (this.state.turns >= DRAW_CRITERIA) {
+      this.state.terminated = true;
+      this.state.winner = null;
+      return;
+    }
 
     for (let subBoardOffset of this.iterateSubBoardsOffsets()) {
       for (let row of WINNING_ROWS) {

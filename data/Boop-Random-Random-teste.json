@@ -1,6 +1,6 @@
 [
   {
-    "gameName": "Checkers"
+    "gameName": "Boop"
   },
   {
     "agents": [
@@ -27,9 +27,9 @@
       "favorable": 0,
       "unfavorable": 0
     },
-    "meanTurns": 56,
-    "meanMatchTime": 11,
-    "meanTurnTime": 0.196
+    "meanTurns": 60,
+    "meanMatchTime": 12,
+    "meanTurnTime": 0.2
   },
   {
     "searchesAmount": null,

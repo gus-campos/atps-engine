@@ -1,13 +1,13 @@
 [
   {
-    "gameName": "Checkers"
+    "gameName": "Boop"
   },
   {
     "agents": [
-      "Random",
-      "Random"
+      "MCTS",
+      "MCTS"
     ],
-    "matches": 1,
+    "matches": 0,
     "printStates": true
   },
   {
@@ -20,20 +20,20 @@
   {
     "score": {
       "victories": 0,
-      "defeats": 1,
+      "defeats": 0,
       "draws": 0
     },
     "ownGoals": {
       "favorable": 0,
       "unfavorable": 0
     },
-    "meanTurns": 56,
-    "meanMatchTime": 11,
-    "meanTurnTime": 0.196
+    "meanTurns": 0,
+    "meanMatchTime": 0,
+    "meanTurnTime": 0
   },
   {
-    "searchesAmount": null,
-    "nodesAmount": null,
-    "maxDepth": null
+    "searchesAmount": 0,
+    "nodesAmount": 0,
+    "maxDepth": 0
   }
 ]
