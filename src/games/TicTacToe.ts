@@ -125,7 +125,7 @@ export class TicTacToe implements Game {
 
   // Getters
 
-  public getTermination(): boolean {
+  public isGameOver(): boolean {
     return this.state.terminated;
   }
 

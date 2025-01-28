@@ -404,7 +404,7 @@ describe("Checkers", () => {
       );
 
       model.playAction({ fromSlot: new Coord(0,2), toSlot: new Coord(2,4) })
-      expect(model.getTermination()).toBeTruthy();
+      expect(model.isGameOver()).toBeTruthy();
       expect(model.getWinner()).toBe(0);
 
     });

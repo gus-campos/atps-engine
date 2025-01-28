@@ -11,6 +11,7 @@ import { ConnectFour } from "src/games/ConnectFour";
 import { Checkers } from "src/games/Checkers";
 
 import { writeObject } from "src/utils/Write";
+import { CrabPuzzle } from "src/games/CrabPuzzle";
 
 
 // =========================================================
@@ -46,14 +47,14 @@ export enum GameName {
   GOBLET_GOBBLERS = "Gobblets Gobblers",
   CONNECT_FOUR = "Connect Four",
   BOOP = "Boop",
-  CHECKERS = "Checkers"
+  CHECKERS = "Checkers",
+  CRAB_PUZZLE = "Crab Puzzle"
 }
 
 export enum Agent {
   MCTS = "MCTS",
   RANDOM = "Random"
 }
-
 
 
 export class AutoPlay {
@@ -210,8 +211,8 @@ export class AutoPlay {
 
     this.resetGame();
   
-    while (!this.game.getTermination()) {
-
+    while (!this.game.isGameOver()) {
+      
       try {
         
         this.game.playAction(this.agentAction(), true);
@@ -315,6 +316,10 @@ export class AutoPlay {
 
       case GameName.CHECKERS:
         this.game = new Checkers();
+        break;
+
+      case GameName.CRAB_PUZZLE:
+        this.game = new CrabPuzzle();
         break;
 
       default:

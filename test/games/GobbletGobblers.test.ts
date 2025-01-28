@@ -283,7 +283,7 @@ describe("GobbletGobblers", () => {
 
       gg.playAction({ piece: null, slot: 0 , movedFrom: 2 });
 
-      expect(gg.getTermination()).toBeTruthy();
+      expect(gg.isGameOver()).toBeTruthy();
       expect(gg.getWinner()).toBe(null);
     });
   });

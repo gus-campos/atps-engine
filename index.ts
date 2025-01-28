@@ -7,45 +7,54 @@ const args = process.argv;
 
 import { MCTSConfig } from "src/agents/MCTS";
 import { AutoPlay, AutoPlayConfig, Agent, GameName } from "src/shared/Autoplay";
-
+/*
 const GAME_NAMES = Object.values(GameName);
 
 
 for (let config of [
   
   {
-    agents: [Agent.RANDOM, Agent.RANDOM],
-    matches: 1,
-    searchesTime: null
-  },
-  {
     agents: [Agent.MCTS, Agent.RANDOM],
-    matches: 0,
-    searchesTime: 200
+    matches: 500,
+    searchesTime: 1000 / 2048
   },
-  {
-    agents: [Agent.MCTS, Agent.MCTS],
-    matches: 0,
-    searchesTime: 200
-  },
-
 ]) {
 
   const autoPlayConfig: AutoPlayConfig = {
     
     agents: config.agents,
     matches: config.matches,
-    printStates: true
+    printStates: false
   };
   
   const mctsConfig: MCTSConfig = {
     
     genGraph: false,
     maxDepthPrinted: null,
-    searchesTime: 200,
+    searchesTime: config.searchesTime,
     searchesAmount: null,
     maxPlayoutDepth: null
   };
 
-  AutoPlay.playGames([GameName.BOOP], autoPlayConfig, mctsConfig, args[2]);
+  AutoPlay.playGames(GAME_NAMES, autoPlayConfig, mctsConfig, args[2]);
 }
+*/
+
+const autoPlayConfig: AutoPlayConfig = {
+    
+  agents: [Agent.MCTS, Agent.MCTS],
+  matches: 10,
+  printStates: false
+};
+
+const mctsConfig: MCTSConfig = {
+    
+  genGraph: true,
+  maxDepthPrinted: 10,
+  searchesTime: 1000,
+  searchesAmount: null,
+  maxPlayoutDepth: null
+};
+
+
+AutoPlay.playGames([GameName.CRAB_PUZZLE], autoPlayConfig, mctsConfig, "1");

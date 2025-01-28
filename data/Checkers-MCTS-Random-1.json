@@ -5,21 +5,21 @@
   {
     "agents": [
       "MCTS",
-      "MCTS"
+      "Random"
     ],
-    "matches": 0,
+    "matches": 1,
     "printStates": true
   },
   {
-    "genGraph": false,
+    "genGraph": true,
     "maxDepthPrinted": null,
-    "searchesTime": 200,
+    "searchesTime": 5000,
     "searchesAmount": null,
     "maxPlayoutDepth": null
   },
   {
     "score": {
-      "victories": 0,
+      "victories": 1,
       "defeats": 0,
       "draws": 0
     },
@@ -27,13 +27,13 @@
       "favorable": 0,
       "unfavorable": 0
     },
-    "meanTurns": 0,
-    "meanMatchTime": 0,
-    "meanTurnTime": 0
+    "meanTurns": 37,
+    "meanMatchTime": 95045,
+    "meanTurnTime": 2568.784
   },
   {
-    "searchesAmount": 0,
-    "nodesAmount": 0,
-    "maxDepth": 0
+    "searchesAmount": 12866.315789473685,
+    "nodesAmount": 11809.315789473685,
+    "maxDepth": 6.578947368421052
   }
 ]

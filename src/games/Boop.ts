@@ -507,7 +507,7 @@ export class Boop implements Game {
 
   // Getters
 
-  public getTermination(): boolean {
+  public isGameOver(): boolean {
     return this.state.terminated;
   }
 

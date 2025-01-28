@@ -679,7 +679,7 @@ export class Checkers implements Game {
     return this.state.currentPlayer;
   }
   
-  public getTermination(): boolean {
+  public isGameOver(): boolean {
     return this.state.terminated;
   }
 

@@ -191,7 +191,7 @@ describe("TicTacToe", () => {
       );
 
       expect(cf).toEqual(model);
-      expect(cf.getTermination()).toBeTruthy();
+      expect(cf.isGameOver()).toBeTruthy();
       expect(cf.getWinner()).toBe(1);
 
     });
@@ -212,7 +212,7 @@ describe("TicTacToe", () => {
         [1, 0]
       );
 
-      expect(cf.getTermination()).toBeTruthy();
+      expect(cf.isGameOver()).toBeTruthy();
       expect(cf.getWinner()).toBe(null);
     });
   });

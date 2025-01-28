@@ -50,7 +50,7 @@ export interface Game {
   getValidActions(): Action[];
   playAction(action: Action, autoPlayMode: boolean): void;
   
-  getTermination(): boolean;
+  isGameOver(): boolean;
   getWinner(): number;
 
   stateToString(): string;

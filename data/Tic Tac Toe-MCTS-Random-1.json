@@ -1,39 +1,39 @@
 [
   {
-    "gameName": "Boop"
+    "gameName": "Tic Tac Toe"
   },
   {
     "agents": [
-      "Random",
+      "MCTS",
       "Random"
     ],
     "matches": 1,
     "printStates": true
   },
   {
-    "genGraph": false,
+    "genGraph": true,
     "maxDepthPrinted": null,
-    "searchesTime": 200,
+    "searchesTime": 500,
     "searchesAmount": null,
     "maxPlayoutDepth": null
   },
   {
     "score": {
-      "victories": 0,
-      "defeats": 1,
+      "victories": 1,
+      "defeats": 0,
       "draws": 0
     },
     "ownGoals": {
       "favorable": 0,
       "unfavorable": 0
     },
-    "meanTurns": 60,
-    "meanMatchTime": 12,
-    "meanTurnTime": 0.2
+    "meanTurns": 5,
+    "meanMatchTime": 1508,
+    "meanTurnTime": 301.6
   },
   {
-    "searchesAmount": null,
-    "nodesAmount": null,
-    "maxDepth": null
+    "searchesAmount": 694894.6666666666,
+    "nodesAmount": 6651.333333333333,
+    "maxDepth": 7
   }
 ]

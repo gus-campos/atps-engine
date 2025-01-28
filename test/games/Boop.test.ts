@@ -311,7 +311,7 @@ describe("Boop", () => {
         [".", ".", ".", ".", ".", "."],
       ]);
 
-      expect(boop.getTermination()).toBeTruthy();
+      expect(boop.isGameOver()).toBeTruthy();
       expect(boop.getWinner()).toBe(0);
 
       boop.setState([
@@ -323,7 +323,7 @@ describe("Boop", () => {
         [".", ".", ".", ".", ".", "."],
       ]);
 
-      expect(boop.getTermination()).toBeTruthy();
+      expect(boop.isGameOver()).toBeTruthy();
       expect(boop.getWinner()).toBe(1);
     });
 
@@ -342,7 +342,7 @@ describe("Boop", () => {
 
       boop.playAction({ piece: { author: 0, type: 1 }, slot: new Coord(1, 4) });
 
-      expect(boop.getTermination()).toBeTruthy();
+      expect(boop.isGameOver()).toBeTruthy();
       expect(boop.getWinner()).toBe(1);
     });
 

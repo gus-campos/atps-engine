@@ -1,0 +1,39 @@
+[
+  {
+    "gameName": "Connect Four"
+  },
+  {
+    "agents": [
+      "MCTS",
+      "Random"
+    ],
+    "matches": 500,
+    "printStates": false
+  },
+  {
+    "genGraph": false,
+    "maxDepthPrinted": null,
+    "searchesTime": 0.48828125,
+    "searchesAmount": null,
+    "maxPlayoutDepth": null
+  },
+  {
+    "score": {
+      "victories": 259,
+      "defeats": 183,
+      "draws": 58
+    },
+    "ownGoals": {
+      "favorable": 0,
+      "unfavorable": 0
+    },
+    "meanTurns": 31.55,
+    "meanMatchTime": 18.422,
+    "meanTurnTime": 0.584
+  },
+  {
+    "searchesAmount": 18.256205563178245,
+    "nodesAmount": 1.7364350754646376,
+    "maxDepth": 1.0331794935761507
+  }
+]

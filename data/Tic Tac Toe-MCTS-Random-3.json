@@ -1,0 +1,39 @@
+[
+  {
+    "gameName": "Tic Tac Toe"
+  },
+  {
+    "agents": [
+      "MCTS",
+      "Random"
+    ],
+    "matches": 500,
+    "printStates": false
+  },
+  {
+    "genGraph": false,
+    "maxDepthPrinted": null,
+    "searchesTime": 0.48828125,
+    "searchesAmount": null,
+    "maxPlayoutDepth": null
+  },
+  {
+    "score": {
+      "victories": 468,
+      "defeats": 11,
+      "draws": 21
+    },
+    "ownGoals": {
+      "favorable": 0,
+      "unfavorable": 0
+    },
+    "meanTurns": 6.402,
+    "meanMatchTime": 3.726,
+    "meanTurnTime": 0.582
+  },
+  {
+    "searchesAmount": 473.31436314363145,
+    "nodesAmount": 20.477506775067752,
+    "maxDepth": 2.296476964769648
+  }
+]

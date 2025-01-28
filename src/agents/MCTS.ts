@@ -99,7 +99,7 @@ export class Node {
     Mas como fica na simulação?
     */
     
-    if (!game.getTermination())
+    if (!game.isGameOver())
       throw new Error("A not ended game has no valid outcome");
     
     let winner = game.getWinner();
@@ -204,7 +204,7 @@ export class Node {
 
     let game = this.game.clone();
 
-    while (!game.getTermination()) {
+    while (!game.isGameOver()) {
 
       const action = RandomAgent.nextGameAction(game);
 
@@ -406,7 +406,11 @@ export class MCTS {
     return action;
   }
 
-  public searches(): Action {
+  // =============
+  // PRIVATE
+  //==============
+
+  private searches(): Action {
 
     /*
     Faz diversas buscas baseada num critério de tempo total
@@ -436,10 +440,6 @@ export class MCTS {
 
     return this.mostVisitedChild().getActionTaken();
   }
-
-  // =============
-  // PRIVATE
-  //==============
 
   private genRootGraphNode(G: Graph): NodeModel {
 
@@ -489,7 +489,7 @@ export class MCTS {
 
     let node = this.select();
     let outcome: Outcome;
-    const terminal = node.getGame().getTermination();
+    const terminal = node.getGame().isGameOver();
 
     if (terminal) {
       outcome = node.getGameOutcome(node.getGame());

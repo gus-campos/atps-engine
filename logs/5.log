@@ -1,0 +1,240 @@
+Tic Tac Toe
+
+{ agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false }
+
+{
+  genGraph: false,
+  maxDepthPrinted: null,
+  searchesTime: 0.48828125,
+  searchesAmount: null,
+  maxPlayoutDepth: null
+}
+
+Progresso: 0%
+Progresso: 10%
+Progresso: 20%
+Progresso: 30%
+Progresso: 40%
+Progresso: 50%
+Progresso: 60%
+Progresso: 70%
+Progresso: 80%
+Progresso: 90%
+
+Ecrito em [object Object]: 
+[
+  { gameName: 'Tic Tac Toe' },
+  { agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false },
+  {
+    genGraph: false,
+    maxDepthPrinted: null,
+    searchesTime: 0.48828125,
+    searchesAmount: null,
+    maxPlayoutDepth: null
+  },
+  {
+    score: { victories: 468, defeats: 4, draws: 28 },
+    ownGoals: { favorable: 0, unfavorable: 0 },
+    meanTurns: 6.104,
+    meanMatchTime: 3.572,
+    meanTurnTime: 0.585
+  },
+  {
+    searchesAmount: 704.2564825253664,
+    nodesAmount: 35.90304396843292,
+    maxDepth: 2.6347237880496053
+  }
+]
+
+Gobblets Gobblers
+
+{ agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false }
+
+{
+  genGraph: false,
+  maxDepthPrinted: null,
+  searchesTime: 0.48828125,
+  searchesAmount: null,
+  maxPlayoutDepth: null
+}
+
+Progresso: 0%
+Progresso: 10%
+Progresso: 20%
+Progresso: 30%
+Progresso: 40%
+Progresso: 50%
+Progresso: 60%
+Progresso: 70%
+Progresso: 80%
+Progresso: 90%
+
+Ecrito em [object Object]: 
+[
+  { gameName: 'Gobblets Gobblers' },
+  { agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false },
+  {
+    genGraph: false,
+    maxDepthPrinted: null,
+    searchesTime: 0.48828125,
+    searchesAmount: null,
+    maxPlayoutDepth: null
+  },
+  {
+    score: { victories: 266, defeats: 226, draws: 8 },
+    ownGoals: { favorable: 22, unfavorable: 16 },
+    meanTurns: 12.552,
+    meanMatchTime: 6.576,
+    meanTurnTime: 0.524
+  },
+  {
+    searchesAmount: 4.149495567104861,
+    nodesAmount: 4.149495567104861,
+    maxDepth: 1
+  }
+]
+
+Connect Four
+
+{ agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false }
+
+{
+  genGraph: false,
+  maxDepthPrinted: null,
+  searchesTime: 0.48828125,
+  searchesAmount: null,
+  maxPlayoutDepth: null
+}
+
+Progresso: 0%
+Progresso: 10%
+Progresso: 20%
+Progresso: 30%
+Progresso: 40%
+Progresso: 50%
+Progresso: 60%
+Progresso: 70%
+Progresso: 80%
+Progresso: 90%
+
+Ecrito em [object Object]: 
+[
+  { gameName: 'Connect Four' },
+  { agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false },
+  {
+    genGraph: false,
+    maxDepthPrinted: null,
+    searchesTime: 0.48828125,
+    searchesAmount: null,
+    maxPlayoutDepth: null
+  },
+  {
+    score: { victories: 252, defeats: 189, draws: 59 },
+    ownGoals: { favorable: 0, unfavorable: 0 },
+    meanTurns: 31.548,
+    meanMatchTime: 18.192,
+    meanTurnTime: 0.577
+  },
+  {
+    searchesAmount: 24.505054286783977,
+    nodesAmount: 1.9680519156370897,
+    maxDepth: 1.0445526020217146
+  }
+]
+
+Boop
+
+{ agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false }
+
+{
+  genGraph: false,
+  maxDepthPrinted: null,
+  searchesTime: 0.48828125,
+  searchesAmount: null,
+  maxPlayoutDepth: null
+}
+
+Progresso: 0%
+Progresso: 10%
+Progresso: 20%
+Progresso: 30%
+Progresso: 40%
+Progresso: 50%
+Progresso: 60%
+Progresso: 70%
+Progresso: 80%
+Progresso: 90%
+
+Ecrito em [object Object]: 
+[
+  { gameName: 'Boop' },
+  { agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false },
+  {
+    genGraph: false,
+    maxDepthPrinted: null,
+    searchesTime: 0.48828125,
+    searchesAmount: null,
+    maxPlayoutDepth: null
+  },
+  {
+    score: { victories: 224, defeats: 191, draws: 85 },
+    ownGoals: { favorable: 41, unfavorable: 44 },
+    meanTurns: 70.562,
+    meanMatchTime: 60.46,
+    meanTurnTime: 0.857
+  },
+  {
+    searchesAmount: 1.4028905943644614,
+    nodesAmount: 1.4028905943644614,
+    maxDepth: 1.0004481541650327
+  }
+]
+
+Checkers
+
+{ agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false }
+
+{
+  genGraph: false,
+  maxDepthPrinted: null,
+  searchesTime: 0.48828125,
+  searchesAmount: null,
+  maxPlayoutDepth: null
+}
+
+Progresso: 0%
+Progresso: 10%
+Progresso: 20%
+Progresso: 30%
+Progresso: 40%
+Progresso: 50%
+Progresso: 60%
+Progresso: 70%
+Progresso: 80%
+Progresso: 90%
+
+Ecrito em [object Object]: 
+[
+  { gameName: 'Checkers' },
+  { agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false },
+  {
+    genGraph: false,
+    maxDepthPrinted: null,
+    searchesTime: 0.48828125,
+    searchesAmount: null,
+    maxPlayoutDepth: null
+  },
+  {
+    score: { victories: 283, defeats: 192, draws: 25 },
+    ownGoals: { favorable: 0, unfavorable: 0 },
+    meanTurns: 65.206,
+    meanMatchTime: 38.066,
+    meanTurnTime: 0.584
+  },
+  {
+    searchesAmount: 11.811119897804003,
+    nodesAmount: 1.987043007482207,
+    maxDepth: 1.0569377699373441
+  }
+]
+

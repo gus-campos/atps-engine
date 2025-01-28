@@ -1,39 +1,39 @@
 [
   {
-    "gameName": "Checkers"
+    "gameName": "Bernard"
   },
   {
     "agents": [
-      "MCTS",
+      "Random",
       "Random"
     ],
-    "matches": 0,
+    "matches": 1,
     "printStates": true
   },
   {
-    "genGraph": false,
+    "genGraph": true,
     "maxDepthPrinted": null,
-    "searchesTime": 200,
+    "searchesTime": 500,
     "searchesAmount": null,
     "maxPlayoutDepth": null
   },
   {
     "score": {
       "victories": 0,
-      "defeats": 0,
+      "defeats": 1,
       "draws": 0
     },
     "ownGoals": {
       "favorable": 0,
       "unfavorable": 0
     },
-    "meanTurns": 0,
-    "meanMatchTime": 0,
-    "meanTurnTime": 0
+    "meanTurns": 114,
+    "meanMatchTime": 28,
+    "meanTurnTime": 0.246
   },
   {
-    "searchesAmount": 0,
-    "nodesAmount": 0,
-    "maxDepth": 0
+    "searchesAmount": null,
+    "nodesAmount": null,
+    "maxDepth": null
   }
 ]

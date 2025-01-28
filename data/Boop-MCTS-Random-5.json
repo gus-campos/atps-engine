@@ -1,0 +1,39 @@
+[
+  {
+    "gameName": "Boop"
+  },
+  {
+    "agents": [
+      "MCTS",
+      "Random"
+    ],
+    "matches": 500,
+    "printStates": false
+  },
+  {
+    "genGraph": false,
+    "maxDepthPrinted": null,
+    "searchesTime": 0.48828125,
+    "searchesAmount": null,
+    "maxPlayoutDepth": null
+  },
+  {
+    "score": {
+      "victories": 224,
+      "defeats": 191,
+      "draws": 85
+    },
+    "ownGoals": {
+      "favorable": 41,
+      "unfavorable": 44
+    },
+    "meanTurns": 70.562,
+    "meanMatchTime": 60.46,
+    "meanTurnTime": 0.857
+  },
+  {
+    "searchesAmount": 1.4028905943644614,
+    "nodesAmount": 1.4028905943644614,
+    "maxDepth": 1.0004481541650327
+  }
+]
