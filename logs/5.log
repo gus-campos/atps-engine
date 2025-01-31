@@ -1,6 +1,6 @@
 Tic Tac Toe
 
-{ agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false }
+{ agents: [ 'MCTSAgent', 'Random' ], matches: 500, printStates: false }
 
 {
   genGraph: false,
@@ -24,7 +24,7 @@ Progresso: 90%
 Ecrito em [object Object]: 
 [
   { gameName: 'Tic Tac Toe' },
-  { agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false },
+  { agents: [ 'MCTSAgent', 'Random' ], matches: 500, printStates: false },
   {
     genGraph: false,
     maxDepthPrinted: null,
@@ -48,7 +48,7 @@ Ecrito em [object Object]:
 
 Gobblets Gobblers
 
-{ agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false }
+{ agents: [ 'MCTSAgent', 'Random' ], matches: 500, printStates: false }
 
 {
   genGraph: false,
@@ -72,7 +72,7 @@ Progresso: 90%
 Ecrito em [object Object]: 
 [
   { gameName: 'Gobblets Gobblers' },
-  { agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false },
+  { agents: [ 'MCTSAgent', 'Random' ], matches: 500, printStates: false },
   {
     genGraph: false,
     maxDepthPrinted: null,
@@ -96,7 +96,7 @@ Ecrito em [object Object]:
 
 Connect Four
 
-{ agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false }
+{ agents: [ 'MCTSAgent', 'Random' ], matches: 500, printStates: false }
 
 {
   genGraph: false,
@@ -120,7 +120,7 @@ Progresso: 90%
 Ecrito em [object Object]: 
 [
   { gameName: 'Connect Four' },
-  { agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false },
+  { agents: [ 'MCTSAgent', 'Random' ], matches: 500, printStates: false },
   {
     genGraph: false,
     maxDepthPrinted: null,
@@ -144,7 +144,7 @@ Ecrito em [object Object]:
 
 Boop
 
-{ agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false }
+{ agents: [ 'MCTSAgent', 'Random' ], matches: 500, printStates: false }
 
 {
   genGraph: false,
@@ -168,7 +168,7 @@ Progresso: 90%
 Ecrito em [object Object]: 
 [
   { gameName: 'Boop' },
-  { agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false },
+  { agents: [ 'MCTSAgent', 'Random' ], matches: 500, printStates: false },
   {
     genGraph: false,
     maxDepthPrinted: null,
@@ -192,7 +192,7 @@ Ecrito em [object Object]:
 
 Checkers
 
-{ agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false }
+{ agents: [ 'MCTSAgent', 'Random' ], matches: 500, printStates: false }
 
 {
   genGraph: false,
@@ -216,7 +216,7 @@ Progresso: 90%
 Ecrito em [object Object]: 
 [
   { gameName: 'Checkers' },
-  { agents: [ 'MCTS', 'Random' ], matches: 500, printStates: false },
+  { agents: [ 'MCTSAgent', 'Random' ], matches: 500, printStates: false },
   {
     genGraph: false,
     maxDepthPrinted: null,
@@ -237,4 +237,3 @@ Ecrito em [object Object]:
     maxDepth: 1.0569377699373441
   }
 ]
-

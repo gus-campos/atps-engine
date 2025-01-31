@@ -3,7 +3,7 @@ import { ConnectFour } from "src/games/ConnectFour";
 
 // =================== TicTacToe ===================
 
-describe("TicTacToe", () => {
+describe("Connect4", () => {
   let cf: ConnectFour;
   let model: ConnectFour;
 

@@ -1,7 +1,7 @@
 // =========================================================
 
 import { Action, Game } from "src/shared/Game";
-import { MCTS, MCTSConfig, MCTSStats } from "src/agents/MCTS";
+import { MCTSAgent, MCTSConfig, MCTSStats } from "src/agents/MCTSAgent";
 import { RandomAgent } from "src/agents/RandomAgent";
 
 import { TicTacToe } from "src/games/TicTacToe";
@@ -18,7 +18,7 @@ import { CrabPuzzle } from "src/games/CrabPuzzle";
 
 export interface AutoPlayConfig {
 
-  agents: Agent[],
+  agents: AgentName[],
   matches: number,
   printStates: boolean
 }
@@ -51,11 +51,17 @@ export enum GameName {
   CRAB_PUZZLE = "Crab Puzzle"
 }
 
-export enum Agent {
+export enum AgentName {
   MCTS = "MCTS",
   RANDOM = "Random"
 }
 
+export class NoValidActionError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "NoValidActionError";
+  }
+}
 
 export class AutoPlay {
 
@@ -84,7 +90,7 @@ export class AutoPlay {
     this.resetGame();
   }
 
-  public static playGames(gameNames: GameName[], autoPlayConfig: AutoPlayConfig, mctsConfig: MCTSConfig, id: string): void {
+  public static playGames(gameNames: GameName[], autoPlayConfig: AutoPlayConfig, mctsConfig: MCTSConfig, id: string=null): void {
 
     for (let gameName of gameNames) {
       
@@ -96,6 +102,8 @@ export class AutoPlay {
       autoplay.playMultiple();
       const agents = autoplay.autoPlayConfig.agents;
       
+
+      id = id == null ? "0" : id;
       const path = `data/${gameName}-${agents.join("-")}-${id}.json`
 
       autoplay.writeResults(path);
@@ -156,7 +164,7 @@ export class AutoPlay {
     console.log(this.results);
     console.log();
 
-    if (this.autoPlayConfig.agents.includes(Agent.MCTS)) {
+    if (this.autoPlayConfig.agents.includes(AgentName.MCTS)) {
       
       console.log("Mean: ", this.meanMctsStats);
       console.log();
@@ -213,17 +221,19 @@ export class AutoPlay {
   
     while (!this.game.isGameOver()) {
       
-      try {
+      // Gerando ação e verificando externamente o empate por falta de ações
+      
+
+      const action = this.agentAction();
+
+      if (action == null) {
         
-        this.game.playAction(this.agentAction(), true);
-      }
-
-      catch {     // Criar error personalizado e especificar
-
         this.game.forceDraw();
         break;
       }
-  
+
+      this.game.playAction(action, true);
+      
       if (this.autoPlayConfig.printStates)
         this.printState();
 
@@ -278,10 +288,10 @@ export class AutoPlay {
 
     switch (agent) {
 
-      case Agent.RANDOM:
+      case AgentName.RANDOM:
         return this.randomAction();
       
-      case Agent.MCTS:
+      case AgentName.MCTS:
         return this.mctsAction();
       
       default:
@@ -329,11 +339,10 @@ export class AutoPlay {
 
   private mctsAction(): Action {
 
-    let mcts = MCTS.createFromGame(this.game, this.mctsConfig);
+    let mcts = new MCTSAgent(this.game, this.mctsConfig);
+    const action = mcts.nextAction();
 
     const mctsStats = mcts.getStats();
-    let action = mcts.nextAction();
-
     this.updateMctsStats(mctsStats);
     
     return action;
@@ -341,8 +350,8 @@ export class AutoPlay {
 
   private randomAction(): Action {
 
-    let action = RandomAgent.nextGameAction(this.game);
-    return action
+    const randomAgent = new RandomAgent(this.game);
+    return randomAgent.nextAction();
   }
 
   private updateResults() {

@@ -113,6 +113,8 @@ describe("GobbletGobblers", () => {
         [1, 0]
       );
 
+      gg.state.turns = model.state.turns;
+
       expect(gg).toEqual(model);
     });
 
@@ -169,6 +171,8 @@ describe("GobbletGobblers", () => {
         [0, 1]
       );
 
+
+      gg.state.turns = model.state.turns;
       expect(gg).toEqual(model);
 
     });

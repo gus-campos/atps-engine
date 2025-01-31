@@ -1,19 +1,15 @@
 import { Action, Game } from "src/shared/Game";
 import { RANDOM } from "src/utils/Random";
+import { Agent } from "../shared/Agent";
 
-export class RandomAgent {
+
+export class RandomAgent implements Agent {
 
   private game: Game;
 
   constructor(game: Game) {
 
     this.game = game;
-  }
-
-  public static nextGameAction(game: Game) {
-    
-    let randomAgent = new RandomAgent(game);
-    return randomAgent.nextAction();
   }
 
   public nextAction(): Action {

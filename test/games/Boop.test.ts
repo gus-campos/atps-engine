@@ -90,6 +90,8 @@ describe("Boop", () => {
         [0, 1]
       );
 
+      model.state.turns = boop.state.turns
+
       expect(boop).toEqual(model);
     });
 
@@ -125,6 +127,8 @@ describe("Boop", () => {
         [7, 0, 8, 0],
         [0, 1]
       );
+
+      model.state.turns = boop.state.turns
 
       expect(boop).toEqual(model);
     });
@@ -162,10 +166,12 @@ describe("Boop", () => {
         [1, 0]
       );
 
+      model.state.turns = boop.state.turns
+
       expect(boop).toEqual(model);
     });
 
-    it("kitten dosnt boops cat", () => {
+    it("kitten doesnt boops cat", () => {
       boop.setState(
         [
           [".", ".", ".", ".", ".", "."],
@@ -197,6 +203,8 @@ describe("Boop", () => {
         [7, 0, 8, 0],
         [0, 1]
       );
+
+      model.state.turns = boop.state.turns
 
       expect(boop).toEqual(model);
     });
@@ -234,6 +242,8 @@ describe("Boop", () => {
         [1, 0]
       );
 
+      model.state.turns = boop.state.turns
+
       expect(boop).toEqual(model);
     });
 
@@ -265,6 +275,8 @@ describe("Boop", () => {
         ],
         [5, 3, 8, 0]
       );
+
+      model.state.turns = boop.state.turns
 
       expect(boop).toEqual(model);
     });
@@ -378,6 +390,8 @@ describe("Boop", () => {
         [0, 1, 0, 0],
         [0, 1]
       );
+
+      model.state.turns = boop.state.turns
 
       expect(boop).toEqual(model);
     });

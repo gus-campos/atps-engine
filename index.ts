@@ -5,8 +5,8 @@ const args = process.argv;
 // Autoplay
 // ===================================
 
-import { MCTSConfig } from "src/agents/MCTS";
-import { AutoPlay, AutoPlayConfig, Agent, GameName } from "src/shared/Autoplay";
+import { MCTSConfig } from "src/agents/MCTSAgent";
+import { AutoPlay, AutoPlayConfig, AgentName, GameName } from "src/shared/Autoplay";
 /*
 const GAME_NAMES = Object.values(GameName);
 
@@ -14,7 +14,7 @@ const GAME_NAMES = Object.values(GameName);
 for (let config of [
   
   {
-    agents: [Agent.MCTS, Agent.RANDOM],
+    agents: [Agent.MCTSAgent, Agent.RANDOM],
     matches: 500,
     searchesTime: 1000 / 2048
   },
@@ -42,19 +42,18 @@ for (let config of [
 
 const autoPlayConfig: AutoPlayConfig = {
     
-  agents: [Agent.MCTS, Agent.MCTS],
-  matches: 10,
-  printStates: false
+  agents: [AgentName.RANDOM, AgentName.RANDOM],
+  matches: 100000,
+  printStates: true
 };
 
 const mctsConfig: MCTSConfig = {
     
   genGraph: true,
   maxDepthPrinted: 10,
-  searchesTime: 1000,
+  searchesTime: 100,
   searchesAmount: null,
   maxPlayoutDepth: null
 };
 
-
-AutoPlay.playGames([GameName.CRAB_PUZZLE], autoPlayConfig, mctsConfig, "1");
+AutoPlay.playGames([GameName.TIC_TAC_TOE], autoPlayConfig, mctsConfig, args[2]);

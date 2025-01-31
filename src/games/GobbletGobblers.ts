@@ -65,7 +65,7 @@ SYMBOLS_PLAYERS.set(".", null);
 
 // TODO: Escrever testes usando um método "setState"
 
-// Game and MCTS
+// Game and MCTSAgent
 export class GobbletGobblers implements Game {
   private numberOfPlayers: number;
   private nSlots: number;

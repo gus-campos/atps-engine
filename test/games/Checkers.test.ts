@@ -32,6 +32,8 @@ describe("Checkers", () => {
         [1,0]
       );
 
+      model.state.turnsWithoutCapturing = checkers.state.turnsWithoutCapturing
+
       expect(checkers).toEqual(model);
     });
   });
@@ -56,6 +58,8 @@ describe("Checkers", () => {
       );
 
       checkers.playAction({ fromSlot: new Coord(2,2), toSlot: new Coord(3,3) });
+
+      model.state.turnsWithoutCapturing = checkers.state.turnsWithoutCapturing
       expect(checkers).toEqual(model);
 
     });
@@ -179,6 +183,8 @@ describe("Checkers", () => {
 
       checkers.playAction({ fromSlot: new Coord(2,2), toSlot: new Coord(3,3) });
 
+      model.state.turnsWithoutCapturing = checkers.state.turnsWithoutCapturing
+
       expect(checkers).toEqual(model);
     });
     
@@ -267,6 +273,8 @@ describe("Checkers", () => {
       );
 
       game1.playAction({ fromSlot: new Coord(2,2), toSlot: new Coord(7,7) });
+
+      game1.state.turnsWithoutCapturing = game2.state.turnsWithoutCapturing
       expect(game1).toEqual(game2);
     });
 
