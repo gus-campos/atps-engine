@@ -1,27 +1,17 @@
 ## Install
 
 ```bash
-pnpm i
+npm install
 ```
 
 ## Run
 
 ```bash
-pnpm run dev
+npm run dev
 ```
 
 ### Test
 
 ```bash
-pnpm install vitest
-```
-
-```json
-"scripts": {
-    "test": "vitest"
-},
-```
-
-```bash
-pnpm run test
+npm run test
 ```
