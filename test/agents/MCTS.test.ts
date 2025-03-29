@@ -1,7 +1,8 @@
 import { describe, it, beforeEach, expect, assert } from "vitest";
 import { TicTacToe } from "src/games/TicTacToe";
 import { Outcome } from "src/agents/MCTSAgent";
-import { Node, OUTCOME_VALUE } from "src/agents/MCTSAgent";
+import { Node } from "src/agents/Node";
+import { OUTCOME_VALUE } from "src/agents/MCTSAgent";
 import { RANDOM } from "src/utils/Random"
 
 // =================== TicTacToe ===================

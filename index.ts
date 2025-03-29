@@ -56,4 +56,4 @@ const mctsConfig: MCTSConfig = {
   maxPlayoutDepth: null
 };
 
-AutoPlay.playGames([GameName.TIC_TAC_TOE], autoPlayConfig, mctsConfig, args[2]);
+AutoPlay.playGames([GameName.CONNECT_FOUR], autoPlayConfig, mctsConfig, args[2]);

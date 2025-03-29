@@ -671,6 +671,10 @@ export class Checkers implements Game {
   // Getters
   // ==============
 
+  public getState(): CheckersState {
+    return this.state;
+  }
+
   public getLastPlayer(): Player {
     return this.state.lastPlayer;
   }
