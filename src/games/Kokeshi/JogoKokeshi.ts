@@ -2,20 +2,23 @@
 type Jogador = number;
 
 const NUMERO_JOGADORES = 2;
-const NUMERO_ANIMAIS = 4;
+
+// TODO: Inicialização
 
 class JogoKokeshi {
 
-  private tabuleirosHabilidades: TabuleiroHabilidade[];
+  private static readonly pecasIniciais: Peca[] = PECAS_INICIAIS;
+  private static readonly ofertaPecas: Peca[];
+
+  private tabuleirosHabilidades: TabuleiroHabilidades[];
   private tabuleiroAnimais: TabuleiroAnimais;
   private pontuacao: number[];
   private estoque: Peca[];
 
-  constructor() {
+  constructor() { 
 
-    this.tabuleiroAnimais = new TabuleiroAnimais(this);
-    this.tabuleirosHabilidades = Array.from(Array(NUMERO_JOGADORES), () => new TabuleiroHabilidade(this));
+    this.tabuleiroAnimais = new TabuleiroAnimais();
+    this.tabuleirosHabilidades = Array.from(Array(NUMERO_JOGADORES), () => new TabuleiroHabilidades());
     this.pontuacao = Array(NUMERO_JOGADORES).fill(0)
-
   }
 }

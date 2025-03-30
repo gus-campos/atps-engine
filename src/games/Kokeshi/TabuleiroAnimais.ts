@@ -1,12 +1,8 @@
 
 type Ficha = Jogador;
+type Indice = number;
 
-/*
-As trilhas de animais podem ter mais de uma ficha ao mesmo tempo
-na mesma posição, então 
-*/
-
-class PilhaFicha {
+class PilhaFichas {
 
   /* Pilha de fichas usada no trilhas de animais. Pode empilhar
   uma ficha, ou remover (reorganizando em seguida). */
@@ -23,12 +19,12 @@ class PilhaFicha {
 
     /* Adiciona uma ficha no topo da pilha. */
     
-    const primeiraLivre = this.primeiraLivre();
+    const primeiroIndiceLivre = this.primeiroIndiceLivre();
 
-    if (primeiraLivre == -1)
-      throw new Error("Pilha cheia.");
+    if (primeiroIndiceLivre == null)
+      throw new Error("PilhaFichas cheia.");
 
-    this.pilha[primeiraLivre] = ficha;
+    this.pilha[primeiroIndiceLivre] = ficha;
   }
 
   public remover(jogador: Jogador) {
@@ -38,7 +34,7 @@ class PilhaFicha {
 
     const indiceJogador = this.indiceJogador(jogador);
 
-    if (indiceJogador == -1)
+    if (indiceJogador == null)
       throw new Error("Ficha do jogador não se encontra empilhada.");
 
     this.pilha[indiceJogador] = null;
@@ -48,7 +44,9 @@ class PilhaFicha {
 
   public contem(jogador: Jogador): boolean {
 
-    return this.indiceJogador(jogador) != -1;
+    /* Retorna se a pilha contém a ficha de um dado jogador. */
+
+    return this.indiceJogador(jogador) != null;
   }
 
   private removerBolhas(): void {
@@ -66,52 +64,118 @@ class PilhaFicha {
   }
 
   public vazia(): boolean {
+
+    /* Retorna se a pilha está vazia. */
     
-    return this.ultimaOcupada() == -1; 
+    return this.ultimaOcupada() == null; 
   }
 
   public topo(): Ficha {
 
+    /* Retorna a pilha que está no topo da pilha. */
+
     return this.pilha[this.ultimaOcupada()];
   }
 
-  private ultimaOcupada() {
+  private ultimaOcupada(): Indice|null {
 
-    /* Retorna o último índice ocupado. */
+    /* Retorna o último índice ocupado da pilha. */
 
     for (let i=this.tamanho-1; i >= 0; i--)
       if (this.pilha[i] != null)
         return i;
 
-    return -1;
+    return null;
   }
 
-  private primeiraLivre(): number {
+  private primeiroIndiceLivre(): Indice|null {
 
     /* Retorna o primeiro índice da pilha que se encontra vazia.
-    Se não encontrar retorna -1 */
+    Se não encontrar retorna null */
 
     for (let i=0; i<this.tamanho; i++)
       if (this.pilha[i] == null)
         return i;
 
-    return -1;
+    return null;
   }
 
-  private indiceJogador(jogador: Jogador): number {
+  private indiceJogador(jogador: Jogador): Indice|null {
 
     /* Retorna o índice da pilha em que se encontra dado jogador.
-    Se não encontrar retorna -1 */
+    Se não encontrar retorna null */
 
     for (let i=0; i<this.tamanho; i++)
       if (this.pilha[i] == jogador)
         return i;
 
-    return -1;
+    return null;
   }
 }
 
-// TODO: Classe TrilhaAnimal?
+class TrilhaAnimal {
+
+  private static tamanho = 8;
+  private static posicaoLinhaVermelha = 3;
+  private posicoes: PilhaFichas[];
+
+  constructor() {
+
+    this.posicoes = Array.from(Array(TrilhaAnimal.tamanho), () => new PilhaFichas(NUMERO_JOGADORES))
+  }
+
+  public avancar(jogador: Jogador) {
+
+    /* Avança um jogador de posição. */
+
+    const posicaoJogador = this.posicaoJogador(jogador);
+
+    // Assegurando que não é última posição
+    if (posicaoJogador == TrilhaAnimal.tamanho - 1)
+      throw new Error("Jogador na última posição não pode avançar.");
+
+    this.posicoes[posicaoJogador].remover(jogador);
+    this.posicoes[posicaoJogador+1].empilhar(jogador); 
+  }
+
+  public ehPrimeiro(jogador: Jogador): boolean {
+
+    /* Retorna se dado jogador é o primeiro colocado */
+
+    return jogador == this.primeiroJogador();
+  } 
+
+  public primeiroJogador(): Jogador {
+
+    /* Retorna o jogador que está em primeiro colocado na trilha. */
+
+    for (let posicao = TrilhaAnimal.tamanho-1; posicao >= 0; posicao--)
+      if (!this.posicoes[posicao].vazia())
+        return this.posicoes[posicao].topo();
+
+    throw new Error("Jogador não encontrado");
+  }  
+
+  public ehReconhecido(jogador: Jogador) {
+
+    /* Retorna se um jogador tem reconhecimento na trilha, ou seja,
+    se ele já ultrapassou a linha vermelha. */
+
+    return this.posicaoJogador(jogador) > TrilhaAnimal.posicaoLinhaVermelha;
+  }
+
+  private posicaoJogador(jogador: Jogador): Indice {
+    
+    /* Retorna o índice da posição em que o jogador se encontra
+    na trilha. */
+
+    for (let posicao = TrilhaAnimal.tamanho-1; posicao >= 0; posicao--)
+      if (this.posicoes[posicao].contem(jogador))
+        return posicao;
+
+    throw new Error("Jogador não encontrado");
+  }
+}
 
 class TabuleiroAnimais {
 
@@ -119,31 +183,18 @@ class TabuleiroAnimais {
   cada posição possui uma pilha de fichas. */
 
   private static formato: Coord = new Coord(4,8);
-  private static posicaoLinhaVermelha = 3;
-  private trilhas: PilhaFicha[][];
-  private kokeshi: JogoKokeshi;
+  private trilhas: TrilhaAnimal[];
 
-  constructor(kokeshi: JogoKokeshi) {
+  constructor() {
 
     this.trilhas = TabuleiroAnimais.criarTabuleiro();
-    this.kokeshi = kokeshi;
   }
 
-  private static criarTabuleiro(): PilhaFicha[][] {
+  private static criarTabuleiro(): TrilhaAnimal[] {
 
     /* Cria trilhas padrão. */
 
-    // Cria preenchendo com pilhas vazias
-    const trilhas = Array.from(
-      Array(TabuleiroAnimais.formato.x), ()=>Array.from(
-        Array(TabuleiroAnimais.formato.y), ()=>new PilhaFicha(NUMERO_JOGADORES)));
-
-    // Coloca fichas de todos os jogadores na primeira posição
-    for (let animal=0; animal<NUMERO_ANIMAIS; animal++)
-      for (let jogador=0; jogador<NUMERO_JOGADORES; jogador++)
-        trilhas[animal][0].empilhar(jogador);
-      
-    return trilhas;
+    return Array.from(Array(TabuleiroAnimais.formato.x), () => new TrilhaAnimal());
   }
 
   public avancar(animal: Animal, jogador: Jogador): void {
@@ -151,14 +202,7 @@ class TabuleiroAnimais {
     /* Avança a ficha de um jogador em umaa trilha de animal
     para a posição seguinte */
 
-    const posicaoJogador = this.posicaoJogador(animal, jogador);
-
-    // Verificando se é última posição
-    if (posicaoJogador == TabuleiroAnimais.formato.y - 1)
-      throw new Error("Jogador na última posição não pode avançar.");
-
-    this.trilhas[animal][posicaoJogador].remover(jogador);
-    this.trilhas[animal][posicaoJogador+1].empilhar(jogador);    
+    this.trilhas[animal].avancar(jogador);   
   }
 
   public ehPrimeiro(animal: Animal, jogador: Jogador): boolean {
@@ -166,50 +210,14 @@ class TabuleiroAnimais {
     /* Verifica se dado jogador é o primeiro colocado na 
     trilha de um animal. */
 
-    return jogador == this.primeiro(animal);
-  } 
-
-  private primeiro(animal: Animal): Jogador {
-
-    /* Retorna o primeiro colocado na trilha de um animal. */
-  
-    const posicoes = TabuleiroAnimais.formato.y;
-    const trilha = this.trilha(animal);
-
-    for (let posicao = posicoes-1; posicao >= 0; posicao--)
-      if (!trilha[posicao].vazia())
-        return trilha[posicao].topo();
-
-    throw new Error("Jogador não encontrado");
+    return this.trilhas[animal].ehPrimeiro(jogador);
   }
 
-  public reconhecido(animal: Animal, jogador: Jogador): boolean {
+  public ehReconhecido(animal: Animal, jogador: Jogador): boolean {
 
     /* Verifica se o jogador é reconhecido na produção de tal animal.
     Para tal ele precisa ter ultrapassado a linha vermelha. */
 
-    return this.posicaoJogador(animal, jogador) > TabuleiroAnimais.posicaoLinhaVermelha;
-  }
-
-  private posicaoJogador(animal: Animal, jogador: Jogador): number {
-    
-    /* Encontra o índice da posição em que o jogador se encontra
-    na trilha de um animal. */
-
-    const posicoes = TabuleiroAnimais.formato.y;
-    const trilha = this.trilha(animal);
-
-    for (let posicao = posicoes-1; posicao >= 0; posicao--)
-      if (trilha[posicao].contem(jogador))
-        return posicao;
-
-    throw new Error("Jogador não encontrado");
-  }
-
-  private trilha(animal: Animal): PilhaFicha[] {
-
-    /* Retorna a trilha de um animal. */
-
-    return this.trilhas[animal];
+    return this.trilhas[animal].ehReconhecido(jogador);
   }
 }

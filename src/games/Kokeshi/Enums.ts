@@ -1,20 +1,14 @@
 
-enum SelecaoKokeshi {
+enum Selecao {
   QUALQUER,
   DIREITA,
-  ESQUERDA,
-  DEFINIDO
+  ESQUERDA
 }
 
 enum MovimentoKokeshi {
   RETORNO = -1,
   SIMPLES = 1,
   DUPLO = 2
-}
-
-enum SelecaoCompra {
-  TODAS,
-  FRENTE
 }
 
 enum Kokeshi {
@@ -40,7 +34,7 @@ enum TipoPeca {
   NULA      // casa vazia
 }
 
-enum EscolhaEfeito {
+enum SelecaoEfeito {
   ESQUERDA = 0,
   DIREITA = 1
 }
