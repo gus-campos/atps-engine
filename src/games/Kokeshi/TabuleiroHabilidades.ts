@@ -1,64 +1,68 @@
 
 type Index = number;
 
-// TODO: Peças reservadas? Mais de uma? Na trilha ou no tabuleiro?
-
-// TODO: Retornar um efeito
-
-// TODO: Quando pular uma casa vazia, deve ser tratado diferente?
-
+// TODO: Como diferenciar para o jogo quando a peça atinge o limite? Usar uma flag que é lida externamente?
 
 class TrilhaHabilidade {
 
   private static tamanho = 8;
   private cor: Kokeshi;
-  private trilha: (Peca|null)[];
+  private trilha: Peca[];
   private posicao: Index;
 
   constructor(cor: Kokeshi) {
 
     this.cor = cor;
-    this.trilha = Array(TrilhaHabilidade.tamanho).fill(null);
+
+    const criarPecaNula = () => Peca.criarPecaNula(this.cor);
+
+    this.trilha = Array.from(Array(TrilhaHabilidade.tamanho), criarPecaNula);
     this.posicao = 0;
   }
 
-  public avancar(): Peca|null {
+  public moverKokeshi(movimento: Movimento): Peca|null {
 
-    this.posicao++;
+    if (movimento == Movimento.RETORNO)
+      return this.retornar();
+
+    return this.avancar(movimento);
+  }
+
+  public avancar(movimento: Movimento): Peca|null {
+
+    if (movimento == Movimento.RETORNO)
+      throw new Error("avancar não aceita movimento de retorno.");
+
+    this.posicao += movimento;
     
     // Se atingiu o limite do tabuleiro
     if (this.posicao >= TrilhaHabilidade.tamanho) {
 
-      this.retornar();
-      
       // reconhecer
       // NÃO COMPRAR
 
+      return this.retornar();
+    }
+    public retornar(): null {
+
+      this.posicao = 0;
       return null;
     }
-
+  
     const pecaAlcancada = this.trilha[this.posicao];
 
-    // Se atingiu um espaço vazio
-    if (pecaAlcancada == null) {
-
-      this.retornar();
-      
-      // COMPRAR
-      
-      return null;
-    }
+    return pecaAlcancada;
   }
 
-  public retornar(): void {
+  public retornar(): null {
 
     this.posicao = 0;
+    return null;
   }
 
   public posicionar(peca: Peca): void {
 
     const posicao = this.primeiraPosicaoVazia();
-    
     this.trilha[posicao] = peca;
   }
 
@@ -83,6 +87,11 @@ class TabuleiroHabilidades {
 
     this.trilhas = TabuleiroHabilidades.criarTrilhas();
   }
+
+  public posicionar(peca: Peca, posicionamento: Kokeshi): void {
+
+    this.trilhas[posicionamento].posicionar(peca);
+  }
   
   private static criarTrilhas(): TrilhaHabilidade[] {
     
@@ -94,8 +103,8 @@ class TabuleiroHabilidades {
     return trilhas;
   } 
 
-  public avancar(kokeshi: Kokeshi): Peca|null {
+  public moverKokeshi(kokeshi: Kokeshi, movimento: Movimento): Peca|null {
     
-    return this.trilhas[kokeshi].avancar();
+    return this.trilhas[kokeshi].moverKokeshi(movimento);
   }
 }

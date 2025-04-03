@@ -121,7 +121,13 @@ class TrilhaAnimal {
 
   constructor() {
 
-    this.posicoes = Array.from(Array(TrilhaAnimal.tamanho), () => new PilhaFichas(NUMERO_JOGADORES))
+    const gerarPilhaFichas = () => new PilhaFichas(NUMERO_JOGADORES)
+
+    this.posicoes = Array.from(Array(TrilhaAnimal.tamanho), gerarPilhaFichas);
+
+    // Uma ficha de cada jogador na primeira pilha
+    for (let jogador = 0; jogador < NUMERO_JOGADORES; jogador++)
+      this.posicoes[0].empilhar(jogador);
   }
 
   public avancar(jogador: Jogador) {
@@ -154,7 +160,7 @@ class TrilhaAnimal {
         return this.posicoes[posicao].topo();
 
     throw new Error("Jogador não encontrado");
-  }  
+  }
 
   public ehReconhecido(jogador: Jogador) {
 

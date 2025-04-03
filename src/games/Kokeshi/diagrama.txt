@@ -1,0 +1,17 @@
+classDiagram
+
+  TabuleiroAnimais --> "1" JogoKokeshi
+  TabuleiroHabilidade --> "1..JOGADORES" JogoKokeshi
+
+  Peca --> "8" TrilhaHabilidade 
+  TrilhaHabilidade --> "4" TabuleiroHabilidade
+
+  Ficha --> "0..JOGADORES" PilhaFichas
+  PilhaFichas --> "8" TrilhaAnimal 
+  TrilhaAnimal --> "4" TabuleiroAnimais
+
+  Efeito --> "0,1,2" Peca
+
+  class JogoKokeshi {
+      -pontuacao
+  }

@@ -1,6 +1,19 @@
 
 type DuplaEfeitos = [Efeito|null, Efeito|null];
 
+enum TipoPeca {
+  UNICA,    // só um efeito possível
+  DUPLA,    // dois efeitos simultâneos 
+  ESCOLHA,  // dois efeitos possíveis a se escolher
+  NULA      // casa vazia
+}
+
+enum EscolhaEfeito {
+  PRIMEIRO,
+  SEGUNDO,
+  AMBOS
+}
+
 class Peca {
 
   /* Peças do tabuleiro que possuem cor, efeitos, posicao, e um tipo */
@@ -10,50 +23,82 @@ class Peca {
   private efeitos: [Efeito, Efeito];
   private posicao: Kokeshi|null;
 
-  constructor(tipo: TipoPeca, cor: Kokeshi|null=null, efeitos: DuplaEfeitos=[null,null]) {
+  constructor(tipo: TipoPeca, cor: Kokeshi, efeitos: DuplaEfeitos=[null,null]) {
     
-    if (!Peca.pecaValida(tipo, cor, efeitos))
+    if (!Peca.pecaValida(tipo, efeitos))
       throw new Error("Tipo inválido para tais efeitos.");
     
     this.cor = cor;
     this.tipo = tipo;
     this.efeitos = efeitos;
   }
+  
+  public static criarPecaNula(posicionamento: Kokeshi): Peca {
 
-  private static pecaValida(tipo: TipoPeca, cor: Kokeshi, efeitos: DuplaEfeitos): boolean {
+    /* Cria uma peça nula para dado posicionamento no tabuleiro. */
+
+    const efeitoRetorno = new EfeitoMoverKokeshi(Opcoes.UNICA, posicionamento, Movimento.RETORNO);
+    const efeitoCompra = new EfeitoAdicionarPeca(Opcoes.UNICA, posicionamento);
+    const efeitos: DuplaEfeitos = [efeitoRetorno, efeitoCompra];
+
+    return new Peca(TipoPeca.NULA, null, efeitos);
+  }
+
+  private static pecaValida(tipo: TipoPeca, efeitos: DuplaEfeitos): boolean {
     
-    /* É valido se possui quantidade correta de efeitos de acordo com o tipo */ 
+    /* É valido se possui quantidade correta de efeitos de acordo com o tipo,
+    se for dupla, não pode ter efeito de mover kokeshi na segunda posição */ 
 
-    if (tipo == TipoPeca.NULA)
-      return cor == null && efeitos[0] == null && efeitos[1] == null;
-
+    const possuiPrimeiro = efeitos[0] != null;
+    const possuiSegundo = efeitos[1] != null;
+    
+    const tiposComDoisEfeitos = [TipoPeca.DUPLA, TipoPeca.ESCOLHA, TipoPeca.NULA];
+    
     if (tipo == TipoPeca.UNICA) 
-      return cor != null && efeitos[0] != null && efeitos[1] == null;
+      return possuiPrimeiro && !possuiSegundo;
+    
+    if (tiposComDoisEfeitos.includes(tipo)) {
 
-    const tipos2Efeitos = [TipoPeca.DUPLA, TipoPeca.ESCOLHA, TipoPeca.INICIAL];
+      if (tipo == TipoPeca.DUPLA && (efeitos[1] instanceof EfeitoMoverKokeshi))
+        return false;
 
-    if (tipos2Efeitos.includes(tipo)) 
-      return cor != null && efeitos[0] != null && efeitos[1] != null;
+      return possuiPrimeiro && possuiSegundo;
+    }
 
     return false;
   }
-  
-  public ativar(jogoKokeshi: JogoKokeshi, escolha: SelecaoEfeito|null=null) {
 
-    /* Ativa o(s) efeito(s) da peça, de acordo com tipo, e a escolha fornecida */
+  public associarPosicao(posicao: Kokeshi): void {
+    this.posicao = posicao;
+  }
 
-    if ((this.tipo == TipoPeca.ESCOLHA) === (escolha == null))
-      throw new Error("Escolha deve ser passada se e somente se for peça de ESCOLHA");
+  public getEfeito(escolha: EscolhaEfeito): Efeito {
+    
+    if (escolha == EscolhaEfeito.AMBOS)
+      throw new Error("Para AMBOS, usar 'getEfeitos'");
 
-    if (this.tipo == TipoPeca.ESCOLHA) {
-  
-      this.efeitos[escolha].ativar(jogoKokeshi);
+    if (escolha == EscolhaEfeito.PRIMEIRO)
+      return this.efeitos[0];
 
-    } else {
+    if (escolha == EscolhaEfeito.SEGUNDO)
+      return this.efeitos[1]; 
+  }
 
-      this.efeitos[SelecaoEfeito.ESQUERDA].ativar(jogoKokeshi);
-      this.efeitos[SelecaoEfeito.DIREITA].ativar(jogoKokeshi);
-    }
+  public posicaoAssociada(): boolean {
+
+    return this.posicao != null;
+  }
+
+  public definida() {
+    return this.tipo != TipoPeca.ESCOLHA;
+  }
+
+  public getTipo(): TipoPeca {
+    return this.tipo;
+  }
+
+  public getEfeitos(): DuplaEfeitos {
+    return this.efeitos;
   }
 
   public getPosicao(): Kokeshi {
