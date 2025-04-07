@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/6bd763f8-14bf-4aee-933d-ed1553874e80)## Visão Geral do Sistema
+## Visão Geral do Sistema
 
 O sistema foi desenvolvido de forma a permitir que diferentes jogos e perfis de
 agentes se comunicassem de forma transparente com a classe do Autoplay, que é responsável
