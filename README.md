@@ -20,9 +20,9 @@ verificar se o jogo terminou e obter o vencedor.
 
 Para garantir que a implementação dos jogos obedeçam às regras reais, que as buscas
 operem de acordo com o esperado, e também para facilitar as refatorações necessárias, um
-conjunto de testes unitários foi criado. A Figura 5 exibe o resumo dos testes feitos sobre o
-sistema, e a Imagem 6, como exemplo, exibe de forma mais detalhada os testes feitos para
-o jogo Boop.
+conjunto de testes unitários foi criado. A primeira figura abaixo exibe o resumo dos testes 
+feitos sobre o sistema, e a outra figura, como exemplo, exibe de forma mais detalhada os 
+testes feitos para o jogo Boop.
 
 ![](assets/teste-geral.jpeg)
 
