@@ -2,7 +2,7 @@
 
 Sistema que faz testagem automática de protótipos de jogos de tabuleiro, permitindo que parte 
 dos onerosos e demorados testes humanos sejam substituídos durante a fase de desenvolvimento.
-O TCC para o qual este sistema foi desenvolvido pode ser encontra neste ![link](https://tinyurl.com/tcc-gustavo-campos).
+O TCC para o qual este sistema foi desenvolvido pode ser encontra neste [link](https://tinyurl.com/tcc-gustavo-campos).
 
 Ainda foram implementados 5 protótipos de jogos, de crescente complexidade:
 - Jogo da Velha
