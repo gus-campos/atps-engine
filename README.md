@@ -1,3 +1,16 @@
+## Automated Playtest System
+
+Sistema que faz testagem automática de protótipos de jogos de tabuleiro, permitindo que parte 
+dos onerosos e demorados testes humanos sejam substituídos durante a fase de desenvolvimento.
+O TCC para o qual este sistema foi desenvolvido pode ser encontra neste ![link](https://tinyurl.com/tcc-gustavo-campos).
+
+Ainda foram implementados 5 protótipos de jogos, de crescente complexidade:
+- Jogo da Velha
+- Connect4
+- Gobblet Gobblers
+- Damas
+- Boop
+
 ## Visão Geral do Sistema
 
 O sistema foi desenvolvido de forma a permitir que diferentes jogos e perfis de
