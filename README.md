@@ -1,4 +1,4 @@
-## Automated Playtest System
+## Automated Playtest System - ATPS
 
 Sistema que faz testagem automática de protótipos de jogos de tabuleiro, permitindo que parte 
 dos onerosos e demorados testes humanos sejam substituídos durante a fase de desenvolvimento.
