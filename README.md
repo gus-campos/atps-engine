@@ -16,13 +16,17 @@ MCTS, foi criada um interface para os jogos, que permitisse para dado jogo: obte
 permitidas; realizar uma ação; criar uma cópia do jogo; obter o jogador atual e o anterior;
 verificar se o jogo terminou e obter o vencedor.
 
+![](assets/diagrama.jpeg)
+
 Para garantir que a implementação dos jogos obedeçam às regras reais, que as buscas
 operem de acordo com o esperado, e também para facilitar as refatorações necessárias, um
 conjunto de testes unitários foi criado. A Figura 5 exibe o resumo dos testes feitos sobre o
 sistema, e a Imagem 6, como exemplo, exibe de forma mais detalhada os testes feitos para
 o jogo Boop.
 
-![](assets/diagrama.jpeg)
+![](assets/teste-geral.jpeg)
+
+![](assets/testes-boop.jpeg)
 
 ### Registro de dados sobre os jogos e as árvore expandidas
 
