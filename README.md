@@ -1,9 +1,9 @@
-## Visão Geral do Sistema
+![image](https://github.com/user-attachments/assets/6bd763f8-14bf-4aee-933d-ed1553874e80)## Visão Geral do Sistema
 
 O sistema foi desenvolvido de forma a permitir que diferentes jogos e perfis de
 agentes se comunicassem de forma transparente com a classe do Autoplay, que é responsável
 por realizar o playtest automatizado. Sua estrutura é apresentada pelo diagrama de classes
-da Figura 4.
+abaixo.
 
 Para permitir a implementação do MCTS, foi criada uma classe Node e uma
 classe MCTSAgent que representam, respectivamente, seus nós e sua árvore, de forma
@@ -21,6 +21,8 @@ operem de acordo com o esperado, e também para facilitar as refatorações nece
 conjunto de testes unitários foi criado. A Figura 5 exibe o resumo dos testes feitos sobre o
 sistema, e a Imagem 6, como exemplo, exibe de forma mais detalhada os testes feitos para
 o jogo Boop.
+
+![](assets/diagrama.jpeg)
 
 ### Registro de dados sobre os jogos e as árvore expandidas
 
