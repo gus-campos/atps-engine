@@ -31,6 +31,8 @@ verificar se o jogo terminou e obter o vencedor.
 
 ![](assets/diagrama.jpeg)
 
+## Testes
+
 Para garantir que a implementação dos jogos obedeçam às regras reais, que as buscas
 operem de acordo com o esperado, e também para facilitar as refatorações necessárias, um
 conjunto de testes unitários foi criado. A primeira figura abaixo exibe o resumo dos testes 
