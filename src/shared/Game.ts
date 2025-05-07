@@ -2,6 +2,9 @@
 // =========================================================
 
 export type Player = number;
+
+/* Especificado para cada jogo, 
+dentro de seus respectivos códigos fonte */
 export type Action = {};
 
 export enum Outcome {
@@ -10,51 +13,38 @@ export enum Outcome {
   DRAW
 }
 
-export class Coord {
-
-  public x: number;
-  public y: number;
-
-  constructor(x: number, y: number) {
-    this.x = x;
-    this.y = y;
-  }
-
-  public sub(coord: Coord): Coord {
-    return new Coord(this.x - coord.x, this.y - coord.y);
-  }
-
-  public add(coord: Coord): Coord {
-    return new Coord(this.x + coord.x, this.y + coord.y);
-  }
-
-  public equals(coord: Coord): boolean {
-    return this.x == coord.x && this.y == coord.y;
-  }
-
-  public mult(k: number) {
-    return new Coord(k * this.x, k * this.y);
-  }
-}
-
-
 // =========================================================
 
 export interface Game {
 
+  // Retorna uma cópia por valor do jogo
   clone(): Game;
 
+  // Retorna o último jogador a jogar
   getLastPlayer(): Player;
+
+  // Retorna o jogador do turno atual
   getCurrentPlayer(): Player;
   
+  // Retorna as ações pssíveis válidas no estado atual
   getValidActions(): Action[];
+
+  // Executa uma ação passada, modificando o estado
+  // autoPlayMode supõe que a ação é válida
   playAction(action: Action, autoPlayMode: boolean): void;
   
+  // Retorna se o jogo já terminou
   isGameOver(): boolean;
+
+  // Retorna o jogador vencedor
   getWinner(): number;
 
+  // Retorna uma representação do estado como uma sting
   stateToString(): string;
+
+  // Imprime no console string que representa o estado
   printState(): void;
   
+  // Modifica o estado para registrar um empate
   forceDraw(): void;
 }

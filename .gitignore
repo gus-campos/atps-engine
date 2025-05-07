@@ -3,3 +3,4 @@ graph.dot
 scripts
 data/*
 logs/*
+.idea/*

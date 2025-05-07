@@ -1,4 +1,5 @@
-import { Game, Player, Coord } from "src/shared/Game";
+import { Game, Player } from "src/shared/Game";
+import { Coord } from "src/utils/Coord";
 import { RANDOM } from "../utils/Random"
 
 function even(n: number): boolean {

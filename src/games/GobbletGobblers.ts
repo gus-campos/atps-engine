@@ -1,18 +1,16 @@
 import { Game, Player, Action } from "../shared/Game";
+import { Coord } from "src/utils/Coord";
 
-// TODO: Usar??
 enum Size {
   S = 0,
   M = 1,
   L = 2,
 }
 
-type Coord = {
-  x: number;
-  y: number;
-};
-
 interface GgPiece {
+
+  /* Representa uma peça do jogo. */
+
   author: Player;
   size: Size;
 }
@@ -22,7 +20,23 @@ interface GgBoard {
 }
 
 interface GgState {
+
+  /* 
+  Representa um estado do jogo (deveria ter 
+  essas propriedades diretamente 
+  como propriedades do jogo).
+  */
+
   board: GgBoard;
+
+  /*
+  Formato do estoque:
+  
+    stock[num do jogador][tamanho da peça] -> retorna quantidade d
+    e peças de tal tamanho que tal jogador possui
+  
+  Tamanho da peça de acordo com o enum Size.
+  */
   stock: number[][];
 
   currentPlayer: Player;
@@ -34,12 +48,14 @@ interface GgState {
   turns: number;
 }
 
+// Especificação do formato de ação do Gobblet Gobblers
 interface GgAction extends Action {
   piece: GgPiece;
   slot: number; // Número da posição no 2D
   movedFrom: number | null;
 }
 
+// Sequências que se preenchidas pelo mesmo jogador leva à vitória
 const rows: number[][] = [
   [0, 1, 2],
   [3, 4, 5],
@@ -51,33 +67,40 @@ const rows: number[][] = [
   [2, 4, 6],
 ];
 
+// Limite de turnos no jogo antes de ser declarado um empate
+// (evita jogos intermináveis, economizando tempo e recursos)
 const TURNS_TO_DRAW = 30;
 
+// Mapeamento do jogador correspondente a um símbolo
 let PLAYERS_SYMBOLS = new Map();
 PLAYERS_SYMBOLS.set(0, ["a", "â", "A"]);
 PLAYERS_SYMBOLS.set(1, ["o", "ô", "O"]);
 PLAYERS_SYMBOLS.set(null, ".");
 
+// Mapeamento do símbolo correspondente a um jogador
 let SYMBOLS_PLAYERS = new Map();
 SYMBOLS_PLAYERS.set("A", 0);
 SYMBOLS_PLAYERS.set("B", 1);
 SYMBOLS_PLAYERS.set(".", null);
 
-// TODO: Escrever testes usando um método "setState"
 
-// Game and MCTSAgent
 export class GobbletGobblers implements Game {
+
+  // Estas 4 poderiam ser propriedades estáticas
   private numberOfPlayers: number;
   private nSlots: number;
   private nSizes: number;
   private boardShape: Coord;
+
+  // Estado encapsulado do jogo
   private state: GgState;
   
   constructor() {
+
     this.numberOfPlayers = 2;
     this.nSlots = 9;
     this.nSizes = 3;
-    this.boardShape = { x: 3, y: 3 };
+    this.boardShape = new Coord(3,3);
     
     this.state = this.getInitialState();
   }
@@ -91,6 +114,12 @@ export class GobbletGobblers implements Game {
   }
 
   public setState(boardDraw: string[][][], stock: number[]=null, players: Player[]=null) {
+
+    /* 
+    Modifica o estado do jogo a partir de definições externas.
+    Usado exclusivamente para facilitar testagem. Ver testes para
+    compreender o formato esperado.
+    */
 
     if (stock != null && stock.length != 6)
       throw new Error("stock has wrong dimensions");
@@ -138,11 +167,12 @@ export class GobbletGobblers implements Game {
 
   public playAction(action: GgAction, autoPlayMode: boolean=false): void {
 
+    // Ver testes para compreender formato da ação
 
     let pieceToPlace;
     const topPieceAt = this.getTopPieceAt(action.slot); 
 
-    // Colocação 
+    // Ação de colocar peça
     if (action.movedFrom == null) {
 
       pieceToPlace = action.piece;
@@ -156,7 +186,7 @@ export class GobbletGobblers implements Game {
       this.decrementStock(action.piece);
     } 
     
-    // Movimentação
+    // Ação de mudar uma peça do tabuleiro
     else {
 
       pieceToPlace = this.getTopPieceAt(action.movedFrom);
@@ -198,8 +228,8 @@ export class GobbletGobblers implements Game {
   public stateToString(): string {
     /*
     Retorna uma string que representa o estado do jogo
-    Alcança isso ao conectar a string que representa cada
-    nível
+    Primeira gera a string de cada nível do tabuleiro,
+    e depois conecta uma ao lada da outra.
     */
 
     // Gathering levels strings
@@ -262,6 +292,11 @@ export class GobbletGobblers implements Game {
   // Private
 
   private getInitialState(): GgState {
+
+    /* Gera o estado inicial: tabuleiro 3x3x3 vazio,
+    com jogador 0 começando e com cada jogador tendo
+    2 peças de cada tipo no estoque. */
+
     let slots = Array.from(Array(this.nSlots), () =>
       Array.from(Array(this.nSizes), ():null => null)
     );
@@ -281,6 +316,8 @@ export class GobbletGobblers implements Game {
   }
 
   private getValidPlaceActions(): GgAction[] {
+
+    /* Obtem ações possíveis de posicionamento de peças */
 
     let actions = [];
     let topPieces = this.getTopPieces();
@@ -310,6 +347,8 @@ export class GobbletGobblers implements Game {
   }
 
   private getValidMoveActions(): GgAction[] {
+
+    /* Obtem ações possíveis de mudar peças de posição */
 
     let actions = [];
     let topPieces = this.getTopPieces();
@@ -341,6 +380,7 @@ export class GobbletGobblers implements Game {
   }
 
   private isMovablePiece(piece: GgPiece): boolean {
+
     /*
     Retorna se uma peça é movível. Para isso deve existir
     e ser do jogador atual.
@@ -349,12 +389,21 @@ export class GobbletGobblers implements Game {
     return piece != null && piece.author == this.state.currentPlayer;
   }
 
-  private canGobble(piece: GgPiece, placedPiece: GgPiece) {
+  private canGobble(pieceToPlace: GgPiece, placedPiece: GgPiece) {
 
-    return placedPiece == null || piece.size > placedPiece.size;
+    /* 
+    Verifica se uma peça pode sobrepor a outra (
+    ser coloca no num nível superior a mesma)
+    */
+
+    return placedPiece == null || pieceToPlace.size > placedPiece.size;
   }
 
   private setPiece(slot: number, piece: GgPiece|null): void {
+
+    /*
+    Atribui uma peça a uma posição.
+    */
 
     const size = piece != null ? piece.size : this.getTopPieceAt(slot).size;
     
@@ -362,6 +411,8 @@ export class GobbletGobblers implements Game {
   }
 
   private getTopPieceAt(slot: number): GgPiece {
+
+    /* Obtem a maior peça em um slot do tabuleiro. */
 
     for (let size of this.iterSizes(true)) {
 

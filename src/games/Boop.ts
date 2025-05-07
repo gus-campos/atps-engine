@@ -1,5 +1,7 @@
 
-import { Game, Player, Action, Coord } from "../shared/Game"
+import { Game, Player, Action } from "../shared/Game"
+import { Coord } from "src/utils/Coord"
+
 
 enum PieceType {
     KITTEN = 0,

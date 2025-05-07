@@ -1,4 +1,5 @@
-import { Game, Player, Coord, Action } from "src/shared/Game";
+import { Game, Player, Action } from "src/shared/Game";
+import { Coord } from "src/utils/Coord";
 
 interface CfState {
 

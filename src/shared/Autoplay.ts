@@ -4,37 +4,66 @@ import { Action, Game } from "src/shared/Game";
 import { MCTSAgent, MCTSConfig, MCTSStats } from "src/agents/MCTSAgent";
 import { RandomAgent } from "src/agents/RandomAgent";
 
+import { writeObject } from "src/utils/Write";
+
 import { TicTacToe } from "src/games/TicTacToe";
 import { GobbletGobblers } from "src/games/GobbletGobblers";
 import { Boop } from "src/games/Boop";
 import { ConnectFour } from "src/games/ConnectFour";
 import { Checkers } from "src/games/Checkers";
-
-import { writeObject } from "src/utils/Write";
 import { CrabPuzzle } from "src/games/CrabPuzzle";
-
 
 // =========================================================
 
 export interface AutoPlayConfig {
 
+  /* Configurações do AutoPlay */
+
+  // O agente que vai jogar por cada player. 
+  // Exemplo: MCTS jogando player 1, RANDOM jogando pro player 2: [AgentName.MCTS, AgentName.RANDOM] 
   agents: AgentName[],
+
+  // Número de partidas jogadas
   matches: number,
+
+  // Se os estados do jogo devem ser impressos a cada turno
   printStates: boolean
 }
 
 interface Score {
+
+  /*
+  Player 0 is always the maximizing player. So "victory" 
+  means player 0 won, and a favorable own goal means a 
+  own goal favorable to player 0.
+  */
+
   victories: number,
   defeats: number,
   draws: number
 }
 
 interface OwnGoals {
+
+  /* 
+  Times a player caused a victory for the other player,
+  causing its own defeat.
+  
+  Player 0 is always the maximizing player, 
+  so favorable means that a own goal favorable to player 0 has
+  been made.
+  */
+
   unfavorable: number,
   favorable: number
 }
 
 interface Results {
+
+  /* 
+  Um wrapper dos diferentes objetos de resultados
+  */
+
   score: Score,
   ownGoals: OwnGoals,
   meanTurns: number,
@@ -57,6 +86,10 @@ export enum AgentName {
 }
 
 export class NoValidActionError extends Error {
+
+  /* Classe de erro para quando o autoplay esperar 
+  jogadas disponíveis, mas não houverem */
+
   constructor(message: string) {
     super(message);
     this.name = "NoValidActionError";
@@ -64,6 +97,10 @@ export class NoValidActionError extends Error {
 }
 
 export class AutoPlay {
+
+  /* Classe que dado um nome de jogo e dada algumas configurações
+  executa um jogo do início ao fim, diversas vezes, usando os
+  agentes especificados */
 
   private gameName: GameName
   private autoPlayConfig: AutoPlayConfig;
@@ -139,6 +176,9 @@ export class AutoPlay {
 
   public writeResults(dir: string): void {
 
+    /* Escreve os resultados do autoplay em um 
+    diretório passado */
+
     const obj = [
 
       { gameName : this.gameName }, 
@@ -153,6 +193,9 @@ export class AutoPlay {
   }
 
   public printResults(): void {
+
+    /* Imprime no console os resultados em um formato
+    legível. */
 
     if (this.autoPlayConfig.matches == 0) {
 
@@ -174,7 +217,7 @@ export class AutoPlay {
   public resetResults(): void {
 
     /*
-    (Re) initializes the results property, with all
+    (Re) initializes the results properties, with all
     values set to 0.
     */
 
@@ -245,7 +288,8 @@ export class AutoPlay {
 
   private printState(): void {
 
-     
+    /* Imprime o estado do jogo jogado. */ 
+
     console.log("");
     this.game.printState();
     
@@ -253,23 +297,28 @@ export class AutoPlay {
 
   private logProgress(i: number): void {
 
+    /* Chamado sempre, imprime quantos porcento das partidas
+    solicitadas foram jogadas, de 10 em 10%. */
+
     // De 10 em 10%
     if (i % (this.autoPlayConfig.matches/10) == 0) { 
       
-      //this.printResults();
       const message = `Progresso: ${(100 * i) / this.autoPlayConfig.matches}%`
-
       console.log(message);
     }
   }
 
   private printMCTSConfig(): void {
 
+    /* Imprime as configutações do agente MCTS. */
+
     console.log(this.mctsConfig);
     console.log();
   }
 
   private printAutoPlayConfig(): void {
+
+     /* Imprime as configutações do autoplay. */
 
     console.log(this.gameName);
     console.log();
@@ -280,7 +329,7 @@ export class AutoPlay {
   private agentAction(): Action {
 
     /*
-    Chooses next action based on the players agent
+    Chooses next action based on the current players agent.
     */
 
     const currentPlayer = this.game.getCurrentPlayer();
@@ -302,8 +351,8 @@ export class AutoPlay {
   private resetGame(): void {
 
     /*
-    Calls the corresponding generator to generate a new
-    game, with initial state.
+    Calls the corresponding generator to generate a game
+    with a initial state.
     */
 
     switch (this.gameName) {
@@ -339,6 +388,9 @@ export class AutoPlay {
 
   private mctsAction(): Action {
 
+    /* Usando o agente MCTS, retorna a próxima ação para o jogo
+    nem seu estado atual */
+
     let mcts = new MCTSAgent(this.game, this.mctsConfig);
     const action = mcts.nextAction();
 
@@ -349,6 +401,9 @@ export class AutoPlay {
   }
 
   private randomAction(): Action {
+
+    /* Usando o agente Random. retorna a próxima ação para o jogo
+    nem seu estado atual */
 
     const randomAgent = new RandomAgent(this.game);
     return randomAgent.nextAction();
@@ -368,6 +423,8 @@ export class AutoPlay {
 
   private updateMctsStats(mctsStats: MCTSStats): void {
 
+    /* Atualiza as estatísticas do agente MCTS. */
+
     this.mctsTurnsSum++;
     this.meanMctsStats.searchesAmount += mctsStats.searchesAmount;
     this.meanMctsStats.maxDepth += mctsStats.maxDepth;
@@ -376,10 +433,20 @@ export class AutoPlay {
 
   private calcMeanTurns() {
 
+    /* 
+    Chamado ao final das múltiplas jogadas, calcula
+    a quantidade média de turnos por jogo. 
+    */
+
     this.results.meanTurns = this.turnsSum / this.autoPlayConfig.matches;
   }
 
   private calcMeanTimes(): void {
+
+    /*
+    Chamado ao final das múltiplas jogadas, calcula
+    a média de tempo por jogo. 
+    */
 
     const deltaTime = Date.now() - this.initialTime;
     const meanMatchTime = (deltaTime / this.autoPlayConfig.matches);
@@ -390,6 +457,11 @@ export class AutoPlay {
   }
 
   private calcMeanMctsStats() {
+
+    /*
+    Chamado ao final das múltiplas jogadas, calcula
+    a média das estatísticas do MCTS por jogo. 
+    */
 
     const turnsSum = this.mctsTurnsSum;
 
@@ -420,7 +492,7 @@ export class AutoPlay {
   private updateOwnGoals() {
 
     /*
-    Updates score and own goals, player 0 is always maximizing 
+    Updates score and own goals, player 0 is always the maximizing 
     player. So favorable own goal means a own goal favorable
     to player 0.
     */
