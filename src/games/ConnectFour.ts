@@ -348,6 +348,10 @@ export class ConnectFour implements Game {
   // Getters
   // ==============
 
+  public getState(): CfState {
+    return this.state;
+  }
+
   public getLastPlayer(): Player {
     return this.state.lastPlayer;
   }

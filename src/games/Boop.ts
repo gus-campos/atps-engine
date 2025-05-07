@@ -509,6 +509,10 @@ export class Boop implements Game {
 
   // Getters
 
+  public getState(): BoopState {
+    return this.state;
+  }
+
   public isGameOver(): boolean {
     return this.state.terminated;
   }

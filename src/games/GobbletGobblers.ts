@@ -273,6 +273,10 @@ export class GobbletGobblers implements Game {
 
   // Getters
 
+  public getState(): GgState {
+    return this.state;
+  }
+
   public isGameOver(): boolean {
     return this.state.terminated;
   }
