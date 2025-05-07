@@ -1,7 +1,28 @@
 import { Game, Player, Action } from "../shared/Game";
 import { Coord } from "src/utils/Coord";
 
+/*
+Procurar sobre o jogo Gobblet Gobblers ou Nhac Nhac.
+Essa implementação está baseada em abstrair o jogo
+original onde peças são sobrepostas, como um jogo
+com tabuleiro tridimensional, com 3 níveis, cada um
+como um jogo da velha. 
+
+Pesquisar por imagens de "Jogo da Velha 3D".
+
+Se no jogo original, na célula 
+do meio, uma peça de tamanho 2 é colocada sobre uma 
+peça de tamanho 1, nesta implementação, uma peça 
+de tamanho 2 é colocada no nível 2 do tabuleiro,
+fazendo sombra sobre a peça de tamanho 1, que está 
+no nível 1 do tabuleiro.
+*/
+
+
 enum Size {
+
+  /* Possíveis tamanhos de peças */
+
   S = 0,
   M = 1,
   L = 2,
@@ -167,7 +188,9 @@ export class GobbletGobblers implements Game {
 
   public playAction(action: GgAction, autoPlayMode: boolean=false): void {
 
-    // Ver testes para compreender formato da ação
+    // Ver testes para compreender formato da ação.
+
+    // Pode dividir em dois métodos privados: playPositioningAction e playMovingAction.
 
     let pieceToPlace;
     const topPieceAt = this.getTopPieceAt(action.slot); 
@@ -431,6 +454,13 @@ export class GobbletGobblers implements Game {
 
   private getTopPieces(): GgPiece[] {
 
+    /* 
+    Obtêm um array de 9 posições, apenas com as peças que estão por
+    cima. Se alguma peça estiver por baixo da outra, ela não estará
+    aqui,se no retorno uma célula estiver vazia, não havia nenhuma 
+    peça nessa posição do tabuleiro completo.
+    */
+
     let boardTop = Array(this.nSlots).fill(null);
 
     for (let slot of this.iterSlots())
@@ -440,6 +470,16 @@ export class GobbletGobblers implements Game {
   }
 
   private decrementStock(piece: GgPiece): void {
+
+    /* Diminui o estoque de um jogador baseado em uma peça passada.
+    exemplo: quando se posiciona uma peça, ele pode ser passada
+    para este método que conseguirá saber de qual jogador e
+    em qual tamanho decrementar o estoque.
+    
+    OBS: funciona, é prático, mas é confuso, pois parece que algo seria
+    feito com a peça... outra abordagem seria melhor)
+    */
+
     this.state.stock[piece.author][piece.size]--;
   }
 
@@ -450,7 +490,8 @@ export class GobbletGobblers implements Game {
   private checkWinner(): Player[] {
     /* 
     Verifica se jogo foi ganho.
-    Pode ser melhorado ao verificar apenas onde foi jogado
+    
+    OBS: Pode ser melhorado ao verificar apenas onde foi jogado
     */
 
     let boardTop = this.getTopPieces();
@@ -465,6 +506,9 @@ export class GobbletGobblers implements Game {
   }
 
   private evaluateState(): void {
+
+    /* Avalia o estado do jogo no dado momento, para verificar
+    se foi ganho ou empatado. */
 
     let winners = this.checkWinner();
     
@@ -483,11 +527,21 @@ export class GobbletGobblers implements Game {
   }
 
   private progressPlayers() {
+
+    /* "Passa a vez" */
+
     this.state.lastPlayer = this.state.currentPlayer;
     this.state.currentPlayer = this.getNextPlayer();
   }
 
   private *iterSizes(reverse: boolean = false): Generator<number> {
+
+    /* Um iterador para iterar através dos tamanhos de peça. Na
+    ordem inversa ou direta, de acordo com a lógica necessária.
+    
+    OBS: Evita repetição de código, melhora legibilidade, e diminui
+    chnace de erro.
+    */
 
     if (reverse)
       for (let size = this.nSizes - 1; size >= 0; size--) 
@@ -499,11 +553,33 @@ export class GobbletGobblers implements Game {
   }
 
   private *iterSlots(): Generator<number> {
+
+    /* Um iterador para iterar através dos slots de nível do
+    tabuleiro */
+
     for (let slot = 0; slot < this.nSlots; slot++) 
       yield slot;
   }
 
+  private getBoardLevel(levelSize: number): GgPiece[] {
+
+    /*
+    Retorna um nível especificado do tabuleiro, identificado pelo
+    seu tamanho (nível do tamanho 0, nível do tamanho 1, nível do 
+    tamanho 2). 
+    */
+
+    let boardLevel = Array(9).fill(null);
+    for (let slot of this.iterSlots())
+      boardLevel[slot] = this.state.board.slots[slot][levelSize];
+
+    return boardLevel;
+  }
+
   private slotsToString(slots: GgPiece[]): string {
+
+    /* Retorna uma string que representa um nível do tabuleiro. */
+
     let table = "";
 
     for (let slot of this.iterSlots()) {
@@ -516,23 +592,24 @@ export class GobbletGobblers implements Game {
     return table + "\n";
   }
 
-  private getBoardLevel(levelSize: number): GgPiece[] {
-    let boardLevel = Array(9).fill(null);
-    for (let slot of this.iterSlots())
-      boardLevel[slot] = this.state.board.slots[slot][levelSize];
-
-    return boardLevel;
-  }
-
   private boardLevelToString(levelSize: number): string {
+
+    /* Retorna uma string que representa um nível do tabuleiro. */
+
     return this.slotsToString(this.getBoardLevel(levelSize));
   }
 
   private topPiecesToString(): string {
+
+    /* Retorna uma string que representa a visão de cima
+    do tabuleiro. */
+
     return this.slotsToString(this.getTopPieces());
   }
 
   private getPieceChar(piece: GgPiece): string {
+
+    /* Retorna um caracter que representa uma peça. */
 
     if (piece == null)
       return PLAYERS_SYMBOLS.get(null);

@@ -1,5 +1,18 @@
 import { Game, Player, Action } from "../shared/Game";
 
+
+/* Esta implementação guarda as informações do tabuleiro
+de jogo da velha num array de 9 posições. Ficando sub
+entendido o mapeamento:
+
+0|1|2
+-----
+3|4|5
+-----
+6|7|8
+
+*/
+
 interface TicTacToePiece {
 
   /* 
@@ -140,6 +153,7 @@ export class TicTacToe implements Game {
   }
 
   public stateToString(): string {
+
     /* Gera uma string que representa o tabuleiro do jogo */
 
     let board = "";

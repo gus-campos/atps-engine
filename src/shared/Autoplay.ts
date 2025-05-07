@@ -129,6 +129,13 @@ export class AutoPlay {
 
   public static playGames(gameNames: GameName[], autoPlayConfig: AutoPlayConfig, mctsConfig: MCTSConfig, id: string=null): void {
 
+    /*
+    Joga automaticamente diversos jogos passados como parâmetro em array,
+    todos com a mesma configuração, e escreve os resultados em arquivos.
+    Um id pode ser passado, para ser acrescentado ao nome do arquivo, 
+    permitindo diferenciar simulações feitas com diferentes configurações.
+    */
+
     for (let gameName of gameNames) {
       
       let autoplay = new AutoPlay(gameName, autoPlayConfig, mctsConfig);
@@ -266,7 +273,6 @@ export class AutoPlay {
       
       // Gerando ação e verificando externamente o empate por falta de ações
       
-
       const action = this.agentAction();
 
       if (action == null) {
