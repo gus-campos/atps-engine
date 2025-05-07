@@ -1,382 +1,354 @@
 
-type Jogador = number;
+import { Peca } from "./Peca";
 
-enum Kokeshi {
-  PRINCESA = 0,
-  BATCHAN = 1,
-  PESCADOR = 2,
-  SAMURAI = 3,
-  SUMOTORI = 4
-}
+import { Jogador, Kokeshi, Animal, Opcoes, Movimento } from "./Types";
+import { TabuleiroAnimais } from "./TabuleiroAnimais";
+import { TabuleiroHabilidades } from "./TabuleiroHabilidades";
 
-enum Animal {
-  PANDA = 0,
-  RAPOSA = 1,
-  GATO = 2,
-  COELHO = 3
-}
+import { 
+  Acao, MoverAnimal, MoverKokeshi, PosicionarPeca, 
+  EspecificarKokeshi, EspecificarAnimal, AcaoMultipla,
+  EspecificarAcaoMultipla, ComprarPeca,
+  EspecificarPosicao
+} from "./Acao"
 
-enum Estagio {
-  ESPECIFICAR_KOKESHI,
-  ESCOLHER_EFEITO,
-  ESPECIFICAR_ANIMAL,
-  ESPECIFICAR_POSICIONAMENTO
-}
+import { 
+  RANDOM_IN_RANGE, 
+  NUMERO_JOGADORES, 
+  PECAS_INICIAIS, 
+  PECAS_OFERTA
+} from "./Globals"
 
-type Pendencia = Efeito|Peca;
+export class JogoKokeshi {
 
-type Acao = 
-  | { tipo: Estagio.ESPECIFICAR_KOKESHI, kokeshi: Kokeshi }
-  | { tipo: Estagio.ESCOLHER_EFEITO, escolha: EscolhaEfeito }
-  | { tipo: Estagio.ESPECIFICAR_ANIMAL, animal: Animal }
-  | { tipo: Estagio.ESPECIFICAR_POSICIONAMENTO, posicionamento: Kokeshi };
-
-// TODO: Inicialização
-// TODO: Escolher posicionar, ou não, reconhecimento
-// TODO: Atingir o limite do tabuleiro só causa reconhecimento se movimento simples
-
-class JogoKokeshi {
-
+  private tabuleiroAnimais: TabuleiroAnimais;
+  private tabuleirosHabilidades: TabuleiroHabilidades[];
+  
+  private acoesPendentes: Acao[][];
   private pecasIniciais: Peca[];
   private ofertaPecas: Peca[];
 
-  private tabuleirosHabilidades: TabuleiroHabilidades[];
-  private tabuleiroAnimais: TabuleiroAnimais;
-
-  private estagio: Estagio;
   private jogadorAtual: Jogador;
   private pontuacao: number[];
-
-  private pendencias: Pendencia[];
-  private pecasReservadas: Peca[];
+  
+  private pecasReservadas: Peca[][];
 
   constructor() { 
 
-    this.pecasIniciais = structuredClone(PECAS_INICIAIS);
-    this.ofertaPecas = [];
-    
-    this.estagio = Estagio.ESPECIFICAR_KOKESHI;
-    this.jogadorAtual = 0;
-
     this.tabuleiroAnimais = new TabuleiroAnimais();
     this.tabuleirosHabilidades = Array.from(Array(NUMERO_JOGADORES), () => new TabuleiroHabilidades());
-    this.pontuacao = Array(NUMERO_JOGADORES).fill(0)
+    this.pecasIniciais = PECAS_INICIAIS.map(peca => peca.clone());
+    this.ofertaPecas = PECAS_OFERTA.map(peca => peca.clone());
 
-    this.pendencias = [];
-    this.pecasReservadas = [];
+    this.pecasReservadas = Array(NUMERO_JOGADORES);
+    this.acoesPendentes = Array(NUMERO_JOGADORES);
+    this.pontuacao = Array(NUMERO_JOGADORES);
+
+    for (let jogador = 0; jogador < NUMERO_JOGADORES; jogador++) {
+
+      this.pecasReservadas[jogador] = [ this.comprarDoInicial(), this.comprarDoInicial() ];
+      this.acoesPendentes[jogador] = [ new PosicionarPeca(), new PosicionarPeca() ];
+      this.pontuacao[jogador] = 0;
+
+    }
+
+    this.jogadorAtual = 0;
   }
 
   public jogarAcao(acao: Acao): void {
 
-    if (acao.tipo != this.estagio)
-      throw new Error("Ação de tipo inválido.");
+    /* Modifica o estado do jogo de acordo com uma
+    ação passada. */
 
-    switch (acao.tipo) {
-  
-      case Estagio.ESPECIFICAR_KOKESHI:
-        this.especificarKokeshi(acao);
-        break;
+    const acoesPendentes = this.acoesPendentes[this.jogadorAtual];
+    const pecasReservadas = this.pecasReservadas[this.jogadorAtual];
 
-      case Estagio.ESCOLHER_EFEITO:
-        this.escolherEfeito(acao);
-        break;
-        
-      case Estagio.ESPECIFICAR_ANIMAL:
-        this.especificarAnimal(acao);
-        break;
-        
-      case Estagio.ESPECIFICAR_POSICIONAMENTO:
-        this.especificarPosicionamento(acao);
-        break;
-    }
+    this.especificarAcao(acao);
+    this.executarEspecificadas();
 
-    this.processarPendencias();
-    this.terminarEstagio();
-  }
+    if (acoesPendentes.length == 0) {
 
-  private terminarEstagio(): void {
+      if (pecasReservadas.length != 0) {
 
-    /* Avalia e muda o estágio de acordo com o estado do jogo, 
-    e se não houver mais nada a ser feito nesse turno, passa o turno
-    pro próximo jogador. */
+        const reservadasIndepenentes = this.removerReservadasIndependentes();
 
-    if (this.pendencias.length == 0) {
-
-      this.posicionarPecasReservadas();
-
-      // this.passarVez(); // Tem que escolher a posição das peças primeiro
-    }
-
-    const proximoEstagio = this.proximoEstagioDoTurno();
-
-    if (proximoEstagio != null) {
-
-      this.estagio = proximoEstagio;
-    }
-    
-    else {
-    
-      this.passarVez();
-      this.estagio == Estagio.ESPECIFICAR_KOKESHI;
-    }
-  }
-
-  private posicionarPecasReservadas() {
-    
-    // Avaliar peças que estão reservadas do lado
-    // Avaliar preseça de conflito
-  }
-
-  private processarPendencias(): void {
-
-    let lidou = true;
-
-    while (lidou || this.pendencias.length != 0) {
-
-      const ultimaPendencia = this.pendencias.at(-1);
-      lidou = this.lidarComPendencia(ultimaPendencia);
+        for (const peca of reservadasIndepenentes) {
       
-      if (lidou)
-        this.pendencias.pop();
-    }
-  }
+          acoesPendentes.push(new PosicionarPeca(peca.getPosicao()));
+          pecasReservadas.push(peca);
+        }
 
-  private especificarKokeshi(acao: Acao) {
-
-    if (acao.tipo != Estagio.ESPECIFICAR_KOKESHI)
-      throw new Error("Esperada ação de estágio ESPECIFICAR_KOKESHI.");
-
-    let peca;
-
-    if (this.pendencias.length == 0) {
-      
-      peca = this.moverKokeshi(acao.kokeshi);
-    } 
-    
-    else {
-      
-      const efeito = this.pendencias.pop() as EfeitoMoverKokeshi;
-      efeito.especificar(acao.kokeshi);
-      peca = this.ativarEfeito(efeito);
-    }
-
-    this.pendencias.push(peca);
-  }
-
-  private escolherEfeito(acao: Acao) {
-
-    if (acao.tipo != Estagio.ESCOLHER_EFEITO)
-      throw new Error("Esperada ação de estágio ESCOLHER_EFEITO.");
-
-    const peca = this.pendencias.pop() as Peca;
-    const efeito = peca.getEfeito(acao.escolha);
-    
-    this.pendencias.push(efeito);
-  }
-
-  private especificarAnimal(acao: Acao) {
-
-    if (acao.tipo != Estagio.ESPECIFICAR_ANIMAL)
-      throw new Error("Esperada ação de estágio ESPECIFICAR_ANIMAL.");
-
-    const efeito = this.pendencias.pop() as EfeitoMoverAnimal;
-    efeito.especificar(acao.animal);
-    this.ativarEfeito(efeito);
-  }
-
-  private especificarPosicionamento(acao: Acao) {
-   
-    if (acao.tipo != Estagio.ESPECIFICAR_POSICIONAMENTO)
-      throw new Error("Esperada ação de estágio ESPECIFICAR_POSICIONAMENTO.");
-   
-    const efeito = this.pendencias.pop() as EfeitoAdicionarPeca;
-    this.ativarEfeito(efeito);
-  }
-    
-  private proximoEstagioDoTurno(): Estagio|null {
-
-    /* A partir de uma avaliação do estado, retorna o próximo estágio
-    que o turno deve assumir. */
-
-    // TODO: Considerar peças a serem incluídas!!!
-
-    if (this.pendencias.length == 0) {
-
-      if (this.pecasReservadas.length == 0) {
-
-        return null;
+        this.executarEspecificadas();
       }
-    }
 
-    const ultimaPendencia = this.pendencias.at(-1);
-      
-    if (ultimaPendencia instanceof Peca) {
-
-      return Estagio.ESCOLHER_EFEITO;
-    }
-
-    else if (ultimaPendencia instanceof Efeito) {
-
-      const efeito = ultimaPendencia as Efeito;
-
-      return (
-        
-        efeito instanceof EfeitoMoverAnimal 
-          ? Estagio.ESPECIFICAR_ANIMAL 
-          : Estagio.ESPECIFICAR_KOKESHI
-      );
+      this.finalizarTurno();
     }
   }
 
-  private passarVez() {
+  private removerReservadasIndependentes(): Peca[] {
 
-    /* Muda o jogador atual como sendo o próximo jogador */
+    /* Retorna as peças que não são afetadas pela ordem
+    de posicionamento. 
+    
+    Casos:
+
+      // FIXME: Peça geral sempre exige intervenção
+
+      1. Alguma peça geral com alguma peça nas trilhas: 
+      a peça geral pode ser colocada na mesma trilha
+      da peça específica, em ordens diferentes.
+
+      2. Mais de uma peça geral: Podem ser colocadas numa 
+      mesma trilha em ordens diferentes.
+
+      3. Nenhuma peça geral, uma peça na trilha: tem
+      posicionamento único.
+      
+      4. Nenhuma peça geral, mais de uma peça na trilha:
+      podem ser colocadas em ordens diferentes.
+
+    */ 
+
+    let pecasReservadas = this.pecasReservadas[this.jogadorAtual];
+    
+    const pecasDasTrilhas: Peca[][] = Array.from(
+      Array(TabuleiroHabilidades.tamanho), 
+      (): Peca[] => []
+    );
+    
+    for (const peca of pecasReservadas) {
+
+      const posicao = peca.getPosicao();
+
+      // Se alguma geral, encerrar busca
+      if (posicao == null)
+        return [];
+        
+      pecasDasTrilhas[posicao].push(peca);
+    }
+
+    const qtdPorTrilha = pecasDasTrilhas.map(trilhas => trilhas.length);
+
+    const removeReserva = (peca: Peca) => {
+
+      /* Remove uma peca específica do array de reserva */
+
+      const index = pecasReservadas.indexOf(peca);
+
+      if (index == -1)
+        throw new Error("Item não encontrado.");
+
+      this.pecasReservadas[this.jogadorAtual].splice(index);
+    }
+
+    const pecasLivres = [];
+
+    for (let i = 0; i < pecasDasTrilhas.length; i++) {
+      
+      if (qtdPorTrilha[i] == 1) {
+
+        const peca = pecasDasTrilhas[i][0];
+
+        pecasLivres.push(peca);
+        removeReserva(peca);
+      } 
+    }
+
+    return pecasLivres;
+  }
+
+  private executarEspecificadas(): void {
+
+    /* Executa ações da fila enquanto elas já estiverem especificadas. */
+
+    while (
+      this.acoesPendentes[this.jogadorAtual].length != 0 &&
+      this.acoesPendentes[this.jogadorAtual].at(-1).especificada() 
+    ) {
+      this.executarUltimaAcao();
+    }
+  }
+
+  private finalizarTurno() {
+
+    /* Muda o jogador atual como sendo o próximo jogador e
+    faz a inicialização do turno. */
 
     this.jogadorAtual = this.proximoJogador();
+
+    if (this.acoesPendentes[this.jogadorAtual].length == 0)
+      this.acoesPendentes[this.jogadorAtual] = [ new MoverKokeshi(Opcoes.TODAS) ];
   }
 
   private proximoJogador(): Jogador {
 
-    return (this.jogadorAtual + 1) % 2;
+    /* Calcula próximo jogador. */
+
+    return (this.jogadorAtual + 1) % NUMERO_JOGADORES;
   }
 
-  private lidarComPendencia(pendencia: Pendencia): boolean  {
+  // =============================================================================
+  
+  private executarUltimaAcao(): Peca|null {
 
-    /* Lida com uma pendência, retorna se foi possível lidar. */
+    /* Executa a última ação pendente, que já deve estar especificada. */
 
-    if (pendencia instanceof Peca)
-      return this.lidarComPendenciaPeca(pendencia as Peca);
+    let acoes = this.acoesPendentes[this.jogadorAtual];
+
+    if (acoes.at(-1) == null)
+      throw new Error("Ação deve estar especificada antes de ser executada.");
+
+    const acao = acoes.pop();
+
+    if (acao instanceof MoverKokeshi)
+      this.executarMoverKokeshi(acao);
+
+    else if (acao instanceof AcaoMultipla)
+      this.executarAcaoMultipla(acao);
+
+    else if (acao instanceof MoverAnimal)
+      this.moverAnimal(acao.getAnimal());
+
+    else if (acao instanceof PosicionarPeca)
+      this.executarPosicionarPeca(acao);
+
+    else if (acao instanceof ComprarPeca)
+      this.executarComprarPeca(acao);
+
+    else
+      throw new Error("Nenhuma ação executada.");
+  
+    return null;
+  }
+  
+  private executarMoverKokeshi(acao: MoverKokeshi): void {
+
+    /* OBS: Movimento RETORNO não retorna peça, retorna nulo. */
+
+    const peca = this.moverKokeshi(acao.getKokeshi(), acao.getMovimento());
+
+    if (peca != null)
+      this.acoesPendentes[this.jogadorAtual].push(peca.getAcao());
+  }
+
+  private executarAcaoMultipla(acao: AcaoMultipla): void {
+
+    if (!acao.especificada())
+      throw new Error("Para ser executada a ação múltipla precisa estar especificada (deve ser dupla).");
+
+    this.acoesPendentes[this.jogadorAtual].push(...acao.getAcoes());
+  }
+
+  private executarPosicionarPeca(acao: PosicionarPeca): void {
     
-    if (pendencia instanceof Efeito)
-      return this.lidarComPendenciaEfeito(pendencia as Efeito);
-  }
-
-  private lidarComPendenciaPeca(peca: Peca): boolean {
-
-    /* Lida com uma pendencia do tipo Peça. Primeiro avalia se
-    a peça já está definida quanto a seus efeitos, ou seja, se não 
-    precisa passar por escolha. Se positivo, ediciona os efeitos 
-    dessa peça como pendências. Ainda retorna se teve sucesso ou
-    não em lidar com tal pendência. */
-        
-    if (peca.definida()) {
-
-      this.pendencias.pop();
-      
-      for (let efeito of peca.getEfeitos())
-        if (efeito != null)
-          this.pendencias.push(efeito); // Conta que em caso de dupla efeito kokeshi é o primeiro
-
-      return true;
-    }
-
-    return false;
-  }
-
-  private lidarComPendenciaEfeito(efeito: Efeito) {
-
-    /* Lida com uma pendencia do tipo Efeito. Ou seja, se o efeito 
-    já estiver especificado (não precisando de intervenção), ele é 
-    ativado. Ainda retorna se foi possível lidar com a pendência. */
-        
-    if (efeito.especificado()) {
-
-      this.ativarEfeito(efeito);
-      return true;
-    }
-
-    return false;
-  }
-
-  private ativarEfeito(efeito: Efeito): Peca|null {
-
-    /* Ativa um efeito que já esteja especificado, de acordo
-    com seu tipo. */
-
-    if (!efeito.especificado())
-      throw new Error("Um efeito deve estar decidido antes de ser executado.");
-
-    if (efeito instanceof EfeitoAdicionarPeca) {
-      
-      const peca = this.comprarDaOferta();
-      
-      if (efeito.especificado())
-        peca.associarPosicao(efeito.getPosicionamento());
+    const pecasReservadas = this.pecasReservadas[this.jogadorAtual];
     
-      this.pecasReservadas.push(peca);
+    if (pecasReservadas.at(-1) == null)
+      throw new Error("Não pode adicionar peça nula.");
 
-      return null;
-    }
-
-    if (efeito instanceof EfeitoMoverAnimal) {
-      this.moverAnimal(efeito);
-      return null;
-    }
-
-    if (efeito instanceof EfeitoMoverKokeshi) {
-      return this.moverKokeshi(efeito);
-    }
+    const peca = pecasReservadas.pop();
+    this.posicionarPeca(peca, acao.getPosicao());
   }
 
-  private posicionarPeca(peca: Peca): void {
+  private executarComprarPeca(acao: ComprarPeca): void {
+
+    const peca = this.comprarDaOferta();
+
+    const posicionamento = acao.getPosicao();
+    if (posicionamento != null)
+      peca.associarPosicao(posicionamento);
+
+    this.pecasReservadas[this.jogadorAtual].push(peca);
+  }
+
+  // =============================================================================
+
+  private especificarAcao(especificacao: Acao): void {
+
+    /* Especifica a última ação pendente baseada em uma ação 
+    de especificação. */ 
+
+    const acoes = this.acoesPendentes[this.jogadorAtual];
+    const acaoPendente = acoes.at(-1);
+    const acaoEspecificada = this.acaoEspecificada(acaoPendente, especificacao);
+
+    if (acaoPendente == null)
+      throw new Error("Nenhuma ação pendente.");
+    
+    if (acaoPendente.especificada())
+      throw new Error("Ação não deve estar especificada para ser especificada.");
+    
+    if (acaoEspecificada == null)
+      throw new Error("Especificação inválida.");
+    
+    acoes[acoes.length - 1] = acaoEspecificada;
+  }
+
+  private acaoEspecificada(acao: Acao, especificacao: Acao): Acao|null {
+
+    /* Retorna uma ação especificada, baseada em uma ação de especifição
+    passada. */
+
+    if (acao instanceof MoverKokeshi && especificacao instanceof EspecificarKokeshi)
+      return acao.especificar(especificacao.getKokeshi());
+  
+    if (acao instanceof PosicionarPeca && especificacao instanceof EspecificarPosicao)
+      return acao.especificar(especificacao.getPosicao());
+  
+    if (acao instanceof MoverAnimal && especificacao instanceof EspecificarAnimal)
+      return acao.especificar(especificacao.getAnimal());
+  
+    if (acao instanceof AcaoMultipla && especificacao instanceof EspecificarAcaoMultipla)
+      return acao.escolherAcao(especificacao.getEscolha());
+
+    if (acao instanceof AcaoMultipla && especificacao instanceof EspecificarAcaoMultipla)
+      return acao.escolherAcao(especificacao.getEscolha()); 
+  
+    return null;
+  }
+
+  // =============================================================================
+
+  private posicionarPeca(peca: Peca, posicao: Kokeshi): void {
 
     /* Posiciona uma peça, que já tenha uma posição associada,
     no tabuleiro de habilidade do jogador atual. */
 
     const tabuleiro = this.tabuleirosHabilidades[this.jogadorAtual];
-    tabuleiro.posicionar(peca, peca.getPosicao());
-
-    return null;
+    tabuleiro.adicionar(peca, posicao);
   }
 
-  private moverAnimal(efeito: EfeitoMoverAnimal): void {
+  private moverAnimal(animal: Animal): void {
 
-    /* Avança a ficha do jogador na fileira de um animal, no
-    tabuleiro de animais. */
+    /* Avança a ficha do jogador atual no tabuleiro de animais,
+    na trilha passada por parâmetro. */
 
-    this.tabuleiroAnimais.avancar(efeito.getAnimal(), this.jogadorAtual);
-
-    return null;
+    this.tabuleiroAnimais.avancar(animal, this.jogadorAtual);
   }
 
-  private moverKokeshi(param1: EfeitoMoverKokeshi|Kokeshi): Peca {
+  private moverKokeshi(kokeshi: Kokeshi, movimento: Movimento = Movimento.SIMPLES): Peca {
 
-    /* Executa um movimento sobre uma kokeshi. Se for passado uma Kokeshi,
-    executa um avanço simples, se for passado um efeito, executa um movimento
-    de acordo */
-
-    // BUG: Movimento direto não pode dar algum problema?
+    /* Executa um movimento sobre uma kokeshi do jogador atual. */
 
     const tabuleiroJogador = this.tabuleirosHabilidades[this.jogadorAtual];
-    
-    if (param1 instanceof EfeitoMoverKokeshi) {
-
-      const efeito = param1 as EfeitoMoverKokeshi;
-      return tabuleiroJogador.moverKokeshi(efeito.getKokeshi(), efeito.getMovimento());
-    }
-
-    else {
-
-      const kokeshi = param1 as Kokeshi;
-      return tabuleiroJogador.moverKokeshi(kokeshi, Movimento.SIMPLES);
-    }
+    return tabuleiroJogador.moverKokeshi(kokeshi, movimento);
   }
 
   private comprarDaOferta(): Peca {
 
     /* Remove e retorna uma peça alatória do estoque de oferta. */
 
-    return this.pegarPeca(this.ofertaPecas);
+    return this.removerPeca(this.ofertaPecas);
   }
 
   private comprarDoInicial(): Peca {
 
     /* Remove e retorna uma peça aleatória do estoque inicial. */
-
-    return this.pegarPeca(this.pecasIniciais);
+  
+    return this.removerPeca(this.pecasIniciais);
   }
 
-  private pegarPeca(estoque: Peca[]): Peca {
+  private removerPeca(estoque: Peca[]): Peca {
 
     /* Tira uma peça aleatória de um array e a retorna. */
 
@@ -384,6 +356,28 @@ class JogoKokeshi {
       throw new Error("Não é possível pegar peça de estoque vazio.");
 
     const index = RANDOM_IN_RANGE(estoque.length);
+
     return estoque[index];
+  }
+
+  public toString(): String {
+
+    /* Retorna a string que representa o objeto. */
+
+    // TODO: Mostrar peças colocáveis não independentes no toString
+
+    let string = "";
+    const tracos = 73;
+
+    string += "=".repeat(tracos);
+
+    string += "\n\n" + this.tabuleiroAnimais.toString() + "\n\n";
+
+    for (let tabuleiro of this.tabuleirosHabilidades)
+      string += tabuleiro.toString() + "\n";
+    
+    string += "=".repeat(tracos);
+
+    return string;
   }
 }

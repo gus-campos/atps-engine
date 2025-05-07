@@ -1,87 +1,37 @@
 
-type DuplaEfeitos = [Efeito|null, Efeito|null];
+import { Kokeshi, Opcoes, Movimento } from "./Types";
+import { Acao, MoverKokeshi, ComprarPeca, AcaoMultipla } from "./Acao";
 
-enum TipoPeca {
-  UNICA,    // só um efeito possível
-  DUPLA,    // dois efeitos simultâneos 
-  ESCOLHA,  // dois efeitos possíveis a se escolher
-  NULA      // casa vazia
-}
-
-enum EscolhaEfeito {
-  PRIMEIRO,
-  SEGUNDO,
-  AMBOS
-}
-
-class Peca {
+export class Peca {
 
   /* Peças do tabuleiro que possuem cor, efeitos, posicao, e um tipo */
 
   private cor: Kokeshi;
-  private tipo: TipoPeca;
-  private efeitos: [Efeito, Efeito];
+  private acao: Acao;
   private posicao: Kokeshi|null;
 
-  constructor(tipo: TipoPeca, cor: Kokeshi, efeitos: DuplaEfeitos=[null,null]) {
-    
-    if (!Peca.pecaValida(tipo, efeitos))
-      throw new Error("Tipo inválido para tais efeitos.");
-    
-    this.cor = cor;
-    this.tipo = tipo;
-    this.efeitos = efeitos;
-  }
+  constructor(cor: Kokeshi, acao: Acao) {
   
-  public static criarPecaNula(posicionamento: Kokeshi): Peca {
-
-    /* Cria uma peça nula para dado posicionamento no tabuleiro. */
-
-    const efeitoRetorno = new EfeitoMoverKokeshi(Opcoes.UNICA, posicionamento, Movimento.RETORNO);
-    const efeitoCompra = new EfeitoAdicionarPeca(Opcoes.UNICA, posicionamento);
-    const efeitos: DuplaEfeitos = [efeitoRetorno, efeitoCompra];
-
-    return new Peca(TipoPeca.NULA, null, efeitos);
-  }
-
-  private static pecaValida(tipo: TipoPeca, efeitos: DuplaEfeitos): boolean {
-    
-    /* É valido se possui quantidade correta de efeitos de acordo com o tipo,
-    se for dupla, não pode ter efeito de mover kokeshi na segunda posição */ 
-
-    const possuiPrimeiro = efeitos[0] != null;
-    const possuiSegundo = efeitos[1] != null;
-    
-    const tiposComDoisEfeitos = [TipoPeca.DUPLA, TipoPeca.ESCOLHA, TipoPeca.NULA];
-    
-    if (tipo == TipoPeca.UNICA) 
-      return possuiPrimeiro && !possuiSegundo;
-    
-    if (tiposComDoisEfeitos.includes(tipo)) {
-
-      if (tipo == TipoPeca.DUPLA && (efeitos[1] instanceof EfeitoMoverKokeshi))
-        return false;
-
-      return possuiPrimeiro && possuiSegundo;
-    }
-
-    return false;
+    this.cor = cor;
+    this.acao = acao;
+    this.posicao = null;
   }
 
   public associarPosicao(posicao: Kokeshi): void {
+
+    /* Associa uma posição à peça. Além de guardar a informação
+    de onde a peça está posicionada, também pode guardar a
+    informação de onde uma peça SERÁ posicionada. */
+
+    if (posicao == null)
+      throw new Error("Não pode associar posição nula.");
+
     this.posicao = posicao;
   }
 
-  public getEfeito(escolha: EscolhaEfeito): Efeito {
+  public getAcao(): Acao {
     
-    if (escolha == EscolhaEfeito.AMBOS)
-      throw new Error("Para AMBOS, usar 'getEfeitos'");
-
-    if (escolha == EscolhaEfeito.PRIMEIRO)
-      return this.efeitos[0];
-
-    if (escolha == EscolhaEfeito.SEGUNDO)
-      return this.efeitos[1]; 
+    return this.acao;
   }
 
   public posicaoAssociada(): boolean {
@@ -89,20 +39,44 @@ class Peca {
     return this.posicao != null;
   }
 
-  public definida() {
-    return this.tipo != TipoPeca.ESCOLHA;
-  }
-
-  public getTipo(): TipoPeca {
-    return this.tipo;
-  }
-
-  public getEfeitos(): DuplaEfeitos {
-    return this.efeitos;
-  }
-
   public getPosicao(): Kokeshi {
 
     return this.posicao;
+  }
+
+  public clone() {
+
+    /* Cria uma cópia por valor */
+
+    // FIXME: Ação é copiada por referência!
+    // Não tem problema se nunca for modificada diretamente...
+
+    const peca = new Peca(this.cor, this.acao);
+
+    if (this.posicao != null)
+      peca.associarPosicao(this.posicao);
+
+    return peca;
+  }
+
+  public toString() {
+
+    /* Retorna a string que representa o objeto. */
+
+    return this.acao.toString();
+  }
+}
+
+export class PecaNula extends Peca {
+
+  constructor(posicionamento: Kokeshi) {
+
+    const acaoRetorno = new MoverKokeshi(Opcoes.UNICA, posicionamento, Movimento.RETORNO);
+    const acaoCompra = new ComprarPeca(Opcoes.UNICA, posicionamento);
+    const acaoDupla = new AcaoMultipla(acaoRetorno, acaoCompra, true);
+    
+    const cor = posicionamento;
+
+    super(cor, acaoDupla);
   }
 }
