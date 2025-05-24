@@ -1,6 +1,5 @@
 import { Game, Player, Action } from "../shared/Game";
 
-
 /* Esta implementação guarda as informações do tabuleiro
 de jogo da velha num array de 9 posições. Ficando sub
 entendido o mapeamento:
@@ -14,7 +13,6 @@ entendido o mapeamento:
 */
 
 interface TicTacToePiece {
-
   /* 
   Peça do jogo da velha 
   (isso foi bem exagerado pra ser honesto) 
@@ -24,7 +22,6 @@ interface TicTacToePiece {
 }
 
 export interface TicTacToeBoard {
-
   /* 
   Tabuleiro do jogo da velha, como um array de 9 slots,
   cada slot podendo ter uma peça, ou não.
@@ -34,7 +31,6 @@ export interface TicTacToeBoard {
 }
 
 interface TicTacToeState {
-
   /* Um estado jogo da velha.
   (o ideal era que essas propriedades estivessem diretamente 
   nas propriedaes do jogo, e não encapsuladas dentro de um 
@@ -49,7 +45,6 @@ interface TicTacToeState {
 }
 
 export interface TicTacToeAction extends Action {
-
   /* Especificação do formato da ação para o jogo da velha. */
 
   slot: number;
@@ -57,7 +52,6 @@ export interface TicTacToeAction extends Action {
 }
 
 const rows: number[][] = [
-
   /* 
   Todas as possíveis sequências no tabuleiro, 
   que quando completas, ganham o jogo.
@@ -86,16 +80,14 @@ PLAYERS_SYMBOLS.set(0, "X");
 PLAYERS_SYMBOLS.set(1, "O");
 PLAYERS_SYMBOLS.set(null, ".");
 
-
 export class TicTacToe implements Game {
-
- // Estas 2 poderiam ser propriedades estáticas
-  private shape: number[];          // [num de linhas, num de colunas]
+  // Estas 2 poderiam ser propriedades estáticas
+  private shape: number[]; // [num de linhas, num de colunas]
   private numberOfPlayers: number;
 
   // Estado encapsulado do jogo
   private state: TicTacToeState;
-  
+
   constructor() {
     this.shape = [3, 3];
     this.numberOfPlayers = 2;
@@ -111,18 +103,15 @@ export class TicTacToe implements Game {
   }
 
   public getValidActions(): TicTacToeAction[] {
-    
     /* "Se slot vazio, é uma ação válida jogar nele" */
-    
-    if (this.state.terminated) 
-      return [];
+
+    if (this.state.terminated) return [];
 
     let actions = [];
     let slots = this.state.board.slots;
 
     for (let i = 0; i < slots.length; i++) {
       if (slots[i] == null) {
-
         let action: TicTacToeAction = {
           slot: i,
           piece: { author: this.state.currentPlayer },
@@ -135,8 +124,10 @@ export class TicTacToe implements Game {
     return actions;
   }
 
-  public playAction(action: TicTacToeAction, autoPlayMode: boolean=false): void {
-  
+  public playAction(
+    action: TicTacToeAction,
+    autoPlayMode: boolean = false
+  ): void {
     // Asserting
     if (this.state.board.slots[action.slot] != null)
       throw new Error("Invalid action");
@@ -153,16 +144,14 @@ export class TicTacToe implements Game {
   }
 
   public stateToString(): string {
-
     /* Gera uma string que representa o tabuleiro do jogo */
 
     let board = "";
 
     for (let i = 0; i < this.shape[0]; i++) {
-
       for (let j = 0; j < this.shape[1]; j++)
         board += this.getPieceChar(this.state.board.slots[3 * i + j]) + " ";
-      
+
       board += "\n";
     }
 
@@ -202,18 +191,17 @@ export class TicTacToe implements Game {
   // Private
 
   public getInitialState(): TicTacToeState {
-
     /* Gera o estado inicial: tabuleiro 3x3 vazio,
     com jogador 0 começando. */
 
     let board: TicTacToeBoard = {
-      slots: Array.from(Array(9), ():null => null),
+      slots: Array.from(Array(9), (): null => null),
     };
 
     let state: TicTacToeState = {
       board: board,
-      currentPlayer: 0,   // Começa com o 0 (o X)
-      lastPlayer: 1,      // Não é verdade que o jogador 1 acabou de jogar, mas funciona
+      currentPlayer: 0, // Começa com o 0 (o X)
+      lastPlayer: 1, // Não é verdade que o jogador 1 acabou de jogar, mas funciona
       terminated: false,
       winner: null,
     };
@@ -222,7 +210,6 @@ export class TicTacToe implements Game {
   }
 
   private checkWin(): boolean {
-
     /* 
     Verifica se jogo foi ganho.
     (Pode ser melhorado ao verificar apenas onde foi jogado, 
@@ -241,8 +228,7 @@ export class TicTacToe implements Game {
     return false;
   }
 
-  private evaluateState(autoPlayMode: boolean=false) {
-
+  private evaluateState(autoPlayMode: boolean = false) {
     /* 
     Faz verificaçãoes de fim de turno, checando se
     o jogo foi ganho ou empatado, atualiando o estado
@@ -257,32 +243,27 @@ export class TicTacToe implements Game {
     }
 
     // Empate
-    
     else if (this.gameDraw(autoPlayMode)) {
       this.state.terminated = true;
       this.state.winner = null;
     }
   }
 
-  private gameDraw(autoPlayMode: boolean=false): boolean {
-
+  private gameDraw(autoPlayMode: boolean = false): boolean {
     /* Verifica se jogo empatou */
 
-    if (autoPlayMode)
-      return false
+    if (autoPlayMode) return false;
 
     return this.getValidActions().length == 0;
   }
 
   private getNextPlayer(skipPlayers: number = 0): Player {
-
     /* Retorna o jogador que jogará em seguida. */
-    
+
     return (this.state.currentPlayer + 1 + skipPlayers) % this.numberOfPlayers;
   }
 
-  private playerSymbol(player: Player|null): string {
-
+  private playerSymbol(player: Player | null): string {
     /* Retorna o símbolo legíel d eum jogador,
     de acordo com o mapeamento. */
 
@@ -290,17 +271,14 @@ export class TicTacToe implements Game {
   }
 
   private getPieceChar(piece: TicTacToePiece | null): string {
-    
     /* Retorna o caracter correspondente de uma peça. */
 
-    if (piece == null) 
-      return this.playerSymbol(null);
+    if (piece == null) return this.playerSymbol(null);
 
     return this.playerSymbol(piece.author);
   }
 
   public forceDraw(): void {
-
     this.state.terminated = true;
     this.state.winner = null;
   }

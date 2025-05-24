@@ -18,9 +18,7 @@ fazendo sombra sobre a peça de tamanho 1, que está
 no nível 1 do tabuleiro.
 */
 
-
 enum Size {
-
   /* Possíveis tamanhos de peças */
 
   S = 0,
@@ -29,7 +27,6 @@ enum Size {
 }
 
 interface GgPiece {
-
   /* Representa uma peça do jogo. */
 
   author: Player;
@@ -41,7 +38,6 @@ interface GgBoard {
 }
 
 interface GgState {
-
   /* 
   Representa um estado do jogo (deveria ter 
   essas propriedades diretamente 
@@ -104,9 +100,7 @@ SYMBOLS_PLAYERS.set("A", 0);
 SYMBOLS_PLAYERS.set("B", 1);
 SYMBOLS_PLAYERS.set(".", null);
 
-
 export class GobbletGobblers implements Game {
-
   // Estas 4 poderiam ser propriedades estáticas
   private numberOfPlayers: number;
   private nSlots: number;
@@ -115,14 +109,13 @@ export class GobbletGobblers implements Game {
 
   // Estado encapsulado do jogo
   private state: GgState;
-  
-  constructor() {
 
+  constructor() {
     this.numberOfPlayers = 2;
     this.nSlots = 9;
     this.nSizes = 3;
-    this.boardShape = new Coord(3,3);
-    
+    this.boardShape = new Coord(3, 3);
+
     this.state = this.getInitialState();
   }
 
@@ -134,8 +127,11 @@ export class GobbletGobblers implements Game {
     return newGame;
   }
 
-  public setState(boardDraw: string[][][], stock: number[]=null, players: Player[]=null) {
-
+  public setState(
+    boardDraw: string[][][],
+    stock: number[] = null,
+    players: Player[] = null
+  ) {
     /* 
     Modifica o estado do jogo a partir de definições externas.
     Usado exclusivamente para facilitar testagem. Ver testes para
@@ -148,10 +144,12 @@ export class GobbletGobblers implements Game {
     if (players != null && players.length != 2)
       throw new Error("players has wrong dimensions");
 
-    if (boardDraw.length != 3 
-        || boardDraw.some(level => level.length != 3 
-        || level.some(row => row.length != 3))
+    if (
+      boardDraw.length != 3 ||
+      boardDraw.some(
+        (level) => level.length != 3 || level.some((row) => row.length != 3)
       )
+    )
       throw new Error("boardDraw has wrong dimensions");
 
     // Slots
@@ -160,12 +158,12 @@ export class GobbletGobblers implements Game {
 
     for (let slot of this.iterSlots()) {
       for (let size of this.iterSizes()) {
-
         const i = Math.floor(slot / this.boardShape.y);
         const j = slot % this.boardShape.y;
 
         const player = SYMBOLS_PLAYERS.get(boardDraw[size][i][j]);
-        const piece: GgPiece|null = player != null ? { author: player, size: size } : null;
+        const piece: GgPiece | null =
+          player != null ? { author: player, size: size } : null;
 
         slots[slot][size] = piece;
       }
@@ -174,8 +172,11 @@ export class GobbletGobblers implements Game {
     // Stock
 
     if (stock != null)
-      this.state.stock = [[stock[0],stock[1],stock[2]],[stock[3],stock[4],stock[5]]]
-    
+      this.state.stock = [
+        [stock[0], stock[1], stock[2]],
+        [stock[3], stock[4], stock[5]],
+      ];
+
     // Players
 
     if (players != null) {
@@ -186,18 +187,16 @@ export class GobbletGobblers implements Game {
     this.evaluateState();
   }
 
-  public playAction(action: GgAction, autoPlayMode: boolean=false): void {
-
+  public playAction(action: GgAction, autoPlayMode: boolean = false): void {
     // Ver testes para compreender formato da ação.
 
     // Pode dividir em dois métodos privados: playPositioningAction e playMovingAction.
 
     let pieceToPlace;
-    const topPieceAt = this.getTopPieceAt(action.slot); 
+    const topPieceAt = this.getTopPieceAt(action.slot);
 
     // Ação de colocar peça
     if (action.movedFrom == null) {
-
       pieceToPlace = action.piece;
 
       if (pieceToPlace.author != this.state.currentPlayer)
@@ -207,13 +206,12 @@ export class GobbletGobblers implements Game {
         throw new Error("Invalid piece placement");
 
       this.decrementStock(action.piece);
-    } 
-    
+    }
+
     // Ação de mudar uma peça do tabuleiro
     else {
-
       pieceToPlace = this.getTopPieceAt(action.movedFrom);
-      
+
       if (pieceToPlace == null)
         throw new Error("No piece in this slot to move");
 
@@ -238,9 +236,7 @@ export class GobbletGobblers implements Game {
   }
 
   public getValidActions(): GgAction[] {
-
-    if (this.state.terminated)
-      return [];
+    if (this.state.terminated) return [];
 
     let placeActions = this.getValidPlaceActions();
     let moveActions = this.getValidMoveActions();
@@ -271,17 +267,15 @@ export class GobbletGobblers implements Game {
     }
 
     let stock = "";
-    for (let player=0; player<2; player++) {
+    for (let player = 0; player < 2; player++) {
+      const playerSymbol = PLAYERS_SYMBOLS.get(player)[2];
 
-      const playerSymbol =  PLAYERS_SYMBOLS.get(player)[2];
-
-      for (let size=0; size<3; size++) {
+      for (let size = 0; size < 3; size++) {
         stock += `${playerSymbol}${size} - ${this.state.stock[player][size]} | `;
       }
 
       stock += "\n";
     }
-
 
     const lastPlayer = PLAYERS_SYMBOLS.get(this.state.lastPlayer)[2];
     const currentPlayer = PLAYERS_SYMBOLS.get(this.state.currentPlayer)[2];
@@ -319,13 +313,12 @@ export class GobbletGobblers implements Game {
   // Private
 
   private getInitialState(): GgState {
-
     /* Gera o estado inicial: tabuleiro 3x3x3 vazio,
     com jogador 0 começando e com cada jogador tendo
     2 peças de cada tipo no estoque. */
 
     let slots = Array.from(Array(this.nSlots), () =>
-      Array.from(Array(this.nSizes), ():null => null)
+      Array.from(Array(this.nSizes), (): null => null)
     );
 
     return {
@@ -338,12 +331,11 @@ export class GobbletGobblers implements Game {
       lastPlayer: 1,
       terminated: false,
       winner: null,
-      turns: 0
+      turns: 0,
     };
   }
 
   private getValidPlaceActions(): GgAction[] {
-
     /* Obtem ações possíveis de posicionamento de peças */
 
     let actions = [];
@@ -354,7 +346,6 @@ export class GobbletGobblers implements Game {
         for (let slot of this.iterSlots()) {
           // Se o tamanho da peça for maior que o tamanho da maior peça do slot
           if (topPieces[slot] == null || size > topPieces[slot].size) {
-            
             let action: GgAction = {
               slot: slot,
               movedFrom: null,
@@ -374,23 +365,21 @@ export class GobbletGobblers implements Game {
   }
 
   private getValidMoveActions(): GgAction[] {
-
     /* Obtem ações possíveis de mudar peças de posição */
 
     let actions = [];
     let topPieces = this.getTopPieces();
-    
-    for (let fromSlot of this.iterSlots()) {
-      
-      const pieceToBeMoved = topPieces[fromSlot];
-      
-      if (!this.isMovablePiece(pieceToBeMoved))
-        continue;
 
+    for (let fromSlot of this.iterSlots()) {
+      const pieceToBeMoved = topPieces[fromSlot];
+
+      if (!this.isMovablePiece(pieceToBeMoved)) continue;
 
       for (let toSlot of this.iterSlots()) {
-
-        if (toSlot == fromSlot || !this.canGobble(pieceToBeMoved, topPieces[toSlot])) 
+        if (
+          toSlot == fromSlot ||
+          !this.canGobble(pieceToBeMoved, topPieces[toSlot])
+        )
           continue;
 
         const action: GgAction = {
@@ -407,7 +396,6 @@ export class GobbletGobblers implements Game {
   }
 
   private isMovablePiece(piece: GgPiece): boolean {
-
     /*
     Retorna se uma peça é movível. Para isso deve existir
     e ser do jogador atual.
@@ -417,43 +405,37 @@ export class GobbletGobblers implements Game {
   }
 
   private canGobble(pieceToPlace: GgPiece, placedPiece: GgPiece) {
-
     /* 
-    Verifica se uma peça pode sobrepor a outra (
-    ser coloca no num nível superior a mesma)
+    Verifica se uma peça pode sobrepor a outra 
+    (ser coloca no num nível superior a outra)
     */
 
     return placedPiece == null || pieceToPlace.size > placedPiece.size;
   }
 
-  private setPiece(slot: number, piece: GgPiece|null): void {
-
+  private setPiece(slot: number, piece: GgPiece | null): void {
     /*
     Atribui uma peça a uma posição.
     */
 
     const size = piece != null ? piece.size : this.getTopPieceAt(slot).size;
-    
+
     this.state.board.slots[slot][size] = piece;
   }
 
   private getTopPieceAt(slot: number): GgPiece {
-
     /* Obtem a maior peça em um slot do tabuleiro. */
 
     for (let size of this.iterSizes(true)) {
-
       const piece = this.state.board.slots[slot][size];
-      
-      if (piece != null)
-        return piece;
+
+      if (piece != null) return piece;
     }
 
     return null;
   }
 
   private getTopPieces(): GgPiece[] {
-
     /* 
     Obtêm um array de 9 posições, apenas com as peças que estão por
     cima. Se alguma peça estiver por baixo da outra, ela não estará
@@ -470,7 +452,6 @@ export class GobbletGobblers implements Game {
   }
 
   private decrementStock(piece: GgPiece): void {
-
     /* Diminui o estoque de um jogador baseado em uma peça passada.
     exemplo: quando se posiciona uma peça, ele pode ser passada
     para este método que conseguirá saber de qual jogador e
@@ -499,19 +480,20 @@ export class GobbletGobblers implements Game {
 
     for (const row of rows)
       if (row.every((cell) => boardTop[cell] != null))
-        if (row.every((cell) => boardTop[cell].author == boardTop[row[0]].author))
-          winners.push(boardTop[row[0]].author)
-    
+        if (
+          row.every((cell) => boardTop[cell].author == boardTop[row[0]].author)
+        )
+          winners.push(boardTop[row[0]].author);
+
     return [...new Set(winners)];
   }
 
   private evaluateState(): void {
-
     /* Avalia o estado do jogo no dado momento, para verificar
     se foi ganho ou empatado. */
 
     let winners = this.checkWinner();
-    
+
     // Vitória
     if (winners.length == 1) {
       this.state.terminated = true;
@@ -523,11 +505,9 @@ export class GobbletGobblers implements Game {
       this.state.terminated = true;
       this.state.winner = null;
     }
-
   }
 
   private progressPlayers() {
-
     /* "Passa a vez" */
 
     this.state.lastPlayer = this.state.currentPlayer;
@@ -535,7 +515,6 @@ export class GobbletGobblers implements Game {
   }
 
   private *iterSizes(reverse: boolean = false): Generator<number> {
-
     /* Um iterador para iterar através dos tamanhos de peça. Na
     ordem inversa ou direta, de acordo com a lógica necessária.
     
@@ -543,26 +522,18 @@ export class GobbletGobblers implements Game {
     chnace de erro.
     */
 
-    if (reverse)
-      for (let size = this.nSizes - 1; size >= 0; size--) 
-        yield size;
-
-    else
-      for (let size = 0; size < this.nSizes; size++) 
-        yield size;
+    if (reverse) for (let size = this.nSizes - 1; size >= 0; size--) yield size;
+    else for (let size = 0; size < this.nSizes; size++) yield size;
   }
 
   private *iterSlots(): Generator<number> {
-
     /* Um iterador para iterar através dos slots de nível do
     tabuleiro */
 
-    for (let slot = 0; slot < this.nSlots; slot++) 
-      yield slot;
+    for (let slot = 0; slot < this.nSlots; slot++) yield slot;
   }
 
   private getBoardLevel(levelSize: number): GgPiece[] {
-
     /*
     Retorna um nível especificado do tabuleiro, identificado pelo
     seu tamanho (nível do tamanho 0, nível do tamanho 1, nível do 
@@ -577,7 +548,6 @@ export class GobbletGobblers implements Game {
   }
 
   private slotsToString(slots: GgPiece[]): string {
-
     /* Retorna uma string que representa um nível do tabuleiro. */
 
     let table = "";
@@ -593,14 +563,12 @@ export class GobbletGobblers implements Game {
   }
 
   private boardLevelToString(levelSize: number): string {
-
     /* Retorna uma string que representa um nível do tabuleiro. */
 
     return this.slotsToString(this.getBoardLevel(levelSize));
   }
 
   private topPiecesToString(): string {
-
     /* Retorna uma string que representa a visão de cima
     do tabuleiro. */
 
@@ -608,12 +576,9 @@ export class GobbletGobblers implements Game {
   }
 
   private getPieceChar(piece: GgPiece): string {
-
     /* Retorna um caracter que representa uma peça. */
 
-    if (piece == null)
-      return PLAYERS_SYMBOLS.get(null);
-    
+    if (piece == null) return PLAYERS_SYMBOLS.get(null);
     return PLAYERS_SYMBOLS.get(piece.author)[piece.size];
   }
 

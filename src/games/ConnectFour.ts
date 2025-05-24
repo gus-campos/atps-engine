@@ -2,44 +2,51 @@ import { Game, Player, Action } from "src/shared/Game";
 import { Coord } from "src/utils/Coord";
 
 interface CfState {
+  /* Estado do jogo de connect 4 (não deveria estar encapsulado) */
 
-  board: (CfPiece|null)[][],
-  lastPlayer: Player,
-  currentPlayer: Player
+  board: (CfPiece | null)[][]; // matriz de peças
+  lastPlayer: Player;
+  currentPlayer: Player;
   terminated: boolean;
-  winner: Player|null
+  winner: Player | null;
 }
 
 interface CfPiece {
-  
-  author: Player
+  /* A peça do jogo de connect 4 */
+
+  author: Player;
 }
 
 interface CfAction {
+  /* Ação do jogo de connect 4 (um jogador coloca em 
+  uma peça em uma coluna) */
 
-  author: Player,
-  column: number
+  author: Player;
+  column: number;
 }
 
-export const PLAYERS_SYMBOLS = new Map<Player|null, string>([
+export const PLAYERS_SYMBOLS = new Map<Player | null, string>([
+  /* Mapeia um jogador no símvolo de sua peça */
   [0, "X"],
   [1, "O"],
   [null, "."],
 ]);
 
-export const SYMBOLS_PLAYERS = new Map<string, Player|null>([
+export const SYMBOLS_PLAYERS = new Map<string, Player | null>([
+  /* Mapeia o símbolo de uma peça em um jogador */
   ["X", 0],
   ["O", 1],
-  [".", null]
+  [".", null],
 ]);
 
 export class ConnectFour implements Game {
+  /* Classe que representa um jogo de Connect 4 */
 
   private state: CfState;
   private boardShape: Coord;
-  
+
   constructor() {
-    this.boardShape = new Coord(7,6);
+    this.boardShape = new Coord(7, 6);
     this.state = this.getInitialState();
   }
 
@@ -53,19 +60,18 @@ export class ConnectFour implements Game {
     return newGame;
   }
 
-  public playAction(action: CfAction, autoPlayMode: boolean=false): void {
-
+  public playAction(action: CfAction, autoPlayMode: boolean = false): void {
     if (action.column < 0 || action.column >= this.boardShape.x)
       throw new Error("Invalid column");
 
     let slot = this.lowestFreeSlot(action.column);
 
-    if (slot == null)
-      throw new Error("Column already filled");
+    if (slot == null) throw new Error("Column already filled");
 
     if (action.author != this.state.currentPlayer)
-      throw new Error("A player can only play with its own pieces")
+      throw new Error("A player can only play with its own pieces");
 
+    // Criar e colocar uma peça no tabuleiro
     const piece = this.createPiece(action.author);
     this.setPiece(slot, piece);
 
@@ -74,12 +80,11 @@ export class ConnectFour implements Game {
   }
 
   public getValidActions(): Action[] {
-      
-    if (this.state.terminated)
-      return [];
+    if (this.state.terminated) return [];
 
     let actions = [];
 
+    // O jogadot atual pode colocar uma peça em qualquer coluna não cheia
     for (let column of this.iterColumns())
       if (this.lowestFreeSlot(column) != null)
         actions.push({ author: this.state.currentPlayer, column: column });
@@ -88,25 +93,21 @@ export class ConnectFour implements Game {
   }
 
   public printState(): void {
-   
     console.log(this.stateToString());
   }
 
   public stateToString(): string {
-
     let board = "";
-    
+
     for (let row of this.iterRows(true)) {
       for (let column of this.iterColumns()) {
-
         let coord = new Coord(column, row);
 
         const piece = this.getPiece(coord);
         const player = piece != null ? piece.author : null;
         board += PLAYERS_SYMBOLS.get(player) + " ";
-        
-        if (coord.x == this.boardShape.x -1)
-          board += "\n";
+
+        if (coord.x == this.boardShape.x - 1) board += "\n";
       }
     }
 
@@ -118,10 +119,12 @@ export class ConnectFour implements Game {
   }
 
   public setState(boardRep: string[][], players: Player[]) {
-
     /*
     Seta o estado de acordo com o desenho passado do tabuleiro,
-    e dos player (anterior e atual). 
+    e dos player (anterior e atual).
+
+    Usado para iniciar o jogo a partir de um determinado estado
+    e facilitar os testes feitos sobre ele.
     
     cf.setState(
 
@@ -139,11 +142,12 @@ export class ConnectFour implements Game {
 
     */
 
-    const toRepCoord = (coord: Coord) => new Coord(coord.x, 5-coord.y); 
+    // Função auxiliar para converter coordena na matriz do tabuleiro
+    // para matriz da representação
+    const toRepCoord = (coord: Coord) => new Coord(coord.x, 5 - coord.y);
 
     for (let row of this.iterRows()) {
       for (let column of this.iterColumns()) {
-
         const coord = new Coord(column, row);
         const repCoord = toRepCoord(coord);
 
@@ -151,13 +155,15 @@ export class ConnectFour implements Game {
         const player = SYMBOLS_PLAYERS.get(playerSymbol);
         const piece = player == null ? null : this.createPiece(player);
 
+        // Posicionar peça de acordo
         this.setPiece(coord, piece);
       }
     }
-    
+
+    // Setar jogadores de acordo com o informado
     this.state.lastPlayer = players[0];
     this.state.currentPlayer = players[1];
-    
+
     this.evaluateState();
   }
 
@@ -165,91 +171,76 @@ export class ConnectFour implements Game {
   // Private
   // ================
 
-  private evaluateState(autoPlayMode: boolean=false): void {
-
+  private evaluateState(autoPlayMode: boolean = false): void {
     if (this.gameWon()) {
       this.state.terminated = true;
       this.state.winner = this.state.lastPlayer;
-    }
-
-    else if (this.gameDrawn(autoPlayMode)) {
+    } else if (this.gameDrawn(autoPlayMode)) {
       this.state.terminated = true;
       this.state.winner = null;
     }
   }
 
   private gameWon(): boolean {
-
     /*
     Retorna se o jogo foi ganho, verifica isso varrendo
-    todas as possíveis diagonais do tabuleiro
+    todas as possíveis diagonais do tabuleiro.
     */
 
+    // Para diagonais subindo e diagonais descendo
     for (let descending of [false, true]) {
-
+      // Para cada início de diagonal
       for (let diagonalBegin of this.iterDiagonalsBegins(descending)) {
-  
+        // Coordenadas da diagonal
         const diagonal = [...this.iterDiagonal(diagonalBegin, descending)];
-        const pieces = diagonal.map(slot => this.getPiece(slot));
-        const win = pieces.every(piece => piece != null && piece.author == this.state.lastPlayer);
-      
-        if (win)
-          return true;
+        // Peças da diagonal
+        const pieces = diagonal.map((slot) => this.getPiece(slot));
+        // Ganhou se todas as  peças nessa diagonal são do mesmo autor
+        const win = pieces.every(
+          (piece) => piece != null && piece.author == this.state.lastPlayer
+        );
+
+        if (win) return true;
       }
     }
-    
+
     return false;
   }
 
-  private gameDrawn(autoPlayMode: boolean=false) {
+  private gameDrawn(autoPlayMode: boolean = false) {
+    if (autoPlayMode) return false;
 
-    if (autoPlayMode)
-      return false;
-
+    // Empatou se não existem mais ações válidas
     return this.getValidActions().length == 0;
   }
 
   private lowestFreeSlot(column: number): Coord {
-
     /*
     Retorna a coordenada do primeiro slot livre de uma 
     coluna, de baixo pra cima
     */
 
     for (let slot of this.iterColumnSlots(column))
-      if (this.getPiece(slot) == null)
-        return slot;
+      if (this.getPiece(slot) == null) return slot;
 
     return null;
   }
 
   private getInitialState(): CfState {
-
-    /*
-    Retorna o estado inicial do jogo
-    */
-
-    let board: CfPiece[][] = Array.from(  
-      Array(this.boardShape.x), 
-      ()=>Array(this.boardShape.y).fill(null)
+    let board: CfPiece[][] = Array.from(Array(this.boardShape.x), () =>
+      Array(this.boardShape.y).fill(null)
     );
 
     return {
-
       board: board,
       lastPlayer: 1,
       currentPlayer: 0,
       terminated: false,
-      winner: null
-    }
+      winner: null,
+    };
   }
 
   private progressPlayers(): void {
-
-    /*
-    Passa a vez, alternando os players atual e último
-    */
-
     this.state.lastPlayer = this.state.currentPlayer;
     this.state.currentPlayer = this.nextPlayer();
   }
@@ -258,17 +249,19 @@ export class ConnectFour implements Game {
     return (this.state.currentPlayer + 1) % 2;
   }
 
-  private getPiece(coord: Coord): CfPiece|null {
+  private getPiece(coord: Coord): CfPiece | null {
+    /* Obtém a peça presente em uma coordenada do tabuleiro */
 
     return this.state.board[coord.x][coord.y];
   }
 
-  private setPiece(coord: Coord, piece: CfPiece|null): void {
-
+  private setPiece(coord: Coord, piece: CfPiece | null): void {
+    /* Atribui uma peça a uma coordenada do tabuleiro */
     this.state.board[coord.x][coord.y] = piece;
   }
 
   private createPiece(author: Player): CfPiece {
+    /* Cria uma peça a partir de um player (autor) */
 
     return { author: author };
   }
@@ -278,70 +271,64 @@ export class ConnectFour implements Game {
   // ================
 
   private *iterColumnSlots(column: number): Generator<Coord> {
+    /* Itera pelas coordenadas dos slots de uma coluna do tabuleiro
+    Assume que a coluna é valida (necessário garantir validade antes) */
 
-    /*
-    Itera pelas coordenadas dos slots de uma coluna do tabuleiro
-    Assume que a coluna é valida
-    */
-
-    for (let row of this.iterRows())
-      yield new Coord(column, row);
+    for (let row of this.iterRows()) yield new Coord(column, row);
   }
 
-  private *iterRows(reverse: boolean=false): Generator<number> {
-
-    /*
-    Itera pelos índices das linhas do tabuleiro, em
-    ordem direta ou inversa
-    */
+  private *iterRows(reverse: boolean = false): Generator<number> {
+    /* Itera pelos índices das linhas do tabuleiro, em
+    ordem direta ou inversa. */
 
     if (reverse)
-      for (let row=this.boardShape.y-1; row>=0; row--)
-        yield row;
-  
-    else
-      for (let row=0; row<this.boardShape.y; row++)
-        yield row;
+      for (let row = this.boardShape.y - 1; row >= 0; row--) yield row;
+    else for (let row = 0; row < this.boardShape.y; row++) yield row;
   }
 
   private *iterColumns(): Generator<number> {
+    /* Itera pelos índices das colunas do tabuleiro. */
 
-    /*
-    Itera pelos índices das colunas do tabuleiro
-    */
-
-    for (let column=0; column<this.boardShape.x; column++)
-      yield column;
+    for (let column = 0; column < this.boardShape.x; column++) yield column;
   }
 
-  private *iterDiagonalsBegins(descending: boolean=false) {
+  private *iterDiagonalsBegins(descending: boolean = false) {
+    /* Itera pelos inícios possíveis para diagonais. Faz isso
+    subdividindo o tabuleiro em diversos quadrados 4x4 (cada um 
+    com uma diagonal ascendente e uma diagonal descendente), e 
+    retorna uma posição inicial dessa diagonal a cada iteração. */
 
-    /*
-    Itera pelos offsets das possíveis diagonais
-    */
-
-    const subBoardShape = new Coord(4,4);
+    const subBoardShape = new Coord(4, 4);
     const maxIndex = this.boardShape.sub(subBoardShape);
     const rowOffset = descending ? 3 : 0;
 
+    // Função auxiliar para verificar se a coluna é valida
     const validCollum = (column: number) => column <= maxIndex.x;
+    // Função auxiliar para verificar se a fileira é válida
     const validRow = (row: number) => row <= maxIndex.y;
 
-    for (let row of this.iterRows()) if (validRow(row))
-      for (let column of this.iterColumns()) if (validCollum(column))
-        yield new Coord(column, row + rowOffset);
+    // Para cada fileira válida
+    for (let row of this.iterRows())
+      if (validRow(row))
+        // Para cada coluna válida
+        for (let column of this.iterColumns())
+          if (validCollum(column))
+            // Retornar sua posição inicial
+            yield new Coord(column, row + rowOffset);
   }
 
-  private *iterDiagonal(offset: Coord, descending: boolean=false): Generator<Coord> {
+  private *iterDiagonal(
+    offset: Coord,
+    descending: boolean = false
+  ): Generator<Coord> {
+    /* Itera pelos slots de uma diagonal partindo de uma
+    posição inicial da coordenada. */
 
-    /*
-    Itera pelos slots de uma diagonal partindo de um offset
-    */
-
+    // Direção: subindo ou descendo, somando (+1, +1) ou (-1, -1)
     const dirFactor = descending ? -1 : 1;
 
-    for (let i=0; i<4; i++)
-      yield offset.add(new Coord(i, dirFactor*i));
+    // Por 4 vezes, retornar a coordenada seguinte da diagonal
+    for (let i = 0; i < 4; i++) yield offset.add(new Coord(i, dirFactor * i));
   }
 
   // ==============
@@ -359,7 +346,7 @@ export class ConnectFour implements Game {
   public getCurrentPlayer(): Player {
     return this.state.currentPlayer;
   }
-  
+
   public isGameOver(): boolean {
     return this.state.terminated;
   }
