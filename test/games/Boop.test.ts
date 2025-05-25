@@ -1,6 +1,6 @@
 import { describe, it, beforeEach, expect } from "vitest";
-import { Coord } from "src/shared/Game";
 import { Boop } from "src/games/Boop";
+import { Coord } from "src/utils/Coord";
 
 // =================== TicTacToe ===================
 

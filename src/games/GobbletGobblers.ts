@@ -478,7 +478,7 @@ export class GobbletGobblers implements Game {
     let boardTop = this.getTopPieces();
     let winners = [];
 
-    for (const row of rows)
+    for (let row of rows)
       if (row.every((cell) => boardTop[cell] != null))
         if (
           row.every((cell) => boardTop[cell].author == boardTop[row[0]].author)

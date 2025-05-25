@@ -3,7 +3,7 @@ import { TicTacToe } from "src/games/TicTacToe";
 import { Outcome } from "src/agents/MCTSAgent";
 import { Node } from "src/agents/Node";
 import { OUTCOME_VALUE } from "src/agents/MCTSAgent";
-import { RANDOM } from "src/utils/Random"
+import { RANDOM } from "src/utils/Random";
 
 // =================== TicTacToe ===================
 
@@ -140,19 +140,14 @@ describe("Node with ttt", () => {
     });
 
     it("should increment parents value", () => {
-      
-      for (let child of linearChildren) 
-        expect(child.getValue()).toBe(0);
-  
+      for (let child of linearChildren) expect(child.getValue()).toBe(0);
     });
   });
 });
 
-
 // =================== TicTacToe ===================
 
 describe("Node with ttt", () => {
-  
   let ttt: TicTacToe;
   let root: Node;
 

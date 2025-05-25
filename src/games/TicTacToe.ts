@@ -218,7 +218,7 @@ export class TicTacToe implements Game {
 
     let slots = this.state.board.slots;
 
-    for (const row of rows) {
+    for (let row of rows) {
       if (row.every((cell) => slots[cell] != null)) {
         if (row.every((cell) => slots[cell].author == slots[row[0]].author))
           return true;

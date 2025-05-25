@@ -65,4 +65,4 @@ AutoPlay.playGames([GameName.CONNECT_FOUR], autoPlayConfig, mctsConfig, args[2])
 */
 =======
 AutoPlay.playGames([GameName.CONNECT_FOUR], autoPlayConfig, mctsConfig, args[2]);
->>>>>>> kokeshi
+>>>>>>> Kokeshi

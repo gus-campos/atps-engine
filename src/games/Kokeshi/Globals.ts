@@ -1,18 +1,13 @@
-
-// COR: PRINCESA,   PRINCESA  - BATCHAN,    PRINCESA  - PESCADOR
-// COR: BATCHAN,    BATCHAN   - PESCADOR,   BATCHAN   - PESCADOR
-// COR: PESCADOR,   PESCADOR  - SAMURAI,    PESCADOR  - SUMOTORI
-// COR: SAMURAI,    SAMURAI   - SUMOTORI,   SAMURAI   - PRINCESA
-// COR: SUMOTORI,   SUMOTORI  - PRINCESA,   SUMOTORI  - BATCHAN
-
 import { Kokeshi, Opcoes } from "./Types";
 import { Peca } from "./Peca";
-import { AcaoMultipla, MoverAnimal, MoverKokeshi } from "./Acao"
+import { AcaoMultipla, MoverAnimal, MoverKokeshi } from "./Acao";
 import { Random } from "src/utils/Random";
 
+// Gerador aleatório (e auxiliar) compartilhado por todo o jogo (útil pra fixar seed)
 const RANDOM = new Random();
 export const RANDOM_IN_RANGE = (n: number) => RANDOM.range(n);
 
+// Constante compartilhada entre o jogo - futuramente pode variar
 export const NUMERO_JOGADORES = 2;
 
 export const KOKESHIS = [
@@ -20,19 +15,19 @@ export const KOKESHIS = [
   Kokeshi.BATCHAN,
   Kokeshi.PESCADOR,
   Kokeshi.SAMURAI,
-  Kokeshi.SUMOTORI
-]
+  Kokeshi.SUMOTORI,
+];
 
 // ======================================================================
 
-// TODO: Inicializar
+/* Peças da oferta disponíveis para serem compradas ao longo do jogo 
+TODO: Adicionar peças */
+
 export const PECAS_OFERTA: Peca[] = [];
 
-
-for (const cor of KOKESHIS) {
-  for (const kokeshi of KOKESHIS) {
-    
-    const acao1 = new MoverKokeshi(Opcoes.UNICA, kokeshi);
+for (let cor of KOKESHIS) {
+  for (let Kokeshi of KOKESHIS) {
+    const acao1 = new MoverKokeshi(Opcoes.UNICA, Kokeshi);
     const acao2 = new MoverAnimal(Opcoes.TODAS);
     const acaoMultipla = new AcaoMultipla(acao1, acao2);
 
@@ -41,37 +36,54 @@ for (const cor of KOKESHIS) {
   }
 }
 
-// Kokeshi - Animal
-
-  // ou, e
-
-  // uni - uni
-  // mult - mult 
-
 // ======================================================================
+
+/* Peças iniciais que os jogadores posicionam no início da partida
+seja no próprio tabuleiro de habilidades, ou no de animais, como
+recompensa no avanço nas trilhas de animais 
+
+Peças iniciais:
+
+  COR: PRINCESA
+    PRINCESA  - BATCHAN
+    PRINCESA  - PESCADOR
+
+  COR: BATCHAN
+    BATCHAN   - PESCADOR
+    BATCHAN   - PESCADOR
+
+  COR: PESCADOR
+    PESCADOR  - SAMURA
+    PESCADOR  - SUMOTORI
+
+  COR: SAMURAI
+    SAMURAI   - SUMOTOR
+    SAMURAI   - PRINCESA
+
+  COR: SUMOTORI
+    SUMOTORI  - PRINCES
+    SUMOTORI  - BATCHAN
+*/
 
 export const PECAS_INICIAIS: Peca[] = [];
 
-for (let kokeshi1 of KOKESHIS) {
-
-  for (const salto of [1, 2]) {
-
-    const cor = kokeshi1;
-    const kokeshi2 = kokeshi1 + salto;
+for (let Kokeshi1 of KOKESHIS) {
+  for (let salto of [1, 2]) {
+    const cor = Kokeshi1;
+    const Kokeshi2 = Kokeshi1 + salto;
 
     const acao = new AcaoMultipla(
-      new MoverKokeshi(Opcoes.UNICA, kokeshi1), 
-      new MoverKokeshi(Opcoes.UNICA, kokeshi2)
+      new MoverKokeshi(Opcoes.UNICA, Kokeshi1),
+      new MoverKokeshi(Opcoes.UNICA, Kokeshi2)
     );
 
     const peca = new Peca(cor, acao);
-    
+
     PECAS_INICIAIS.push(peca);
   }
 }
 
 // ======================================================================
 
-// TODO: Peça de reconhecimento faz pular mais um espaço, 
-// logo é o mesmo que "mover própria kokeshi tipo único"
-export const PEÇAS_RECONHECIMENTO: Peca[] = []
+// TODO: adicioanar peças de reconhecimento
+export const PEÇAS_RECONHECIMENTO: Peca[] = [];

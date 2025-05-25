@@ -1,7 +1,5 @@
-
-
 import { Game, Action, Player } from "../shared/Game";
-import { Graph, NodeModel, Edge } from 'ts-graphviz'
+import { Graph, NodeModel, Edge } from "ts-graphviz";
 import { RANDOM } from "src/utils/Random";
 import { RandomAgent } from "src/agents/RandomAgent";
 import { Outcome, OUTCOME_VALUE, OPPOSITE_OUTCOME } from "./MCTSAgent";
@@ -11,22 +9,20 @@ const EXPLORE_FACTOR = Math.sqrt(2);
 export let NODE_ID = 0;
 
 export class Node {
-
   private parent: Node | null;
   private game: Game;
   private actionTaken: Action | null;
   private perspectivePlayer: Player;
-  
+
   private visits: number;
   private value: number;
-  
+
   private expandableActions: Action[];
   private children: Node[];
 
   private depth: number;
 
   constructor(parent: Node, game: Game, actionTaken: Action) {
-
     this.parent = parent;
     this.game = game.clone();
     this.actionTaken = actionTaken;
@@ -40,9 +36,8 @@ export class Node {
 
     this.depth = 0;
   }
-  
-  public getGameOutcome(game: Game): Outcome {
 
+  public getGameOutcome(game: Game): Outcome {
     /*
     Obtêm o outcome de um jogo
 
@@ -64,14 +59,13 @@ export class Node {
 
     Mas como fica na simulação?
     */
-    
+
     if (!game.isGameOver())
       throw new Error("A not ended game has no valid outcome");
-    
+
     let winner = game.getWinner();
-    
-    if (winner == null)
-      return Outcome.DRAW;
+
+    if (winner == null) return Outcome.DRAW;
 
     const parentPerspective = this.parent.perspectivePlayer;
 
@@ -79,7 +73,6 @@ export class Node {
   }
 
   public expand(): Node {
-
     /*
     Cria um novo nó a partir de uma ação aleatória
     */
@@ -101,7 +94,6 @@ export class Node {
   }
 
   public isExpandableOrTerminal(): boolean {
-
     // Obs: Apenas nós terminais possuem 0 filhos ao mesmo tempo que
     // não possuem ações expansíveis
 
@@ -109,7 +101,6 @@ export class Node {
   }
 
   public ucb(): number {
-
     let explore = Math.sqrt(Math.log(this.parent.getVisits()) / this.visits);
     let exploit = this.value / this.visits;
 
@@ -117,13 +108,11 @@ export class Node {
   }
 
   public bestChild() {
-
     /*
     Returns their child that has the greater ucb
     */
 
-    if (this.children.length == 0) 
-      throw new Error("It has no children");
+    if (this.children.length == 0) throw new Error("It has no children");
 
     let bestUcb = Number.NEGATIVE_INFINITY;
     let bestChild = this.children[0];
@@ -141,7 +130,6 @@ export class Node {
   }
 
   public backpropagate(outcome: Outcome) {
-
     /*
     Propaga o valor aos parents, invertendo o valor quando o 
     parent é de outra perspectiva
@@ -151,16 +139,14 @@ export class Node {
     this.value += OUTCOME_VALUE.get(outcome);
 
     if (this.parent != null) {
-     
       if (this.perspectivePlayer != this.parent.perspectivePlayer)
         outcome = OPPOSITE_OUTCOME.get(outcome);
-      
+
       this.parent.backpropagate(outcome);
     }
   }
 
-  public simulate(maxPlayoutDepth: number=null): Outcome {
-
+  public simulate(maxPlayoutDepth: number = null): Outcome {
     /*
     Joga o jogo com ações aleatórias, até o fim, e
     retorna seu resultado, em relação ao maximizing player
@@ -171,19 +157,16 @@ export class Node {
     let game = this.game.clone();
 
     while (!game.isGameOver()) {
-
       const randomAgent = new RandomAgent(game);
       const action = randomAgent.nextAction();
 
       // Checando empate externamente
-      if (action == null)
-        return Outcome.DRAW;
-      
+      if (action == null) return Outcome.DRAW;
+
       // Limitando profundidade da simulação
       if (maxPlayoutDepth != null) {
         playoutDepth++;
-        if (playoutDepth > maxPlayoutDepth)
-          return Outcome.DRAW;
+        if (playoutDepth > maxPlayoutDepth) return Outcome.DRAW;
       }
 
       game.playAction(action, true);
@@ -192,8 +175,12 @@ export class Node {
     return this.getGameOutcome(game);
   }
 
-  public genGraphNodes(G: Graph, parent: NodeModel, maxDepthPrinted: number, id: number): void {
-
+  public genGraphNodes(
+    G: Graph,
+    parent: NodeModel,
+    maxDepthPrinted: number,
+    id: number
+  ): void {
     /*
     Gera recursivamente nós de grafo do graphviz, a partir
     de cada nó da árvore
@@ -201,34 +188,29 @@ export class Node {
 
     // Adicionar seus children
     for (let child of this.children) {
+      if (child.depth > maxDepthPrinted) break;
 
-      if (child.depth > maxDepthPrinted)
-        break;
-      
       let childNode = child.genConnectedNode(G, parent);
-      child.genGraphNodes(G, childNode, maxDepthPrinted, id+1);
+      child.genGraphNodes(G, childNode, maxDepthPrinted, id + 1);
     }
   }
 
   public nodeToString(): string {
-
     /* Generates a label that represents the node */
 
     const state = this.getGame().stateToString();
-    return `Visits: ${(this.visits)}\nValue: ${this.value}\n${state}\nDepth: ${this.depth}`;
+    return `Visits: ${this.visits}\nValue: ${this.value}\n${state}\nDepth: ${this.depth}`;
   }
 
   //===========
   // Private
   //===========
 
-  private genConnectedNode(G: Graph, parent: NodeModel=null): NodeModel {
-
+  private genConnectedNode(G: Graph, parent: NodeModel = null): NodeModel {
     /* Generates a node to be added in a graphviz graph */
 
     let label = this.nodeToString();
     let childNode = G.node(String(NODE_ID++), { label: label });
-
 
     G.addEdge(new Edge([parent, childNode]));
 
@@ -236,7 +218,6 @@ export class Node {
   }
 
   private getRandomExpAction(): Action {
-
     /*
     Get a random expandable actions, removes it from the
     array, and returns it
@@ -244,8 +225,7 @@ export class Node {
 
     let expandableActions = this.getExpandableActions();
 
-    if (expandableActions.length == 0) 
-      throw new Error("No expandable actions");
+    if (expandableActions.length == 0) throw new Error("No expandable actions");
 
     let actionTaken = RANDOM.choice<Action>(expandableActions);
 
@@ -296,7 +276,7 @@ export class Node {
   }
 
   //===========
-  // Setters 
+  // Setters
   //===========
 
   public setVisits(visits: number): void {

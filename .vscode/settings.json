@@ -37,9 +37,10 @@
   "files.trimFinalNewlines": true,
   "git.autofetch": true,
   "github.copilot.enable": {
-    "*": true,
+    "*": false,
+    "plaintext": true,
     "markdown": true,
-    "plaintext": true
+    "scminput": false
   },
   "markdownlint.run": "onSave",
   "plantuml.exportFormat": "svg",

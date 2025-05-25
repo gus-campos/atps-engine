@@ -2,21 +2,35 @@ import { Game, Player, Action } from "../shared/Game";
 import { Coord } from "src/utils/Coord";
 
 enum PieceType {
+  /* Tipo de peça, pode ser gatinho, ou gatão */
+
   KITTEN = 0,
   CAT = 1,
 }
 
 interface BoopPiece {
+  /* Peça do boop, tem um autor e um tipo */
+
   author: Player;
   type: PieceType;
 }
 
 interface BoopBoard {
+  /* Tabuleiro de boop, formado por uma matriz de peças */
+
   slots: (BoopPiece | null)[][];
 }
 
 interface BoopState {
+  /* Estado do jogo boop */
+
   board: BoopBoard;
+
+  // Quantidade de peças que cada jogador tem em estoque, de cada tipo de peça
+  // Exemplo:
+  //    stock[0][1] == 3 -> o jogador 0 tem 3 gatões
+  //    stock[1][0] == 2 -> o jogador 1 tem 2 gatinhos
+
   stock: number[][];
 
   currentPlayer: Player;
@@ -25,23 +39,35 @@ interface BoopState {
   terminated: boolean;
   winner: null | Player;
 
+  // Turnos que se passaram desde o início
   turns: number;
 }
 
-let PLAYERS_CHARS = new Map();
-PLAYERS_CHARS.set(0, "A");
-PLAYERS_CHARS.set(1, "B");
+const PLAYERS_CHARS = new Map<Player, string>([
+  // Mapeia um jogador a um caracter que o simboliza
+  [0, "A"],
+  [1, "B"],
+]);
 
-let CHARS_PLAYERS = new Map();
-CHARS_PLAYERS.set("A", 0);
-CHARS_PLAYERS.set("B", 1);
+const CHARS_PLAYERS = new Map<string, Player>([
+  // Mapeia o caracter que simboliza um jogador, a um jogador
+  ["A", 0],
+  ["B", 1],
+]);
 
 interface BoopAction extends Action {
+  /* Ação do jogo boop: posiciona uma peça e um determinada
+  posição do tabuleiro. */
+
   piece: BoopPiece | null;
   slot: Coord;
 }
 
 const WINNING_ROWS_ARR = [
+  /* Dentro de um subdivisão 3x3 de um tabuleiro, as possíveis
+  diagonais que geram vitória (assim como no jogo da velha). 
+  Em formato de arrays. */
+
   // Verticais
   [
     [0, 0],
@@ -87,11 +113,13 @@ const WINNING_ROWS_ARR = [
   ],
 ];
 
-const DRAW_CRITERIA = 90;
-
+// Fileiras vencedoras em formato de coordenadas
 let WINNING_ROWS: Coord[][] = WINNING_ROWS_ARR.map((tuples) =>
   tuples.map((tuple) => new Coord(tuple[0], tuple[1]))
 );
+
+// Critério de empate baseado no número de turnos
+const TURNS_CRITERIA_TO_DRAW = 90;
 
 export class Boop implements Game {
   private numberOfPlayers: number;
@@ -118,7 +146,12 @@ export class Boop implements Game {
     players: Player[] = null
   ): void {
     /*
-    Sets the state accordingly to the data provided
+    Seta o estado de acordo com o desenho passado do tabuleiro,
+    e dos player (anterior e atual). 
+
+    Usado para setar um estado específico e fazer testes
+    a partir deles (do contrário seria necessário jogar um
+    jogo inteiro via código para chegar no caso a ser testado).
     */
 
     for (let slot of this.iterateSlots())
@@ -142,12 +175,12 @@ export class Boop implements Game {
   }
 
   public getValidActions(): Action[] {
-    // TODO: escolha de sequência?
-
     if (this.state.terminated) return [];
 
+    // Se o jogador atual não tem estoque, retornar ações de remoção
     if (this.isStockEmpty(this.state.currentPlayer))
       return this.getValidRemoveActions();
+    // Do contrário, retornar ações de posicionamento
     else return this.getValidPlaceActions();
   }
 
@@ -166,10 +199,11 @@ export class Boop implements Game {
       if (this.getPiece(action.slot).author != this.state.currentPlayer)
         throw new Error("Can only remove it's own pieces");
 
+      // Promover a peça a ser removida (internamente ela é removida)
       this.promotePiece(action.slot);
     }
 
-    // Ação de posicionamento a partir do estoque
+    // Ações de posicionamento a partir do estoque
     else {
       if (action.piece.author != this.state.currentPlayer)
         throw new Error("Can only place it's own pieces");
@@ -178,15 +212,16 @@ export class Boop implements Game {
         throw new Error("Out of stock");
 
       this.placePiece(action.piece, action.slot);
+      // Realiza o "booping" - afastamento das peças vizinhas (sé válido)
       this.updateBoopings(action.slot);
       this.updateTermination();
 
-      // Só promove quando não há vitória, pois por eficiência
-      // o tipo na promoção não é verificado
+      // Só realiza as promoção se jogo não tiver terminado (evita processamento desnecessário)
       if (!this.state.terminated) this.updatePromotions();
     }
 
     // Só passa vez se quem jogou terminar turno com algum estoque
+    // do contrário, jogador joga novamente, uma ação de remoção
     const opponentsTurn = !this.isStockEmpty(this.state.currentPlayer);
     this.progressPlayers(opponentsTurn);
 
@@ -194,10 +229,7 @@ export class Boop implements Game {
   }
 
   public stateToString(): string {
-    /* Prints a string that represents the state */
-
-    // Board to string
-
+    // Tabuleiro para string
     let board = "";
     for (let coord of this.iterateSlots()) {
       board += this.getPieceRep(this.getPiece(coord)) + " ";
@@ -205,8 +237,7 @@ export class Boop implements Game {
       if (coord.x == this.boardShape.x - 1) board += "\n";
     }
 
-    // Stock to string
-
+    // Estoque para string
     let stock = "";
     for (let player = 0; player < 2; player++) {
       for (let type = 0; type < 2; type++) {
@@ -215,8 +246,7 @@ export class Boop implements Game {
       stock += "\n";
     }
 
-    // Turns to string
-
+    // Jogadore anterior e atual
     const lastPlayer = this.getPieceRep({
       author: this.state.lastPlayer,
       type: 1,
@@ -225,6 +255,8 @@ export class Boop implements Game {
       author: this.state.currentPlayer,
       type: 1,
     });
+
+    // Turnos
     let turns = `O "${lastPlayer}" jogou, vez do "${currentPlayer}":`;
 
     return board + "\n" + stock + "\n\n" + turns;
@@ -238,8 +270,6 @@ export class Boop implements Game {
   // Private
 
   private getInitialState(): BoopState {
-    /* Returns initial Boop state */
-
     const slots = Array.from(Array(this.boardShape.x), () =>
       Array(this.boardShape.y).fill(null)
     );
@@ -258,15 +288,14 @@ export class Boop implements Game {
     };
   }
 
-  private getNextPlayer(skipPlayers: number = 0): Player {
-    /* Returns next player */
-
-    return (this.state.currentPlayer + 1 + skipPlayers) % this.numberOfPlayers;
+  private getNextPlayer(): Player {
+    return (this.state.currentPlayer + 1) % this.numberOfPlayers;
   }
 
   private progressPlayers(opponentsTurn: boolean) {
-    this.state.lastPlayer = this.state.currentPlayer;
+    // Considera se deve passar a vez ou não com `opponentsTurn`
 
+    this.state.lastPlayer = this.state.currentPlayer;
     if (opponentsTurn) this.state.currentPlayer = this.getNextPlayer();
   }
 
@@ -342,24 +371,30 @@ export class Boop implements Game {
   }
 
   private updateTermination(): void {
-    if (this.state.turns >= DRAW_CRITERIA) {
-      this.state.terminated = true;
-      this.state.winner = null;
+    /* Verifica se o jogo terminou. */
+
+    // Se o jogo tiver estourado o critério de empate, causar empate
+    if (this.state.turns >= TURNS_CRITERIA_TO_DRAW) {
+      this.forceDraw();
       return;
     }
 
+    // Verificar em cada subtabuleiro 3x3 todas as possíveis fileiras vencedoras
     for (let subBoardOffset of this.iterateSubBoardsOffsets()) {
+      // Para cada possível fileira vencedora
       for (let row of WINNING_ROWS) {
-        // Se todas do mesmo autor
+        // E suas peças
         const pieces = row.map((subBoardCoord) =>
           this.getPiece(subBoardOffset.add(subBoardCoord))
         );
+
+        // Se todas são peças válidas do mesmo autor
         if (
           pieces.every(
             (piece) => piece != null && piece.author == pieces[0].author
           )
         ) {
-          // Se todos forem gatos -> vitória
+          // E todas peças forem do tipo gatão -> vitória
           if (pieces.every((piece) => piece.type == PieceType.CAT)) {
             this.state.terminated = true;
             this.state.winner = pieces[0].author;
@@ -371,26 +406,36 @@ export class Boop implements Game {
   }
 
   private updatePromotions(): void {
+    /* Verifica se há alguma sequência promovível de 
+    peças, e as promove. Espera que terminação já tenha 
+    sido verifica, portando não se preocupa em verificar
+    se um sequênci de 3 peças do mesmo autor é formada
+    pot gatões. */
+
+    // Para cada subtabuleiro 3x3
     for (let subBoardOffset of this.iterateSubBoardsOffsets()) {
+      // Suas possíveis fileiras vencedoras
       for (let row of WINNING_ROWS) {
-        // Se todas do mesmo autor
+        // E suas peças
         const pieces = row.map((subBoardCoord) =>
           this.getPiece(subBoardOffset.add(subBoardCoord))
         );
+        // Se todas são peças válidas do mesmo autor
         if (
           pieces.every(
             (piece) => piece != null && piece.author == pieces[0].author
           )
         ) {
-          for (let subBoardCoord of row)
-            this.promotePiece(subBoardOffset.add(subBoardCoord));
+          // Promover cada uma
+          for (let subBoardRowCoord of row)
+            this.promotePiece(subBoardOffset.add(subBoardRowCoord));
         }
       }
     }
   }
 
   private getPieceRep(piece: BoopPiece): string {
-    /* Return an one charcater string that represents the piece */
+    /* Retorna um carater que representa a peça. */
 
     if (piece == null) return ".";
 
@@ -402,6 +447,8 @@ export class Boop implements Game {
   }
 
   private getPieceFromRep(pieceRep: string): BoopPiece | null {
+    /* Retorna a peça correspondente ao caracter que representa uma peça. */
+
     const playerRep = pieceRep.toUpperCase();
 
     const playersChars = [...CHARS_PLAYERS.keys()];
@@ -415,7 +462,10 @@ export class Boop implements Game {
   }
 
   private boopingCoord(pusherCoord: Coord, neighborCoord: Coord): Coord {
-    /* Returns the coord to which a given piece is booped to */
+    /* Retorna a coordenada para a qual uma peça é empurrada/boopada.
+    pusherCoord sendo a posição de quem empurrda, e neighbor coord a 
+    posição da peça vizinha que está sendo empurrada. É retornada a 
+    posição que esta peça é empurrada. */
 
     const displacement = neighborCoord.sub(pusherCoord);
     const newCoord = neighborCoord.add(displacement);
@@ -423,14 +473,99 @@ export class Boop implements Game {
   }
 
   private validCoord(coord: Coord): boolean {
-    /* Return if a coord inside board limits */
+    /* Verifica se uma coordenada se encontra dentro dos
+    limites do tabuleiro. */
 
     const validRow = coord.x >= 0 && coord.x < this.boardShape.x;
     const validCollum = coord.y >= 0 && coord.y < this.boardShape.y;
     return validCollum && validRow;
   }
 
+  private getValidRemoveActions(): BoopAction[] {
+    /* Retorna ações válidas de remoção de peça. */
+
+    let validActions: BoopAction[] = [];
+
+    // Se o jogador atual não tem estoque
+    if (this.isStockEmpty(this.state.currentPlayer)) {
+      // Cada slot com uma peça sua, é uma possível ação de remoção
+      for (let coord of this.iterateSlots()) {
+        const piece = this.getPiece(coord);
+        if (piece != null && piece.author == this.state.currentPlayer)
+          validActions.push(this.createAction(null, coord));
+      }
+    }
+
+    return validActions;
+  }
+
+  private getValidPlaceActions(): BoopAction[] {
+    /* Retorna as possíveis ações de posicionamento de peças. */
+
+    let validActions: BoopAction[] = [];
+
+    // Para cada tipo de peça
+    for (let pieceType of [PieceType.KITTEN, PieceType.CAT]) {
+      // Se tiver estoque
+      if (!this.isStockEmptyOfType(this.state.currentPlayer, pieceType)) {
+        // Cada slot vazio é uma possível ação de posicionamento
+        for (let slot of this.iterateSlots()) {
+          if (this.getPiece(slot) == null) {
+            const newPiece = this.createPiece(
+              this.state.currentPlayer,
+              pieceType
+            );
+
+            validActions.push(this.createAction(newPiece, slot));
+          }
+        }
+      }
+    }
+
+    return validActions;
+  }
+
+  private updateBoopings(pusherCoord: Coord): void {
+    /* Empurra gatos vizinhos (iguais ou menores) de forma centrifuga 
+    em 1 slot de distância, a partir da posição de quem as empurra. 
+    O booping é feito quando uma nova peça é colocada no tabuleiro. */
+
+    const pusherPiece = this.getPiece(pusherCoord);
+
+    // Para cada posição vizinha
+    for (let neighborCoord of this.getValidNeighborsCoords(pusherCoord)) {
+      const neighborPiece = this.getPiece(neighborCoord);
+
+      // Se o tipo da peça for passível de ser empurrada (boopada)
+      if (this.boopableTypes(pusherPiece.type, neighborPiece.type)) {
+        const newCoord = this.boopingCoord(pusherCoord, neighborCoord);
+
+        // Se a nova coordenada inválida, enviar a peça para o estoque
+        if (!this.validCoord(newCoord)) this.sendPieceToStock(neighborCoord);
+        // Se for válida, apenas mover a peça para a nova coordenada
+        else if (this.getPiece(newCoord) == null)
+          this.movePiece(neighborCoord, newCoord);
+      }
+    }
+  }
+
   private getValidNeighborsCoords(pusherCoord: Coord): Coord[] {
+    /* Retorna as coordenada das posições vizinhas à posição passada,
+    mas apenas as posições válidas.
+    
+    Exemplo:
+    Se pusherCoord = (1, 1), retorna
+    
+      (0,2)(1,2)(2,2)
+      (0,1)     (2,1)
+      (0,0)(1,0)(2,0)
+
+    Se pusherCoord = (0, 0), retorna
+
+      (0,1)(1,1)
+           (1,0)
+    */
+
     let neighborsCoords = [];
 
     for (let neighborCoord of this.neighborIter(pusherCoord))
@@ -443,91 +578,38 @@ export class Boop implements Game {
     return neighborsCoords;
   }
 
-  private getValidRemoveActions(): BoopAction[] {
-    let validActions: BoopAction[] = [];
-
-    if (this.isStockEmpty(this.state.currentPlayer)) {
-      for (let coord of this.iterateSlots()) {
-        const piece = this.getPiece(coord);
-        if (piece != null && piece.author == this.state.currentPlayer)
-          validActions.push(this.createAction(null, coord));
-      }
-    }
-
-    return validActions;
-  }
-
-  private getValidPlaceActions(): BoopAction[] {
-    /*
-    Iterates through the board, listing as valid placement actions,
-    the action to place each available type of piece in each empty slot
-    */
-
-    let validActions: BoopAction[] = [];
-
-    // Para cada tipo de peça
-    for (let pieceType of [PieceType.KITTEN, PieceType.CAT]) {
-      // Se tiver estoque
-      if (!this.isStockEmptyOfType(this.state.currentPlayer, pieceType)) {
-        // Para cada slot vazio
-        for (let slot of this.iterateSlots()) {
-          if (this.getPiece(slot) == null) {
-            // Listar posicionamento de tal tipo em tal slot
-            const newPiece = this.createPiece(
-              this.state.currentPlayer,
-              pieceType
-            );
-            validActions.push(this.createAction(newPiece, slot));
-          }
-        }
-      }
-    }
-
-    return validActions;
-  }
-
-  private updateBoopings(pusherCoord: Coord): void {
-    /*
-    Empurra de forma centrifuga em 1 slot de unidade, as peças
-    vizinhas de um dado centro. Usado quando uma nova peça é
-    colocada no tabuleiro.
-    */
-
-    const pusherPiece = this.getPiece(pusherCoord);
-
-    for (let neighborCoord of this.getValidNeighborsCoords(pusherCoord)) {
-      const neighborPiece = this.getPiece(neighborCoord);
-
-      if (this.boopableTypes(pusherPiece.type, neighborPiece.type)) {
-        const newCoord = this.boopingCoord(pusherCoord, neighborCoord);
-
-        if (!this.validCoord(newCoord)) this.sendPieceToStock(neighborCoord);
-        else if (this.getPiece(newCoord) == null)
-          this.movePiece(neighborCoord, newCoord);
-      }
-    }
-  }
-
   private boopableTypes(
     pusherType: PieceType,
     neighborType: PieceType
   ): boolean {
+    /* Dado dois tipos de peças passados (da peça que empurra, 
+    e da peça vizinha), retorna se a segunda peça é empurrável 
+    (boopável) pela primeira. */
+
     return pusherType == PieceType.CAT || neighborType == PieceType.KITTEN;
   }
 
   private *iterateSlots(): Generator<Coord> {
+    /* Itera sobre todas as posições do tabuleiro. */
+
     for (let j = 0; j < this.boardShape.y; j++)
       for (let i = 0; i < this.boardShape.x; i++) yield new Coord(i, j);
   }
 
   private *neighborIter(center: Coord): Generator<Coord> {
-    // Para todas as posições adjacentes
+    /* Itera entre todas as posições vizinhas à uma posição de 
+    centro (ignorando o próprio centro). */
+
     for (let k = -1; k <= 1; k++)
       for (let l = -1; l <= 1; l++)
         if (!(k == 0 && l == 0)) yield center.add(new Coord(k, l));
   }
 
   private *iterateSubBoardsOffsets(): Generator<Coord> {
+    /* Itera sobre os inícios, ou offsets, dos subtabuleiros 3x3 
+    dentro do tabuleiro completo. Importante para verificar as 
+    possíveis fileiras vencedoras. */
+
     for (let i = 0; i < this.boardShape.x - 2; i++) {
       for (let j = 0; j < this.boardShape.x - 2; j++) {
         yield new Coord(i, j);
