@@ -2,7 +2,6 @@ import { describe, it, beforeEach, expect, assert } from "vitest";
 import { TicTacToe } from "src/games/TicTacToe";
 import { Outcome } from "src/agents/MCTSAgent";
 import { Node } from "src/agents/Node";
-import { OUTCOME_VALUE } from "src/agents/MCTSAgent";
 import { RANDOM } from "src/utils/Random";
 
 // =================== TicTacToe ===================
@@ -54,17 +53,17 @@ describe("Node with ttt", () => {
     it("should create a new game based on action taken and assign it", () => {
       let parent = root.expand();
       let child = parent.expand();
-      parent.getGame().playAction(child.getActionTaken());
+      parent.getGame().playAction(child.getActionTaken(), false);
       expect(parent.getGame()).toEqual(child.getGame());
 
       parent = child;
       child = parent.expand();
-      parent.getGame().playAction(child.getActionTaken());
+      parent.getGame().playAction(child.getActionTaken(), false);
       expect(parent.getGame()).toEqual(child.getGame());
 
       parent = child;
       child = parent.expand();
-      parent.getGame().playAction(child.getActionTaken());
+      parent.getGame().playAction(child.getActionTaken(), false);
       expect(parent.getGame()).toEqual(child.getGame());
     });
   });
@@ -149,11 +148,9 @@ describe("Node with ttt", () => {
 
 describe("Node with ttt", () => {
   let ttt: TicTacToe;
-  let root: Node;
 
   beforeEach(() => {
     ttt = new TicTacToe();
-    root = new Node(null, ttt, null);
   });
 
   describe("simulate", () => {
@@ -173,8 +170,8 @@ describe("Node with ttt", () => {
       // O X O
       // O X _
 
-      let node = new Node(null, ttt, null);
-      let perspectivePlayer = ttt.getCurrentPlayer();
+      //let node = new Node(null, ttt, null);
+      //let perspectivePlayer = ttt.getCurrentPlayer();
 
       // TODO: Consertar
 
@@ -200,10 +197,10 @@ describe("Node with ttt", () => {
       // O X O
       // _ X _
 
-      let node = new Node(null, ttt, null);
-      let perspectivePlayer = ttt.getCurrentPlayer();
+      //let node = new Node(null, ttt, null);
+      //let perspectivePlayer = ttt.getCurrentPlayer();
 
-      // TODO: Consertar
+      // FIXME: Consertar
 
       // 1 vai jogar, pra depois 0 jogar e inevitavelmente ganhar
       // Espera-se valor desfavorável pro jogador atual: -1

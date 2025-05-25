@@ -1,5 +1,9 @@
 # Kokeshi
 
+## Diagrama de Classes
+
+![](../../../assets/diagrama-kokeshi.png)
+
 ```mermaid
 classDiagram
 
@@ -18,15 +22,15 @@ classDiagram
         <<Abstract>>
     }
 
-    PilhaFichas --> TrilhaAnimal 
-    TrilhaAnimal --> TabuleiroAnimais
-    TabuleiroAnimais --> JogoKokeshi
+    PilhaFichas --> "8" TrilhaAnimal 
+    TrilhaAnimal --> "4" TabuleiroAnimais
+    TabuleiroAnimais --> "1" JogoKokeshi
 
 
-    Peca --> TrilhaHabilidade
-    TrilhaHabilidade --> TabuleiroHabilidades
-    TabuleiroHabilidades --> JogoKokeshi
+    Peca --> "8" TrilhaHabilidade
+    TrilhaHabilidade --> "4" TabuleiroHabilidades
+    TabuleiroHabilidades --> "1...JOGADORES" JogoKokeshi
 
-    Acao --> Peca
+    Acao --> "1" Peca
     PecaNula --|> Peca
 ```

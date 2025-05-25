@@ -11,7 +11,6 @@ import { GobbletGobblers } from "src/games/GobbletGobblers";
 import { Boop } from "src/games/Boop";
 import { ConnectFour } from "src/games/ConnectFour";
 import { Checkers } from "src/games/Checkers";
-import { CrabPuzzle } from "src/games/CrabPuzzle";
 
 // =========================================================
 
@@ -73,7 +72,6 @@ export enum GameName {
   CONNECT_FOUR = "Connect Four",
   BOOP = "Boop",
   CHECKERS = "Checkers",
-  CRAB_PUZZLE = "Crab Puzzle",
 }
 
 export enum AgentName {
@@ -353,10 +351,6 @@ export class AutoPlay {
 
       case GameName.CHECKERS:
         this.game = new Checkers();
-        break;
-
-      case GameName.CRAB_PUZZLE:
-        this.game = new CrabPuzzle();
         break;
 
       default:
