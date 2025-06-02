@@ -12,6 +12,8 @@ import { Boop } from "src/games/Boop";
 import { ConnectFour } from "src/games/ConnectFour";
 import { Checkers } from "src/games/Checkers";
 
+import NoActionsAvailable from "./NoActionsAvailable";
+
 // =========================================================
 
 export interface AutoPlayConfig {
@@ -255,14 +257,22 @@ export class AutoPlay {
     while (!this.game.isGameOver()) {
       // Gerando ação e verificando externamente o empate por falta de ações
 
-      const action = this.agentAction();
+      try {
+        
+        const action = this.agentAction();
+        this.game.playAction(action, true);
 
-      if (action == null) {
-        this.game.forceDraw();
-        break;
+      } catch (error) {
+
+        if (error instanceof NoActionsAvailable) {
+          this.game.forceDraw();
+          break;
+        }
+
+        else {
+          throw error;
+        }
       }
-
-      this.game.playAction(action, true);
 
       if (this.autoPlayConfig.printStates) this.printState();
 

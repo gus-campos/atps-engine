@@ -4,6 +4,8 @@ import { RANDOM } from "src/utils/Random";
 import { RandomAgent } from "src/agents/RandomAgent";
 import { Outcome, OUTCOME_VALUE, OPPOSITE_OUTCOME } from "./MCTSAgent";
 
+import NoActionsAvailable from "src/shared/NoActionsAvailable";
+
 const EXPLORE_FACTOR = Math.sqrt(2);
 
 export let NODE_ID = 0;
@@ -225,7 +227,7 @@ export class Node {
 
     let expandableActions = this.getExpandableActions();
 
-    if (expandableActions.length == 0) throw new Error("No expandable actions");
+    if (expandableActions.length == 0) throw new NoActionsAvailable("No expandable actions");
 
     let actionTaken = RANDOM.choice<Action>(expandableActions);
 
