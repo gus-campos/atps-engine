@@ -15,11 +15,7 @@ const GAME_NAMES = Object.values(GameName);
 
 for (let config of [
   
-  {
-    agents: [AgentName.RANDOM, AgentName.RANDOM],
-    matches: 50,
-    searchesTime: 1000 / 2048
-  },
+
   {
     agents: [AgentName.MCTS, AgentName.RANDOM],
     matches: 50,
@@ -48,7 +44,7 @@ for (let config of [
     maxPlayoutDepth: null
   };
 
-  AutoPlay.playGames([GameName.CONNECT_FOUR], autoPlayConfig, mctsConfig, args[2]);
+  AutoPlay.playGames(GAME_NAMES, autoPlayConfig, mctsConfig, args[2]);
 }
 
 
