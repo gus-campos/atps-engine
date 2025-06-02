@@ -5,26 +5,26 @@ const args = process.argv;
 // Autoplay
 // ===================================
 
-
-import { Agent } from "src/shared/Agent";
-
 import { MCTSConfig } from "src/agents/MCTSAgent";
 import { AutoPlay, AutoPlayConfig, AgentName, GameName } from "src/shared/Autoplay";
 const GAME_NAMES = Object.values(GameName);
 
 
 for (let config of [
-  
-
+  {
+    agents: [AgentName.RANDOM, AgentName.RANDOM],
+    matches: 100,
+    searchesTime: 1000 / 128,
+  },
   {
     agents: [AgentName.MCTS, AgentName.RANDOM],
-    matches: 50,
-    searchesTime: 1000 / 2048
+    matches: 100,
+    searchesTime: 1000 / 128,
   },
   {
     agents: [AgentName.MCTS, AgentName.MCTS],
-    matches: 50,
-    searchesTime: 1000 / 2048
+    matches: 100,
+    searchesTime: 1000 / 128,
   },
 ]) {
 

@@ -81,16 +81,6 @@ export enum AgentName {
   RANDOM = "Random",
 }
 
-export class NoValidActionError extends Error {
-  /* Classe de erro para quando o autoplay esperar 
-  jogadas disponíveis, mas não houverem */
-
-  constructor(message: string) {
-    super(message);
-    this.name = "NoValidActionError";
-  }
-}
-
 export class AutoPlay {
   /* Classe que dado um nome de jogo e dada algumas configurações
   executa um jogo do início ao fim, diversas vezes, usando os

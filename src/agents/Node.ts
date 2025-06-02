@@ -227,7 +227,8 @@ export class Node {
 
     let expandableActions = this.getExpandableActions();
 
-    if (expandableActions.length == 0) throw new NoActionsAvailable("No expandable actions");
+    if (expandableActions.length == 0)
+      throw new NoActionsAvailable("No expandable actions");
 
     let actionTaken = RANDOM.choice<Action>(expandableActions);
 

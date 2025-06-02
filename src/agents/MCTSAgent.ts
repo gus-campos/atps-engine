@@ -127,7 +127,11 @@ export class MCTSAgent implements Agent {
       for (let i = 0; i < searchesAmount; i++) this.search();
     }
 
-    return this.mostVisitedChild().getActionTaken();
+    const bestChild = this.mostVisitedChild();
+
+    if (!bestChild) throw new Error("No child expanded.");
+
+    return bestChild.getActionTaken();
   }
 
   private genRootGraphNode(G: Graph, id: number): NodeModel {
