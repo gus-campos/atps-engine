@@ -55,7 +55,7 @@ máxima atingida nas árvores.
 
 ## Instalação
 
-Basta instalar dependêncis com yarn:
+Basta instalar dependências com yarn:
 
 ```bash
 yarn

@@ -100,7 +100,7 @@ export class AutoPlay {
   constructor(
     gameName: GameName,
     autoPlayConfig: AutoPlayConfig,
-    mctsConfig: MCTSConfig
+    mctsConfig: MCTSConfig,
   ) {
     this.gameName = gameName;
     this.autoPlayConfig = autoPlayConfig;
@@ -118,7 +118,7 @@ export class AutoPlay {
     gameNames: GameName[],
     autoPlayConfig: AutoPlayConfig,
     mctsConfig: MCTSConfig,
-    id: string = null
+    id: string = null,
   ): void {
     /*
     Joga automaticamente diversos jogos passados como parâmetro em array,
@@ -200,7 +200,11 @@ export class AutoPlay {
     }
   }
 
-  public resetResults(): void {
+  // ============
+  // Private
+  // ============
+
+  private resetResults(): void {
     /*
     (Re) initializes the results properties, with all
     values set to 0.
@@ -232,10 +236,6 @@ export class AutoPlay {
     this.mctsTurnsSum = 0;
   }
 
-  // ============
-  // Private
-  // ============
-
   private play(): void {
     /* 
     Plays the game until termination, choosing the action based
@@ -248,18 +248,13 @@ export class AutoPlay {
       // Gerando ação e verificando externamente o empate por falta de ações
 
       try {
-        
         const action = this.agentAction();
         this.game.playAction(action, true);
-
       } catch (error) {
-
         if (error instanceof NoActionsAvailable) {
           this.game.forceDraw();
           break;
-        }
-
-        else {
+        } else {
           throw error;
         }
       }
