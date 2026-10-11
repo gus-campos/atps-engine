@@ -53,3 +53,10 @@ média do turno. E sobre as árvores expandida pelo MCTS, foi registrado: quanti
 média de buscas por árvore; quantidade média de nós por árvore e média de profundidade
 máxima atingida nas árvores.
 
+## Instalação
+
+Basta instalar dependêncis com yarn:
+
+```bash
+yarn
+```
