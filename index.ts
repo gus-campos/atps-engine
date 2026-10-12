@@ -53,24 +53,3 @@ for (let config of [
 
   AutoPlay.playGames(gameFactories, autoPlayConfig, mctsConfig, args[2]);
 }
-
-/*
-const autoPlayConfig: AutoPlayConfig = {
-    
-  agents: [AgentName.RANDOM, AgentName.RANDOM],
-  matches: 100000,
-  printStates: true
-};
-
-const mctsConfig: MCTSConfig = {
-    
-  genGraph: true,
-  maxDepthPrinted: 10,
-  searchesTime: 100,
-  searchesAmount: null,
-  maxPlayoutDepth: null
-};
-
-AutoPlay.playGames([GameName.TIC_TAC_TOE], autoPlayConfig, mctsConfig, args[2]);
-AutoPlay.playGames([GameName.CONNECT_FOUR], autoPlayConfig, mctsConfig, args[2]);
-*/
