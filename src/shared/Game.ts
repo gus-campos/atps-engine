@@ -1,4 +1,3 @@
-
 // =========================================================
 
 export type Player = number;
@@ -10,12 +9,14 @@ export type Action = {};
 export enum Outcome {
   WIN,
   LOSE,
-  DRAW
+  DRAW,
 }
 
 // =========================================================
 
 export interface Game {
+  // Identifica o jogo
+  readonly name: string;
 
   // Retorna uma cópia por valor do jogo
   clone(): Game;
@@ -25,14 +26,14 @@ export interface Game {
 
   // Retorna o jogador do turno atual
   getCurrentPlayer(): Player;
-  
+
   // Retorna as ações pssíveis válidas no estado atual
   getValidActions(): Action[];
 
   // Executa uma ação passada, modificando o estado
   // autoPlayMode supõe que a ação é válida
   playAction(action: Action, autoPlayMode: boolean): void;
-  
+
   // Retorna se o jogo já terminou
   isGameOver(): boolean;
 
@@ -44,7 +45,7 @@ export interface Game {
 
   // Imprime no console string que representa o estado
   printState(): void;
-  
+
   // Modifica o estado para registrar um empate
   forceDraw(): void;
 }

@@ -1,4 +1,3 @@
-
 const args = process.argv;
 
 // ===================================
@@ -6,9 +5,20 @@ const args = process.argv;
 // ===================================
 
 import { MCTSConfig } from "src/agents/MCTSAgent";
-import { AutoPlay, AutoPlayConfig, AgentName, GameName } from "src/shared/Autoplay";
-const GAME_NAMES = Object.values(GameName);
+import { Boop } from "src/games/Boop";
+import { Checkers } from "src/games/Checkers";
+import { ConnectFour } from "src/games/ConnectFour";
+import { GobbletGobblers } from "src/games/GobbletGobblers";
+import { TicTacToe } from "src/games/TicTacToe";
+import { AutoPlay, AutoPlayConfig, AgentName } from "src/shared/Autoplay";
 
+const gameFactories = [
+  () => new TicTacToe(),
+  () => new ConnectFour(),
+  () => new GobbletGobblers(),
+  () => new Boop(),
+  () => new Checkers(),
+];
 
 for (let config of [
   {
@@ -27,26 +37,22 @@ for (let config of [
     searchesTime: 1000 / 128,
   },
 ]) {
-
   const autoPlayConfig: AutoPlayConfig = {
-    
     agents: config.agents,
     matches: config.matches,
-    printStates: false
+    printStates: false,
   };
-  
+
   const mctsConfig: MCTSConfig = {
-    
     genGraph: false,
     maxDepthPrinted: null,
     searchesTime: config.searchesTime,
     searchesAmount: null,
-    maxPlayoutDepth: null
+    maxPlayoutDepth: null,
   };
 
-  AutoPlay.playGames(GAME_NAMES, autoPlayConfig, mctsConfig, args[2]);
+  AutoPlay.playGames(gameFactories, autoPlayConfig, mctsConfig, args[2]);
 }
-
 
 /*
 const autoPlayConfig: AutoPlayConfig = {

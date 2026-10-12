@@ -54,6 +54,10 @@ export class ConnectFour implements Game {
   // Public
   // ================
 
+  get name(): string {
+    return "Connect Four";
+  }
+
   public clone(): Game {
     let newGame = new ConnectFour();
     newGame.state = structuredClone(this.state);
@@ -197,7 +201,7 @@ export class ConnectFour implements Game {
         const pieces = diagonal.map((slot) => this.getPiece(slot));
         // Ganhou se todas as  peças nessa diagonal são do mesmo autor
         const win = pieces.every(
-          (piece) => piece != null && piece.author == this.state.lastPlayer
+          (piece) => piece != null && piece.author == this.state.lastPlayer,
         );
 
         if (win) return true;
@@ -228,7 +232,7 @@ export class ConnectFour implements Game {
 
   private getInitialState(): CfState {
     let board: CfPiece[][] = Array.from(Array(this.boardShape.x), () =>
-      Array(this.boardShape.y).fill(null)
+      Array(this.boardShape.y).fill(null),
     );
 
     return {
@@ -319,7 +323,7 @@ export class ConnectFour implements Game {
 
   private *iterDiagonal(
     offset: Coord,
-    descending: boolean = false
+    descending: boolean = false,
   ): Generator<Coord> {
     /* Itera pelos slots de uma diagonal partindo de uma
     posição inicial da coordenada. */

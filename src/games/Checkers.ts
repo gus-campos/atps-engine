@@ -95,6 +95,10 @@ export class Checkers implements Game {
   // Public Methods
   // ================
 
+  get name(): string {
+    return "Checkers";
+  }
+
   public clone(): Game {
     let newGame = new Checkers();
     newGame.state = structuredClone(this.state);
@@ -103,7 +107,7 @@ export class Checkers implements Game {
 
   public playAction(
     action: CheckersAction,
-    autoPlayMode: boolean = false
+    autoPlayMode: boolean = false,
   ): void {
     let captureActions = this.getValidActions(true);
     // Registra se a peça fez captura - usada como critério para soprar ou não a peça
@@ -316,7 +320,7 @@ export class Checkers implements Game {
       // Primeira posição ocupada em uma dada direção
       const firstOccupiedSlot = this.firstOccupiedSlot(
         action.fromSlot,
-        direction
+        direction,
       );
 
       // Se capturou peça do oponente, mas não parou imediatamente depois - inválido
@@ -435,7 +439,7 @@ export class Checkers implements Game {
 
   private isCaptureAction(
     action: CheckersAction,
-    captureActions: CheckersAction[]
+    captureActions: CheckersAction[],
   ): boolean {
     /* Verifica se uma ação foi de captura. Faz isso ao verificar se
     a ação passada por argumento se encontra no array de ações de captura
@@ -524,7 +528,7 @@ export class Checkers implements Game {
 
   private getInitialState(): CheckersState {
     let board: CheckersPiece[][] = Array.from(Array(this.boardShape.x), () =>
-      Array(this.boardShape.y).fill(null)
+      Array(this.boardShape.y).fill(null),
     );
 
     const filledRows = 3;
@@ -602,14 +606,14 @@ export class Checkers implements Game {
 
   private createPiece(
     author: Player,
-    pieceType: PieceType = PieceType.MAN
+    pieceType: PieceType = PieceType.MAN,
   ): CheckersPiece {
     return { author: author, type: pieceType };
   }
 
   private manValidActions(
     fromSlot: Coord,
-    captureOnly: boolean = false
+    captureOnly: boolean = false,
   ): CheckersAction[] {
     /* Retorna ações válidas para um peça comum em uma dada posição.
     Opcionalmente retorna apenas as ações de captura. */
@@ -650,7 +654,7 @@ export class Checkers implements Game {
 
   private kingValidActions(
     fromSlot: Coord,
-    captureOnly: boolean = false
+    captureOnly: boolean = false,
   ): CheckersAction[] {
     /* Retorna as ações possíveis da peça dama. */
 

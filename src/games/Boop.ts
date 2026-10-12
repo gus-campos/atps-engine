@@ -115,7 +115,7 @@ const WINNING_ROWS_ARR = [
 
 // Fileiras vencedoras em formato de coordenadas
 let WINNING_ROWS: Coord[][] = WINNING_ROWS_ARR.map((tuples) =>
-  tuples.map((tuple) => new Coord(tuple[0], tuple[1]))
+  tuples.map((tuple) => new Coord(tuple[0], tuple[1])),
 );
 
 // Critério de empate baseado no número de turnos
@@ -134,6 +134,10 @@ export class Boop implements Game {
 
   // Public
 
+  get name(): string {
+    return "Boop";
+  }
+
   public clone(): Boop {
     let newGame = new Boop();
     newGame.state = structuredClone(this.state);
@@ -143,7 +147,7 @@ export class Boop implements Game {
   public setState(
     boardDrawing: string[][],
     stock: number[] = null,
-    players: Player[] = null
+    players: Player[] = null,
   ): void {
     /*
     Seta o estado de acordo com o desenho passado do tabuleiro,
@@ -156,7 +160,7 @@ export class Boop implements Game {
 
     for (let slot of this.iterateSlots())
       this.state.board.slots[slot.x][slot.y] = this.getPieceFromRep(
-        boardDrawing[slot.x][slot.y]
+        boardDrawing[slot.x][slot.y],
       );
 
     if (stock != null)
@@ -271,7 +275,7 @@ export class Boop implements Game {
 
   private getInitialState(): BoopState {
     const slots = Array.from(Array(this.boardShape.x), () =>
-      Array(this.boardShape.y).fill(null)
+      Array(this.boardShape.y).fill(null),
     );
 
     return {
@@ -385,13 +389,13 @@ export class Boop implements Game {
       for (let row of WINNING_ROWS) {
         // E suas peças
         const pieces = row.map((subBoardCoord) =>
-          this.getPiece(subBoardOffset.add(subBoardCoord))
+          this.getPiece(subBoardOffset.add(subBoardCoord)),
         );
 
         // Se todas são peças válidas do mesmo autor
         if (
           pieces.every(
-            (piece) => piece != null && piece.author == pieces[0].author
+            (piece) => piece != null && piece.author == pieces[0].author,
           )
         ) {
           // E todas peças forem do tipo gatão -> vitória
@@ -418,12 +422,12 @@ export class Boop implements Game {
       for (let row of WINNING_ROWS) {
         // E suas peças
         const pieces = row.map((subBoardCoord) =>
-          this.getPiece(subBoardOffset.add(subBoardCoord))
+          this.getPiece(subBoardOffset.add(subBoardCoord)),
         );
         // Se todas são peças válidas do mesmo autor
         if (
           pieces.every(
-            (piece) => piece != null && piece.author == pieces[0].author
+            (piece) => piece != null && piece.author == pieces[0].author,
           )
         ) {
           // Promover cada uma
@@ -513,7 +517,7 @@ export class Boop implements Game {
           if (this.getPiece(slot) == null) {
             const newPiece = this.createPiece(
               this.state.currentPlayer,
-              pieceType
+              pieceType,
             );
 
             validActions.push(this.createAction(newPiece, slot));
@@ -580,7 +584,7 @@ export class Boop implements Game {
 
   private boopableTypes(
     pusherType: PieceType,
-    neighborType: PieceType
+    neighborType: PieceType,
   ): boolean {
     /* Dado dois tipos de peças passados (da peça que empurra, 
     e da peça vizinha), retorna se a segunda peça é empurrável 

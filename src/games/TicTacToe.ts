@@ -96,6 +96,10 @@ export class TicTacToe implements Game {
 
   // Public
 
+  get name(): string {
+    return "Tic Tac Toe";
+  }
+
   public clone(): TicTacToe {
     let newGame = new TicTacToe();
     newGame.state = structuredClone(this.state);
@@ -126,7 +130,7 @@ export class TicTacToe implements Game {
 
   public playAction(
     action: TicTacToeAction,
-    autoPlayMode: boolean = false
+    autoPlayMode: boolean = false,
   ): void {
     // Asserting
     if (this.state.board.slots[action.slot] != null)

@@ -6,12 +6,6 @@ import { RandomAgent } from "src/agents/RandomAgent";
 
 import { writeObject } from "src/utils/Write";
 
-import { TicTacToe } from "src/games/TicTacToe";
-import { GobbletGobblers } from "src/games/GobbletGobblers";
-import { Boop } from "src/games/Boop";
-import { ConnectFour } from "src/games/ConnectFour";
-import { Checkers } from "src/games/Checkers";
-
 import NoActionsAvailable from "./NoActionsAvailable";
 
 // =========================================================
@@ -68,14 +62,6 @@ interface Results {
   meanTurnTime: number;
 }
 
-export enum GameName {
-  TIC_TAC_TOE = "Tic Tac Toe",
-  GOBLET_GOBBLERS = "Gobblets Gobblers",
-  CONNECT_FOUR = "Connect Four",
-  BOOP = "Boop",
-  CHECKERS = "Checkers",
-}
-
 export enum AgentName {
   MCTS = "MCTS",
   RANDOM = "Random",
@@ -86,25 +72,22 @@ export class AutoPlay {
   executa um jogo do início ao fim, diversas vezes, usando os
   agentes especificados */
 
-  private gameName: GameName;
-  private autoPlayConfig: AutoPlayConfig;
-  private mctsConfig: MCTSConfig;
+  private game: Game;
+
   private meanMctsStats: MCTSStats;
 
-  private game: Game;
   private results: Results;
   private turnsSum: number;
   private mctsTurnsSum: number;
   private initialTime: number;
 
   constructor(
-    gameName: GameName,
-    autoPlayConfig: AutoPlayConfig,
-    mctsConfig: MCTSConfig,
+    private readonly gameFactory: () => Game,
+    private readonly autoPlayConfig: AutoPlayConfig,
+    private readonly mctsConfig: MCTSConfig,
   ) {
-    this.gameName = gameName;
-    this.autoPlayConfig = autoPlayConfig;
-    this.mctsConfig = mctsConfig;
+    this.game = gameFactory();
+
     this.mctsTurnsSum = 0;
 
     this.turnsSum = 0;
@@ -115,7 +98,7 @@ export class AutoPlay {
   }
 
   public static playGames(
-    gameNames: GameName[],
+    gameFactories: (() => Game)[],
     autoPlayConfig: AutoPlayConfig,
     mctsConfig: MCTSConfig,
     id: string = null,
@@ -127,8 +110,8 @@ export class AutoPlay {
     permitindo diferenciar simulações feitas com diferentes configurações.
     */
 
-    for (let gameName of gameNames) {
-      let autoplay = new AutoPlay(gameName, autoPlayConfig, mctsConfig);
+    for (let gameFactory of gameFactories) {
+      let autoplay = new AutoPlay(gameFactory, autoPlayConfig, mctsConfig);
 
       autoplay.printAutoPlayConfig();
       autoplay.printMCTSConfig();
@@ -137,7 +120,7 @@ export class AutoPlay {
       const agents = autoplay.autoPlayConfig.agents;
 
       id = id == null ? "0" : id;
-      const path = `data/${gameName}-${agents.join("-")}-${id}.json`;
+      const path = `data/${autoplay.gameName}-${agents.join("-")}-${id}.json`;
 
       autoplay.writeResults(path);
     }
@@ -198,6 +181,10 @@ export class AutoPlay {
       console.log("Mean: ", this.meanMctsStats);
       console.log();
     }
+  }
+
+  get gameName(): string {
+    return this.game.name;
   }
 
   // ============
@@ -327,30 +314,7 @@ export class AutoPlay {
     with a initial state.
     */
 
-    switch (this.gameName) {
-      case GameName.TIC_TAC_TOE:
-        this.game = new TicTacToe();
-        break;
-
-      case GameName.GOBLET_GOBBLERS:
-        this.game = new GobbletGobblers();
-        break;
-
-      case GameName.BOOP:
-        this.game = new Boop();
-        break;
-
-      case GameName.CONNECT_FOUR:
-        this.game = new ConnectFour();
-        break;
-
-      case GameName.CHECKERS:
-        this.game = new Checkers();
-        break;
-
-      default:
-        throw new Error("Invalid game name");
-    }
+    this.game = this.gameFactory();
   }
 
   private mctsAction(): Action {

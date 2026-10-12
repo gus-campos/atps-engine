@@ -121,6 +121,10 @@ export class GobbletGobblers implements Game {
 
   // Public
 
+  get name(): string {
+    return "Gobblet Gobblers";
+  }
+
   public clone(): GobbletGobblers {
     let newGame = new GobbletGobblers();
     newGame.state = structuredClone(this.state);
@@ -130,7 +134,7 @@ export class GobbletGobblers implements Game {
   public setState(
     boardDraw: string[][][],
     stock: number[] = null,
-    players: Player[] = null
+    players: Player[] = null,
   ) {
     /* 
     Modifica o estado do jogo a partir de definições externas.
@@ -147,7 +151,7 @@ export class GobbletGobblers implements Game {
     if (
       boardDraw.length != 3 ||
       boardDraw.some(
-        (level) => level.length != 3 || level.some((row) => row.length != 3)
+        (level) => level.length != 3 || level.some((row) => row.length != 3),
       )
     )
       throw new Error("boardDraw has wrong dimensions");
@@ -318,7 +322,7 @@ export class GobbletGobblers implements Game {
     2 peças de cada tipo no estoque. */
 
     let slots = Array.from(Array(this.nSlots), () =>
-      Array.from(Array(this.nSizes), (): null => null)
+      Array.from(Array(this.nSizes), (): null => null),
     );
 
     return {
